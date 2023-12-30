@@ -61,7 +61,7 @@ jobs:
       # cloudfront로 배포되는 파일은 기본설정 상 24시간동안 캐시가 유지됩니다.
       # 배포 후 S3에는 최신 정적리소스가 올라가있지만 엣지로케이션엔 이전 파일이 올라가있는 상태라는 의미입니다.
       # 바로 변화가 반영되길 바란다면 invalidation을 해주면 됩니다.
-      # 해당 부분은 과금될 수 있으니 확인 후 사용하세요!
+      # 해당 부분은 과금될 수 있으니 확인 후 사용하세요
       - name: CloudFront Invalidation
         env:
           CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID }}
