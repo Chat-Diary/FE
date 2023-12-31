@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Home/Home";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './Home/Home';
 
 const Router = () => {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       children: [
         {
           index: true,
