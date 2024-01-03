@@ -27,6 +27,7 @@
     gap: 8px;
     @include body14;
     color: $BK70;
+    align-items: center;
   }
 }
 
@@ -53,6 +54,7 @@
 
     & .tags {
       display: flex;
+      align-items: center;
       gap: 8px;
       @include caption;
       color: $BK70;

@@ -29,7 +29,7 @@ const Profile = () => {
         </div>
       </div>
       <div className={styles.profileAfter}>
-        <div className={styles.chatProfile}>
+        <label className={styles.chatProfile}>
           <div>
             <ChatChichi />
             <span className={styles.name}>치치</span>
@@ -37,10 +37,10 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#활발</span>
             <span>#호기심 가득</span>
-            {/* <ChangeRadioBtn checked={} onChange={}/> */}
+            <ChangeRadioBtn id={1} />
           </div>
-        </div>
-        <div className={styles.chatProfile}>
+        </label>
+        <label className={styles.chatProfile}>
           <div>
             <ChatLulu />
             <span className={styles.name}>루루</span>
@@ -48,9 +48,9 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#차분한</span>
             <span>#어른스러운</span>
-            {/* <ChangeRadioBtn /> */}
+            <ChangeRadioBtn id={2} />
           </div>
-        </div>
+        </label>
       </div>
       <ChangeButton disabled={false}>변경하기</ChangeButton>
     </>
