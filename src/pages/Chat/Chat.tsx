@@ -1,28 +1,20 @@
 import styles from './Chat.module.scss';
-import { DadaChat, LuluChat, ChichiChat, Plus } from '../../assets';
-import LeftChatBox from '../../components/common/LeftChatBox';
+import { Plus } from '../../assets';
 import RightChatBox from '../../components/common/RightChatBox';
-
-interface AIProfile {
-  name: string;
-}
+import ChatHeader from '../../components/Headers/ChatHeader';
+import AiChatBox from '../../components/common/AiChatBox';
 
 const Chat = () => {
   return (
     <div>
+      <ChatHeader>다다</ChatHeader>
       <div className={styles.messagesContainer}>
-        <LuluChat />
-        <ChichiChat />
-        <div className={styles.aiChatBox}>
-          <DadaChat />
-          <div className={styles.messagesWrapper}>
-            <p className={styles.aiName}>다다</p>
-            <LeftChatBox>이렇게! 이렇게!</LeftChatBox>
-            <LeftChatBox>{`I'm 진정이에요`}</LeftChatBox>
-            <LeftChatBox>장충동 왕족발 보쌈!</LeftChatBox>
-          </div>
-        </div>
+        <AiChatBox ai="dada" />
         <RightChatBox>공습경보! 공습경보!</RightChatBox>
+        <p
+          className={styles.aiChanged}
+        >{`대화 상대가 '루루'로 변경되었습니다.`}</p>
+        <AiChatBox ai="lulu" />
       </div>
       <div className={styles.inputBox}>
         <button className={styles.plusBtn}>
