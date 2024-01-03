@@ -1,11 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { LeftChevron } from '../../assets';
 import styles from './ChangeHeader.module.scss';
 
-const ChangeHeader = () => {
+interface Props {
+  children: string;
+}
+const ChangeHeader = ({ children }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.changeHeader}>
-      <LeftChevron />
-      <span>대화 상대 변경</span>
+      <LeftChevron onClick={() => navigate('/chat')} />
+      <span>{children}</span>
     </div>
   );
 };

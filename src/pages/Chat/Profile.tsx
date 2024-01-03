@@ -21,6 +21,8 @@ const Profile = () => {
     setCheckedId(id);
   };
 
+  // const handleBack = () => {}
+
   useEffect(() => {
     if (checkedId === 0) setIsAble(false);
     else setIsAble(true);
@@ -28,7 +30,8 @@ const Profile = () => {
 
   return (
     <>
-      <ChangeHeader />
+      {/* <ChangeHeader onClick={}/> */}
+      <ChangeHeader>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
         <Dada />
         <span className={styles.name}>다다</span>
