@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import styles from './Profile.module.scss';
+
 import {
   Dada,
   Chichi,
@@ -6,12 +9,23 @@ import {
   ChatChichi,
   ChatLulu,
 } from '../../assets/index';
-import ChangeButton from '../../components/Buttons/ChangeButton';
-import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ChangeHeader from '../../components/Headers/ChangeHeader';
-import styles from './Profile.module.scss';
+import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
+import ChangeButton from '../../components/Buttons/ChangeButton';
 
 const Profile = () => {
+  const [isAble, setIsAble] = useState<boolean>(false);
+  const [checkedId, setCheckedId] = useState<number>(0);
+
+  const handleRadioChange = (id: number) => {
+    setCheckedId(id);
+  };
+
+  useEffect(() => {
+    if (checkedId === 0) setIsAble(false);
+    else setIsAble(true);
+  }, [checkedId]);
+
   return (
     <>
       <ChangeHeader />
@@ -29,7 +43,11 @@ const Profile = () => {
         </div>
       </div>
       <div className={styles.profileAfter}>
-        <label className={styles.chatProfile}>
+        <label
+          className={`${styles.chatProfile} ${
+            checkedId === 1 ? '' : styles.uncheckedLabel
+          }`}
+        >
           <div>
             <ChatChichi />
             <span className={styles.name}>치치</span>
@@ -37,10 +55,14 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#활발</span>
             <span>#호기심 가득</span>
-            <ChangeRadioBtn id={1} />
+            <ChangeRadioBtn id={1} onChange={handleRadioChange} />
           </div>
         </label>
-        <label className={styles.chatProfile}>
+        <label
+          className={`${styles.chatProfile} ${
+            checkedId === 2 ? '' : styles.uncheckedLabel
+          }`}
+        >
           <div>
             <ChatLulu />
             <span className={styles.name}>루루</span>
@@ -48,11 +70,11 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#차분한</span>
             <span>#어른스러운</span>
-            <ChangeRadioBtn id={2} />
+            <ChangeRadioBtn id={2} onChange={handleRadioChange} />
           </div>
         </label>
       </div>
-      <ChangeButton disabled={false}>변경하기</ChangeButton>
+      <ChangeButton isAble={isAble}>변경하기</ChangeButton>
     </>
   );
 };

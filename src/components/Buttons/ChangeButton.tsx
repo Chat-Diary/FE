@@ -2,12 +2,12 @@ import styles from './ChangeButton.module.scss';
 
 interface Props {
   children: string;
-  disabled: boolean;
+  isAble: boolean;
 }
 
-const ChangeButton = ({ children, disabled }: Props) => {
+const ChangeButton = ({ children, isAble }: Props) => {
   return (
-    <button className={`${styles.changeBtn} ${disabled ? '' : styles.abled}`}>
+    <button className={`${styles.changeBtn} ${isAble ? styles.abled : ''}`}>
       {children}
     </button>
   );
