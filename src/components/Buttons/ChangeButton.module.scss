@@ -2,6 +2,7 @@
 @import '../../styles/variables/fonts.scss';
 
 .changeBtn {
+  all: initial;
   position: absolute;
   bottom: 12px;
 
@@ -16,4 +17,12 @@
   @include btn;
   color: $BK70;
   background-color: $BK30;
+
+  &.abled {
+    // 프로필을 선택한 상태
+    background-color: $primary_default;
+    color: $WH;
+    cursor: not-allowed;
+    pointer-events: none; // 클릭 불가능하게 설정
+  }
 }

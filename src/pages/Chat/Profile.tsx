@@ -7,6 +7,7 @@ import {
   ChatLulu,
 } from '../../assets/index';
 import ChangeButton from '../../components/Buttons/ChangeButton';
+import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ChangeHeader from '../../components/Headers/ChangeHeader';
 import styles from './Profile.module.scss';
 
@@ -36,6 +37,7 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#활발</span>
             <span>#호기심 가득</span>
+            {/* <ChangeRadioBtn checked={} onChange={}/> */}
           </div>
         </div>
         <div className={styles.chatProfile}>
@@ -46,10 +48,11 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#차분한</span>
             <span>#어른스러운</span>
+            {/* <ChangeRadioBtn /> */}
           </div>
         </div>
       </div>
-      <ChangeButton>변경하기</ChangeButton>
+      <ChangeButton disabled={false}>변경하기</ChangeButton>
     </>
   );
 };
