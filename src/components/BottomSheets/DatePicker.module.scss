@@ -1,0 +1,6 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.Date {
+    @include sub16;
+}
