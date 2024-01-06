@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import styles from './Chat.module.scss';
-import { Plus } from '../../assets';
+import { Plus } from '../../assets/icons';
 import RightChatBox from '../../components/common/RightChatBox';
 import ChatHeader from '../../components/Headers/ChatHeader';
 import AiChatBox from '../../components/common/AiChatBox';
