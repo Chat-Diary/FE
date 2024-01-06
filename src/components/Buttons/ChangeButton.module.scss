@@ -17,12 +17,12 @@
   @include btn;
   color: $BK70;
   background-color: $BK30;
+  pointer-events: none; // 클릭 불가능하게 설정
 
   &.abled {
     // 프로필을 선택한 상태
     background-color: $primary_default;
     color: $WH;
-    cursor: not-allowed;
-    pointer-events: none; // 클릭 불가능하게 설정
+    pointer-events: auto; // 클릭 가능하게 설정
   }
 }

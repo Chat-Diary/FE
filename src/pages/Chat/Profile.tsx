@@ -21,7 +21,9 @@ const Profile = () => {
     setCheckedId(id);
   };
 
-  // const handleBack = () => {}
+  const handleAiChange = (id: number) => {
+    console.log(`${id}`);
+  };
 
   useEffect(() => {
     if (checkedId === 0) setIsAble(false);
@@ -30,7 +32,6 @@ const Profile = () => {
 
   return (
     <>
-      {/* <ChangeHeader onClick={}/> */}
       <ChangeHeader>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
         <Dada />
@@ -77,7 +78,9 @@ const Profile = () => {
           </div>
         </label>
       </div>
-      <ChangeButton isAble={isAble}>변경하기</ChangeButton>
+      <ChangeButton isAble={isAble} id={1} onClick={handleAiChange}>
+        변경하기
+      </ChangeButton>
     </>
   );
 };
