@@ -41,5 +41,6 @@
     border: none;
     background-color: $primary_default;
     color: $WH;
+    @include btn;
   }
 }

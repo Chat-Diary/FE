@@ -5,9 +5,9 @@ import {
   Dada,
   Chichi,
   Lulu,
-  ChatDada,
-  ChatChichi,
-  ChatLulu,
+  Dada48,
+  Chichi48,
+  Lulu48,
 } from '../../assets/index';
 import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
@@ -53,7 +53,7 @@ const Profile = () => {
           }`}
         >
           <div>
-            <ChatChichi />
+            <Chichi48 />
             <span className={styles.name}>치치</span>
           </div>
           <div className={styles.tags}>
@@ -68,7 +68,7 @@ const Profile = () => {
           }`}
         >
           <div>
-            <ChatLulu />
+            <Lulu48 />
             <span className={styles.name}>루루</span>
           </div>
           <div className={styles.tags}>
