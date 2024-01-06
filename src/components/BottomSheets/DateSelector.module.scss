@@ -1,8 +1,23 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
 
-.selectDate{
-    z-index: 4;
-    @include sub16;
-    margin-top: 40px;
+.SelectDateContainer {
+    display: flex;
+    flex-direction: column;
+
+    .SelectDate {
+        z-index: 4;
+        @include sub16;
+        padding-top: 40px;
+        padding-bottom: 48px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .DatePicker {
+        display: flex;
+        gap: 64px;
+    }
 }
+
+
