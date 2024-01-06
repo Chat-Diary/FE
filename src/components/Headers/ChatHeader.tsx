@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ChatHeader.module.scss';
-import { LeftChevron, CalendarIcon } from '../../assets';
+import { LeftChevron, CalendarIcon } from '../../assets/index';
 
 interface IProps {
   children: React.ReactNode;

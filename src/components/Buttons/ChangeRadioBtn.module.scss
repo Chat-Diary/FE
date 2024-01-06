@@ -6,9 +6,9 @@
   width: 24px;
   height: 24px;
   margin: 0 0 0 3px;
-  background: url('../../assets/ic-checkbox-empty.svg');
+  background: url('../../assets/icons/checkbox-empty.svg');
 
   &:checked {
-    background: url('../../assets/ic-checkbox-fill.svg');
+    background: url('../../assets/icons/checkbox-fill.svg');
   }
 }

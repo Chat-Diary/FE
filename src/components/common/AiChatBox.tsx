@@ -1,4 +1,4 @@
-import { DadaChat, LuluChat, ChichiChat } from '../../assets';
+import { Dada36, Lulu36, Chichi36 } from '../../assets';
 import LeftChatBox from '../../components/common/LeftChatBox';
 import styles from './AiChatBox.module.scss';
 
@@ -10,13 +10,7 @@ const AiChatBox = ({ ai }: IProps) => {
   return (
     <>
       <div className={styles.container}>
-        {ai === 'dada' ? (
-          <DadaChat />
-        ) : ai === 'lulu' ? (
-          <LuluChat />
-        ) : (
-          <ChichiChat />
-        )}
+        {ai === 'dada' ? <Dada36 /> : ai === 'lulu' ? <Lulu36 /> : <Chichi36 />}
         <div className={styles.messagesWrapper}>
           <p className={styles.aiName}>
             {ai === 'dada' ? '다다' : ai === 'lulu' ? '루루' : '치치'}
