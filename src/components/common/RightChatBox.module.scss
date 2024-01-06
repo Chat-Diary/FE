@@ -1,4 +1,5 @@
 @import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
 
 .wrapper {
   display: flex;
@@ -8,15 +9,15 @@
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    background-color: $orange;
+    background-color: $primary_default;
     padding: 12px;
     max-width: 180px;
-    color: white;
+    color: $WH;
   }
   .time {
     display: flex;
     align-items: flex-end;
-    font-size: 10px;
-    color: $dark-gray;
+    @include navRegular;
+    color: $BK70;
   }
 }
