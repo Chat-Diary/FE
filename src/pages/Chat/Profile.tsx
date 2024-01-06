@@ -11,7 +11,7 @@ import {
 } from '../../assets/index';
 import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
-import ChangeButton from '../../components/Buttons/ChangeButton';
+import ConfirmButton from '../../components/Buttons/ConfirmButton';
 
 const Profile = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
@@ -78,9 +78,9 @@ const Profile = () => {
           </div>
         </label>
       </div>
-      <ChangeButton isAble={isAble} id={1} onClick={handleAiChange}>
+      <ConfirmButton isAble={isAble} id={1} onClick={handleAiChange}>
         변경하기
-      </ChangeButton>
+      </ConfirmButton>
     </>
   );
 };
