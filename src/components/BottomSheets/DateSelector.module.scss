@@ -1,0 +1,8 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.selectDate{
+    z-index: 4;
+    @include sub16;
+    margin-top: 40px;
+}
