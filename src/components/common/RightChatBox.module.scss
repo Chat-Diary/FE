@@ -1,0 +1,23 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  .message {
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: $primary_default;
+    padding: 12px;
+    max-width: 180px;
+    color: $WH;
+  }
+  .time {
+    display: flex;
+    align-items: flex-end;
+    @include navRegular;
+    color: $BK70;
+  }
+}
