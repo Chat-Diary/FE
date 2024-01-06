@@ -1,0 +1,14 @@
+@import '../../styles/variables/fonts.scss';
+
+.container {
+  display: flex;
+  gap: 10px;
+  .messagesWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .aiName {
+      @include body14;
+    }
+  }
+}
