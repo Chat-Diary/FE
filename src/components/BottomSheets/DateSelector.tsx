@@ -2,15 +2,10 @@ import styles from './DateSelector.module.scss';
 import BottomModal from './BottomModal';
 import DatePicker from './DatePicker';
 
-interface ScrollPickerProps {
-  list: (string | number)[];
-  onSelectedChange?: (selected: string | number) => void;
-}
-
 const DateSelector = () => {
-  const year = [2021, 2022, 2023, 2024];
-  const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const day = [1, 2, 3, 4];
+  const year = ['2021년', '2022년', '2023년', '2024년'];
+  const month = ['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'];
+  const day = ['1일', '2일', '3일', '4일', '5일', '6일', '7일', '8일', '9일', '10일', '11일', '12일', '13일', '14일'];
 
   const handleYear = () => {
     return;

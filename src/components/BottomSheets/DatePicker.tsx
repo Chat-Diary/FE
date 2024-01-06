@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import * as S from "./DatePicker.styles";
+import styles from './DatePicker.module.scss';
 
 interface ScrollPickerProps {
     list: (string | number)[];
@@ -55,7 +56,7 @@ const DatePicker = ({ list, onSelectedChange }: ScrollPickerProps) => {
         <S.List ref={ref} onScroll={handleScroll}>
             <S.ListCenter />
             {newList.map((item, index) => (
-            <S.ListItem
+            <S.ListItem className={styles.Date}
                 key={index}
                 isSelected={index === selected}
                 ref={(el) => (itemRefs.current[index] = el)}
