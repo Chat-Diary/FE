@@ -10,9 +10,10 @@
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     background-color: $primary_default;
-    padding: 12px;
+    padding: 8px 12px;
     max-width: 180px;
     color: $WH;
+    @include body14;
   }
   .time {
     display: flex;
