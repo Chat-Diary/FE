@@ -1,4 +1,4 @@
-import styles from './ChangeButton.module.scss';
+import styles from './ConfirmButton.module.scss';
 
 interface Props {
   children: string;

@@ -20,7 +20,7 @@
   pointer-events: none; // 클릭 불가능하게 설정
 
   &.abled {
-    // 프로필을 선택한 상태
+    // 버튼을 선택한 상태
     background-color: $primary_default;
     color: $WH;
     pointer-events: auto; // 클릭 가능하게 설정
