@@ -1,0 +1,18 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.changeHeader {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0px;
+
+  & :first-child {
+    position: absolute;
+    left: 15px;
+  }
+
+  & span {
+    @include sub18;
+    color: $BK90;
+  }
+}
