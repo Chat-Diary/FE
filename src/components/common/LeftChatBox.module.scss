@@ -11,6 +11,8 @@
     background-color: $BK30;
     padding: 12px;
     max-width: 180px;
+    padding: 8px 12px;
+    @include body14;
   }
   .time {
     display: flex;
