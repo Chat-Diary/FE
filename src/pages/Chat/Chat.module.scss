@@ -1,4 +1,45 @@
 @import '../../styles/variables/colors.scss';
-.example {
-  background-color: $orange;
+@import '../../styles/variables/fonts.scss';
+
+.messagesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  padding: 10px;
+  margin-top: 56px;
+  margin-bottom: 48px;
+}
+.aiChanged {
+  display: flex;
+  justify-content: center;
+  @include caption;
+  color: $BK70;
+}
+
+.inputBox {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  .plusBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+  }
+  .input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+  }
+  .submitBtn {
+    width: 56px;
+    border: none;
+    background-color: $primary_default;
+    color: $WH;
+  }
 }
