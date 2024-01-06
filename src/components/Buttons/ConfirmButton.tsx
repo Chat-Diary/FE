@@ -7,7 +7,7 @@ interface Props {
   onClick: (id: number) => void;
 }
 
-const ChangeButton = ({ children, isAble, id, onClick }: Props) => {
+const ConfirmButton = ({ children, isAble, id, onClick }: Props) => {
   return (
     <button
       className={`${styles.changeBtn} ${isAble ? styles.abled : ''}`}
@@ -18,4 +18,4 @@ const ChangeButton = ({ children, isAble, id, onClick }: Props) => {
   );
 };
 
-export default ChangeButton;
+export default ConfirmButton;
