@@ -12,16 +12,20 @@ import {
 import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   const handleRadioChange = (id: number) => {
     setCheckedId(id);
   };
 
   const handleAiChange = (id: number) => {
+    navigate('/chat');
     console.log(`${id}`);
   };
 
