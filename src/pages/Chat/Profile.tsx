@@ -9,11 +9,12 @@ import {
   Chichi48,
   Lulu48,
 } from '../../assets/index';
+
 import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-
+import { addCharacters, clearCharacters } from '../../utils/globalProfiles';
 
 const Profile = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
@@ -31,6 +32,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    clearCharacters();
+
+    addCharacters();
     if (checkedId === 0) setIsAble(false);
     else setIsAble(true);
   }, [checkedId]);
