@@ -14,11 +14,12 @@ import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import { addCharacters, clearCharacters } from '../../utils/globalProfiles';
+import { changeCharacter, setCharacters } from '../../utils/globalProfiles';
 
 const Profile = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(0);
+  const [newId, setNewId] = useState<number>(0);
 
   const navigate = useNavigate();
 
@@ -29,12 +30,11 @@ const Profile = () => {
   const handleAiChange = (id: number) => {
     navigate('/chat');
     console.log(`${id}`);
+    changeCharacter(id);
   };
 
   useEffect(() => {
-    clearCharacters();
-
-    addCharacters();
+    setCharacters();
     if (checkedId === 0) setIsAble(false);
     else setIsAble(true);
   }, [checkedId]);
@@ -87,7 +87,7 @@ const Profile = () => {
           </div>
         </label>
       </div>
-      <ConfirmButton isAble={isAble} id={1} onClick={handleAiChange}>
+      <ConfirmButton isAble={isAble} id={checkedId} onClick={handleAiChange}>
         변경하기
       </ConfirmButton>
     </>

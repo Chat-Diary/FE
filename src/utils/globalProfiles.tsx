@@ -30,12 +30,21 @@ const lulu: character = {
   second_tag: '#어른스러운',
 };
 
-const aiCharacters: character[] = [dada, lulu, chichi];
+const aiCharacters: character[] = [dada, chichi, lulu];
 
-export const addCharacters = () => {
-  localStorage.setItem('aiCharacters', JSON.stringify(aiCharacters));
+export const setCharacters = () => {
+  if (aiCharacters) {
+    localStorage.setItem('aiCharacters', JSON.stringify(aiCharacters));
+  }
 };
 
-export const clearCharacters = () => {
-  localStorage.removeItem('aiCharacters');
+export const changeCharacter = (id: number) => {
+  const localData = localStorage.getItem('aiCharacters');
+  const characters: character[] = localData ? JSON.parse(localData) : [];
+  const newCharacter = characters[id];
+  console.log(newCharacter);
 };
+
+// export const clearCharacters = () => {
+//   localStorage.removeItem('aiCharacters');
+// };
