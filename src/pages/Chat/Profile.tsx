@@ -17,9 +17,10 @@ import { useNavigate } from 'react-router-dom';
 import { changeCharacter, setCharacters } from '../../utils/globalProfiles';
 
 const Profile = () => {
+  const currentId = 1;
+
   const [isAble, setIsAble] = useState<boolean>(false);
-  const [checkedId, setCheckedId] = useState<number>(0);
-  const [newId, setNewId] = useState<number>(0);
+  const [checkedId, setCheckedId] = useState<number>(currentId);
 
   const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ const Profile = () => {
 
   useEffect(() => {
     setCharacters();
-    if (checkedId === 0) setIsAble(false);
+    if (checkedId === currentId) setIsAble(false);
     else setIsAble(true);
   }, [checkedId]);
 
@@ -58,7 +59,7 @@ const Profile = () => {
       <div className={styles.profileAfter}>
         <label
           className={`${styles.chatProfile} ${
-            checkedId === 1 ? '' : styles.uncheckedLabel
+            checkedId === (currentId + 1) % 3 ? '' : styles.uncheckedLabel
           }`}
         >
           <div>
@@ -68,12 +69,17 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#활발</span>
             <span>#호기심 가득</span>
-            <ChangeRadioBtn id={1} onChange={handleRadioChange} />
+            <ChangeRadioBtn
+              id={(currentId + 1) % 3}
+              onChange={handleRadioChange}
+            />
           </div>
         </label>
         <label
           className={`${styles.chatProfile} ${
-            checkedId === 2 ? '' : styles.uncheckedLabel
+            checkedId === (((currentId + 1) % 3) + 1) % 3
+              ? ''
+              : styles.uncheckedLabel
           }`}
         >
           <div>
@@ -83,7 +89,10 @@ const Profile = () => {
           <div className={styles.tags}>
             <span>#차분한</span>
             <span>#어른스러운</span>
-            <ChangeRadioBtn id={2} onChange={handleRadioChange} />
+            <ChangeRadioBtn
+              id={(((currentId + 1) % 3) + 1) % 3}
+              onChange={handleRadioChange}
+            />
           </div>
         </label>
       </div>

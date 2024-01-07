@@ -1,4 +1,4 @@
-interface character {
+export interface character {
   id: number;
   name: string;
   sub: string;
