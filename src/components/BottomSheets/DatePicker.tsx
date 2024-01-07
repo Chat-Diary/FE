@@ -15,7 +15,7 @@ const DatePicker = ({ list, onSelectedChange }: ScrollPickerProps) => {
     const [selected, setSelected] = useState(1);
     const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
-    const ITEM_HEIGHT = 50;
+    const ITEM_HEIGHT = 44;
     
     const handleScroll = () => {
         if (ref.current) {
