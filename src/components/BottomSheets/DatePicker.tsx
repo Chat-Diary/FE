@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import * as S from "./DatePicker.styles";
 import styles from './DatePicker.module.scss';
 
 interface ScrollPickerProps {
@@ -53,18 +52,17 @@ const DatePicker = ({ list, onSelectedChange }: ScrollPickerProps) => {
     }, []);
 
     return (
-        <S.List ref={ref} onScroll={handleScroll}>
-            <S.ListCenter />
-            {newList.map((item, index) => (
-            <S.ListItem className={styles.Date}
+        <ul className={styles.List} ref={ref} onScroll={handleScroll}>
+          <div className={styles.ListCenter}></div>
+          {newList.map((item, index) => (
+            <li className={`${styles.Date} ${(index === selected) ? styles.Selected : styles.Unselected}`}
                 key={index}
-                isSelected={index === selected}
                 ref={(el) => (itemRefs.current[index] = el)}
             >
                 {item}
-            </S.ListItem>
-            ))}
-        </S.List>
+            </li>
+          ))}
+        </ul>
     );
 }
 
