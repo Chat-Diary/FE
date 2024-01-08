@@ -11,10 +11,9 @@ import {
 } from '../../assets/index';
 
 import ChangeHeader from '../../components/Headers/ChangeHeader';
-import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import { clearAi, setAi, getAi, dada } from '../../utils/globalProfiles';
+import { setAi, getAi, dada } from '../../utils/globalProfiles';
 import React from 'react';
 import { character } from './../../utils/globalProfiles';
 import ProfileRadio from '../../components/Buttons/ProfileRadio';
