@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px 0px;
+  margin-top: 56px;
 
   & .name {
     margin-top: 6px;
@@ -19,6 +20,7 @@
     @include body14;
     color: $BK90;
     text-align: center;
+    white-space: pre-line;
   }
 
   & .tags {

@@ -1,0 +1,33 @@
+// @import '../../styles/variables/colors.scss';
+// @import '../../styles/variables/fonts.scss';
+
+// & .chatProfile {
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 16px 0px;
+
+//   & :first-child {
+//     display: flex;
+//     align-items: center;
+//   }
+
+//   & .name {
+//     margin-left: 16px;
+//     @include sub16;
+//     color: $BK90;
+//   }
+
+//   & .tags {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//     @include caption;
+//     color: $BK70;
+//   }
+// }
+
+// & .uncheckedLabel {
+//   opacity: 0.4;
+// }

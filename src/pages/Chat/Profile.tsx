@@ -14,13 +14,25 @@ import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import { changeCharacter, setCharacters } from '../../utils/globalProfiles';
+import {
+  changeAi,
+  clearAi,
+  setAi,
+  getAi,
+  dada,
+} from '../../utils/globalProfiles';
+import React from 'react';
+import { character } from './../../utils/globalProfiles';
+
+const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
+const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];
 
 const Profile = () => {
-  const currentId = 1;
+  const [currentId, setCurrentId] = useState<number>(0);
+  const [currentAi, setCurrentAi] = useState<character>(dada);
 
   const [isAble, setIsAble] = useState<boolean>(false);
-  const [checkedId, setCheckedId] = useState<number>(currentId);
+  const [checkedId, setCheckedId] = useState<number>(3);
 
   const navigate = useNavigate();
 
@@ -30,30 +42,43 @@ const Profile = () => {
 
   const handleAiChange = (id: number) => {
     navigate('/chat');
-    console.log(`${id}`);
-    changeCharacter(id);
+    const newAi = changeAi(id);
+    setCurrentAi(newAi);
   };
 
   useEffect(() => {
-    setCharacters();
-    if (checkedId === currentId) setIsAble(false);
-    else setIsAble(true);
+    const ai = getAi();
+
+    if (ai) {
+      setCurrentId(ai.id);
+      setCurrentAi(ai);
+    }
+
+    if (checkedId === 3) {
+      setIsAble(false);
+    } else {
+      setIsAble(true);
+    }
   }, [checkedId]);
 
   return (
     <>
       <ChangeHeader>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
-        <Dada />
-        <span className={styles.name}>다다</span>
+        {React.cloneElement(imgB[currentId], {
+          style: { width: '160px', height: '160px' },
+        })}
+        {/* <Dada /> */}
+        <span className={styles.name}>{currentAi.name}</span>
         <div className={styles.text}>
-          안녕 나는 다다!
+          {/* 안녕 나는 다다!
           <br />
-          오늘 하루는 어땠어? 네 이야기를 들려줘!
+          오늘 하루는 어땠어? 네 이야기를 들려줘! */}
+          {currentAi.sub}
         </div>
         <div className={styles.tags}>
-          <span>#공감만렙</span>
-          <span> #수다스러운</span>
+          <span>{currentAi.first_tag}</span>
+          <span>{currentAi.second_tag}</span>
         </div>
       </div>
       <div className={styles.profileAfter}>
