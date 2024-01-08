@@ -2,6 +2,7 @@ import { Dada36, Lulu36, Chichi36 } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import LeftChatBox from '../../components/common/LeftChatBox';
 import styles from './AiChatBox.module.scss';
+import LoadingChat from './LoadingChat';
 
 interface IProps {
   ai: string;
@@ -29,7 +30,9 @@ const AiChatBox = ({ ai }: IProps) => {
           </p>
           <LeftChatBox>이렇게! 이렇게!</LeftChatBox>
           <LeftChatBox>{`I'm 진정이에요`}</LeftChatBox>
-          <LeftChatBox>장충동 왕족발 보쌈!</LeftChatBox>
+          <LeftChatBox>
+            <LoadingChat />
+          </LeftChatBox>
         </div>
       </div>
     </>
