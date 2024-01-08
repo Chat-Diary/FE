@@ -10,7 +10,7 @@ interface IProps {
 const ChatHeader = ({ children }: IProps) => {
   const navigate = useNavigate();
   const onGoBack = () => {
-    navigate(-1);
+    navigate('/');
   };
   return (
     <div className={styles.container}>
