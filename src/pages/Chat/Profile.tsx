@@ -14,15 +14,10 @@ import ChangeHeader from '../../components/Headers/ChangeHeader';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import {
-  changeAi,
-  clearAi,
-  setAi,
-  getAi,
-  dada,
-} from '../../utils/globalProfiles';
+import { clearAi, setAi, getAi, dada } from '../../utils/globalProfiles';
 import React from 'react';
 import { character } from './../../utils/globalProfiles';
+import ProfileRadio from '../../components/Buttons/ProfileRadio';
 
 const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
 const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];
@@ -42,7 +37,7 @@ const Profile = () => {
 
   const handleAiChange = (id: number) => {
     navigate('/chat');
-    const newAi = changeAi(id);
+    const newAi = setAi(id);
     setCurrentAi(newAi);
   };
 
@@ -70,12 +65,7 @@ const Profile = () => {
         })}
         {/* <Dada /> */}
         <span className={styles.name}>{currentAi.name}</span>
-        <div className={styles.text}>
-          {/* 안녕 나는 다다!
-          <br />
-          오늘 하루는 어땠어? 네 이야기를 들려줘! */}
-          {currentAi.sub}
-        </div>
+        <div className={styles.text}>{currentAi.sub}</div>
         <div className={styles.tags}>
           <span>{currentAi.first_tag}</span>
           <span>{currentAi.second_tag}</span>
@@ -87,18 +77,11 @@ const Profile = () => {
             checkedId === (currentId + 1) % 3 ? '' : styles.uncheckedLabel
           }`}
         >
-          <div>
-            <Chichi48 />
-            <span className={styles.name}>치치</span>
-          </div>
-          <div className={styles.tags}>
-            <span>#활발</span>
-            <span>#호기심 가득</span>
-            <ChangeRadioBtn
-              id={(currentId + 1) % 3}
-              onChange={handleRadioChange}
-            />
-          </div>
+          <ProfileRadio
+            id={(currentId + 1) % 3}
+            imgs={img48}
+            onClick={handleRadioChange}
+          />
         </label>
         <label
           className={`${styles.chatProfile} ${
@@ -107,18 +90,11 @@ const Profile = () => {
               : styles.uncheckedLabel
           }`}
         >
-          <div>
-            <Lulu48 />
-            <span className={styles.name}>루루</span>
-          </div>
-          <div className={styles.tags}>
-            <span>#차분한</span>
-            <span>#어른스러운</span>
-            <ChangeRadioBtn
-              id={(((currentId + 1) % 3) + 1) % 3}
-              onChange={handleRadioChange}
-            />
-          </div>
+          <ProfileRadio
+            id={(((currentId + 1) % 3) + 1) % 3}
+            imgs={img48}
+            onClick={handleRadioChange}
+          />
         </label>
       </div>
       <ConfirmButton isAble={isAble} id={checkedId} onClick={handleAiChange}>

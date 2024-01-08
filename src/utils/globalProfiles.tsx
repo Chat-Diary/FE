@@ -33,14 +33,14 @@ const lulu: character = {
 
 const aiCharacters: character[] = [dada, chichi, lulu];
 
-export const setAi = (id: number) => {
-  if (aiCharacters) {
-    // localStorage.setItem('aiCharacters', JSON.stringify(aiCharacters));
-    localStorage.setItem('currentCharacter', id.toString());
-    const currentCharacter = aiCharacters[id];
-    return currentCharacter;
-  }
-};
+// export const setAi = (id: number) => {
+//   if (aiCharacters) {
+//     // localStorage.setItem('aiCharacters', JSON.stringify(aiCharacters));
+//     localStorage.setItem('currentCharacter', id.toString());
+//     const currentCharacter = aiCharacters[id];
+//     return currentCharacter;
+//   }
+// };
 
 export const getAi = (): character | null => {
   const aiString = localStorage.getItem('currentCharacter');
@@ -56,7 +56,11 @@ export const getAi = (): character | null => {
   return aiCharacters[aiIndex];
 };
 
-export const changeAi = (id: number) => {
+export const getIndexAi = (id: number) => {
+  return aiCharacters[id];
+};
+
+export const setAi = (id: number) => {
   localStorage.setItem('currentCharacter', id.toString());
   const newCharacter = aiCharacters[id];
   return newCharacter;
