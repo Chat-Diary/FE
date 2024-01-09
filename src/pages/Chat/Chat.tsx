@@ -21,7 +21,6 @@ const Chat = () => {
     { id: Date.now(), type: 'lulu', content: '장충동 왕족발 보쌈!' },
   ]);
   const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
@@ -29,8 +28,6 @@ const Chat = () => {
 
   const handleSendMessage = () => {
     if (inputText.trim() === '') return;
-
-    setIsLoading(true);
 
     setMessages((prev) => [
       ...prev,
@@ -49,7 +46,6 @@ const Chat = () => {
         };
         return updatedMessages;
       });
-      setIsLoading(false);
     }, 1000);
   };
 
