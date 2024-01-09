@@ -1,10 +1,11 @@
 import styles from './ProfileRadio.module.scss';
 import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import { getIndexAi } from '../../utils/globalProfiles';
+import { ReactNode } from 'react';
 
 interface IProfileRadio {
   id: number;
-  imgs: any;
+  imgs: ReactNode[];
   onClick: (id: number) => void;
 }
 const ProfileRadio = ({ id, imgs, onClick }: IProfileRadio) => {
