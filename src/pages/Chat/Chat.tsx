@@ -6,6 +6,7 @@ import ChatHeader from '../../components/Headers/ChatHeader';
 import AiChatBox from '../../components/common/AiChatBox';
 import LeftChatBox from '../../components/common/LeftChatBox';
 import LoadingChat from '../../components/common/LoadingChat';
+import DateSelector from '../../components/BottomSheets/DateSelector';
 
 interface IMessage {
   id: number;
@@ -21,6 +22,11 @@ const Chat = () => {
     { id: Date.now(), type: 'lulu', content: '장충동 왕족발 보쌈!' },
   ]);
   const [inputText, setInputText] = useState('');
+  const [isSelectedDate, setIsSelectedDate] = useState(false);
+
+  const onSelectDate = () => {
+    setIsSelectedDate(true);
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
@@ -51,7 +57,7 @@ const Chat = () => {
 
   return (
     <div>
-      <ChatHeader />
+      <ChatHeader onClick={onSelectDate} />
       <div className={styles.messagesContainer}>
         {messages.map((m) =>
           m.type === 'dada' ? (
@@ -97,6 +103,9 @@ const Chat = () => {
           전송
         </button>
       </div>
+      {isSelectedDate ? (
+        <DateSelector clickOuter={setIsSelectedDate}/>
+      ) : null}
     </div>
   );
 };

@@ -26,12 +26,9 @@
         box-sizing: border-box;
         background-color: #EBE9E7;
         border-radius: 8px;
-        width: 328px;
+        width: calc(100% - 32px);
         height: 44px;
-        margin: 0px 16px 0px 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        margin-left: 16px;
         top: 155px;
         position: absolute;
     }

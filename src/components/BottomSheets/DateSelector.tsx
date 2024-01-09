@@ -6,8 +6,11 @@ import BottomModal from './BottomModal';
 import DatePicker from './DatePicker';
 import ConfirmButton from '../Buttons/ConfirmButton';
 
+interface DateSelectorProps {
+  clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const DateSelector = () => {
+const DateSelector = (props: DateSelectorProps) => {
   const year = ['2000년', '2001년', '2002년', '2003년', '2004년', '2005년', '2006년', '2007년', '2008년',
   '2009년', '2010년', '2011년', '2012년', '2013년', '2014년', '2015년', '2016년', 
   '2017년', '2018년', '2019년', '2020년', '2021년', '2022년', '2023년', '2024년'];
@@ -22,13 +25,12 @@ const DateSelector = () => {
 
   const navigate = useNavigate();
 
-  const handleAiChange = (id: number) => {
-    navigate('/chat');
-    console.log(`${id}`);
+  const handleDateSelect = (id: number) => {
+    props.clickOuter(false);
   };
 
   return (
-    <BottomModal>
+    <BottomModal clickOuter={props.clickOuter}>
       <div className={styles.SelectDateContainer}>
         <div className={styles.SelectDate}>날짜 선택</div>
         <div className={styles.DatePicker}>
@@ -38,7 +40,7 @@ const DateSelector = () => {
         </div>
         <div className={styles.DateListCenter}/>
       </div>
-      <ConfirmButton isAble={true} id={1} onClick={handleAiChange}>
+      <ConfirmButton isAble={true} id={1} onClick={handleDateSelect}>
         선택 완료
       </ConfirmButton>
     </BottomModal>

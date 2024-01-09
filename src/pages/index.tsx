@@ -25,10 +25,10 @@ const Router = () => {
               path: 'profile',
               element: <Profile />,
             },
-            {
-              path: 'date',
-              element: <DateSelector />,
-            },
+            // {
+            //   path: 'date',
+            //   element: <DateSelector clickOuter={true}/>,
+            // },
           ],
         },
         {
