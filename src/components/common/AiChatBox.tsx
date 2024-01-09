@@ -1,13 +1,14 @@
+import { ReactNode } from 'react';
 import { Dada36, Lulu36, Chichi36 } from '../../assets';
 import { useNavigate } from 'react-router-dom';
-import LeftChatBox from '../../components/common/LeftChatBox';
 import styles from './AiChatBox.module.scss';
 
 interface IProps {
   ai: string;
+  children: ReactNode;
 }
 
-const AiChatBox = ({ ai }: IProps) => {
+const AiChatBox = ({ ai, children }: IProps) => {
   const navigate = useNavigate();
   const goToChange = () => {
     navigate('/chat/profile');
@@ -27,9 +28,7 @@ const AiChatBox = ({ ai }: IProps) => {
           <p className={styles.aiName} onClick={goToChange}>
             {ai === 'dada' ? '다다' : ai === 'lulu' ? '루루' : '치치'}
           </p>
-          <LeftChatBox>이렇게! 이렇게!</LeftChatBox>
-          <LeftChatBox>{`I'm 진정이에요`}</LeftChatBox>
-          <LeftChatBox>장충동 왕족발 보쌈!</LeftChatBox>
+          {children}
         </div>
       </div>
     </>

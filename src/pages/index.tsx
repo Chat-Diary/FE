@@ -3,6 +3,7 @@ import Home from './Home/Home';
 import Chat from './Chat/Chat';
 import Profile from './Chat/Profile';
 import DateSelector from '../components/BottomSheets/DateSelector';
+import Detail from './Detail/Detail';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -27,6 +28,15 @@ const Router = () => {
             {
               path: 'date',
               element: <DateSelector />,
+            },
+          ],
+        },
+        {
+          path: 'detail',
+          children: [
+            {
+              index: true,
+              element: <Detail />,
             },
           ],
         },

@@ -1,0 +1,49 @@
+@import '../../styles/variables/colors.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+}
+
+.dot1 {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: $BK50;
+  animation: dot1 0.7s infinite;
+}
+
+.dot2 {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: $BK70;
+  animation: dot2 0.7s infinite;
+}
+
+.dot3 {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: $BK50;
+}
+
+@keyframes dot1 {
+  from {
+    background-color: $BK50;
+  }
+  to {
+    background-color: $BK30;
+  }
+}
+
+@keyframes dot2 {
+  from {
+    background-color: $BK70;
+  }
+  to {
+    background-color: $BK10;
+  }
+}
