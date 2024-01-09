@@ -48,7 +48,7 @@ export const getAi = (): character | null => {
     return null;
   }
 
-  const aiIndex = parseInt(aiString, 10);
+  const aiIndex = parseInt(aiString, 10) - 1;
   if (isNaN(aiIndex)) return null;
   console.log(aiIndex);
   // // const aiIndex = aiString ? (JSON.parse(aiString) as number) : null;
@@ -61,7 +61,7 @@ export const getIndexAi = (id: number) => {
 };
 
 export const setAi = (id: number) => {
-  localStorage.setItem('currentCharacter', id.toString());
+  localStorage.setItem('currentCharacter', (id + 1).toString());
   const newCharacter = aiCharacters[id];
   return newCharacter;
 };
