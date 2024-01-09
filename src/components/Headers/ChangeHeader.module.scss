@@ -2,9 +2,15 @@
 @import '../../styles/variables/fonts.scss';
 
 .changeHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 56px;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 15px 0px;
+  background-color: $WH;
 
   & :first-child {
     position: absolute;

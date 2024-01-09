@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px 0px;
+  margin-top: 56px;
 
   & .name {
     margin-top: 6px;
@@ -19,6 +20,7 @@
     @include body14;
     color: $BK90;
     text-align: center;
+    white-space: pre-line;
   }
 
   & .tags {
@@ -33,33 +35,6 @@
 
 .profileAfter {
   padding: 48px 16px;
-
-  & .chatProfile {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 0px;
-
-    & :first-child {
-      display: flex;
-      align-items: center;
-    }
-
-    & .name {
-      margin-left: 16px;
-      @include sub16;
-      color: $BK90;
-    }
-
-    & .tags {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      @include caption;
-      color: $BK70;
-    }
-  }
 
   & .uncheckedLabel {
     opacity: 0.4;

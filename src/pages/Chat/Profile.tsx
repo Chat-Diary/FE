@@ -9,15 +9,24 @@ import {
   Chichi48,
   Lulu48,
 } from '../../assets/index';
+
 import ChangeHeader from '../../components/Headers/ChangeHeader';
-import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
+import { setAi, getAi, dada } from '../../utils/globalProfiles';
+import React from 'react';
+import { character } from './../../utils/globalProfiles';
+import ProfileRadio from '../../components/Buttons/ProfileRadio';
 
+const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
+const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];
 
 const Profile = () => {
+  const [currentId, setCurrentId] = useState<number>(0);
+  const [currentAi, setCurrentAi] = useState<character>(dada);
+
   const [isAble, setIsAble] = useState<boolean>(false);
-  const [checkedId, setCheckedId] = useState<number>(0);
+  const [checkedId, setCheckedId] = useState<number>(3);
 
   const navigate = useNavigate();
 
@@ -27,63 +36,67 @@ const Profile = () => {
 
   const handleAiChange = (id: number) => {
     navigate('/chat');
-    console.log(`${id}`);
+    const newAi = setAi(id);
+    setCurrentAi(newAi);
   };
 
   useEffect(() => {
-    if (checkedId === 0) setIsAble(false);
-    else setIsAble(true);
+    const ai = getAi();
+
+    if (ai) {
+      setCurrentId(ai.id);
+      setCurrentAi(ai);
+    }
+
+    if (checkedId === 3) {
+      setIsAble(false);
+    } else {
+      setIsAble(true);
+    }
   }, [checkedId]);
 
   return (
     <>
       <ChangeHeader>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
-        <Dada />
-        <span className={styles.name}>다다</span>
-        <div className={styles.text}>
-          안녕 나는 다다!
-          <br />
-          오늘 하루는 어땠어? 네 이야기를 들려줘!
-        </div>
+        {React.cloneElement(imgB[currentId], {
+          style: { width: '160px', height: '160px' },
+        })}
+        {/* <Dada /> */}
+        <span className={styles.name}>{currentAi.name}</span>
+        <div className={styles.text}>{currentAi.sub}</div>
         <div className={styles.tags}>
-          <span>#공감만렙</span>
-          <span> #수다스러운</span>
+          <span>{currentAi.first_tag}</span>
+          <span>{currentAi.second_tag}</span>
         </div>
       </div>
       <div className={styles.profileAfter}>
         <label
           className={`${styles.chatProfile} ${
-            checkedId === 1 ? '' : styles.uncheckedLabel
+            checkedId === (currentId + 1) % 3 ? '' : styles.uncheckedLabel
           }`}
         >
-          <div>
-            <Chichi48 />
-            <span className={styles.name}>치치</span>
-          </div>
-          <div className={styles.tags}>
-            <span>#활발</span>
-            <span>#호기심 가득</span>
-            <ChangeRadioBtn id={1} onChange={handleRadioChange} />
-          </div>
+          <ProfileRadio
+            id={(currentId + 1) % 3}
+            imgs={img48}
+            onClick={handleRadioChange}
+          />
         </label>
         <label
           className={`${styles.chatProfile} ${
-            checkedId === 2 ? '' : styles.uncheckedLabel
+            checkedId === (((currentId + 1) % 3) + 1) % 3
+              ? ''
+              : styles.uncheckedLabel
           }`}
         >
-          <div>
-            <Lulu48 />
-            <span className={styles.name}>루루</span>
-          </div>
-          <div className={styles.tags}>
-            <span>#차분한</span>
-            <span>#어른스러운</span>
-            <ChangeRadioBtn id={2} onChange={handleRadioChange} />
-          </div>
+          <ProfileRadio
+            id={(((currentId + 1) % 3) + 1) % 3}
+            imgs={img48}
+            onClick={handleRadioChange}
+          />
         </label>
       </div>
-      <ConfirmButton isAble={isAble} id={1} onClick={handleAiChange}>
+      <ConfirmButton isAble={isAble} id={checkedId} onClick={handleAiChange}>
         변경하기
       </ConfirmButton>
     </>
