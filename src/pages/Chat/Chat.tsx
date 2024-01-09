@@ -51,7 +51,7 @@ const Chat = () => {
 
   return (
     <div>
-      <ChatHeader>다다</ChatHeader>
+      <ChatHeader />
       <div className={styles.messagesContainer}>
         {messages.map((m) =>
           m.type === 'dada' ? (
