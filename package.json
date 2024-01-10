@@ -11,6 +11,7 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@types/react-router-dom": "^5.3.3",
+    "date-fns": "^3.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
@@ -46,10 +47,10 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "prettier": "^3.1.1",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "eslint-plugin-react": "latest"
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "latest",
+    "prettier": "^3.1.1"
   }
 }

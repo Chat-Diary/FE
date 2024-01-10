@@ -42,5 +42,8 @@
     background-color: $primary_default;
     color: $WH;
     @include btn;
+    &:active {
+      background-color: $primary_pressed;
+    }
   }
 }
