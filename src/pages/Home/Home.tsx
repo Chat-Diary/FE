@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './Home.module.scss';
-import Calendar from './Calendar';
+import HomeCalendar from './HomeCalendar';
 import List from './List';
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     <div className={styles.example}>
       Home, hello
       <button onClick={toggleMode}>리스트 화면 전환</button>
-      {isList ? <List /> : <Calendar />}
+      {isList ? <List /> : <HomeCalendar />}
     </div>
   );
 };
