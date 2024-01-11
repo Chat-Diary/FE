@@ -27,3 +27,4 @@ export { ReactComponent as NavAnActive } from './icons/nav/nav-an-active.svg';
 export { ReactComponent as NavMyActive } from './icons/nav/nav-my-active.svg';
 
 export { ReactComponent as FloatingBtn } from './icons/nav/floating-btn.svg';
+export { ReactComponent as DetailEdit } from './icons/nav/detail-edit.svg';

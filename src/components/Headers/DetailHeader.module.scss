@@ -1,2 +1,12 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
+
+.changeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 12px;
+
+  @include sub18;
+  color: $BK90;
+}
