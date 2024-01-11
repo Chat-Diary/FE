@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './Home/Home';
 import Chat from './Chat/Chat';
 import Profile from './Chat/Profile';
-import DateSelector from '../components/BottomSheets/DateSelector';
 import Detail from './Detail/Detail';
 
 const Router = () => {
