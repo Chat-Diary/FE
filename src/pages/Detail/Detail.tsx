@@ -1,13 +1,16 @@
+/* eslint-disable react/jsx-key */
 import { useNavigate } from 'react-router-dom';
 import styles from './Detail.module.scss';
 import DetailHeader from '../../components/Headers/DetailHeader';
 
 import { Dada36, Chichi36, Lulu36, DetailPlus } from '../../assets/index';
+import DetailTag from '../../components/tags/DetailTag';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 
 const Detail = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const tags = ['기쁨', '식당', '초면', '학교', '카페', '선후배', '공부'];
 
   const onChangeEdit = () => {
     // navigate('/');
@@ -34,7 +37,11 @@ const Detail = () => {
             덕분에 건대 맛집에서 맛있게 먹어서 기분 최고다! 다음에 건대 올 때 또
             와야지~
           </span>
-          <div className={styles.tags}></div>
+          <div className={styles.tags}>
+            {tags.map((tag) => {
+              return <DetailTag>{tag}</DetailTag>;
+            })}
+          </div>
         </div>
       </div>
     </>

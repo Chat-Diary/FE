@@ -43,8 +43,10 @@
     }
 
     & .tags {
+      display: flex;
       margin-top: 38px;
       gap: 8px;
+      flex-wrap: wrap;
     }
   }
 }
