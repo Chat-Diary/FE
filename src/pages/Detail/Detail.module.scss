@@ -1,2 +1,50 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 64px;
+  padding: 8px 16px;
+
+  & .header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    & :first-child {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @include sub16;
+    color: $BK90;
+  }
+
+  & .content {
+    padding-top: 12px;
+
+    & image {
+      display: block;
+      width: 328px;
+      height: 328px;
+      border-radius: 12px;
+      background-color: #e9e9e9;
+    }
+
+    & span {
+      display: block;
+      margin-top: 20px;
+      @include body14;
+      color: $BK90;
+    }
+
+    & .tags {
+      margin-top: 38px;
+      gap: 8px;
+    }
+  }
+}
