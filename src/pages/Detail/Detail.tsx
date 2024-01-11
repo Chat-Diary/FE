@@ -1,16 +1,20 @@
 /* eslint-disable react/jsx-key */
 import { useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
 import styles from './Detail.module.scss';
 import DetailHeader from '../../components/Headers/DetailHeader';
 
 import { Dada36, Chichi36, Lulu36, DetailPlus } from '../../assets/index';
 import DetailTag from '../../components/tags/DetailTag';
+import { useState } from 'react';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 
 const Detail = () => {
   // const navigate = useNavigate();
   const tags = ['기쁨', '식당', '초면', '학교', '카페', '선후배', '공부'];
+
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const onChangeEdit = () => {
     // navigate('/');
