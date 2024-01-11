@@ -25,4 +25,8 @@
     color: $WH;
     pointer-events: auto; // 클릭 가능하게 설정
   }
+
+  &:active {
+    background-color: $primary_pressed;
+  }
 }
