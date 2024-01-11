@@ -9,5 +9,6 @@ export { ReactComponent as Lulu48 } from './icons/profiles/lulu-48.svg';
 export { ReactComponent as Chichi48 } from './icons/profiles/chichi-48.svg';
 
 export { ReactComponent as LeftChevron } from './icons/nav/left-chevron.svg';
+export { ReactComponent as DownChecron } from './icons/nav/down-chevron.svg';
 export { ReactComponent as CalendarIcon } from './icons/nav/calendar-icon.svg';
 export { ReactComponent as Plus } from './icons/plus.svg';
