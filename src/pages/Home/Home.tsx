@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './Home.module.scss';
 import HomeCalendar from './HomeCalendar';
 import List from './List';
+import { ListIcon, CalendarIcon } from '../../assets';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -9,9 +10,14 @@ const Home = () => {
     setIsList((prev) => !prev);
   };
   return (
-    <div className={styles.example}>
-      Home, hello
-      <button onClick={toggleMode}>리스트 화면 전환</button>
+    <div className={styles.wholeWrapper}>
+      <div className={styles.dateNav}>
+        {isList ? (
+          <CalendarIcon onClick={toggleMode} />
+        ) : (
+          <ListIcon onClick={toggleMode} />
+        )}
+      </div>
       {isList ? <List /> : <HomeCalendar />}
     </div>
   );
