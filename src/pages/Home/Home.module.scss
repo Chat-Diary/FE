@@ -7,7 +7,7 @@
 }
 .dateNav {
   display: flex;
-  padding: 16px;
+  padding: 9px 16px 15px 15.5px;
   justify-content: space-between;
   .currentDateBox {
     display: flex;
@@ -38,7 +38,8 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    margin-bottom: 12px;
+    margin-top: 7px;
+    margin-bottom: 13px;
     .iconWrapper {
       display: flex;
       justify-content: center;
