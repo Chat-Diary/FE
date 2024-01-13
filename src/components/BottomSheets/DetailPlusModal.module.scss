@@ -1,0 +1,19 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+// .container {
+//   height: 167px;
+// }
+.container {
+  padding: 40px 0px 20px 0px;
+}
+
+.btn {
+  display: flex;
+  width: 100%;
+  padding: 9px 10px;
+  gap: 10px;
+
+  @include body16;
+  color: $BK90;
+}

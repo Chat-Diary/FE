@@ -15,6 +15,7 @@ import {
 } from '../../assets/index';
 import DetailTag from '../../components/tags/DetailTag';
 import { useState } from 'react';
+import DetailPlusModal from '../../components/BottomSheets/DetailPlusModal';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const imgDiary = [
@@ -29,6 +30,8 @@ const Detail = () => {
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderLength = imgDiary.length;
+
+  const [isPlusSelected, setIsPlusSelected] = useState<boolean>(false);
 
   const settings = {
     dots: false,
@@ -46,16 +49,21 @@ const Detail = () => {
     console.log('편집 버튼 클릭');
   };
 
+  const onClickPlus = () => {
+    setIsPlusSelected((prev) => !prev);
+    console.log(isPlusSelected);
+  };
+
   return (
     <>
-      <DetailHeader onClick={onChangeEdit}>땡월땡일</DetailHeader>
+      <DetailHeader onClick={onChangeEdit}>2023년 11월 12일</DetailHeader>
       <div className={styles.detailContainer}>
         <div className={styles.header}>
           <div>
             {img36[0]}
             <span>챗다이어리 첫 오프라인</span>
           </div>
-          <DetailPlus />
+          <DetailPlus onClick={onClickPlus} />
         </div>
         <div className={styles.content}>
           <Slider {...settings} className={styles.slider}>
@@ -80,6 +88,11 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      {isPlusSelected ? (
+        <DetailPlusModal clickOuter={() => setIsPlusSelected(false)} />
+      ) : (
+        ''
+      )}
     </>
   );
 };
