@@ -25,9 +25,14 @@
   }
 
   & .content {
-    padding-top: 12px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
 
-    & image {
+    & .slider {
       display: block;
       width: 328px;
       height: 328px;
@@ -35,6 +40,20 @@
       background-color: #e9e9e9;
 
       overflow: hidden;
+    }
+
+    & .index {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 10px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      background-color: $WH;
+
+      @include caption;
+      color: $BK70;
     }
 
     & span {
