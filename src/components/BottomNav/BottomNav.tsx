@@ -23,7 +23,13 @@ const BottomNav = ({ page, isBtn = true }: navProps) => {
   isBtn = true;
   return (
     <>
-      {isBtn ? <div className={styles.floatingBtn}>{<FloatingBtn />}</div> : ''}
+      {isBtn ? (
+        <Link to="/chat">
+          <div className={styles.floatingBtn}>{<FloatingBtn />}</div>
+        </Link>
+      ) : (
+        ''
+      )}
       <nav className={styles.bottomNav}>
         <Link to="/" className={styles.navLink}>
           {page === 0 ? (
