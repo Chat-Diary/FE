@@ -4,6 +4,7 @@ import styles from './Home.module.scss';
 import HomeCalendar from './HomeCalendar';
 import List from './List';
 import { ListIcon, DownChevron, Calendar32 } from '../../assets';
+import BottomNav from '../../components/BottomNav/BottomNav';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -21,43 +22,46 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, []);
   return (
-    <div className={styles.wholeWrapper}>
-      <div className={styles.dateNav}>
-        <div className={styles.currentDateBox}>
-          <div className={styles.dateSelector}>
-            <p className={styles.yearAndMonth}>
-              {currentDate.toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: 'long',
-              })}
+    <>
+      <div className={styles.wholeWrapper}>
+        <div className={styles.dateNav}>
+          <div className={styles.currentDateBox}>
+            <div className={styles.dateSelector}>
+              <p className={styles.yearAndMonth}>
+                {currentDate.toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: 'long',
+                })}
+              </p>
+              <div className={styles.chevronWrapper}>
+                <DownChevron />
+              </div>
+            </div>
+            <span className={styles.diaryNumber}>12개의 일기</span>
+          </div>
+          <div className={styles.rightContainer}>
+            <p
+              className={styles.today}
+              onClick={() => setCurrentDate(new Date())}
+            >
+              오늘
             </p>
-            <div className={styles.chevronWrapper}>
-              <DownChevron />
+            <div className={styles.iconWrapper} onClick={toggleMode}>
+              {isList ? <Calendar32 /> : <ListIcon />}
             </div>
           </div>
-          <span className={styles.diaryNumber}>12개의 일기</span>
         </div>
-        <div className={styles.rightContainer}>
-          <p
-            className={styles.today}
-            onClick={() => setCurrentDate(new Date())}
-          >
-            오늘
-          </p>
-          <div className={styles.iconWrapper} onClick={toggleMode}>
-            {isList ? <Calendar32 /> : <ListIcon />}
-          </div>
-        </div>
+        {isList ? (
+          <List />
+        ) : (
+          <HomeCalendar
+            weekCalendarList={weekCalendarList}
+            currentDate={currentDate}
+          />
+        )}
       </div>
-      {isList ? (
-        <List />
-      ) : (
-        <HomeCalendar
-          weekCalendarList={weekCalendarList}
-          currentDate={currentDate}
-        />
-      )}
-    </div>
+      <BottomNav page={0} />
+    </>
   );
 };
 
