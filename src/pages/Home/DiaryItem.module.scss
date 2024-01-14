@@ -32,15 +32,12 @@
     }
 
     .DiaryTags {
+        width: 230px;
         display: flex;
         gap: 4px;
-
-        .DiaryTag {
-            color: var(--gray-scale-BK70_text2, #6F6D6C);
-            @include body14;
-        }
+        color: var(--gray-scale-BK70_text2, #6F6D6C);
+        @include body14;
     }
-
     
 }
 
