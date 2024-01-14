@@ -1,6 +1,12 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
 
+.floatingBtn {
+  position: absolute;
+  bottom: 80px;
+  right: 16px;
+}
+
 .bottomNav {
   position: fixed;
   bottom: 0;
