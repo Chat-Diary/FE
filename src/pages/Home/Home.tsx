@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
   return (
     <>
-      <HomeHeader />
+    <HomeHeader />
       <div className={styles.wholeWrapper}>
       <HomeProfileHeader />
         <div className={styles.dateNav}>
