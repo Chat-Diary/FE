@@ -16,6 +16,7 @@ import {
 import DetailTag from '../../components/tags/DetailTag';
 import { useState } from 'react';
 import DetailPlusModal from '../../components/BottomSheets/DetailPlusModal';
+import DialogModal from '../../components/Modal/DialogModal';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const imgDiary = [
@@ -32,6 +33,7 @@ const Detail = () => {
   const sliderLength = imgDiary.length;
 
   const [isPlusSelected, setIsPlusSelected] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const settings = {
     dots: false,
@@ -88,8 +90,27 @@ const Detail = () => {
           </div>
         </div>
       </div>
-      {isPlusSelected ? (
-        <DetailPlusModal clickOuter={() => setIsPlusSelected(false)} />
+      {isPlusSelected && !isModalOpen ? (
+        <DetailPlusModal
+          clickOuter={() => setIsPlusSelected(false)}
+          clickDelete={() => setIsModalOpen(true)}
+        />
+      ) : (
+        ''
+      )}
+      {isModalOpen ? (
+        <DialogModal
+          cancelText="아니오"
+          confirmText="삭제하기"
+          onClickCancel={() => {
+            setIsModalOpen(false);
+            setIsPlusSelected(false);
+          }}
+          onClickConfirm={() => {
+            setIsModalOpen(false);
+            setIsPlusSelected(false);
+          }}
+        />
       ) : (
         ''
       )}

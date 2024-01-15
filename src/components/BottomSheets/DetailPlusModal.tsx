@@ -6,12 +6,13 @@ import { DetailDelete, DetailShare } from '../../assets/index';
 
 interface DetailPlusProps {
   clickOuter: () => any;
+  clickDelete: () => any;
 }
-const DetailPlusModal = ({ clickOuter }: DetailPlusProps) => {
+const DetailPlusModal = ({ clickOuter, clickDelete }: DetailPlusProps) => {
   return (
     <BottomModal clickOuter={clickOuter} /*className={styles.container}*/>
       <div className={styles.container}>
-        <div className={styles.btn}>
+        <div className={styles.btn} onClick={clickDelete}>
           <DetailDelete />
           <span>삭제하기</span>
         </div>
