@@ -17,10 +17,18 @@
 
     .DatePicker {
       display: flex;
-      justify-content: center;
       margin-left: 16px;
       margin-right: 16px;
       margin-bottom: 96px;
+
+      & :first-child {
+        padding-left: 41px;
+        padding-right: 49px;
+      }
+
+      & :last-child {
+        padding-left: 30px;
+      }
     }
 
     .DateListCenter {
