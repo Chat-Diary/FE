@@ -20,7 +20,6 @@ interface navProps {
 }
 
 const BottomNav = ({ page, isBtn = true }: navProps) => {
-  isBtn = true;
   return (
     <>
       {isBtn ? (
