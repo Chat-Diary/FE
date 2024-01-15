@@ -6,7 +6,6 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    width: 100%;
     height: 132px;
     overflow-y: scroll;
     position: relative;
@@ -36,7 +35,6 @@
     height: 44px;
     display: flex;
     align-items: center;
-    justify-content: center;
     cursor: pointer;
 
     &.Selected {
