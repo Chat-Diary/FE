@@ -4,11 +4,15 @@
 .wholeWrapper {
   display: flex;
   flex-direction: column;
+  padding-top: 80px;
 }
 .dateNav {
   display: flex;
   padding: 9px 16px 15px 15.5px;
   justify-content: space-between;
+  position: sticky;
+  top: 80px;
+  background-color: $WH;
   .currentDateBox {
     display: flex;
     flex-direction: column;

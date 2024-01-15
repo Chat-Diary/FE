@@ -3,8 +3,8 @@ import styles from './HomeHeader.module.scss';
 
 const HomeHeader = () => {
   return (
-    <div className={styles.Logo}>
-      <ChatDiaryLogo />
+    <div className={styles.HomeHeader}>
+      <ChatDiaryLogo className={styles.Logo}/>
     </div>
   );
 };

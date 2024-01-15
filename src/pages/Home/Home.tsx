@@ -6,6 +6,7 @@ import List from './List';
 import { ListIcon, DownChevron, Calendar32 } from '../../assets';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import HomeHeader from '../../components/Headers/HomeHeader';
+import HomeProfileHeader from '../../components/Headers/HomeProfileHeader';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -24,8 +25,9 @@ const Home = () => {
   }, []);
   return (
     <>
+    <HomeHeader />
       <div className={styles.wholeWrapper}>
-        <HomeHeader />
+        <HomeProfileHeader />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector}>
