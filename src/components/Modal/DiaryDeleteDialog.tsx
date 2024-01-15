@@ -2,11 +2,11 @@ import React from 'react';
 import DialogModal from './DialogModal';
 import styles from './DiaryDeleteDialog.module.scss';
 
-interface Iprops {
+interface IProps {
   onClickCancel: () => void;
   onClickConfirm: () => void;
 }
-const DiaryDeleteDialog = ({ onClickCancel, onClickConfirm }: Iprops) => {
+const DiaryDeleteDialog = ({ onClickCancel, onClickConfirm }: IProps) => {
   return (
     <DialogModal
       cancelText="아니오"

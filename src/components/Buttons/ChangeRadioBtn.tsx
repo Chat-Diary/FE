@@ -1,11 +1,11 @@
 import styles from './ChangeRadioBtn.module.scss';
 
-interface Props {
+interface IProps {
   id: number;
   onChange: (id: number) => void;
 }
 
-const ChangeRadioBtn = ({ id, onChange }: Props) => {
+const ChangeRadioBtn = ({ id, onChange }: IProps) => {
   return (
     <input
       type="radio"

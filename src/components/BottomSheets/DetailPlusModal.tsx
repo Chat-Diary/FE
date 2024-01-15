@@ -4,11 +4,11 @@ import styles from './DetailPlusModal.module.scss';
 
 import { DetailDelete, DetailShare } from '../../assets/index';
 
-interface DetailPlusProps {
+interface IProps {
   clickOuter: () => any;
   clickDelete: () => any;
 }
-const DetailPlusModal = ({ clickOuter, clickDelete }: DetailPlusProps) => {
+const DetailPlusModal = ({ clickOuter, clickDelete }: IProps) => {
   return (
     <BottomModal clickOuter={clickOuter} /*className={styles.container}*/>
       <div className={styles.container}>
