@@ -32,3 +32,5 @@ export { ReactComponent as DetailPlus } from './icons/detail-meatball.svg';
 
 export { ReactComponent as DetailDelete } from './icons/nav/detail-delete.svg';
 export { ReactComponent as DetailShare } from './icons/nav/detail-share.svg';
+
+export { ReactComponent as ChatDiaryLogo } from './icons/chatdiary-logo.svg';
