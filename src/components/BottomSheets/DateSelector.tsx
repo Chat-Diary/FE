@@ -93,18 +93,20 @@ const DateSelector = (props: DateSelectorProps) => {
 
   return (
     <BottomModal clickOuter={props.clickOuter}>
-      <div className={styles.SelectDateContainer}>
-        <div className={styles.SelectDate}>날짜 선택</div>
-        <div className={styles.DatePicker}>
-          <DatePicker list={year} onSelectedChange={handleYear} />
-          <DatePicker list={month} onSelectedChange={handleYear} />
-          <DatePicker list={day} onSelectedChange={handleYear} />
+      <div className={styles.container}>
+        <div className={styles.SelectDateContainer}>
+          <div className={styles.SelectDate}>날짜 선택</div>
+          <div className={styles.DatePicker}>
+            <DatePicker list={year} onSelectedChange={handleYear} />
+            <DatePicker list={month} onSelectedChange={handleYear} />
+            <DatePicker list={day} onSelectedChange={handleYear} />
+          </div>
+          <div className={styles.DateListCenter} />
         </div>
-        <div className={styles.DateListCenter} />
+        <ConfirmButton isAble={true} id={1} onClick={handleDateSelect}>
+          선택 완료
+        </ConfirmButton>
       </div>
-      <ConfirmButton isAble={true} id={1} onClick={handleDateSelect}>
-        선택 완료
-      </ConfirmButton>
     </BottomModal>
   );
 };
