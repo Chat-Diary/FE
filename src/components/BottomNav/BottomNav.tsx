@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styles from './BottomNav.module.scss';
 
 import {
