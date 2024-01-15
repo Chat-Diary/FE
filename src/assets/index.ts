@@ -13,3 +13,5 @@ export { ReactComponent as DownChevron } from './icons/nav/down-chevron.svg';
 export { ReactComponent as CalendarIcon } from './icons/nav/calendar-icon.svg';
 export { ReactComponent as ListIcon } from './icons/nav/calendar-icon.svg';
 export { ReactComponent as Plus } from './icons/plus.svg';
+
+export { ReactComponent as DetailSlider } from './icons/detail-ex.svg';
