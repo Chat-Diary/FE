@@ -13,12 +13,12 @@ import {
 } from '../../assets/index';
 import { Link } from 'react-router-dom';
 
-interface navProps {
+interface IProps {
   page: number;
   isBtn?: boolean;
 }
 
-const BottomNav = ({ page, isBtn = true }: navProps) => {
+const BottomNav = ({ page, isBtn = true }: IProps) => {
   return (
     <>
       {isBtn ? (
