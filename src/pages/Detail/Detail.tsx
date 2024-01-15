@@ -17,6 +17,7 @@ import DetailTag from '../../components/tags/DetailTag';
 import { useState } from 'react';
 import DetailPlusModal from '../../components/BottomSheets/DetailPlusModal';
 import DialogModal from '../../components/Modal/DialogModal';
+import DiaryDeleteDialog from '../../components/Modal/DiaryDeleteDialog';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const imgDiary = [
@@ -26,7 +27,7 @@ const imgDiary = [
 ];
 
 const Detail = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const tags = ['기쁨', '식당', '초면', '학교', '카페', '선후배', '공부'];
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -54,6 +55,11 @@ const Detail = () => {
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
     console.log(isPlusSelected);
+  };
+
+  const onClickClose = () => {
+    setIsModalOpen(false);
+    setIsPlusSelected(false);
   };
 
   return (
@@ -99,16 +105,11 @@ const Detail = () => {
         ''
       )}
       {isModalOpen ? (
-        <DialogModal
-          cancelText="아니오"
-          confirmText="삭제하기"
-          onClickCancel={() => {
-            setIsModalOpen(false);
-            setIsPlusSelected(false);
-          }}
+        <DiaryDeleteDialog
+          onClickCancel={onClickClose}
           onClickConfirm={() => {
-            setIsModalOpen(false);
-            setIsPlusSelected(false);
+            onClickClose;
+            navigate('/');
           }}
         />
       ) : (
