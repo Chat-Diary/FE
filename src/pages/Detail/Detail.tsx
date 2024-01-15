@@ -16,7 +16,7 @@ import {
 import DetailTag from '../../components/tags/DetailTag';
 import { useState } from 'react';
 import DetailPlusModal from '../../components/BottomSheets/DetailPlusModal';
-import DiaryDeleteDialog from '../../components/Modal/DiaryDeleteDialog';
+import DiaryDeleteDialog from '../../components/Dialog/DiaryDeleteDialog';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const imgDiary = [
