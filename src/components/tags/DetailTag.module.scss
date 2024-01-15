@@ -1,0 +1,15 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid $BK30;
+  border-radius: 60px;
+
+  @include body14;
+  color: $BK70;
+}

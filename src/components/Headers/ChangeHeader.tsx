@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { LeftChevron } from '../../assets';
 import styles from './ChangeHeader.module.scss';
 
-interface Props {
+interface IProps {
   children: string;
 }
-const ChangeHeader = ({ children }: Props) => {
+const ChangeHeader = ({ children }: IProps) => {
   const navigate = useNavigate();
 
   return (
