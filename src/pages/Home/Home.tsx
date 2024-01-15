@@ -33,7 +33,7 @@ const Home = () => {
     <>
       <HomeHeader />
       <div className={styles.wholeWrapper}>
-        <HomeProfileHeader />
+      <HomeProfileHeader />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector} onClick={onSelectDate}>
