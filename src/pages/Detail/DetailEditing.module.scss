@@ -7,14 +7,39 @@
   padding: 16px;
   margin-top: 56px;
 
+  @include sub16;
+  color: $BK90;
+
   // margin-bottom: ;
 
   & .header {
-    @include sub16;
-    color: $BK90;
-
     & :nth-child(2) {
       margin-top: 14px;
+    }
+  }
+
+  .content {
+    margin-top: 32px;
+
+    & .imgContainer {
+      display: flex;
+      margin-bottom: 32px;
+
+      & .addImg {
+      }
+    }
+
+    & .tagSelect {
+      display: flex;
+      flex-direction: column;
+      margin-top: 32px;
+
+      & .tags {
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
     }
   }
 }
