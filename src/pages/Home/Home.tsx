@@ -33,7 +33,7 @@ const Home = () => {
     <>
       <HomeHeader />
       <div className={styles.wholeWrapper}>
-        <HomeProfileHeader />
+      <HomeProfileHeader />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector} onClick={onSelectDate}>
@@ -70,7 +70,7 @@ const Home = () => {
           />
         )}
       </div>
-      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isDate={false} /> : null}
+      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} /> : null}
       <BottomNav page={0} />
     </>
   );

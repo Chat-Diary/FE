@@ -5,7 +5,7 @@
   display: flex;
   padding: 16px;
   box-sizing: content-box;
-  border-bottom: 2px solid #ebe9e7;
+  border-bottom: 2px solid $BK30;
 
   .UserProfile {
     display: flex;
@@ -26,7 +26,7 @@
 
     .StartDate {
         @include caption;
-        color: #6F6D6C;
+        color: $BK70;
     }
   }
 }
