@@ -34,12 +34,21 @@
 
     & .slider {
       display: block;
-      width: 328px;
+      $width: calc(100vw - 32px);
+      width: $width;
       height: 328px;
       border-radius: 12px;
       background-color: #e9e9e9;
 
       overflow: hidden;
+    }
+
+    & .img {
+      width: 100%;
+      height: auto;
+      background-size: cover;
+
+      // object-fit: fill;
     }
 
     & .index {

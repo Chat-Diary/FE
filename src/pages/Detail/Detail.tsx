@@ -75,7 +75,9 @@ const Detail = () => {
         <div className={styles.content}>
           <Slider {...settings} className={styles.slider}>
             {imgDiary.map((img, index) => (
-              <div key={index}>{img}</div>
+              <div key={index} className={styles.img}>
+                {img}
+              </div>
             ))}
           </Slider>
           <div className={styles.index}>
