@@ -1,7 +1,7 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
 
-.container {
+.default {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,4 +12,15 @@
 
   @include body14;
   color: $BK70;
+
+  &.selected {
+    color: $WH;
+    background-color: $primary_default;
+  }
+
+  &.line {
+    color: $BK90;
+    background-color: $WH;
+    border: 1px solid $primary_default;
+  }
 }

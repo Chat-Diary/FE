@@ -13,7 +13,7 @@ import {
   DetailPlus,
   DetailSlider,
 } from '../../assets/index';
-import DetailTag from '../../components/tags/DetailTag';
+import TagChip from '../../components/Tags/TagChip';
 import { useState } from 'react';
 import DetailPlusModal from '../../components/BottomSheets/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/Dialog/DiaryDeleteDialog';
@@ -90,7 +90,7 @@ const Detail = () => {
           </span>
           <div className={styles.tags}>
             {tags.map((tag) => {
-              return <DetailTag>{tag}</DetailTag>;
+              return <TagChip>{tag}</TagChip>;
             })}
           </div>
         </div>
