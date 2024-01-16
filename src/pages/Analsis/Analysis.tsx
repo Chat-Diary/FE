@@ -20,7 +20,10 @@ export const Analysis = () => {
       name: '피곤함',
     },
   ];
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [periodData, setperiodData] = useState(tagsData);
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return (
     <>
       <div className={styles.notice}>
