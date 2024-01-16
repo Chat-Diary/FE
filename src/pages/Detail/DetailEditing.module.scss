@@ -23,9 +23,24 @@
 
     & .imgContainer {
       display: flex;
+      height: min-content;
+      margin-top: 12px;
       margin-bottom: 32px;
+      overflow: hidden;
 
       & .addImg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 26px;
+        border-radius: 5px;
+        background-color: $BK10;
+      }
+
+      & .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 

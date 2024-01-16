@@ -39,3 +39,5 @@ export { ReactComponent as DetailShare } from './icons/nav/detail-share.svg';
 
 export { ReactComponent as ChatDiaryLogo } from './icons/chatdiary-logo.svg';
 export { ReactComponent as Notice } from './icons/notice.svg';
+
+export { ReactComponent as DetailCamera } from './icons/detail-camera.svg';
