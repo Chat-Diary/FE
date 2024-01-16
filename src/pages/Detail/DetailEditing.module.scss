@@ -1,2 +1,20 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
+
+.wholeWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  margin-top: 56px;
+
+  // margin-bottom: ;
+
+  & .header {
+    @include sub16;
+    color: $BK90;
+
+    & :nth-child(2) {
+      margin-top: 14px;
+    }
+  }
+}
