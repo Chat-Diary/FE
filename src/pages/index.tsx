@@ -5,6 +5,7 @@ import Profile from './Chat/Profile';
 import Detail from './Detail/Detail';
 import { Analysis } from './Analsis/Analysis';
 import Tag from './Tag/Tag';
+import DetailEditing from './Detail/DetailEditing';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -47,6 +48,10 @@ const Router = () => {
             {
               index: true,
               element: <Detail />,
+            },
+            {
+              path: 'edit',
+              element: <DetailEditing />,
             },
           ],
         },

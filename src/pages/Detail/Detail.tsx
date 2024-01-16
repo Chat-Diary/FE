@@ -47,7 +47,7 @@ const Detail = () => {
   };
 
   const onChangeEdit = () => {
-    // navigate('/');
+    navigate('/detail/edit');
     console.log('편집 버튼 클릭');
   };
 

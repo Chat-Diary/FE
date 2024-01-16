@@ -10,7 +10,7 @@ const ChangeHeader = ({ children }: IProps) => {
 
   return (
     <div className={styles.changeHeader}>
-      <LeftChevron onClick={() => navigate('/chat')} />
+      <LeftChevron onClick={() => navigate(-1)} />
       <span>{children}</span>
     </div>
   );
