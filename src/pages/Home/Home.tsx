@@ -19,7 +19,7 @@ const Home = () => {
 
   const onSelectDate = () => {
     setIsSelectedDate(true);
-  }
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
   return (
     <>
-    <HomeHeader />
+      <HomeHeader />
       <div className={styles.wholeWrapper}>
         <HomeProfileHeader />
         <div className={styles.dateNav}>
@@ -70,9 +70,7 @@ const Home = () => {
           />
         )}
       </div>
-      {isSelectedDate ? (
-        <DateSelector clickOuter={setIsSelectedDate} />
-      ) : null}
+      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isDate={false} /> : null}
       <BottomNav page={0} />
     </>
   );
