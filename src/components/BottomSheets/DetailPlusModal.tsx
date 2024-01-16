@@ -5,8 +5,8 @@ import styles from './DetailPlusModal.module.scss';
 import { DetailDelete, DetailShare } from '../../assets/index';
 
 interface IProps {
-  clickOuter: () => any;
-  clickDelete: () => any;
+  clickOuter: () => void;
+  clickDelete: () => void;
 }
 const DetailPlusModal = ({ clickOuter, clickDelete }: IProps) => {
   return (

@@ -3,11 +3,11 @@ import styles from './DialogModal.module.scss';
 import DialogBtn from '../Buttons/DialogBtn';
 
 interface IProps {
-  children: any;
+  children: React.ReactElement | React.ReactElement[] | React.ReactNode;
   cancelText: string;
   confirmText: string;
-  onClickCancel: () => any;
-  onClickConfirm: () => any;
+  onClickCancel: () => void;
+  onClickConfirm: () => void;
 }
 const DialogModal = ({
   children,
