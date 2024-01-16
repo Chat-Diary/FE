@@ -4,6 +4,7 @@ import Chat from './Chat/Chat';
 import Profile from './Chat/Profile';
 import Detail from './Detail/Detail';
 import { Analysis } from './Analsis/Analysis';
+import Tag from './Tag/Tag';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -13,6 +14,19 @@ const Router = () => {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: 'tag',
+          children: [
+            {
+              index: true,
+              element: <Tag />,
+            },
+            {
+              path: 'filter',
+              element: <Tag />,
+            },
+          ],
         },
         {
           path: 'chat',

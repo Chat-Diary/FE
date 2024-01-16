@@ -14,6 +14,7 @@ export { ReactComponent as LeftChevron } from './icons/nav/left-chevron.svg';
 export { ReactComponent as DownChevron } from './icons/nav/down-chevron.svg';
 export { ReactComponent as Calendar24 } from './icons/nav/calendar-24.svg';
 export { ReactComponent as Calendar32 } from './icons/nav/calendar-32.svg';
+export { ReactComponent as Card32 } from './icons/nav/card-32.svg';
 export { ReactComponent as ListIcon } from './icons/nav/list-icon.svg';
 export { ReactComponent as Plus } from './icons/plus.svg';
 
