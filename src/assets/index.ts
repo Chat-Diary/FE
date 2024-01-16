@@ -7,6 +7,7 @@ export { ReactComponent as Chichi36 } from './icons/profiles/chichi-36.svg';
 export { ReactComponent as Dada48 } from './icons/profiles/dada-48.svg';
 export { ReactComponent as Lulu48 } from './icons/profiles/lulu-48.svg';
 export { ReactComponent as Chichi48 } from './icons/profiles/chichi-48.svg';
+export { ReactComponent as UserProfile } from './icons/profiles/user-profile.svg';
 
 export { ReactComponent as LeftChevron } from './icons/nav/left-chevron.svg';
 export { ReactComponent as DownChevron } from './icons/nav/down-chevron.svg';
@@ -32,3 +33,5 @@ export { ReactComponent as DetailPlus } from './icons/detail-meatball.svg';
 
 export { ReactComponent as DetailDelete } from './icons/nav/detail-delete.svg';
 export { ReactComponent as DetailShare } from './icons/nav/detail-share.svg';
+
+export { ReactComponent as ChatDiaryLogo } from './icons/chatdiary-logo.svg';

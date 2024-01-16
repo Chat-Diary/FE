@@ -5,6 +5,9 @@ import HomeCalendar from './HomeCalendar';
 import List from './List';
 import { ListIcon, DownChevron, Calendar32 } from '../../assets';
 import BottomNav from '../../components/BottomNav/BottomNav';
+import HomeHeader from '../../components/Headers/HomeHeader';
+import HomeProfileHeader from '../../components/Headers/HomeProfileHeader';
+import DateSelector from '../../components/BottomSheets/DateSelector';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -12,6 +15,11 @@ const Home = () => {
     setIsList((prev) => !prev);
   };
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
+  const [isSelectedDate, setIsSelectedDate] = useState(false);
+
+  const onSelectDate = () => {
+    setIsSelectedDate(true);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -23,10 +31,12 @@ const Home = () => {
   }, []);
   return (
     <>
+      <HomeHeader />
       <div className={styles.wholeWrapper}>
+        <HomeProfileHeader />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
-            <div className={styles.dateSelector}>
+            <div className={styles.dateSelector} onClick={onSelectDate}>
               <p className={styles.yearAndMonth}>
                 {currentDate.toLocaleDateString('ko-KR', {
                   year: 'numeric',
@@ -60,6 +70,7 @@ const Home = () => {
           />
         )}
       </div>
+      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isDate={false} /> : null}
       <BottomNav page={0} />
     </>
   );

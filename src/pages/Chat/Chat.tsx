@@ -104,7 +104,7 @@ const Chat = () => {
         </button>
       </div>
       {isSelectedDate ? (
-        <DateSelector clickOuter={setIsSelectedDate}/>
+        <DateSelector clickOuter={setIsSelectedDate} isDate={true}/>
       ) : null}
     </div>
   );

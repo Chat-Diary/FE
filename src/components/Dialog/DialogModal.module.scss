@@ -1,0 +1,39 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.backDrop {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $BK90;
+  opacity: 0.5;
+}
+
+.modalContainer {
+  z-index: 3;
+  opacity: 1;
+  border-radius: 12px;
+  background-color: $WH;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-x: hidden;
+  width: calc(100% - 48px); /* 가로 여백을 뺀 전체 너비 */
+  padding: 32px 16px 12px 16px;
+
+  & .btns {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+
+    & .btn {
+      width: calc((100% - 8px) / 2);
+    }
+  }
+}

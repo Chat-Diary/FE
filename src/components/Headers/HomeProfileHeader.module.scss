@@ -1,0 +1,32 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.Line {
+  display: flex;
+  padding: 16px;
+  box-sizing: content-box;
+  border-bottom: 2px solid #ebe9e7;
+
+  .UserProfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: content-box;
+  }
+
+  .UserInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 12px;
+
+    .Nickname {
+        @include header20;
+    }
+
+    .StartDate {
+        @include caption;
+        color: #6F6D6C;
+    }
+  }
+}
