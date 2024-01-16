@@ -70,7 +70,7 @@ const Home = () => {
           />
         )}
       </div>
-      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isDate={false} /> : null}
+      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} /> : null}
       <BottomNav page={0} />
     </>
   );

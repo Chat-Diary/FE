@@ -5,10 +5,10 @@ import ConfirmButton from '../Buttons/ConfirmButton';
 
 interface DateSelectorProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
-  isDate: boolean;
+  isFullDate: boolean;
 }
 
-const DateSelector = (props: DateSelectorProps) => {
+const DateSelector = ({clickOuter, isFullDate}: DateSelectorProps) => {
   const year = [
     '2000년',
     '2001년',
@@ -59,15 +59,9 @@ const DateSelector = (props: DateSelectorProps) => {
     '06일',
     '07일',
     '08일',
-<<<<<<< HEAD
-<<<<<<< HEAD
     '9일',
-=======
     '09일',
->>>>>>> 9f92bc6 (Feat: 홈화면 년/월 선택 다이얼로그 연결)
-=======
     '9일',
->>>>>>> 731eee3 (Feat: 바텀시트 다이얼로그 컴포넌트 하나로 통합)
     '10일',
     '11일',
     '12일',
@@ -105,14 +99,14 @@ const DateSelector = (props: DateSelectorProps) => {
   };
 
   const handleDateSelect = () => {
-    props.clickOuter(false);
+    clickOuter(false);
   };
 
   return (
-    <BottomModal clickOuter={props.clickOuter}>
+    <BottomModal clickOuter={clickOuter}>
       <div className={styles.container}>
         <div className={styles.SelectDateContainer}>
-          {props.isDate ? (
+          {isFullDate ? (
             <div className={styles.SelectDate}>날짜 선택</div>
           ) : (
             <div className={styles.SelectDate}>년/월 선택</div>
@@ -120,7 +114,7 @@ const DateSelector = (props: DateSelectorProps) => {
           <div className={styles.DatePicker}>
             <DatePicker list={year} onSelectedChange={handleYear} />
             <DatePicker list={month} onSelectedChange={handleMonth} />
-            {props.isDate ? (
+            {isFullDate ? (
               <DatePicker list={day} onSelectedChange={handleDay} />
             ) : (
               <></>
