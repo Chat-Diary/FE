@@ -5,6 +5,7 @@ import InputForm from '../../components/Input/InputForm';
 import DetailTag from '../../components/tags/DetailTag';
 
 import { DetailCamera, DetailSlider } from '../../assets/index';
+import ConfirmButton from '../../components/Buttons/ConfirmButton';
 
 const DetailEditing = () => {
   const imgInput = useRef<HTMLInputElement>(null);
@@ -13,7 +14,22 @@ const DetailEditing = () => {
     <DetailSlider key={1} />,
     <DetailSlider key={2} />,
   ];
-  const tags = ['기쁨', '식당', '초면', '학교', '카페', '선후배', '공부'];
+  const tags = [
+    '기쁨',
+    '식당',
+    '초면',
+    '학교',
+    '카페',
+    '선후배',
+    '공부',
+    '기쁨',
+    '식당',
+    '초면',
+    '학교',
+    '카페',
+    '선후배',
+    '공부',
+  ];
 
   const handleImgAdd = () => {
     if (imgInput.current) {
@@ -23,6 +39,10 @@ const DetailEditing = () => {
 
   const handleTagClick = () => {
     console.log('태그 선택 클릭');
+  };
+
+  const handleSave = () => {
+    console.log('저장 버튼 클릭');
   };
 
   return (
@@ -63,6 +83,11 @@ const DetailEditing = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className={styles.btn}>
+        <ConfirmButton isAble={true} id={0} onClick={handleSave}>
+          저장하기
+        </ConfirmButton>
       </div>
     </>
   );
