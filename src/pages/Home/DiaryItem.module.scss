@@ -8,7 +8,7 @@
     .DiaryImg {
         width: 80px;
         height: 80px;
-        background-color: bisque;
+        background-color: $secondary_pink;
         margin-right: 12px;
         border-radius: 8px;
     }
@@ -16,7 +16,7 @@
     .DiaryTitleContainer {
         display: flex;
         gap: 2px;
-        color: var(--gray-scale-BK90_text1, #262524);
+        color: var(--gray-scale-BK90_text1, $BK90);
         @include sub16;
 
         .DiaryTitle {
@@ -27,7 +27,7 @@
     }
 
     .DiaryDate {
-        color: var(--gray-scale-BK70_text2, #6F6D6C);
+        color: var(--gray-scale-BK70_text2, $BK70);
         @include caption;
         margin: 6px 0px 14px 0px;
     }
@@ -36,7 +36,7 @@
         width: 230px;
         display: flex;
         gap: 4px;
-        color: var(--gray-scale-BK70_text2, #6F6D6C);
+        color: var(--gray-scale-BK70_text2, $BK70);
         @include body14;
     }
     
