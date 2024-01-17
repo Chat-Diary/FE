@@ -44,19 +44,19 @@ const AllTags = ({ index, isInit }: IProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.categoryContainer}>
-        {allTags.map((block, blockIndex) => {
-          const blockTags = block.tags;
-          return (
-            <>
-              <div key={blockIndex}>{block.category}</div>
+      {allTags.map((block, blockIndex) => {
+        const blockTags = block.tags;
+        return (
+          <div className={styles.categoryContainer} key={blockIndex}>
+            <div>{block.category}</div>
+            <div className={styles.tagContainer}>
               {blockTags.map((tag, tagIndex) => (
                 <TagChip key={tagIndex}>{tag}</TagChip>
               ))}
-            </>
-          );
-        })}
-      </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
