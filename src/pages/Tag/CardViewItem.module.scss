@@ -1,5 +1,49 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
 .CardViewItem {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .CardViewItemImg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .CardViewItemContent {
+    position: absolute;
+    z-index: 1;
+    width: 304px;
+    padding-top: 234px;
+    z-index: 1;
+    // padding-right: 65.655px;
+
+    .DiaryTitleContainer {
+      display: flex;
+      gap: 2px;
+      color: $WH;
+      @include header20;
+
+      .DiaryTitle {
+        width: 220px;
+        white-space: nowrap; /* 줄 바꿈 금지 */
+        overflow: hidden; /* 넘치는 부분 감출 수 있도록 설정 */
+      }
+    }
+
+    .DiaryDate {
+      color: $WH;
+      @include caption;
+      margin: 6px 0px 14px 0px;
+    }
+
+    .DiaryTags {
+      width: 230px;
+      display: flex;
+      gap: 4px;
+      color: $WH;
+      @include body14;
+    }
+  }
 }

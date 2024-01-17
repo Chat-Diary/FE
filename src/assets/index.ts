@@ -19,6 +19,7 @@ export { ReactComponent as ListIcon } from './icons/nav/list-icon.svg';
 export { ReactComponent as Plus } from './icons/plus.svg';
 
 export { ReactComponent as DetailSlider } from './icons/detail-ex.svg';
+export { ReactComponent as CardExImage } from './icons/card-ex.svg';
 
 export { ReactComponent as NavHome } from './icons/nav/nav-home.svg';
 export { ReactComponent as NavTag } from './icons/nav/nav-tag.svg';
