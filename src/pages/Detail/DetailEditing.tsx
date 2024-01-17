@@ -10,8 +10,12 @@ import {
   DetailImgDelete,
 } from '../../assets/index';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
+import AllTags from '../../components/Tags/AllTags';
+import { useNavigate } from 'react-router';
 
 const DetailEditing = () => {
+  const navigator = useNavigate();
+
   const imgInput = useRef<HTMLInputElement>(null);
   const [imgDiary, setImgDiary] = useState([
     <DetailEditImg key={0} />,
@@ -48,7 +52,8 @@ const DetailEditing = () => {
   };
 
   const handleTagClick = () => {
-    console.log('태그 선택 클릭');
+    // console.log('태그 선택 클릭');
+    navigator('/detail/edit/tags');
   };
 
   const handleSave = () => {
