@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import styles from './Chat.module.scss';
 import { Plus } from '../../assets';
 import RightChatBox from '../../components/common/RightChatBox';
@@ -16,69 +16,12 @@ interface IMessage {
   createdAt: string;
 }
 
+const saveMessagesToLocalStorage = (messages: IMessage[]) => {
+  localStorage.setItem('chatData', JSON.stringify(messages));
+};
+
 const Chat = () => {
-  const [messages, setMessages] = useState<IMessage[]>([
-    {
-      id: Date.now(),
-      type: 'user',
-      content: '공습경보! 공습경보!',
-      createdAt: '2024-01-17 10:40:10',
-    },
-    {
-      id: Date.now(),
-      type: 'dada',
-      content: "I'm 진정이에요",
-      createdAt: '2024-01-17 10:41:10',
-    },
-    {
-      id: Date.now(),
-      type: 'user',
-      content: '안녕',
-      createdAt: '2024-01-17 10:42:10',
-    },
-    {
-      id: Date.now(),
-      type: 'lulu',
-      content: '장충동 왕족발 보쌈!',
-      createdAt: '2024-01-17 10:43:10',
-    },
-    {
-      id: Date.now(),
-      type: 'user',
-      content: '이거보세효오오',
-      createdAt: '2024-01-17 10:44:10',
-    },
-    {
-      id: Date.now(),
-      type: 'chichi',
-      content: '다음은 뭘까? 긴 글자 테스트용으로 길게 글자 뽑아봄',
-      createdAt: '2024-01-17 10:45:10',
-    },
-    {
-      id: Date.now(),
-      type: 'user',
-      content: '이렇게! 이렇게!',
-      createdAt: '2024-01-17 10:46:10',
-    },
-    {
-      id: Date.now(),
-      type: 'dada',
-      content: '오늘 메뉴 족발 어때?',
-      createdAt: '2024-01-17 10:47:10',
-    },
-    {
-      id: Date.now(),
-      type: 'user',
-      content: '만족스럽구만',
-      createdAt: '2024-01-17 10:48:10',
-    },
-    {
-      id: Date.now(),
-      type: 'lulu',
-      content: '공습경보! 공습경보!',
-      createdAt: '2024-01-17 10:49:10',
-    },
-  ]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   console.log(localStorage.getItem('chatData'));
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
@@ -122,11 +65,22 @@ const Chat = () => {
           content: aiResponse,
           createdAt: formatFullDateToString(new Date()),
         };
+        saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
       });
       setIsLoading(false);
     }, 1000);
   };
+
+  useEffect(() => {
+    const storedChatData = localStorage.getItem('chatData');
+    if (storedChatData && JSON.parse(storedChatData).length !== 0) {
+      setMessages(JSON.parse(storedChatData));
+    }
+  }, []);
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
 
   return (
     <div>
