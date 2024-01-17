@@ -3,6 +3,7 @@ import Home from './Home/Home';
 import Chat from './Chat/Chat';
 import Profile from './Chat/Profile';
 import Detail from './Detail/Detail';
+import { Analysis } from './Analsis/Analysis';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -24,10 +25,6 @@ const Router = () => {
               path: 'profile',
               element: <Profile />,
             },
-            // {
-            //   path: 'date',
-            //   element: <DateSelector clickOuter={true}/>,
-            // },
           ],
         },
         {
@@ -36,6 +33,15 @@ const Router = () => {
             {
               index: true,
               element: <Detail />,
+            },
+          ],
+        },
+        {
+          path: 'analysis',
+          children: [
+            {
+              index: true,
+              element: <Analysis />,
             },
           ],
         },
