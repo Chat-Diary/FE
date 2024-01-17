@@ -73,16 +73,19 @@ const Detail = () => {
           <DetailPlus onClick={onClickPlus} />
         </div>
         <div className={styles.content}>
-          <Slider {...settings} className={styles.slider}>
-            {imgDiary.map((img, index) => (
-              <div key={index} className={styles.img}>
-                {img}
-              </div>
-            ))}
-          </Slider>
-          <div className={styles.index}>
-            {currentSlide + 1} / {sliderLength}
+          <div className={styles.sliderContainer}>
+            <Slider {...settings} className={styles.slider}>
+              {imgDiary.map((img, index) => (
+                <div key={index} className={styles.img}>
+                  {img}
+                </div>
+              ))}
+            </Slider>
+            <div className={styles.index}>
+              {currentSlide + 1} / {sliderLength}
+            </div>
           </div>
+
           <span>
             처음으로 개발자랑 디자이너랑 만났어! 어색하지 않을까 걱정했는데
             다행히 말도 잘 통해서 그런일은 없었다ㅎㅎ 대략적인 작업 이야기를
