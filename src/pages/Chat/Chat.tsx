@@ -82,7 +82,6 @@ const Chat = () => {
         saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
       });
-      window.scrollTo(0, document.body.scrollHeight);
       setIsLoading(false);
     }, 1000);
   };
@@ -93,8 +92,9 @@ const Chat = () => {
       setMessages(JSON.parse(storedChatData));
     }
   }, []);
+
   useEffect(() => {
-    console.log(messages);
+    window.scrollTo(0, document.body.scrollHeight);
   }, [messages]);
 
   return (
