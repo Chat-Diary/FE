@@ -7,20 +7,43 @@ import AiChatBox from '../../components/common/AiChatBox';
 import LeftChatBox from '../../components/common/LeftChatBox';
 import LoadingChat from '../../components/common/LoadingChat';
 import DateSelector from '../../components/BottomSheets/DateSelector';
+import { formatFullDateToString } from '../../utils/dateFormatters';
 
 interface IMessage {
   id: number;
   type: string;
   content: string | ReactNode;
+  createdAt: string;
 }
 
 const Chat = () => {
   const [messages, setMessages] = useState<IMessage[]>([
-    { id: Date.now(), type: 'user', content: '공습경보! 공습경보!' },
-    { id: Date.now(), type: 'dada', content: "I'm 진정이에요" },
-    { id: Date.now(), type: 'user', content: '안녕' },
-    { id: Date.now(), type: 'lulu', content: '장충동 왕족발 보쌈!' },
+    {
+      id: Date.now(),
+      type: 'user',
+      content: '공습경보! 공습경보!',
+      createdAt: '2024-01-17 10:40:10',
+    },
+    {
+      id: Date.now(),
+      type: 'dada',
+      content: "I'm 진정이에요",
+      createdAt: '2024-01-17 10:41:10',
+    },
+    {
+      id: Date.now(),
+      type: 'user',
+      content: '안녕',
+      createdAt: '2024-01-17 10:42:10',
+    },
+    {
+      id: Date.now(),
+      type: 'lulu',
+      content: '장충동 왕족발 보쌈!',
+      createdAt: '2024-01-17 10:43:10',
+    },
   ]);
+  console.log(localStorage.getItem('chatData'));
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +62,18 @@ const Chat = () => {
     setIsLoading(true);
     setMessages((prev) => [
       ...prev,
-      { id: Date.now(), type: 'user', content: inputText },
-      { id: Date.now(), type: 'lulu', content: <LoadingChat /> },
+      {
+        id: Date.now(),
+        type: 'user',
+        content: inputText,
+        createdAt: formatFullDateToString(new Date()),
+      },
+      {
+        id: Date.now(),
+        type: 'lulu',
+        content: <LoadingChat />,
+        createdAt: formatFullDateToString(new Date()),
+      },
     ]);
     setInputText('');
     setTimeout(() => {
@@ -51,6 +84,7 @@ const Chat = () => {
           id: Date.now(),
           type: 'lulu',
           content: aiResponse,
+          createdAt: formatFullDateToString(new Date()),
         };
         return updatedMessages;
       });
@@ -65,18 +99,20 @@ const Chat = () => {
         {messages.map((m) =>
           m.type === 'dada' ? (
             <AiChatBox key={m.id} ai="dada">
-              <LeftChatBox>{m.content}</LeftChatBox>
+              <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
             </AiChatBox>
           ) : m.type === 'lulu' ? (
             <AiChatBox key={m.id} ai="lulu">
-              <LeftChatBox>{m.content}</LeftChatBox>
+              <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
             </AiChatBox>
           ) : m.type === 'chichi' ? (
             <AiChatBox key={m.id} ai="chichi">
-              <LeftChatBox>{m.content}</LeftChatBox>
+              <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
             </AiChatBox>
           ) : (
-            <RightChatBox key={m.id}>{m.content}</RightChatBox>
+            <RightChatBox date={m.createdAt} key={m.id}>
+              {m.content}
+            </RightChatBox>
           ),
         )}
         {/* <RightChatBox>공습경보! 공습경보!</RightChatBox>

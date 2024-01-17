@@ -1,0 +1,9 @@
+import { format } from 'date-fns';
+
+export const formatFullDateToString = (date: Date) => {
+  return format(date, 'yyyy-MM-dd HH:mm:ss');
+};
+
+export const formatHourAndMinute = (date: string) => {
+  return format(date, 'a h:mm');
+};
