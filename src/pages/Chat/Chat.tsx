@@ -8,6 +8,7 @@ import LeftChatBox from '../../components/common/LeftChatBox';
 import LoadingChat from '../../components/common/LoadingChat';
 import DateSelector from '../../components/BottomSheets/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
+import { getAi } from '../../utils/globalProfiles';
 
 interface IMessage {
   id: number;
@@ -26,6 +27,20 @@ const Chat = () => {
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const aiCharacter = getAi();
+
+  let ai: string;
+
+  if (aiCharacter) {
+    const { name } = aiCharacter;
+    if (name === '다다') {
+      ai = 'dada';
+    } else if (name === '루루') {
+      ai = 'lulu';
+    } else if (name === '치치') {
+      ai = 'chichi';
+    }
+  }
 
   const onSelectDate = () => {
     setIsSelectedDate(true);
@@ -49,7 +64,7 @@ const Chat = () => {
       },
       {
         id: Date.now(),
-        type: 'lulu',
+        type: ai,
         content: <LoadingChat />,
         createdAt: formatFullDateToString(new Date()),
       },
@@ -61,7 +76,7 @@ const Chat = () => {
         const updatedMessages = [...prevMessages];
         updatedMessages[updatedMessages.length - 1] = {
           id: Date.now(),
-          type: 'lulu',
+          type: ai,
           content: aiResponse,
           createdAt: formatFullDateToString(new Date()),
         };
@@ -105,19 +120,6 @@ const Chat = () => {
             </RightChatBox>
           ),
         )}
-        {/* <RightChatBox>공습경보! 공습경보!</RightChatBox>
-        <AiChatBox ai="dada">
-          <LeftChatBox>이렇게! 이렇게!</LeftChatBox>
-        </AiChatBox>
-        <p
-          className={styles.aiChanged}
-        >{`대화 상대가 '루루'로 변경되었습니다.`}</p>
-        <RightChatBox>안녕</RightChatBox>
-        <AiChatBox ai="lulu">
-          <LeftChatBox>
-            <LoadingChat />
-          </LeftChatBox>
-        </AiChatBox> */}
       </div>
       <div className={styles.inputBox}>
         <button className={styles.plusBtn}>
