@@ -19,6 +19,7 @@ export { ReactComponent as ListIcon } from './icons/nav/list-icon.svg';
 export { ReactComponent as Plus } from './icons/plus.svg';
 
 export { ReactComponent as DetailSlider } from './icons/detail-ex.svg';
+export { ReactComponent as DetailEditImg } from './icons/detail-ex-84.svg';
 export { ReactComponent as CardExImage } from './icons/card-ex.svg';
 
 export { ReactComponent as NavHome } from './icons/nav/nav-home.svg';
@@ -41,3 +42,4 @@ export { ReactComponent as ChatDiaryLogo } from './icons/chatdiary-logo.svg';
 export { ReactComponent as Notice } from './icons/notice.svg';
 
 export { ReactComponent as DetailCamera } from './icons/detail-camera.svg';
+export { ReactComponent as DetailImgDelete } from './icons/detail-img-delete.svg';

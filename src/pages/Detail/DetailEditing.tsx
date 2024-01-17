@@ -1,19 +1,24 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './DetailEditing.module.scss';
 import ChangeHeader from '../../components/Headers/ChangeHeader';
 import InputForm from '../../components/Input/InputForm';
-import DetailTag from '../../components/tags/DetailTag';
+import TagChip from '../../components/Tags/TagChip';
 
-import { DetailCamera, DetailSlider } from '../../assets/index';
+import {
+  DetailCamera,
+  DetailEditImg,
+  DetailImgDelete,
+} from '../../assets/index';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
 
 const DetailEditing = () => {
   const imgInput = useRef<HTMLInputElement>(null);
-  const imgDiary = [
-    <DetailSlider key={0} />,
-    <DetailSlider key={1} />,
-    <DetailSlider key={2} />,
-  ];
+  const [imgDiary, setImgDiary] = useState([
+    <DetailEditImg key={0} />,
+    <DetailEditImg key={1} />,
+    <DetailEditImg key={2} />,
+  ]);
+
   const tags = [
     '기쁨',
     '식당',
@@ -35,6 +40,11 @@ const DetailEditing = () => {
     if (imgInput.current) {
       imgInput.current.click();
     }
+  };
+
+  const handleImgDel = (index: number) => {
+    // 클릭된 index의 이미지를 배열에서 제외
+    setImgDiary((prev) => prev.filter((img, imgIndex) => imgIndex !== index));
   };
 
   const handleTagClick = () => {
@@ -66,11 +76,16 @@ const DetailEditing = () => {
               />
               <DetailCamera onClick={handleImgAdd} />
             </label>
-            {/* {imgDiary.map((img, index) => (
-              <div key={index} className={styles.img}>
-                {img}
-              </div>
-            ))} */}
+            {imgDiary.map((img, index) => (
+              <>
+                <div key={index} className={styles.img}>
+                  {img}
+                  <div className={styles.imgDel}>
+                    <DetailImgDelete onClick={() => handleImgDel(index)} />
+                  </div>
+                </div>
+              </>
+            ))}
           </div>
           <InputForm length={240} placeHolder={'내용을 입력해주세요'} />
           <div className={styles.tagSelect} onClick={handleTagClick}>
@@ -78,7 +93,7 @@ const DetailEditing = () => {
             <div className={styles.tags}>
               {tags.map((tag) => {
                 // eslint-disable-next-line react/jsx-key
-                return <DetailTag>{tag}</DetailTag>;
+                return <TagChip>{tag}</TagChip>;
               })}
             </div>
           </div>

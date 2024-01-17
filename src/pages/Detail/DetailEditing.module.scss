@@ -22,10 +22,11 @@
 
     & .imgContainer {
       display: flex;
+      gap: 4px;
       height: min-content;
       margin-top: 12px;
       margin-bottom: 32px;
-      overflow: hidden;
+      overflow-x: auto;
 
       & .addImg {
         display: flex;
@@ -37,6 +38,18 @@
       }
 
       & .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        position: relative;
+      }
+
+      & .imgDel {
+        z-index: 3;
+        position: absolute;
+        top: 6px;
+        right: 6px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -60,7 +73,7 @@
 
 .btn {
   position: fixed;
-  bottom: 12px;
+  bottom: 0px;
   width: 100%;
   height: 70px;
   background-color: $WH;
