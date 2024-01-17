@@ -23,18 +23,20 @@ const Chat = () => {
   ]);
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSelectDate = () => {
     setIsSelectedDate(true);
-  }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
   const handleSendMessage = () => {
-    if (inputText.trim() === '') return;
+    if (inputText.trim() === '' || isLoading) return;
 
+    setIsLoading(true);
     setMessages((prev) => [
       ...prev,
       { id: Date.now(), type: 'user', content: inputText },
@@ -52,6 +54,7 @@ const Chat = () => {
         };
         return updatedMessages;
       });
+      setIsLoading(false);
     }, 1000);
   };
 
@@ -104,7 +107,7 @@ const Chat = () => {
         </button>
       </div>
       {isSelectedDate ? (
-        <DateSelector clickOuter={setIsSelectedDate} isFullDate={true}/>
+        <DateSelector clickOuter={setIsSelectedDate} isFullDate={true} />
       ) : null}
     </div>
   );
