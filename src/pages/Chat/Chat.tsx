@@ -114,10 +114,12 @@ const Chat = () => {
             <AiChatBox key={m.id} ai="chichi">
               <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
             </AiChatBox>
-          ) : (
+          ) : m.type == 'user' ? (
             <RightChatBox date={m.createdAt} key={m.id}>
               {m.content}
             </RightChatBox>
+          ) : (
+            <p className={styles.aiChanged}>{m.content}</p>
           ),
         )}
       </div>
