@@ -27,20 +27,6 @@ const Chat = () => {
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const aiCharacter = getAi();
-
-  let ai: string;
-
-  if (aiCharacter) {
-    const { name } = aiCharacter;
-    if (name === '다다') {
-      ai = 'dada';
-    } else if (name === '루루') {
-      ai = 'lulu';
-    } else if (name === '치치') {
-      ai = 'chichi';
-    }
-  }
 
   const onSelectDate = () => {
     setIsSelectedDate(true);
@@ -52,6 +38,19 @@ const Chat = () => {
 
   const handleSendMessage = () => {
     if (inputText.trim() === '' || isLoading) return;
+
+    const aiCharacter = getAi();
+    let ai = 'dada';
+    if (aiCharacter) {
+      const { name } = aiCharacter;
+      if (name === '다다') {
+        ai = 'dada';
+      } else if (name === '루루') {
+        ai = 'lulu';
+      } else if (name === '치치') {
+        ai = 'chichi';
+      }
+    }
 
     setIsLoading(true);
     setMessages((prev) => [
@@ -83,6 +82,7 @@ const Chat = () => {
         saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
       });
+      window.scrollTo(0, document.body.scrollHeight);
       setIsLoading(false);
     }, 1000);
   };
