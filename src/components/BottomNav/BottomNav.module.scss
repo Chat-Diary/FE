@@ -2,12 +2,14 @@
 @import '../../styles/variables/fonts.scss';
 
 .floatingBtn {
+  z-index: 2;
   position: fixed;
   bottom: 76px;
   right: 10px;
 }
 
 .bottomNav {
+  z-index: 2;
   position: fixed;
   bottom: 0;
   width: 100%;

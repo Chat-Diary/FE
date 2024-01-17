@@ -1,0 +1,15 @@
+.tagPageWrapper {
+  padding-bottom: 64px;
+
+  .iconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
