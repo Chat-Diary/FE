@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './AllTags.module.scss';
 
 import TagChip from './TagChip';
 
-interface IProps {
+interface SelectedTag {
+  category: '감정' | '인물' | '행동' | '장소';
   index: number[];
-  isInit: boolean;
 }
 
 interface TagCategory {
   category: string;
   tags: string[];
+}
+
+interface IProps {
+  index?: SelectedTag[]; // 선택된 게 없을 때
+  isInit: boolean;
 }
 
 const AllTags = ({ index, isInit }: IProps) => {
@@ -42,6 +47,34 @@ const AllTags = ({ index, isInit }: IProps) => {
     },
   ];
 
+  // 선택된 태그 담는 배열
+  const [selectedTags, setSelectedTags] = useState<Record<string, number[]>>(
+    {},
+  );
+
+  if (index) {
+    index.forEach((t) => {
+      allTags.forEach((c) => {
+        if (c.category === t.category) {
+          selectedTags[t.category] = t.index;
+        }
+      });
+    });
+  }
+
+  const handleToggleClick = (category: string, tagIndex: number) => {
+    setSelectedTags((prev) => ({
+      ...prev,
+      [category]: prev[category]?.includes(tagIndex)
+        ? prev[category]?.filter((index) => index !== tagIndex)
+        : [...(prev[category] || []), tagIndex],
+    }));
+  };
+
+  useEffect(() => {
+    console.log(selectedTags);
+  }, [selectedTags]);
+
   return (
     <div className={styles.container}>
       {allTags.map((block, blockIndex) => {
@@ -51,7 +84,17 @@ const AllTags = ({ index, isInit }: IProps) => {
             <div>{block.category}</div>
             <div className={styles.tagContainer}>
               {blockTags.map((tag, tagIndex) => (
-                <TagChip key={tagIndex}>{tag}</TagChip>
+                <TagChip
+                  key={tagIndex}
+                  type={
+                    selectedTags[block.category]?.includes(tagIndex)
+                      ? 'selected'
+                      : 'default'
+                  }
+                  onClick={() => handleToggleClick(block.category, tagIndex)}
+                >
+                  {tag}
+                </TagChip>
               ))}
             </div>
           </div>

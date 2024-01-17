@@ -10,7 +10,6 @@ import {
   DetailImgDelete,
 } from '../../assets/index';
 import ConfirmButton from '../../components/Buttons/ConfirmButton';
-import AllTags from '../../components/Tags/AllTags';
 import { useNavigate } from 'react-router';
 
 const DetailEditing = () => {
