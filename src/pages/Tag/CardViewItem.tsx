@@ -13,9 +13,9 @@ const tags = [
   { id: 9, tag: '#선후배' },
 ];
 
-const maxLengthToShow = 23;
+const maxLengthToShow = 28;
 let currentLength = 0;
-const result = [];
+const result:string[] = [];
 
 for (const tag of tags) {
   const tagText = tag.tag;
@@ -28,22 +28,24 @@ for (const tag of tags) {
     break; // 최대 길이를 초과하면 반복 중단
   }
 }
-const joinedTags = result.join(' ');
+
+const diaryTitle = '쿠잇X스택 첫 오프라인 회의 가나라마바사';
 
 const CardViewItem = () => {
   return (
     <div className={styles.CardViewItem}>
       <CardExImage className={styles.CardViewItemImg} key={0} />
       <div className={styles.CardViewItemContent}>
-          <div className={styles.DiaryTitleContainer}>
-            <div className={styles.DiaryTitle}>
-              쿠잇X스택 첫 오프라인 회의 가나다라마바사
-            </div>
-            <div className={styles.DiaryTitleMore}>...</div>
-          </div>
-          <div className={styles.DiaryDate}>2023.11.14</div>
-          <div className={styles.DiaryTags}>{joinedTags}</div>
+        <div className={styles.DiaryTitleContainer}>
+          <div className={styles.DiaryTitle}>{diaryTitle}</div>
         </div>
+        <div className={styles.DiaryDate}>2023.11.14</div>
+        <div className={styles.DiaryTags}>
+          {result.map((tagText) => {
+            return <div key={1}>{tagText}</div>;
+          })}
+        </div>
+      </div>
     </div>
   );
 };
