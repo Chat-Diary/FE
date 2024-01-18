@@ -15,10 +15,10 @@ interface TagCategory {
 
 interface IProps {
   index?: SelectedTag[]; // 선택된 게 없을 때
-  isInit: boolean;
+  isInit?: boolean;
 }
 
-const AllTags = ({ index, isInit }: IProps) => {
+const AllTags = ({ index, isInit = false }: IProps) => {
   const allTags: TagCategory[] = [
     {
       category: '감정',
