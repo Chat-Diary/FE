@@ -9,8 +9,8 @@ const PhotoChatBox = ({ url, date }: IProps) => {
   return (
     <div className={styles.wrapper}>
       <span className={styles.time}>{formatHourAndMinute(date)}</span>
-      <div className={styles.photo}>
-        <img src={url} alt="User Image" />
+      <div className={styles.photoWrapper}>
+        <img className={styles.img} src={url} alt="User Image" />
       </div>
     </div>
   );

@@ -5,10 +5,15 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
-  .photo {
+  .photoWrapper {
+    max-width: 300px;
     border-radius: 20px;
     background-size: cover;
     overflow: hidden;
+    .img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .time {
     display: flex;
