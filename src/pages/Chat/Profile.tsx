@@ -17,6 +17,7 @@ import { setAi, getAi, dada } from '../../utils/globalProfiles';
 import React from 'react';
 import { character } from './../../utils/globalProfiles';
 import ProfileRadio from '../../components/Buttons/ProfileRadio';
+import { formatFullDateToString } from '../../utils/dateFormatters';
 
 const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
 const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];
@@ -38,6 +39,37 @@ const Profile = () => {
     navigate('/chat');
     const newAi = setAi(id);
     setCurrentAi(newAi);
+    if (!localStorage.getItem('chatData')) {
+      localStorage.setItem(
+        'chatData',
+        JSON.stringify([
+          {
+            content: `채팅 대상이${newAi.name}으로 변경되었습니다.`,
+            createdAt: formatFullDateToString(new Date()),
+            id: Date.now(),
+            type: 'change',
+          },
+        ]),
+      );
+    } else {
+      const storedData = localStorage.getItem('chatData');
+      let previousData;
+      if (storedData !== null) {
+        previousData = JSON.parse(storedData);
+        localStorage.setItem(
+          'chatData',
+          JSON.stringify([
+            ...previousData,
+            {
+              content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
+              createdAt: formatFullDateToString(new Date()),
+              id: Date.now(),
+              type: 'change',
+            },
+          ]),
+        );
+      }
+    }
   };
 
   useEffect(() => {
