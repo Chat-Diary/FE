@@ -17,6 +17,17 @@
   color: $BK70;
 }
 
+.fullDate {
+  display: flex;
+  justify-content: center;
+  @include caption;
+  color: $BK70;
+}
+
+.photoInput {
+  display: none;
+}
+
 .inputBox {
   display: flex;
   justify-content: space-between;
@@ -46,7 +57,4 @@
       background-color: $primary_pressed;
     }
   }
-}
-.photoInput {
-  display: none;
 }

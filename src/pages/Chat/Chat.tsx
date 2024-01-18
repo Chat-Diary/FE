@@ -165,6 +165,7 @@ const Chat = () => {
     <div>
       <ChatHeader onClick={onSelectDate} />
       <div className={styles.messagesContainer}>
+        <p className={styles.fullDate}>2024.01.18 목요일</p>
         {messages.map((m) =>
           m.type === 'dada' ? (
             <AiChatBox key={m.id} ai="dada">
