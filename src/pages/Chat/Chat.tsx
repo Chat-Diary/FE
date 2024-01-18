@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Chat.module.scss';
 import { Plus } from '../../assets';
 import RightChatBox from '../../components/common/RightChatBox';
@@ -9,19 +9,12 @@ import PhotoChatBox from '../../components/common/PhotoChatBox';
 import LoadingChat from '../../components/common/LoadingChat';
 import DateSelector from '../../components/BottomSheets/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
-import { getAi } from '../../utils/globalProfiles';
 import { isImageUrl } from '../../utils/fileFormats';
-
-interface IMessage {
-  id: number;
-  type: string;
-  content: string | ReactNode;
-  createdAt: string;
-}
-
-const saveMessagesToLocalStorage = (messages: IMessage[]) => {
-  localStorage.setItem('chatData', JSON.stringify(messages));
-};
+import {
+  IMessage,
+  getAiEnglish,
+  saveMessagesToLocalStorage,
+} from '../../utils/chattings';
 
 const Chat = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -44,18 +37,8 @@ const Chat = () => {
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const aiCharacter = getAi();
-    let ai = 'dada';
-    if (aiCharacter) {
-      const { name } = aiCharacter;
-      if (name === '다다') {
-        ai = 'dada';
-      } else if (name === '루루') {
-        ai = 'lulu';
-      } else if (name === '치치') {
-        ai = 'chichi';
-      }
-    }
+    const ai = getAiEnglish();
+
     const file = e.target.files?.[0];
     if (!file) {
       return;
@@ -103,18 +86,7 @@ const Chat = () => {
   const handleSendMessage = () => {
     if (inputText.trim() === '' || isLoading) return;
 
-    const aiCharacter = getAi();
-    let ai = 'dada';
-    if (aiCharacter) {
-      const { name } = aiCharacter;
-      if (name === '다다') {
-        ai = 'dada';
-      } else if (name === '루루') {
-        ai = 'lulu';
-      } else if (name === '치치') {
-        ai = 'chichi';
-      }
-    }
+    const ai = getAiEnglish();
 
     setIsLoading(true);
     setMessages((prev) => [
