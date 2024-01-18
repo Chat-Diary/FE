@@ -52,28 +52,35 @@ const AllTags = ({ index, isInit }: IProps) => {
     {},
   );
 
-  if (index) {
-    index.forEach((t) => {
-      allTags.forEach((c) => {
-        if (c.category === t.category) {
-          selectedTags[t.category] = t.index;
-        }
+  useEffect(() => {
+    // 기존에 선택되어 있는 태그들 배열에 추가
+    if (index) {
+      const updatedSelectedTags: Record<string, number[]> = {};
+      index.forEach((t) => {
+        allTags.forEach((c) => {
+          if (c.category === t.category) {
+            updatedSelectedTags[t.category] = t.index;
+          }
+        });
       });
-    });
-  }
+      setSelectedTags(updatedSelectedTags);
+    }
+  }, []);
 
   const handleToggleClick = (category: string, tagIndex: number) => {
-    setSelectedTags((prev) => ({
-      ...prev,
-      [category]: prev[category]?.includes(tagIndex)
+    setSelectedTags((prev) => {
+      const updatedTags = prev[category]?.includes(tagIndex)
         ? prev[category]?.filter((index) => index !== tagIndex)
-        : [...(prev[category] || []), tagIndex],
-    }));
+        : [...(prev[category] || []), tagIndex];
+      console.log(selectedTags);
+      return {
+        ...prev,
+        [category]: updatedTags,
+      };
+    });
   };
 
-  useEffect(() => {
-    console.log(selectedTags);
-  }, [selectedTags]);
+  // useEffect(() => {}, [selectedTags]);
 
   return (
     <div className={styles.container}>
