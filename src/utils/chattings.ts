@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { getAi } from './globalProfiles';
 import { format, parseISO } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 export interface IMessage {
   id: number;
@@ -35,12 +36,12 @@ export const getAiEnglish = () => {
   }
 };
 
-export const makeSection = (messageList: IMessage[]) => {
+export const makeSection = (messages: IMessage[]) => {
   const sections: ISection = {};
 
-  messageList.forEach((m) => {
+  messages.forEach((m) => {
     const dateObj = parseISO(m.createdAt);
-    const monthDate = format(dateObj, 'yyyy-MM-dd EEEE');
+    const monthDate = format(dateObj, 'yyyy.MM.dd EEEE', { locale: ko });
     if (sections[monthDate]) {
       sections[monthDate].push(m);
     } else {

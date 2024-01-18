@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styles from './Chat.module.scss';
 import { Plus } from '../../assets';
 import RightChatBox from '../../components/common/RightChatBox';
@@ -14,6 +14,7 @@ import {
   IMessage,
   getAiEnglish,
   saveMessagesToLocalStorage,
+  makeSection,
 } from '../../utils/chattings';
 
 const Chat = () => {
@@ -23,6 +24,10 @@ const Chat = () => {
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const MessageSections = useMemo(() => {
+    if (!messages) return;
+    return makeSection(messages || []);
+  }, [messages]);
 
   const onSelectDate = () => {
     setIsSelectedDate(true);
@@ -137,32 +142,36 @@ const Chat = () => {
     <div>
       <ChatHeader onClick={onSelectDate} />
       <div className={styles.messagesContainer}>
-        <p className={styles.fullDate}>2024.01.18 목요일</p>
-        {messages.map((m) =>
-          m.type === 'dada' ? (
-            <AiChatBox key={m.id} ai="dada">
-              <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-            </AiChatBox>
-          ) : m.type === 'lulu' ? (
-            <AiChatBox key={m.id} ai="lulu">
-              <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-            </AiChatBox>
-          ) : m.type === 'chichi' ? (
-            <AiChatBox key={m.id} ai="chichi">
-              <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-            </AiChatBox>
-          ) : m.type == 'user' ? (
-            isImageUrl(m.content as string) ? (
-              <PhotoChatBox url={m.content as string} date={m.createdAt} />
-            ) : (
-              <RightChatBox date={m.createdAt} key={m.id}>
-                {m.content}
-              </RightChatBox>
-            )
-          ) : (
-            <p className={styles.aiChanged}>{m.content}</p>
-          ),
-        )}
+        {Object.entries(MessageSections || {})?.map(([day, messages]) => (
+          <>
+            <p className={styles.fullDate}>{day}</p>
+            {messages.map((m) =>
+              m.type === 'dada' ? (
+                <AiChatBox key={m.id} ai="dada">
+                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
+                </AiChatBox>
+              ) : m.type === 'lulu' ? (
+                <AiChatBox key={m.id} ai="lulu">
+                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
+                </AiChatBox>
+              ) : m.type === 'chichi' ? (
+                <AiChatBox key={m.id} ai="chichi">
+                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
+                </AiChatBox>
+              ) : m.type == 'user' ? (
+                isImageUrl(m.content as string) ? (
+                  <PhotoChatBox url={m.content as string} date={m.createdAt} />
+                ) : (
+                  <RightChatBox date={m.createdAt} key={m.id}>
+                    {m.content}
+                  </RightChatBox>
+                )
+              ) : (
+                <p className={styles.aiChanged}>{m.content}</p>
+              ),
+            )}
+          </>
+        ))}
       </div>
       <div className={styles.inputBox}>
         <button className={styles.plusBtn} onClick={handleAddFileClick}>
