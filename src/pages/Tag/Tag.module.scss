@@ -1,5 +1,26 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
 .tagPageWrapper {
   padding-bottom: 64px;
+
+  .dateSelector {
+    display: flex;
+    gap: 12px;
+    .yearAndMonth {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include sub16;
+    }
+    .chevronWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+    }
+  }
 
   .iconWrapper {
     display: flex;

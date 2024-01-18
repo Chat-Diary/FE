@@ -1,0 +1,13 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+// .container {
+//   height: 167px;
+// }
+.container {
+  padding: 40px 0px 20px 0px;
+}
+
+.sort {
+    @include sub16;
+}
