@@ -5,6 +5,8 @@ import Profile from './Chat/Profile';
 import Detail from './Detail/Detail';
 import { Analysis } from './Analsis/Analysis';
 import Tag from './Tag/Tag';
+import DetailEditing from './Detail/DetailEditing';
+import SelectTag from './Detail/SelectTag';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -42,11 +44,35 @@ const Router = () => {
           ],
         },
         {
+          // path: 'detail',
+          // children: [
+          //   {
+          //     index: true,
+          //     element: <Detail />,
+          //   },
+          //   {
+          //     path: 'edit',
+          //     element: <DetailEditing />,
+          //   },
+          // ],
           path: 'detail',
           children: [
             {
               index: true,
               element: <Detail />,
+            },
+            {
+              path: 'edit',
+              children: [
+                {
+                  index: true,
+                  element: <DetailEditing />,
+                },
+                {
+                  path: 'tags',
+                  element: <SelectTag />, // UI 보려고 일단 이렇게 구현
+                },
+              ],
             },
           ],
         },
