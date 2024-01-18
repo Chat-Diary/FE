@@ -94,7 +94,7 @@ const AllTags = ({ index, isInit = false }: IProps) => {
                 <TagChip
                   key={tagIndex}
                   type={
-                    selectedTags[block.category]?.includes(tagIndex)
+                    selectedTags[block.category]?.includes(tagIndex) && !isInit
                       ? 'selected'
                       : 'default'
                   }
