@@ -30,18 +30,6 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, []);
 
-  useEffect(() => {
-    if (isSelectedDate) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isSelectedDate]);
-
   return (
     <>
       <HomeHeader />
@@ -83,7 +71,7 @@ const Home = () => {
           />
         )}
       </div>
-      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} /> : null}
+      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} isOpen={isSelectedDate} /> : null}
       <BottomNav page={0} />
     </>
   );

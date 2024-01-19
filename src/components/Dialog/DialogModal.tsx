@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './DialogModal.module.scss';
 import DialogBtn from '../Buttons/DialogBtn';
 
@@ -8,6 +8,7 @@ interface IProps {
   confirmText: string;
   onClickCancel: () => void;
   onClickConfirm: () => void;
+  isOpen: boolean;
 }
 const DialogModal = ({
   children,
@@ -15,7 +16,20 @@ const DialogModal = ({
   confirmText,
   onClickCancel,
   onClickConfirm,
+  isOpen,
 }: IProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
     <>
       <div className={styles.backDrop}></div>

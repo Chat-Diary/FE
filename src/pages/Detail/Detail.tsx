@@ -62,18 +62,6 @@ const Detail = () => {
     setIsPlusSelected(false);
   };
 
-  useEffect(() => {
-    if (isModalOpen || isPlusSelected) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isModalOpen, isPlusSelected]);
-
   return (
     <>
       <DetailHeader onClick={onChangeEdit}>2023년 11월 12일</DetailHeader>
@@ -117,6 +105,7 @@ const Detail = () => {
         <DetailPlusModal
           clickOuter={() => setIsPlusSelected(false)}
           clickDelete={() => setIsModalOpen(true)}
+          isOpen={isPlusSelected && !isModalOpen}
         />
       ) : (
         ''
@@ -128,6 +117,7 @@ const Detail = () => {
             onClickClose;
             navigate('/');
           }}
+          isOpen={isModalOpen}
         />
       ) : (
         ''

@@ -6,9 +6,10 @@ import ConfirmButton from '../Buttons/ConfirmButton';
 interface DateSelectorProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
   isFullDate: boolean;
+  isOpen: boolean;
 }
 
-const DateSelector = ({clickOuter, isFullDate}: DateSelectorProps) => {
+const DateSelector = ({clickOuter, isFullDate, isOpen}: DateSelectorProps) => {
   const year = [
     '2000년',
     '2001년',
@@ -103,7 +104,7 @@ const DateSelector = ({clickOuter, isFullDate}: DateSelectorProps) => {
   };
 
   return (
-    <BottomModal clickOuter={clickOuter}>
+    <BottomModal clickOuter={clickOuter} isOpen={isOpen}>
       <div className={styles.container}>
         <div className={styles.SelectDateContainer}>
           {isFullDate ? (

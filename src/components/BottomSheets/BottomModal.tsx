@@ -1,19 +1,33 @@
 import styles from './BottomModal.module.scss';
+import { useEffect } from 'react';
 
 interface DateSelectorProps {
   children: React.ReactNode;
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
-const BottomModal = (props: DateSelectorProps) => {
+const BottomModal = ({children, clickOuter, isOpen}: DateSelectorProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const handleClickOuter = () => {
-    props.clickOuter(false);
+    clickOuter(false);
   }
 
   return (
     <>
       <div className={styles.Outer} onClick={handleClickOuter}></div>
-      <div className={styles.BottomContainer}>{props.children}</div>
+      <div className={styles.BottomContainer}>{children}</div>
     </>
   );
 };

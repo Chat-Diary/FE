@@ -7,9 +7,10 @@ import ConfirmButton from '../Buttons/ConfirmButton';
 
 interface IProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
-const TagSortModal = ({ clickOuter }: IProps) => {
+const TagSortModal = ({ clickOuter, isOpen }: IProps) => {
   const [checkedId, setCheckedId] = useState<number>(2);
 
   const handleRadioChange = (id: number) => {
@@ -21,7 +22,7 @@ const TagSortModal = ({ clickOuter }: IProps) => {
   };
 
   return (
-    <BottomModal clickOuter={clickOuter}>
+    <BottomModal clickOuter={clickOuter} isOpen={isOpen}>
       <div className={styles.sortContainer}>
         <div className={styles.sortTitle}>정렬</div>
         <div className={styles.sortRadio}>

@@ -18,8 +18,7 @@ const Tag = () => {
   const onSelectSort = () => {
     setIsSelectedSorted(true);
   };
-
-
+  
   useEffect(() => {
     if (isSelectedSorted) {
       document.body.style.overflow = 'hidden';
@@ -46,7 +45,7 @@ const Tag = () => {
         {isList ? <Card32 /> : <ListIcon />}
       </div>
       {isList ? <List /> : <CardView />}
-      {isSelectedSorted ? <TagSortModal clickOuter={setIsSelectedSorted} /> : null}
+      {isSelectedSorted ? <TagSortModal clickOuter={setIsSelectedSorted} isOpen={isSelectedSorted}/> : null}
       <BottomNav page={1} />
     </div>
   );

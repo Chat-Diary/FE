@@ -7,10 +7,11 @@ import { DetailDelete, DetailShare } from '../../assets/index';
 interface IProps {
   clickOuter: () => void;
   clickDelete: () => void;
+  isOpen: boolean;
 }
-const DetailPlusModal = ({ clickOuter, clickDelete }: IProps) => {
+const DetailPlusModal = ({ clickOuter, clickDelete, isOpen }: IProps) => {
   return (
-    <BottomModal clickOuter={clickOuter} /*className={styles.container}*/>
+    <BottomModal clickOuter={clickOuter} isOpen={isOpen} /*className={styles.container}*/>
       <div className={styles.container}>
         <div className={styles.btn} onClick={clickDelete}>
           <DetailDelete />
