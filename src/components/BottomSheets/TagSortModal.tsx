@@ -25,23 +25,19 @@ const TagSortModal = ({ clickOuter }: IProps) => {
       <div className={styles.sortContainer}>
         <div className={styles.sortTitle}>정렬</div>
         <div className={styles.sortRadio}>
-          <label
-            className={`${
-              checkedId === 1 ? '' : styles.uncheckedLabel
-            }`}
-          >
-            <SortRadio id={1} name={"오래된순"} onClick={handleRadioChange} />
+          <label className={`${checkedId === 1 ? '' : styles.uncheckedLabel}`}>
+            <SortRadio
+              id={1}
+              name={'오래된순'}
+              checkedId={checkedId}
+              onClick={handleRadioChange}
+            />
           </label>
-          <label
-            className={`${
-              checkedId === 2
-                ? ''
-                : styles.uncheckedLabel
-            }`}
-          >
+          <label className={`${checkedId === 2 ? '' : styles.uncheckedLabel}`}>
             <SortRadio
               id={2}
-              name={"최신순"}
+              name={'최신순'}
+              checkedId={checkedId}
               onClick={handleRadioChange}
             />
           </label>
