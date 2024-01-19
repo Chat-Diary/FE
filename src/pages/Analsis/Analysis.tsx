@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Notice, RightChevron } from '../../assets';
+import { Chichi48, Dada48, Lulu48, Notice, RightChevron } from '../../assets';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import styles from './Analysis.module.scss';
 
@@ -10,7 +10,10 @@ export const Analysis = () => {
   };
 
   const tagsData = [
-    { portion: 0.85, name: '기쁨' },
+    {
+      portion: 0.85,
+      name: '기쁨',
+    },
     {
       portion: 0.35,
       name: '설렘',
@@ -20,8 +23,23 @@ export const Analysis = () => {
       name: '피곤함',
     },
   ];
+  const aisData = [
+    {
+      portion: 0.85,
+      name: '다다',
+    },
+    {
+      portion: 0.1,
+      name: '치치',
+    },
+    {
+      portion: 0.05,
+      name: '루루',
+    },
+  ];
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [periodData, setperiodData] = useState(tagsData);
+  const [periodData2, setperiodData2] = useState(aisData);
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
   return (
@@ -72,6 +90,39 @@ export const Analysis = () => {
             <span className={styles.showMoreStr}>자세히 보기</span>
             <RightChevron />
           </div>
+        </div>
+      </div>
+      <div className={styles.aiChartBox}>
+        <div className={styles.chartTitleBox}>
+          <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
+          <p className={styles.chartPeriod}>2023.10.09 ~ 2023.10.16</p>
+        </div>
+        <div className={styles.horizonsContainer}>
+          {periodData2.map((data, index) => (
+            <div key={index} className={styles.horizonBox}>
+              <div className={styles.aiProfileWrapper}>
+                {data.name === '다다' ? (
+                  <Dada48 />
+                ) : data.name === '루루' ? (
+                  <Lulu48 />
+                ) : (
+                  <Chichi48 />
+                )}
+                <span className={styles.aiName}>{data.name}</span>
+              </div>
+              <div className={styles.barWrapper}>
+                <div className={styles.greyBar}>
+                  <div
+                    className={styles.orangeBar}
+                    style={{ width: `${100 * data.portion}%` }}
+                  ></div>
+                </div>
+                <p className={styles.aiPortionNumber}>{`${
+                  data.portion * 100
+                }%`}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <BottomNav page={2} />
