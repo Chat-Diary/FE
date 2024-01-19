@@ -7,6 +7,7 @@
   height: 32px;
   padding: 4px 12px;
   gap: 8px;
+  margin-top: 56px;
   margin-bottom: 20px;
   @include body14;
   .streakNumber {
@@ -94,6 +95,7 @@
       gap: 4px;
       @include caption;
       color: $BK70;
+      text-decoration: none;
     }
   }
 }
@@ -107,5 +109,54 @@
   .chartPeriod {
     @include caption;
     color: $BK70;
+  }
+}
+.aiChartBox {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  gap: 18px;
+  margin-bottom: 132px;
+  .horizonsContainer {
+    display: flex;
+    flex-direction: column;
+    .horizonBox {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      height: 94px;
+      .aiProfileWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .aiName {
+          @include body14;
+        }
+      }
+      .barWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        flex-grow: 1;
+        gap: 8px;
+        margin-top: 14px;
+        .greyBar {
+          width: 100%;
+          height: 14px;
+          border-radius: 20px;
+          background-color: $BK30;
+          .orangeBar {
+            height: 14px;
+            border-radius: 20px;
+            background-color: $primary_default;
+          }
+        }
+        .aiPortionNumber {
+          @include sub16;
+        }
+      }
+    }
   }
 }
