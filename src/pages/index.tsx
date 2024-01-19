@@ -74,7 +74,7 @@ const Router = () => {
               element: <Analysis />,
             },
             {
-              path: 'detail',
+              path: ':period',
               element: <AnalysisDetail />,
             },
           ],

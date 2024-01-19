@@ -89,7 +89,14 @@ export const Analysis = () => {
         </div>
         <hr className={styles.hr} />
         <div className={styles.showMore}>
-          <Link to="/analysis/detail" className={styles.showMoreStrContainer}>
+          <Link
+            to={{
+              pathname: `/analysis/${
+                activeTab === 0 ? 'week' : activeTab === 1 ? 'month' : 'year'
+              }`,
+            }}
+            className={styles.showMoreStrContainer}
+          >
             <span className={styles.showMoreStr}>자세히 보기</span>
             <RightChevron />
           </Link>
