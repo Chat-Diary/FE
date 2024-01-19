@@ -1,13 +1,30 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/variables/fonts.scss';
 
-// .container {
-//   height: 167px;
-// }
-.container {
-  padding: 40px 0px 20px 0px;
-}
+.sortContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-.sort {
+  .sortTitle {
     @include sub16;
+    padding-top: 40px;
+    padding-bottom: 48px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sortRadio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 108px;
+
+    & .uncheckedLabel {
+      opacity: 0.4;
+    }
+  }
 }
