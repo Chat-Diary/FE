@@ -7,6 +7,7 @@
   height: 32px;
   padding: 4px 12px;
   gap: 8px;
+  margin-top: 56px;
   margin-bottom: 20px;
   @include body14;
   .streakNumber {
@@ -94,6 +95,7 @@
       gap: 4px;
       @include caption;
       color: $BK70;
+      text-decoration: none;
     }
   }
 }

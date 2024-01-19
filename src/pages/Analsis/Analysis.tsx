@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Chichi48, Dada48, Lulu48, Notice, RightChevron } from '../../assets';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import styles from './Analysis.module.scss';
+import HomeHeader from '../../components/Headers/HomeHeader';
+import { Link } from 'react-router-dom';
 
 export const Analysis = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -44,6 +46,7 @@ export const Analysis = () => {
 
   return (
     <>
+      <HomeHeader />
       <div className={styles.notice}>
         <Notice />
         <span className={styles.streak}>
@@ -86,10 +89,10 @@ export const Analysis = () => {
         </div>
         <hr className={styles.hr} />
         <div className={styles.showMore}>
-          <div className={styles.showMoreStrContainer}>
+          <Link to="/analysis/detail" className={styles.showMoreStrContainer}>
             <span className={styles.showMoreStr}>자세히 보기</span>
             <RightChevron />
-          </div>
+          </Link>
         </div>
       </div>
       <div className={styles.aiChartBox}>
