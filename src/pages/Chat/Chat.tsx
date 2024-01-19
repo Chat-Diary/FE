@@ -138,6 +138,18 @@ const Chat = () => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [messages]);
 
+  useEffect(() => {
+    if (isSelectedDate) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSelectedDate]);
+
   return (
     <div>
       <ChatHeader onClick={onSelectDate} />

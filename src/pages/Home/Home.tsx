@@ -29,6 +29,19 @@ const Home = () => {
     // 컴포넌트가 언마운트되면 타임아웃 클리어
     return () => clearTimeout(timeout);
   }, []);
+
+  useEffect(() => {
+    if (isSelectedDate) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSelectedDate]);
+
   return (
     <>
       <HomeHeader />

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
@@ -60,6 +61,18 @@ const Detail = () => {
     setIsModalOpen(false);
     setIsPlusSelected(false);
   };
+
+  useEffect(() => {
+    if (isModalOpen || isPlusSelected) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen, isPlusSelected]);
 
   return (
     <>

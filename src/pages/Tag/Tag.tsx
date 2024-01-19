@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import List from '../Home/List';
 import { ListIcon, Card32, DownChevron } from '../../assets/index';
@@ -18,6 +18,19 @@ const Tag = () => {
   const onSelectSort = () => {
     setIsSelectedSorted(true);
   };
+
+
+  useEffect(() => {
+    if (isSelectedSorted) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSelectedSorted]);
 
   return (
     <div className={styles.tagPageWrapper}>
