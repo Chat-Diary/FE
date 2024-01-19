@@ -21,6 +21,24 @@
   align-items: center;
   height: 44px;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 0 16px;
   margin-bottom: 37px;
+  .tabBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+  }
+  .activeTabBtn {
+    background-color: $BK30;
+    @include btn;
+  }
+  .inactiveTabBtn {
+    background-color: $WH;
+    @include body14;
+    color: $BK70;
+  }
 }
