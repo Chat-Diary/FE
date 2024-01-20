@@ -8,6 +8,7 @@ import Tag from './Tag/Tag';
 import DetailEditing from './Detail/DetailEditing';
 import SelectTag from './Detail/SelectTag';
 import AnalysisDetail from './Analysis/AnalysisDetail';
+import TagFilter from './Tag/TagFilter';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -27,7 +28,7 @@ const Router = () => {
             },
             {
               path: 'filter',
-              element: <Tag />,
+              element: <TagFilter />,
             },
           ],
         },

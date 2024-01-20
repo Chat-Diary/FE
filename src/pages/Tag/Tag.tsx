@@ -12,6 +12,7 @@ import CardView from './CardView';
 import TagSortModal from '../../components/BottomSheets/TagSortModal';
 import HomeHeader from '../../components/Headers/HomeHeader';
 import TagChip from '../../components/Tags/TagChip';
+import { Link } from 'react-router-dom';
 
 const Tag = () => {
   const [isList, setIsList] = useState<boolean>(true);
@@ -47,11 +48,15 @@ const Tag = () => {
     <div className={styles.container}>
       <HomeHeader />
       <div className={styles.tagPageWrapper}>
-        <div className={styles.selectedTags} onClick={toggleTag}>
+        <Link
+          className={styles.selectedTags}
+          onClick={toggleTag}
+          to={'/tag/filter'}
+        >
           {tags.map((tag, tagIndex) => {
             return <TagChip key={tagIndex}>{tag}</TagChip>;
           })}
-        </div>
+        </Link>
         <div className={styles.tagControll}>
           <div className={styles.tagSort} onClick={onSelectSort}>
             <div className={styles.dateSort}>최신순</div>
@@ -63,9 +68,13 @@ const Tag = () => {
             <div className={styles.iconWrapper} onClick={toggleMode}>
               {isList ? <Card32 /> : <ListIcon />}
             </div>
-            <div className={styles.iconWrapper} onClick={toggleTag}>
+            <Link
+              className={styles.iconWrapper}
+              onClick={toggleTag}
+              to={'/tag/filter'}
+            >
               <TagFilter />
-            </div>
+            </Link>
           </div>
         </div>
         {isList ? <List /> : <CardView />}
