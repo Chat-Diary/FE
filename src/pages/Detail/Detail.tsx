@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
@@ -104,6 +105,7 @@ const Detail = () => {
         <DetailPlusModal
           clickOuter={() => setIsPlusSelected(false)}
           clickDelete={() => setIsModalOpen(true)}
+          isOpen={isPlusSelected && !isModalOpen}
         />
       ) : (
         ''
@@ -115,6 +117,7 @@ const Detail = () => {
             onClickClose;
             navigate('/');
           }}
+          isOpen={isModalOpen}
         />
       ) : (
         ''

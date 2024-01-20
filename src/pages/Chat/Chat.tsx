@@ -194,7 +194,7 @@ const Chat = () => {
         onChange={handleFileInputChange}
       />
       {isSelectedDate ? (
-        <DateSelector clickOuter={setIsSelectedDate} isFullDate={true} />
+        <DateSelector clickOuter={setIsSelectedDate} isFullDate={true} isOpen={isSelectedDate}/>
       ) : null}
     </div>
   );

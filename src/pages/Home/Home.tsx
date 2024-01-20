@@ -29,6 +29,7 @@ const Home = () => {
     // 컴포넌트가 언마운트되면 타임아웃 클리어
     return () => clearTimeout(timeout);
   }, []);
+
   return (
     <>
       <HomeHeader />
@@ -70,7 +71,7 @@ const Home = () => {
           />
         )}
       </div>
-      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} /> : null}
+      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} isOpen={isSelectedDate} /> : null}
       <BottomNav page={0} />
     </>
   );

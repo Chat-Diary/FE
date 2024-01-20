@@ -5,14 +5,16 @@ import styles from './DiaryDeleteDialog.module.scss';
 interface IProps {
   onClickCancel: () => void;
   onClickConfirm: () => void;
+  isOpen: boolean;
 }
-const DiaryDeleteDialog = ({ onClickCancel, onClickConfirm }: IProps) => {
+const DiaryDeleteDialog = ({ onClickCancel, onClickConfirm, isOpen }: IProps) => {
   return (
     <DialogModal
       cancelText="아니오"
       confirmText="삭제하기"
       onClickCancel={onClickCancel}
       onClickConfirm={onClickConfirm}
+      isOpen={isOpen}
     >
       <div className={styles.header}>삭제하기</div>
       <div className={styles.content}>
