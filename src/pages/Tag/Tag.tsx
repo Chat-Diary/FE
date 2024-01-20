@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 const Tag = () => {
   const [isList, setIsList] = useState<boolean>(true);
   const tags = ['여행', '여행', '여행', '여행', '여행', '여행', '여행', '여행'];
+  const [currentSort, setCurrentSort] = useState<number>(2);
 
   const toggleMode = () => {
     setIsList((prev) => !prev);
@@ -42,7 +43,7 @@ const Tag = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isSelectedSorted]);
+  }, [isSelectedSorted, currentSort]);
 
   return (
     <div className={styles.container}>
@@ -59,7 +60,9 @@ const Tag = () => {
         </Link>
         <div className={styles.tagControll}>
           <div className={styles.tagSort} onClick={onSelectSort}>
-            <div className={styles.dateSort}>최신순</div>
+            <div className={styles.dateSort}>
+              {currentSort === 1 ? '오래된순' : '최신순'}
+            </div>
             <div className={styles.chevronWrapper}>
               <TagDownChevron />
             </div>
@@ -82,6 +85,8 @@ const Tag = () => {
           <TagSortModal
             clickOuter={setIsSelectedSorted}
             isOpen={isSelectedSorted}
+            currentSort={currentSort}
+            setCurrentSort={setCurrentSort}
           />
         ) : null}
         <BottomNav page={1} />
