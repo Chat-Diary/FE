@@ -8,18 +8,34 @@ import ConfirmButton from '../Buttons/ConfirmButton';
 interface IProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
+  currentSort: number;
+  setCurrentSort: (id: number) => void;
 }
 
-const TagSortModal = ({ clickOuter, isOpen }: IProps) => {
-  const [checkedId, setCheckedId] = useState<number>(2);
+const TagSortModal = ({
+  clickOuter,
+  isOpen,
+  currentSort,
+  setCurrentSort,
+}: IProps) => {
+  const [checkedId, setCheckedId] = useState<number>(currentSort);
 
   const handleRadioChange = (id: number) => {
     setCheckedId(id);
   };
 
   const handleSortSelect = () => {
+    if (currentSort !== checkedId) setCurrentSort(checkedId);
     clickOuter(false);
   };
+
+  // useEffect(() => {
+  //   if (isNew) {
+  //     setCheckedId(0);
+  //   } else {
+  //     setCheckedId(1);
+  //   }
+  // });
 
   return (
     <BottomModal clickOuter={clickOuter} isOpen={isOpen}>
