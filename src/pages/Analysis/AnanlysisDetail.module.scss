@@ -1,0 +1,44 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.chartTitleBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 56px;
+  padding: 20px 16px 30px 16px;
+  .chartTitle {
+    @include header20;
+  }
+  .chartPeriod {
+    @include caption;
+    color: $BK70;
+  }
+}
+.tagTabsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  gap: 8px;
+  padding: 0 16px;
+  margin-bottom: 37px;
+  .tabBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+  }
+  .activeTabBtn {
+    background-color: $BK30;
+    @include btn;
+  }
+  .inactiveTabBtn {
+    background-color: $WH;
+    @include body14;
+    color: $BK70;
+  }
+}

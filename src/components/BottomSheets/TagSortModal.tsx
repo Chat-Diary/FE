@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BottomModal from './BottomModal';
 import styles from './TagSortModal.module.scss';
 import SortRadio from '../../components/Buttons/SortRadio';
