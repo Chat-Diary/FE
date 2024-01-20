@@ -23,10 +23,6 @@ const Tag = () => {
     setIsList((prev) => !prev);
   };
 
-  const toggleTag = () => {
-    console.log('태그 선택 페이지로 이동');
-  };
-
   const [isSelectedSorted, setIsSelectedSorted] = useState(false);
 
   const onSelectSort = () => {
@@ -49,11 +45,7 @@ const Tag = () => {
     <div className={styles.container}>
       <HomeHeader />
       <div className={styles.tagPageWrapper}>
-        <Link
-          className={styles.selectedTags}
-          onClick={toggleTag}
-          to={'/tag/filter'}
-        >
+        <Link className={styles.selectedTags} to={'/tag/filter'}>
           {tags.map((tag, tagIndex) => {
             return <TagChip key={tagIndex}>{tag}</TagChip>;
           })}
@@ -71,11 +63,7 @@ const Tag = () => {
             <div className={styles.iconWrapper} onClick={toggleMode}>
               {isList ? <Card32 /> : <ListIcon />}
             </div>
-            <Link
-              className={styles.iconWrapper}
-              onClick={toggleTag}
-              to={'/tag/filter'}
-            >
+            <Link className={styles.iconWrapper} to={'/tag/filter'}>
               <TagFilter />
             </Link>
           </div>
