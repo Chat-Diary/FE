@@ -8,6 +8,7 @@ const TagFilter = () => {
   // 초기화 버튼 누르면 true로 변경
   const [isInit, setIsInit] = useState<boolean>(false);
   // 선택되어 있는 태그가 하나라도 있으면 true
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isSelected, setIsSelected] = useState<boolean>();
 
   const toggleInit = () => {
