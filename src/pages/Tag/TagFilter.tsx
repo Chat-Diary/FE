@@ -29,6 +29,7 @@ const TagFilter = () => {
           { category: '장소', index: [0, 3, 4, 5] },
         ]}
         isInit={isInit}
+        setIsInit={setIsInit}
       />
       <div className={styles.btnContainer}>
         <button className={styles.initBtn} onClick={toggleInit}>
