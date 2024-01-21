@@ -45,3 +45,4 @@ export { ReactComponent as DetailCamera } from './icons/detail-camera.svg';
 export { ReactComponent as DetailImgDelete } from './icons/detail-img-delete.svg';
 export { ReactComponent as TagDownChevron } from './icons/tag-down-chevron.svg';
 export { ReactComponent as TagFilter } from './icons/tag-filter.svg';
+export { ReactComponent as TagInit } from './icons/tag-init.svg';
