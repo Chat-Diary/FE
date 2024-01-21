@@ -16,9 +16,10 @@ interface TagCategory {
 interface IProps {
   index?: SelectedTag[]; // 선택된 게 없을 때
   isInit?: boolean;
+  setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AllTags = ({ index, isInit = false }: IProps) => {
+const AllTags = ({ index, isInit = false, setIsInit }: IProps) => {
   const allTags: TagCategory[] = [
     {
       category: '감정',
@@ -52,6 +53,12 @@ const AllTags = ({ index, isInit = false }: IProps) => {
     {},
   );
 
+  //초기화하는 함수
+  const resetTags = () => {
+    const updatedSelectedTags: Record<string, number[]> = {};
+    setSelectedTags(updatedSelectedTags);
+  };
+
   useEffect(() => {
     // 기존에 선택되어 있는 태그들 배열에 추가
     if (index) {
@@ -65,9 +72,18 @@ const AllTags = ({ index, isInit = false }: IProps) => {
       });
       setSelectedTags(updatedSelectedTags);
     }
+
+    // 초기화
+    if (isInit) {
+      resetTags();
+    }
   }, []);
 
   const handleToggleClick = (category: string, tagIndex: number) => {
+    if (setIsInit !== undefined && isInit === true) {
+      setIsInit(false);
+      resetTags();
+    }
     setSelectedTags((prev) => {
       const updatedTags = prev[category]?.includes(tagIndex)
         ? prev[category]?.filter((index) => index !== tagIndex)
