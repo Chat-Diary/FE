@@ -13,6 +13,7 @@ import TagSortModal from '../../components/BottomSheets/TagSortModal';
 import HomeHeader from '../../components/Headers/HomeHeader';
 import TagChip from '../../components/Tags/TagChip';
 import { Link } from 'react-router-dom';
+import NoTagResult from './NoTagResult';
 
 const Tag = () => {
   const [isList, setIsList] = useState<boolean>(true);
@@ -24,9 +25,11 @@ const Tag = () => {
   };
 
   const [isSelectedSorted, setIsSelectedSorted] = useState(false);
+  const [hasTag, setHasTag] = useState(false);
 
   const onSelectSort = () => {
     setIsSelectedSorted(true);
+    setHasTag(true)
   };
 
   useEffect(() => {
@@ -68,7 +71,15 @@ const Tag = () => {
             </Link>
           </div>
         </div>
-        {isList ? <List /> : <CardView />}
+        {hasTag ? (
+          isList ? (
+            <List />
+          ) : (
+            <CardView />
+          )
+        ) : (
+          <NoTagResult />
+        )}
         {isSelectedSorted ? (
           <TagSortModal
             clickOuter={setIsSelectedSorted}
