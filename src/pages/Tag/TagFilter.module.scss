@@ -46,9 +46,19 @@ button {
     height: 100%;
     padding: 14px 0px;
     border-radius: 8px;
-
+    background-color: $BK30;
+    color: $BK70;
+    pointer-events: none;
     @include btn;
-    background-color: $primary_default;
-    color: $WH;
+
+    &.abled {
+      pointer-events: auto;
+      background-color: $primary_default;
+      color: $WH;
+    }
+
+    &:active {
+      background-color: $primary_pressed;
+    }
   }
 }

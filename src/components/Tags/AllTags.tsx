@@ -65,6 +65,12 @@ const AllTags = ({ index, isInit = false }: IProps) => {
       });
       setSelectedTags(updatedSelectedTags);
     }
+
+    // 초기화
+    if (isInit) {
+      const updatedSelectedTags: Record<string, number[]> = {};
+      setSelectedTags(updatedSelectedTags);
+    }
   }, []);
 
   const handleToggleClick = (category: string, tagIndex: number) => {
