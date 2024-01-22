@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BottomNav from '../../components/BottomNav/BottomNav';
+import BottomNav from '../../components/common/BottomNav/BottomNav';
 import List from '../../components/Home/List';
 import {
   ListIcon,
@@ -9,8 +9,8 @@ import {
 } from '../../assets/index';
 import styles from './Tag.module.scss';
 import CardView from '../../components/Tag/CardView';
-import TagSortModal from '../../components/BottomSheets/TagSortModal';
-import HomeHeader from '../../components/Headers/HomeHeader';
+import TagSortModal from '../../components/common/BottomSheets/TagSort/TagSortModal';
+import HomeHeader from '../../components/common/Header/Header';
 import TagChip from '../../components/Tags/TagChip';
 import { Link } from 'react-router-dom';
 import NoTagResult from '../../components/Tag/NoTagResult';

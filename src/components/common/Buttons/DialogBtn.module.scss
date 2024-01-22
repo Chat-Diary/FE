@@ -1,0 +1,25 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts.scss';
+
+.btn {
+  all: initial;
+  display: flex;
+  width: 100%;
+  height: min-content;
+  padding: 14px 0px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  @include btn;
+  color: $BK70;
+  background-color: $BK10;
+
+  &.activeBtn {
+    background-color: $primary_default;
+    color: $WH;
+
+    &:active {
+      background-color: $primary_pressed;
+    }
+  }
+}

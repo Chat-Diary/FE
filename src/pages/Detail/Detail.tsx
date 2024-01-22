@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
 import styles from './Detail.module.scss';
-import DetailHeader from '../../components/Headers/DetailHeader';
+import DetailHeader from '../../components/common/Header/DetailHeader/DetailHeader';
 
 import {
   Dada36,
@@ -15,8 +15,8 @@ import {
 } from '../../assets/index';
 import TagChip from '../../components/Tags/TagChip';
 import { useState } from 'react';
-import DetailPlusModal from '../../components/BottomSheets/DetailPlusModal';
-import DiaryDeleteDialog from '../../components/Dialog/DiaryDeleteDialog';
+import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
+import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const imgDiary = [

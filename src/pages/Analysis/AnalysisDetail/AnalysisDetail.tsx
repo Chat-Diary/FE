@@ -1,7 +1,7 @@
 import styles from './AnanlysisDetail.module.scss';
-import ChangeHeader from '../../../components/Headers/ChangeHeader';
+import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
 import { useParams } from 'react-router-dom';
-import BottomNav from '../../../components/BottomNav/BottomNav';
+import BottomNav from '../../../components/common/BottomNav/BottomNav';
 import { useState } from 'react';
 
 const AnalysisDetail = () => {

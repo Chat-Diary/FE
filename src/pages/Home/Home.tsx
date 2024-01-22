@@ -4,10 +4,10 @@ import styles from './Home.module.scss';
 import HomeCalendar from '../../components/Home/HomeCalendar';
 import List from '../../components/Home/List';
 import { ListIcon, DownChevron, Calendar32 } from '../../assets';
-import BottomNav from '../../components/BottomNav/BottomNav';
-import HomeHeader from '../../components/Headers/HomeHeader';
-import HomeProfileHeader from '../../components/Headers/HomeProfileHeader';
-import DateSelector from '../../components/BottomSheets/DateSelector';
+import BottomNav from '../../components/common/BottomNav/BottomNav';
+import HomeHeader from '../../components/common/Header/Header';
+import HomeProfileHeader from '../../components/common/Header/HomeProfildHeader/HomeProfileHeader';
+import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);

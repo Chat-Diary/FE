@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './TagFilter.module.scss';
 import AllTags from '../../../components/Tags/AllTags';
-import ChangeHeader from '../../../components/Headers/ChangeHeader';
+import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
 import { TagInit } from '../../../assets';
 
 const TagFilter = () => {

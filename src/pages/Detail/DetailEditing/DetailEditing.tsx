@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styles from './DetailEditing.module.scss';
-import ChangeHeader from '../../../components/Headers/ChangeHeader';
-import InputForm from '../../../components/Input/InputForm';
+import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import InputForm from '../../../components/common/Input/InputForm';
 import TagChip from '../../../components/Tags/TagChip';
 
 import {
@@ -9,7 +9,7 @@ import {
   DetailEditImg,
   DetailImgDelete,
 } from '../../../assets/index';
-import ConfirmButton from '../../../components/Buttons/ConfirmButton';
+import ConfirmButton from '../../../components/common/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router';
 
 const DetailEditing = () => {

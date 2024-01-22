@@ -10,13 +10,13 @@ import {
   Lulu48,
 } from '../../../assets/index';
 
-import ChangeHeader from '../../../components/Headers/ChangeHeader';
-import ConfirmButton from '../../../components/Buttons/ConfirmButton';
+import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ConfirmButton from '../../../components/common/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
 import { setAi, getAi, dada } from '../../../utils/globalProfiles';
 import React from 'react';
 import { character } from '../../../utils/globalProfiles';
-import ProfileRadio from '../../../components/Buttons/ProfileRadio';
+import ProfileRadio from '../../../components/common/Buttons/ChangeRadio/ProfileRadio';
 import { formatFullDateToString } from '../../../utils/dateFormatters';
 
 const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
