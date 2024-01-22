@@ -3,7 +3,7 @@ import { useState } from 'react';
 import BottomModal from '../BottomModal';
 import styles from './TagSortModal.module.scss';
 import SortRadio from '../../Buttons/SortRadio/SortRadio';
-import ConfirmButton from '../../Buttons/ConfirmButton';
+import ConfirmButton from '../../Buttons/ConfirmBtn/ConfirmButton';
 
 interface IProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;

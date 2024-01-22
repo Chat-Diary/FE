@@ -11,7 +11,7 @@ import {
 } from '../../../assets/index';
 
 import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
-import ConfirmButton from '../../../components/common/Buttons/ConfirmButton';
+import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
 import { setAi, getAi, dada } from '../../../utils/globalProfiles';
 import React from 'react';

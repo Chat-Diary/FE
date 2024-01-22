@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './DialogModal.module.scss';
-import DialogBtn from '../Buttons/DialogBtn';
+import DialogBtn from '../Buttons/DialogBtn/DialogBtn';
 
 interface IProps {
   children: React.ReactElement | React.ReactElement[] | React.ReactNode;

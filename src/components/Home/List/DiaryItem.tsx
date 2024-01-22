@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './DiaryItem.module.scss';
-import { DetailSlider } from '../../assets/index';
+import { DetailSlider } from '../../../assets/index';
 
 const tags = [
   { id: 1, tag: '#피곤함' },

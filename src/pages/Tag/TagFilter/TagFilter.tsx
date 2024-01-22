@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './TagFilter.module.scss';
-import AllTags from '../../../components/Tags/AllTags';
+import AllTags from '../../../components/Tag/AllTags/AllTags';
 import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
 import { TagInit } from '../../../assets';
 

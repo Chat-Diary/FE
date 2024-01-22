@@ -13,7 +13,7 @@ import {
   DetailPlus,
   DetailSlider,
 } from '../../assets/index';
-import TagChip from '../../components/Tags/TagChip';
+import TagChip from '../../components/Tag/AllTags/TagChip';
 import { useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';

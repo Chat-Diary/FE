@@ -1,7 +1,7 @@
 import styles from './DateSelector.module.scss';
 import BottomModal from '../BottomModal';
 import DatePicker from './DatePicker';
-import ConfirmButton from '../../Buttons/ConfirmButton';
+import ConfirmButton from '../../Buttons/ConfirmBtn/ConfirmButton';
 
 interface DateSelectorProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;

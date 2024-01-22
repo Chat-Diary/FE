@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BottomNav from '../../components/common/BottomNav/BottomNav';
-import List from '../../components/Home/List';
+import List from '../../components/Home/List/List';
 import {
   ListIcon,
   Card32,
@@ -8,10 +8,10 @@ import {
   TagFilter,
 } from '../../assets/index';
 import styles from './Tag.module.scss';
-import CardView from '../../components/Tag/CardView';
+import CardView from '../../components/Tag/CardView/CardView';
 import TagSortModal from '../../components/common/BottomSheets/TagSort/TagSortModal';
 import HomeHeader from '../../components/common/Header/Header';
-import TagChip from '../../components/Tags/TagChip';
+import TagChip from '../../components/Tag/AllTags/TagChip';
 import { Link } from 'react-router-dom';
 import NoTagResult from '../../components/Tag/NoTagResult';
 

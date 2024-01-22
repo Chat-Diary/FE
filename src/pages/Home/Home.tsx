@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import useCalendar from '../../hooks/useCalendar';
 import styles from './Home.module.scss';
-import HomeCalendar from '../../components/Home/HomeCalendar';
-import List from '../../components/Home/List';
+import HomeCalendar from '../../components/Home/Calendar/HomeCalendar';
+import List from '../../components/Home/List/List';
 import { ListIcon, DownChevron, Calendar32 } from '../../assets';
 import BottomNav from '../../components/common/BottomNav/BottomNav';
 import HomeHeader from '../../components/common/Header/Header';

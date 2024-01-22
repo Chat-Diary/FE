@@ -1,4 +1,4 @@
-import { CardExImage } from '../../assets/index';
+import { CardExImage } from '../../../assets/index';
 import styles from './CardViewItem.module.scss';
 
 const tags = [
