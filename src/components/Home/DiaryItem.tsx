@@ -16,7 +16,7 @@ const tags = [
 
 const tagMaxLengthToShow = 23;
 let currentLength = 0;
-const result:string[] = [];
+const result: string[] = [];
 
 for (const tag of tags) {
   const tagText = tag.tag;
@@ -45,7 +45,6 @@ const DiaryItem = () => {
           {result.map((tagText) => {
             return <div key={1}>{tagText}</div>;
           })}
-
         </div>
       </div>
     </div>

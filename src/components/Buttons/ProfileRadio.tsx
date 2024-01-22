@@ -1,5 +1,5 @@
 import styles from './ProfileRadio.module.scss';
-import ChangeRadioBtn from '../../components/Buttons/ChangeRadioBtn';
+import ChangeRadioBtn from './ChangeRadioBtn';
 import { getIndexAi } from '../../utils/globalProfiles';
 import { ReactNode } from 'react';
 

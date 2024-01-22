@@ -1,5 +1,5 @@
 import styles from './SortRadio.module.scss';
-import SortChangeRadioBtn from '../../components/Buttons/SortChangeRadioBtn';
+import SortChangeRadioBtn from './SortChangeRadioBtn';
 
 interface ISortRadio {
   id: number;

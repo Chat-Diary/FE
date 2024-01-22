@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styles from './TagFilter.module.scss';
-import AllTags from '../../components/Tags/AllTags';
-import ChangeHeader from '../../components/Headers/ChangeHeader';
-import { TagInit } from '../../assets';
+import AllTags from '../../../components/Tags/AllTags';
+import ChangeHeader from '../../../components/Headers/ChangeHeader';
+import { TagInit } from '../../../assets';
 
 const TagFilter = () => {
   // 초기화 버튼 누르면 true로 변경

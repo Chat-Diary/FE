@@ -11,7 +11,10 @@ interface IProps {
 }
 const DetailPlusModal = ({ clickOuter, clickDelete, isOpen }: IProps) => {
   return (
-    <BottomModal clickOuter={clickOuter} isOpen={isOpen} /*className={styles.container}*/>
+    <BottomModal
+      clickOuter={clickOuter}
+      isOpen={isOpen} /*className={styles.container}*/
+    >
       <div className={styles.container}>
         <div className={styles.btn} onClick={clickDelete}>
           <DetailDelete />

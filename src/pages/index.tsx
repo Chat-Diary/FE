@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './Home/Home';
 import Chat from './Chat/Chat';
-import Profile from './Chat/Profile';
+import Profile from './Chat/Profile/Profile';
 import Detail from './Detail/Detail';
 import { Analysis } from './Analysis/Analysis';
 import Tag from './Tag/Tag';
-import DetailEditing from './Detail/DetailEditing';
-import SelectTag from './Detail/SelectTag';
-import AnalysisDetail from './Analysis/AnalysisDetail';
-import TagFilter from './Tag/TagFilter';
+import DetailEditing from './Detail/DetailEditing/DetailEditing';
+import SelectTag from './Detail/DetailEditing/SelectTag/SelectTag';
+import AnalysisDetail from './Analysis/AnalysisDetail/AnalysisDetail';
+import TagFilter from './Tag/TagFilter/TagFilter';
 
 const Router = () => {
   const router = createBrowserRouter([

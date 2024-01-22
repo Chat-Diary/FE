@@ -8,16 +8,16 @@ import {
   Dada48,
   Chichi48,
   Lulu48,
-} from '../../assets/index';
+} from '../../../assets/index';
 
-import ChangeHeader from '../../components/Headers/ChangeHeader';
-import ConfirmButton from '../../components/Buttons/ConfirmButton';
+import ChangeHeader from '../../../components/Headers/ChangeHeader';
+import ConfirmButton from '../../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import { setAi, getAi, dada } from '../../utils/globalProfiles';
+import { setAi, getAi, dada } from '../../../utils/globalProfiles';
 import React from 'react';
-import { character } from './../../utils/globalProfiles';
-import ProfileRadio from '../../components/Buttons/ProfileRadio';
-import { formatFullDateToString } from '../../utils/dateFormatters';
+import { character } from '../../../utils/globalProfiles';
+import ProfileRadio from '../../../components/Buttons/ProfileRadio';
+import { formatFullDateToString } from '../../../utils/dateFormatters';
 
 const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
 const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];

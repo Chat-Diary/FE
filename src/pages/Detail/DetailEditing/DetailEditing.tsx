@@ -1,15 +1,15 @@
 import React, { useRef, useState } from 'react';
 import styles from './DetailEditing.module.scss';
-import ChangeHeader from '../../components/Headers/ChangeHeader';
-import InputForm from '../../components/Input/InputForm';
-import TagChip from '../../components/Tags/TagChip';
+import ChangeHeader from '../../../components/Headers/ChangeHeader';
+import InputForm from '../../../components/Input/InputForm';
+import TagChip from '../../../components/Tags/TagChip';
 
 import {
   DetailCamera,
   DetailEditImg,
   DetailImgDelete,
-} from '../../assets/index';
-import ConfirmButton from '../../components/Buttons/ConfirmButton';
+} from '../../../assets/index';
+import ConfirmButton from '../../../components/Buttons/ConfirmButton';
 import { useNavigate } from 'react-router';
 
 const DetailEditing = () => {

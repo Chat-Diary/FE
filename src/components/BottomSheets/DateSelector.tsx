@@ -9,7 +9,11 @@ interface DateSelectorProps {
   isOpen: boolean;
 }
 
-const DateSelector = ({clickOuter, isFullDate, isOpen}: DateSelectorProps) => {
+const DateSelector = ({
+  clickOuter,
+  isFullDate,
+  isOpen,
+}: DateSelectorProps) => {
   const year = [
     '2000년',
     '2001년',

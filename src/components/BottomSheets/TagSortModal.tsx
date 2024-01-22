@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import BottomModal from './BottomModal';
 import styles from './TagSortModal.module.scss';
-import SortRadio from '../../components/Buttons/SortRadio';
+import SortRadio from '../Buttons/SortRadio';
 import ConfirmButton from '../Buttons/ConfirmButton';
 
 interface IProps {

@@ -1,6 +1,6 @@
 import React from 'react';
-import AllTags from '../../components/Tags/AllTags';
-import ChangeHeader from '../../components/Headers/ChangeHeader';
+import AllTags from '../../../../components/Tags/AllTags';
+import ChangeHeader from '../../../../components/Headers/ChangeHeader';
 
 const SelectTag = () => {
   return (
