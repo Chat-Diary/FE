@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styles from './Chat.module.scss';
 import { Plus } from '../../assets';
-import RightChatBox from '../../components/common/RightChatBox';
-import ChatHeader from '../../components/Headers/ChatHeader';
-import AiChatBox from '../../components/common/AiChatBox';
-import LeftChatBox from '../../components/common/LeftChatBox';
-import PhotoChatBox from '../../components/common/PhotoChatBox';
-import LoadingChat from '../../components/common/LoadingChat';
-import DateSelector from '../../components/BottomSheets/DateSelector';
+import RightChatBox from '../../components/Chat/RightChatBox';
+import ChatHeader from '../../components/common/Header/ChatHeader/ChatHeader';
+import AiChatBox from '../../components/Chat/AiChatBox';
+import LeftChatBox from '../../components/Chat/LeftChatBox';
+import PhotoChatBox from '../../components/Chat/PhotoChatBox';
+import LoadingChat from '../../components/Chat/LoadingChat';
+import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
 import { isImageUrl } from '../../utils/fileFormats';
 import {
@@ -194,7 +194,11 @@ const Chat = () => {
         onChange={handleFileInputChange}
       />
       {isSelectedDate ? (
-        <DateSelector clickOuter={setIsSelectedDate} isFullDate={true} isOpen={isSelectedDate}/>
+        <DateSelector
+          clickOuter={setIsSelectedDate}
+          isFullDate={true}
+          isOpen={isSelectedDate}
+        />
       ) : null}
     </div>
   );

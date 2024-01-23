@@ -1,0 +1,17 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts.scss';
+
+.HomeHeader {
+  position: fixed;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0px;
+  background-color: $WH;
+
+  .Logo {
+    height: 32px;
+  }
+}

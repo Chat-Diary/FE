@@ -1,0 +1,20 @@
+@import '../../../../styles/variables/colors.scss';
+@import '../../../../styles/variables/fonts.scss';
+
+.header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 23px;
+
+  @include sub18;
+  color: $BK90;
+}
+
+.content {
+  text-align: center;
+  white-space: pre-line;
+  margin-bottom: 33px;
+
+  @include body14;
+  color: $BK70;
+}

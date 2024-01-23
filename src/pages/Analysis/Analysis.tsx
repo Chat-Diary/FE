@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Chichi48, Dada48, Lulu48, Notice, RightChevron } from '../../assets';
-import BottomNav from '../../components/BottomNav/BottomNav';
+import BottomNav from '../../components/common/BottomNav/BottomNav';
 import styles from './Analysis.module.scss';
-import HomeHeader from '../../components/Headers/HomeHeader';
+import HomeHeader from '../../components/common/Header/Header';
 import { Link } from 'react-router-dom';
 
 export const Analysis = () => {

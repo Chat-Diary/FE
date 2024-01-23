@@ -1,0 +1,26 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts.scss';
+
+.default {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid $BK30;
+  border-radius: 60px;
+
+  @include body14;
+  color: $BK70;
+
+  &.selected {
+    color: $WH;
+    background-color: $primary_default;
+  }
+
+  &.line {
+    color: $BK90;
+    background-color: $WH;
+    border: 1px solid $primary_default;
+  }
+}

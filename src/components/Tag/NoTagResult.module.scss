@@ -1,0 +1,19 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.NoTagResultContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 160px;
+  @include body16;
+  color: $BK70;
+
+  .content1 {
+    justify-content: center;
+  }
+
+  .content2 {
+    justify-content: center;
+  }
+}

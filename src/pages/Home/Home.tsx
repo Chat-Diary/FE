@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import useCalendar from '../../hooks/useCalendar';
 import styles from './Home.module.scss';
-import HomeCalendar from './HomeCalendar';
-import List from './List';
+import HomeCalendar from '../../components/Home/Calendar/HomeCalendar';
+import List from '../../components/Home/List/List';
 import { ListIcon, DownChevron, Calendar32 } from '../../assets';
-import BottomNav from '../../components/BottomNav/BottomNav';
-import HomeHeader from '../../components/Headers/HomeHeader';
-import HomeProfileHeader from '../../components/Headers/HomeProfileHeader';
-import DateSelector from '../../components/BottomSheets/DateSelector';
+import BottomNav from '../../components/common/BottomNav/BottomNav';
+import HomeHeader from '../../components/common/Header/Header';
+import HomeProfileHeader from '../../components/common/Header/HomeProfildHeader/HomeProfileHeader';
+import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -34,7 +34,7 @@ const Home = () => {
     <>
       <HomeHeader />
       <div className={styles.wholeWrapper}>
-      <HomeProfileHeader />
+        <HomeProfileHeader />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector} onClick={onSelectDate}>
@@ -71,7 +71,13 @@ const Home = () => {
           />
         )}
       </div>
-      {isSelectedDate ? <DateSelector clickOuter={setIsSelectedDate} isFullDate={false} isOpen={isSelectedDate} /> : null}
+      {isSelectedDate ? (
+        <DateSelector
+          clickOuter={setIsSelectedDate}
+          isFullDate={false}
+          isOpen={isSelectedDate}
+        />
+      ) : null}
       <BottomNav page={0} />
     </>
   );
