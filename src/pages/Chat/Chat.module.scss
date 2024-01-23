@@ -41,6 +41,7 @@
     align-items: center;
     border: none;
     background-color: $WH;
+    padding: 12px;
   }
   .input {
     flex-grow: 1;
@@ -48,6 +49,9 @@
     outline: none;
   }
   .submitBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 56px;
     border: none;
     background-color: $primary_default;
