@@ -10,7 +10,7 @@ import {
   Lulu48,
 } from '../../../assets/index';
 
-import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
 import { setAi, getAi, dada } from '../../../utils/globalProfiles';
@@ -89,7 +89,7 @@ const Profile = () => {
 
   return (
     <>
-      <ChangeHeader>대화 상대 변경</ChangeHeader>
+      <ChangeHeader isMypage={false}>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
         {React.cloneElement(imgB[currentId], {
           style: { width: '160px', height: '160px' },

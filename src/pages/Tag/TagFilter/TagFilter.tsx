@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './TagFilter.module.scss';
 import AllTags from '../../../components/Tag/AllTags/AllTags';
-import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { TagInit } from '../../../assets';
 
 const TagFilter = () => {
@@ -21,7 +21,7 @@ const TagFilter = () => {
 
   return (
     <>
-      <ChangeHeader>필터 선택</ChangeHeader>
+      <ChangeHeader isMypage={false}>필터 선택</ChangeHeader>
       <AllTags
         index={[
           { category: '감정', index: [0, 3, 4] },

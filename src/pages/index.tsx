@@ -9,6 +9,7 @@ import DetailEditing from './Detail/DetailEditing/DetailEditing';
 import SelectTag from './Detail/DetailEditing/SelectTag/SelectTag';
 import AnalysisDetail from './Analysis/AnalysisDetail/AnalysisDetail';
 import TagFilter from './Tag/TagFilter/TagFilter';
+import Mypage from './Mypage/Mypage';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -78,6 +79,15 @@ const Router = () => {
               path: ':period',
               element: <AnalysisDetail />,
             },
+          ],
+        },
+        {
+          path: 'mypage',
+          children: [
+            {
+              index: true,
+              element: <Mypage />,
+            }
           ],
         },
       ],

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styles from './DetailEditing.module.scss';
-import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import InputForm from '../../../components/common/Input/InputForm';
 import TagChip from '../../../components/Tag/AllTags/TagChip';
 
@@ -61,7 +61,7 @@ const DetailEditing = () => {
 
   return (
     <>
-      <ChangeHeader>일기 수정하기</ChangeHeader>
+      <ChangeHeader isMypage={false}>일기 수정하기</ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
           <div>2023 11월 12일</div>
