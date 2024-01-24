@@ -12,6 +12,7 @@ import TagFilter from './Tag/TagFilter/TagFilter';
 import Mypage from './Mypage/Mypage';
 import Account from './Mypage/Account/Account';
 import Notice from './Mypage/Notice/Notice';
+import AccountQuit from './Mypage/AccountQuit';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -95,8 +96,12 @@ const Router = () => {
               children: [
                 {
                   index: true,
-                  element: <Account />
-                }
+                  element: <Account />,
+                },
+                {
+                  path: 'quit',
+                  element: <AccountQuit />,
+                },
               ],
             },
             {
@@ -104,8 +109,8 @@ const Router = () => {
               children: [
                 {
                   index: true,
-                  element: <Notice />
-                }
+                  element: <Notice />,
+                },
               ],
             },
           ],
