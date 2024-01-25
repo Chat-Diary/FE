@@ -1,0 +1,14 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.listItemContainer {
+    padding: 15px 0px 15px 16px;
+    display: flex;
+    gap: 12px;
+
+    & span {
+        display: flex;
+        align-items: center;
+        @include body16;
+    }
+}
