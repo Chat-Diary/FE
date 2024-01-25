@@ -5,10 +5,13 @@ import ChangeHeader from '../../components/common/Header/ChangeAiHeader/ChangeHe
 import ConfirmButton from '../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
 import QuitRadio from '../../components/common/Buttons/QuitRadio/QuitRadio';
+import AccountQuitDialog from '../../components/common/Dialog/AccountQuit/AccountQuitDialog';
 
 const AccountQuit = () => {
   const navigate = useNavigate();
+  const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(5);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const quitReason = [
     '자주 사용하지 않아요',
@@ -20,7 +23,11 @@ const AccountQuit = () => {
 
   const radioChange = (id: number) => {
     setCheckedId(id);
-    console.log(id);
+    setIsAble(true);
+  };
+
+  const onClickClose = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -44,9 +51,22 @@ const AccountQuit = () => {
           })}
         </div>
       </div>
-      <ConfirmButton isAble={true} id={0} onClick={() => navigate('/')}>
+      <ConfirmButton
+        isAble={isAble}
+        id={0}
+        onClick={() => setIsModalOpen(true)}
+      >
         다음
       </ConfirmButton>
+      {isModalOpen && checkedId !== 4 ? (
+        <AccountQuitDialog
+          onClickCancel={onClickClose}
+          onClickConfirm={() => navigate('/')}
+          isOpen={isModalOpen}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 };
