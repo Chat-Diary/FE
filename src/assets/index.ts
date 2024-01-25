@@ -47,6 +47,10 @@ export { ReactComponent as TagDownChevron } from './icons/tag-down-chevron.svg';
 export { ReactComponent as TagFilter } from './icons/tag-filter.svg';
 export { ReactComponent as TagInit } from './icons/tag-init.svg';
 
+export { ReactComponent as DadaCrying } from './icons/profiles/dada-crying.svg';
+export { ReactComponent as ChichiCrying } from './icons/profiles/chichi-crying.svg';
+export { ReactComponent as LuluCrying } from './icons/profiles/lulu-crying.svg';
+
 export { ReactComponent as Update } from './icons/mypage-update.svg';
 export { ReactComponent as Account } from './icons/mypage-account.svg';
 export { ReactComponent as Alert } from './icons/mypage-alert.svg';

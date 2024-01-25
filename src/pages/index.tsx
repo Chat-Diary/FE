@@ -13,6 +13,7 @@ import Mypage from './Mypage/Mypage';
 import Account from './Mypage/Account/Account';
 import Notice from './Mypage/Notice/Notice';
 import AccountQuit from './Mypage/AccountQuit';
+import AccountQuitFinish from './Mypage/AccountQuitFinish';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -100,7 +101,16 @@ const Router = () => {
                 },
                 {
                   path: 'quit',
-                  element: <AccountQuit />,
+                  children: [
+                    {
+                      index: true,
+                      element: <AccountQuit />,
+                    },
+                    {
+                      path: 'finish',
+                      element: <AccountQuitFinish />,
+                    },
+                  ],
                 },
               ],
             },

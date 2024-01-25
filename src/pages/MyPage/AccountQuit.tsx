@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './AccountQuit.module.scss';
 
 import ChangeHeader from '../../components/common/Header/ChangeAiHeader/ChangeHeader';
@@ -26,6 +26,14 @@ const AccountQuit = () => {
     setIsAble(true);
   };
 
+  const handleClickNext = () => {
+    if (checkedId !== 4) {
+      setIsModalOpen(true);
+    } else {
+      navigate('/mypage/quit/reason');
+    }
+  };
+
   const onClickClose = () => {
     setIsModalOpen(false);
   };
@@ -51,17 +59,13 @@ const AccountQuit = () => {
           })}
         </div>
       </div>
-      <ConfirmButton
-        isAble={isAble}
-        id={0}
-        onClick={() => setIsModalOpen(true)}
-      >
+      <ConfirmButton isAble={isAble} id={0} onClick={handleClickNext}>
         다음
       </ConfirmButton>
       {isModalOpen && checkedId !== 4 ? (
         <AccountQuitDialog
           onClickCancel={onClickClose}
-          onClickConfirm={() => navigate('/')}
+          onClickConfirm={() => navigate('/mypage/quit/finish')}
           isOpen={isModalOpen}
         />
       ) : (
