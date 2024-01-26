@@ -12,10 +12,25 @@ import {
 } from '../../assets/index';
 import styles from './Mypage.module.scss';
 import MypageItem from '../../components/Mypage/MypageItem';
+import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {
+  const navigate = useNavigate();
+
   const icons = [Account, Alert, Theme, Refresh, mypageNotice, Info];
-  const content = ["계정", "알림", "테마 설정", "정보 초기화", "공지사항", "정보"];
+  const content = [
+    '계정',
+    '알림',
+    '테마 설정',
+    '정보 초기화',
+    '공지사항',
+    '정보',
+  ];
+  const navigateUrl = ['/mypage/account'];
+
+  const onClickMypageDetail = (url: string) => {
+    navigate(url);
+  };
 
   return (
     <div>
@@ -28,8 +43,15 @@ const Mypage = () => {
         </div>
       </div>
       <div className={styles.listContainer}>
-        {icons.map((icon, index)=>{
-          return <MypageItem icon={icon} content={content[index]} key={index}/>
+        {icons.map((icon, index) => {
+          return (
+            <MypageItem
+              icon={icon}
+              content={content[index]}
+              onClick={() => onClickMypageDetail(navigateUrl[index])}
+              key={index}
+            />
+          );
         })}
       </div>
       <BottomNav page={3} />

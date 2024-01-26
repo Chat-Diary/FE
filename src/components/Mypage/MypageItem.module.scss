@@ -9,6 +9,8 @@
     & span {
         display: flex;
         align-items: center;
+        
         @include body16;
+        color: $BK90;
     }
 }

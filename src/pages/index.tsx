@@ -10,6 +10,7 @@ import SelectTag from './Detail/DetailEditing/SelectTag/SelectTag';
 import AnalysisDetail from './Analysis/AnalysisDetail/AnalysisDetail';
 import TagFilter from './Tag/TagFilter/TagFilter';
 import Mypage from './Mypage/Mypage';
+import Account from './Mypage/Account/Account';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -87,7 +88,16 @@ const Router = () => {
             {
               index: true,
               element: <Mypage />,
-            }
+            },
+            {
+              path: 'account',
+              children: [
+                {
+                  index: true,
+                  element: <Account />
+                }
+              ],
+            },
           ],
         },
       ],

@@ -89,7 +89,7 @@ const Profile = () => {
 
   return (
     <>
-      <ChangeHeader isMypage={false}>대화 상대 변경</ChangeHeader>
+      <ChangeHeader >대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
         {React.cloneElement(imgB[currentId], {
           style: { width: '160px', height: '160px' },
