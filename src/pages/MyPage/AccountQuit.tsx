@@ -71,7 +71,7 @@ const AccountQuit = () => {
       <ConfirmButton isAble={isAble} id={0} onClick={handleClickNext}>
         다음
       </ConfirmButton>
-      {isModalOpen && checkedId !== 4 ? (
+      {isModalOpen ? (
         <AccountQuitDialog
           onClickCancel={onClickClose}
           onClickConfirm={() => navigate('/mypage/quit/finish')}
