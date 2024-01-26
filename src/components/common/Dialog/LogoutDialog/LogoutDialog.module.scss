@@ -1,0 +1,11 @@
+@import '../../../../styles/variables/colors.scss';
+@import '../../../../styles/variables/fonts.scss';
+
+.header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30.64px;
+  
+    @include body16;
+    color: $BK90;
+  }
