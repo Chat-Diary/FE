@@ -5,9 +5,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   .CardViewItemImg {
-    position: relative;
+    background-color: $secondary_pink;
     z-index: 1;
   }
 
@@ -17,23 +18,16 @@
     gap: 4px;
     position: absolute;
     width: 304px;
-    padding-top: 234px;
+    bottom: 12px;
     z-index: 1;
-    // padding-right: 65.655px;
 
-    .DiaryTitleContainer {
+    .DiaryTitle {
       display: flex;
       gap: 2px;
       color: $WH;
       @include header20;
-
-      .DiaryTitle {
-        width: 304px;
-        white-space: nowrap; /* 줄 바꿈 금지 */
-        overflow: hidden; /* 넘치는 부분 감출 수 있도록 설정 */
-        text-overflow: ellipsis;
-        max-width: 304px; // 적절한 최대 너비 설정
-      }
+      width: 304px;
+      max-width: 304px; // 적절한 최대 너비 설정
     }
 
     .DiaryDate {
@@ -41,14 +35,17 @@
       @include caption;
     }
 
-    .DiaryTags {
-      width: 304px;
+    .DiaryTagsContainer {
       display: flex;
-      gap: 8px;
-      color: $WH;
-      @include body14;
-      white-space: nowrap; /* 줄 바꿈 금지 */
-      overflow: hidden; /* 넘치는 부분 감출 수 있도록 설정 */
+      flex-direction: column;
+
+      .DiaryTags {
+        display: flex;
+        gap: 8px;
+        color: $WH;
+        @include body14;
+        max-width: 304px; // 적절한 최대 너비 설정
+      }
     }
   }
 }

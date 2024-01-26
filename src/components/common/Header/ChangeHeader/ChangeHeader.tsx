@@ -4,13 +4,14 @@ import styles from './ChangeHeader.module.scss';
 
 interface IProps {
   children: string;
+  isMypage: boolean;
 }
-const ChangeHeader = ({ children }: IProps) => {
+const ChangeHeader = ({ children, isMypage }: IProps) => {
   const navigate = useNavigate();
 
   return (
     <div className={styles.changeHeader}>
-      <LeftChevron onClick={() => navigate(-1)} />
+      {isMypage ? <></> : <LeftChevron className={styles.leftChevron} onClick={() => navigate(-1)} />}
       <span>{children}</span>
     </div>
   );

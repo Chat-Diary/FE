@@ -1,5 +1,5 @@
 import styles from './AnanlysisDetail.module.scss';
-import ChangeHeader from '../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { useParams } from 'react-router-dom';
 import BottomNav from '../../../components/common/BottomNav/BottomNav';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ const AnalysisDetail = () => {
 
   return (
     <>
-      <ChangeHeader>{`${
+      <ChangeHeader isMypage={false}>{`${
         period === 'week' ? '주간' : period === 'month' ? '월간' : '연간'
       } 차트`}</ChangeHeader>
       <div className={styles.chartTitleBox}>

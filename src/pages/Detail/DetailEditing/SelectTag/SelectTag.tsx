@@ -1,11 +1,11 @@
 import React from 'react';
 import AllTags from '../../../../components/Tag/AllTags/AllTags';
-import ChangeHeader from '../../../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ChangeHeader from '../../../../components/common/Header/ChangeHeader/ChangeHeader';
 
 const SelectTag = () => {
   return (
     <>
-      <ChangeHeader>태그 선택하기</ChangeHeader>
+      <ChangeHeader isMypage={false}>태그 선택하기</ChangeHeader>
       <AllTags
         index={[
           { category: '감정', index: [0, 3, 4] },

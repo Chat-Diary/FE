@@ -46,3 +46,11 @@ export { ReactComponent as DetailImgDelete } from './icons/detail-img-delete.svg
 export { ReactComponent as TagDownChevron } from './icons/tag-down-chevron.svg';
 export { ReactComponent as TagFilter } from './icons/tag-filter.svg';
 export { ReactComponent as TagInit } from './icons/tag-init.svg';
+
+export { ReactComponent as Update } from './icons/mypage-update.svg';
+export { ReactComponent as Account } from './icons/mypage-account.svg';
+export { ReactComponent as Alert } from './icons/mypage-alert.svg';
+export { ReactComponent as Info } from './icons/mypage-info.svg';
+export { ReactComponent as mypageNotice } from './icons/mypage-notice.svg';
+export { ReactComponent as Theme } from './icons/mypage-theme.svg';
+export { ReactComponent as Refresh } from './icons/mypage-refresh.svg';
