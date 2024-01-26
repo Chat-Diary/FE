@@ -56,16 +56,18 @@ const Chat = () => {
       setMessages((prev) => [
         ...prev,
         {
-          id: Date.now(),
-          type: 'user',
+          chatId: Date.now(),
+          sender: 'user',
           content: url,
           createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
         },
         {
-          id: Date.now(),
-          type: ai,
+          chatId: Date.now(),
+          sender: ai,
           content: <LoadingChat />,
           createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
         },
       ]);
     };
@@ -76,10 +78,11 @@ const Chat = () => {
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages];
         updatedMessages[updatedMessages.length - 1] = {
-          id: Date.now(),
-          type: ai,
+          chatId: Date.now(),
+          sender: ai,
           content: aiResponse,
           createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
         };
         saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
@@ -97,16 +100,18 @@ const Chat = () => {
     setMessages((prev) => [
       ...prev,
       {
-        id: Date.now(),
-        type: 'user',
+        chatId: Date.now(),
+        sender: 'USER',
         content: inputText,
         createdAt: formatFullDateToString(new Date()),
+        chatType: 'CHAT',
       },
       {
-        id: Date.now(),
-        type: ai,
+        chatId: Date.now(),
+        sender: ai,
         content: <LoadingChat />,
         createdAt: formatFullDateToString(new Date()),
+        chatType: 'CHAT',
       },
     ]);
     setInputText('');
@@ -115,10 +120,11 @@ const Chat = () => {
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages];
         updatedMessages[updatedMessages.length - 1] = {
-          id: Date.now(),
-          type: ai,
+          chatId: Date.now(),
+          sender: ai,
           content: aiResponse,
           createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
         };
         saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
@@ -146,28 +152,20 @@ const Chat = () => {
           <>
             <p className={styles.fullDate}>{day}</p>
             {messages.map((m) =>
-              m.type === 'dada' ? (
-                <AiChatBox key={m.id} ai="dada">
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-                </AiChatBox>
-              ) : m.type === 'lulu' ? (
-                <AiChatBox key={m.id} ai="lulu">
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-                </AiChatBox>
-              ) : m.type === 'chichi' ? (
-                <AiChatBox key={m.id} ai="chichi">
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-                </AiChatBox>
-              ) : m.type == 'user' ? (
+              m.sender == 'USER' ? (
                 isImageUrl(m.content as string) ? (
                   <PhotoChatBox url={m.content as string} date={m.createdAt} />
                 ) : (
-                  <RightChatBox date={m.createdAt} key={m.id}>
+                  <RightChatBox date={m.createdAt} key={m.chatId}>
                     {m.content}
                   </RightChatBox>
                 )
-              ) : (
+              ) : m.sender == 'SYSTEM' ? (
                 <p className={styles.aiChanged}>{m.content}</p>
+              ) : (
+                <AiChatBox key={m.chatId} ai={m.sender}>
+                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
+                </AiChatBox>
               ),
             )}
           </>

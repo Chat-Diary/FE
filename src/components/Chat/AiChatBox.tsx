@@ -17,16 +17,16 @@ const AiChatBox = ({ ai, children }: IProps) => {
   return (
     <>
       <div className={styles.container}>
-        {ai === 'dada' ? (
+        {ai === 'DADA' ? (
           <Dada36 onClick={goToChange} />
-        ) : ai === 'lulu' ? (
+        ) : ai === 'LULU' ? (
           <Lulu36 onClick={goToChange} />
         ) : (
           <Chichi36 onClick={goToChange} />
         )}
         <div className={styles.messagesWrapper}>
           <p className={styles.aiName} onClick={goToChange}>
-            {ai === 'dada' ? '다다' : ai === 'lulu' ? '루루' : '치치'}
+            {ai === 'DADA' ? '다다' : ai === 'LULU' ? '루루' : '치치'}
           </p>
           {children}
         </div>
