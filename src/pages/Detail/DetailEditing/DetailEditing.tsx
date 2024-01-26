@@ -61,7 +61,7 @@ const DetailEditing = () => {
 
   return (
     <>
-      <ChangeHeader isMypage={false}>일기 수정하기</ChangeHeader>
+      <ChangeHeader >일기 수정하기</ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
           <div>2023 11월 12일</div>

@@ -4,9 +4,9 @@ import styles from './ChangeHeader.module.scss';
 
 interface IProps {
   children: string;
-  isMypage: boolean;
+  isMypage?: boolean;
 }
-const ChangeHeader = ({ children, isMypage }: IProps) => {
+const ChangeHeader = ({ children, isMypage=false }: IProps) => {
   const navigate = useNavigate();
 
   return (

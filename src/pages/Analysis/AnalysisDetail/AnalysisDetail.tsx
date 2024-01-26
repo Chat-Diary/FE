@@ -17,7 +17,7 @@ const AnalysisDetail = () => {
 
   return (
     <>
-      <ChangeHeader isMypage={false}>{`${
+      <ChangeHeader >{`${
         period === 'week' ? '주간' : period === 'month' ? '월간' : '연간'
       } 차트`}</ChangeHeader>
       <div className={styles.chartTitleBox}>

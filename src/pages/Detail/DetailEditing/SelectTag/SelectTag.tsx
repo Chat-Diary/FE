@@ -5,7 +5,7 @@ import ChangeHeader from '../../../../components/common/Header/ChangeHeader/Chan
 const SelectTag = () => {
   return (
     <>
-      <ChangeHeader isMypage={false}>태그 선택하기</ChangeHeader>
+      <ChangeHeader >태그 선택하기</ChangeHeader>
       <AllTags
         index={[
           { category: '감정', index: [0, 3, 4] },

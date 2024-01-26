@@ -21,7 +21,7 @@ const TagFilter = () => {
 
   return (
     <>
-      <ChangeHeader isMypage={false}>필터 선택</ChangeHeader>
+      <ChangeHeader >필터 선택</ChangeHeader>
       <AllTags
         index={[
           { category: '감정', index: [0, 3, 4] },
