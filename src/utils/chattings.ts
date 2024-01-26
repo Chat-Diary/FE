@@ -26,12 +26,16 @@ export const getAiEnglish = () => {
   }
   let ai = '';
   const { name } = aiCharacter;
-  if (name === '다다') {
-    ai = 'DADA';
-  } else if (name === '루루') {
-    ai = 'LULU';
-  } else if (name === '치치') {
-    ai = 'CHICHI';
+  switch (name) {
+    case '다다':
+      ai = 'DADA';
+      break;
+    case '루루':
+      ai = 'LULU';
+      break;
+    case '치치':
+      ai = 'CHICHI';
+      break;
   }
   return ai;
 };
