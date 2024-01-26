@@ -30,7 +30,7 @@ const InputForm = ({ length, placeHolder }: IProps) => {
           className={`
           ${styles.default}
           ${length === 44 ? styles.input44 : ''}
-          ${length === 180 ? styles.input180 : ''}
+          ${length === 140 ? styles.input140 : ''}
           ${length === 240 ? styles.input240 : ''}`}
         />
       </form>

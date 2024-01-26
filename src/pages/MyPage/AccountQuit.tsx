@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import styles from './AccountQuit.module.scss';
 
-import ChangeHeader from '../../components/common/Header/ChangeAiHeader/ChangeHeader';
+import ChangeHeader from '../../components/common/Header/ChangeHeader/ChangeHeader';
 import ConfirmButton from '../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
 import QuitRadio from '../../components/common/Buttons/QuitRadio/QuitRadio';
 import AccountQuitDialog from '../../components/common/Dialog/AccountQuit/AccountQuitDialog';
+import InputForm from '../../components/common/Input/InputForm';
 
 const AccountQuit = () => {
   const navigate = useNavigate();
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(5);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const quitReason = [
@@ -24,14 +26,13 @@ const AccountQuit = () => {
   const radioChange = (id: number) => {
     setCheckedId(id);
     setIsAble(true);
+    if (id == 4) {
+      setIsTyping(true);
+    }
   };
 
   const handleClickNext = () => {
-    if (checkedId !== 4) {
-      setIsModalOpen(true);
-    } else {
-      navigate('/mypage/quit/reason');
-    }
+    setIsModalOpen(true);
   };
 
   const onClickClose = () => {
@@ -57,6 +58,14 @@ const AccountQuit = () => {
               </label>
             );
           })}
+          {isTyping ? (
+            <InputForm
+              length={140}
+              placeHolder={'내용을 입력해주세요'}
+            ></InputForm>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       <ConfirmButton isAble={isAble} id={0} onClick={handleClickNext}>
