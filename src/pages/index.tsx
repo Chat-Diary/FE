@@ -11,6 +11,7 @@ import AnalysisDetail from './Analysis/AnalysisDetail/AnalysisDetail';
 import TagFilter from './Tag/TagFilter/TagFilter';
 import Mypage from './Mypage/Mypage';
 import Account from './Mypage/Account/Account';
+import Notice from './Mypage/Notice/Notice';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -95,6 +96,15 @@ const Router = () => {
                 {
                   index: true,
                   element: <Account />
+                }
+              ],
+            },
+            {
+              path: 'notice',
+              children: [
+                {
+                  index: true,
+                  element: <Notice />
                 }
               ],
             },
