@@ -6,7 +6,7 @@ interface IProps {
   onClick: () => void;
 }
 
-const MypageItem = ({ icon: Icon, content, onClick }: IProps) => {
+const MyPageItem = ({ icon: Icon, content, onClick }: IProps) => {
   return (
     <div className={styles.listItemContainer} onClick={onClick}>
       <Icon />
@@ -15,4 +15,4 @@ const MypageItem = ({ icon: Icon, content, onClick }: IProps) => {
   );
 };
 
-export default MypageItem;
+export default MyPageItem;

@@ -11,10 +11,10 @@ import {
   Refresh,
 } from '../../assets/index';
 import styles from './MyPage.module.scss';
-import MypageItem from '../../components/MyPage/MyPageItem';
 import { useNavigate } from 'react-router-dom';
+import MyPageItem from '../../components/MyPage/MyPageItem';
 
-const Mypage = () => {
+const MyPage = () => {
   const navigate = useNavigate();
 
   const icons = [Account, Alert, Theme, Refresh, mypageNotice, Info];
@@ -45,7 +45,7 @@ const Mypage = () => {
       <div className={styles.listContainer}>
         {icons.map((icon, index) => {
           return (
-            <MypageItem
+            <MyPageItem
               icon={icon}
               content={content[index]}
               onClick={() => onClickMypageDetail(navigateUrl[index])}
@@ -59,4 +59,4 @@ const Mypage = () => {
   );
 };
 
-export default Mypage;
+export default MyPage;
