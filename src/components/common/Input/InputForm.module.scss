@@ -1,6 +1,19 @@
 @import '../../../styles/variables/colors.scss';
 @import '../../../styles/variables/fonts.scss';
 
+.textareaContainer {
+  position: relative;
+
+  .counter {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+
+    @include caption;
+    color: $BK50;
+  }
+}
+
 .default {
   all: initial;
   display: block;
