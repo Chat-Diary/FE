@@ -14,9 +14,17 @@ import {
   DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
+import { useQuery } from 'react-query';
+
+interface IProp {
+  // 임시로 테스트 위해 모든 프로퍼티 선택형으로 선언
+  userId?: number;
+  diaryId?: number;
+  diaryDate?: string;
+}
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const imgDiary = [
@@ -25,9 +33,9 @@ const imgDiary = [
   <DetailSlider key={2} />,
 ];
 
-const Detail = () => {
+const Detail = ({ userId, diaryId, diaryDate }: IProp) => {
   const navigate = useNavigate();
-  const tags = ['기쁨', '식당', '초면', '학교', '카페', '선후배', '공부'];
+  const tags = [''];
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderLength = imgDiary.length;
@@ -61,6 +69,23 @@ const Detail = () => {
     setIsPlusSelected(false);
   };
 
+  useEffect(() => {
+    userId = 1;
+    diaryDate = '2024-01-03';
+  });
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['user_id', 'diary_date'],
+    queryFn: () =>
+      fetch(
+        `http://3.35.247.53:8080/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,
+      ).then((res) => res.json()),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) console.log(data);
+
   return (
     <>
       <DetailHeader onClick={onChangeEdit}>2023년 11월 12일</DetailHeader>
@@ -68,7 +93,7 @@ const Detail = () => {
         <div className={styles.header}>
           <div>
             {img36[0]}
-            <span>챗다이어리 첫 오프라인</span>
+            <span>{data.title}</span>
           </div>
           <DetailPlus onClick={onClickPlus} />
         </div>
@@ -86,13 +111,7 @@ const Detail = () => {
             </div>
           </div>
 
-          <span>
-            처음으로 개발자랑 디자이너랑 만났어! 어색하지 않을까 걱정했는데
-            다행히 말도 잘 통해서 그런일은 없었다ㅎㅎ 대략적인 작업 이야기를
-            마치고 저녁메뉴를 이야기했는데 다들 눈이 더 반짝이더라고... 건대생
-            덕분에 건대 맛집에서 맛있게 먹어서 기분 최고다! 다음에 건대 올 때 또
-            와야지~
-          </span>
+          <span>{data.content}</span>
           <div className={styles.tags}>
             {tags.map((tag) => {
               return <TagChip>{tag}</TagChip>;
