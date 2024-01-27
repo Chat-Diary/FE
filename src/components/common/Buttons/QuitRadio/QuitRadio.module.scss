@@ -1,0 +1,8 @@
+@import '../../../../styles/variables/colors.scss';
+@import '../../../../styles/variables/fonts.scss';
+
+.container {
+  display: flex;
+  padding: 15px 0px;
+  justify-content: space-between;
+}

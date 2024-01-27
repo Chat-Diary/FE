@@ -1,0 +1,37 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 16px 0px 16px;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+    padding: 40px 0px 43px 0px;
+
+    :first-child {
+      @include sub18;
+      color: $BK90;
+    }
+
+    :nth-child(2) {
+      margin-top: 3px;
+      @include body14;
+      color: $BK70;
+    }
+  }
+
+  .radios {
+    display: flex;
+    flex-direction: column;
+    @include body16;
+    color: $BK90;
+
+    .checked {
+      @include sub16;
+    }
+  }
+}

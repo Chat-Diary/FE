@@ -1,6 +1,19 @@
 @import '../../../styles/variables/colors.scss';
 @import '../../../styles/variables/fonts.scss';
 
+.textareaContainer {
+  position: relative;
+
+  .counter {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+
+    @include caption;
+    color: $BK50;
+  }
+}
+
 .default {
   all: initial;
   display: block;
@@ -23,8 +36,8 @@
     @include sub16;
   }
 
-  &.input180 {
-    height: 180px;
+  &.input140 {
+    height: 140px;
     @include body16;
     padding: 12px 16px;
   }
