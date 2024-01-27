@@ -12,8 +12,8 @@ import TagFilter from './Tag/TagFilter/TagFilter';
 import Mypage from './Mypage/Mypage';
 import Account from './Mypage/Account/Account';
 import Notice from './Mypage/Notice/Notice';
-import AccountQuit from './Mypage/AccountQuit';
-import AccountQuitFinish from './Mypage/AccountQuitFinish';
+import AccountQuit from './Mypage/Account/AccountQuit';
+import AccountQuitFinish from './Mypage/Account/AccountQuitFinish';
 
 const Router = () => {
   const router = createBrowserRouter([

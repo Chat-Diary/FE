@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './AccountQuitFinish.module.scss';
-import ConfirmButton from '../../components/common/Buttons/ConfirmBtn/ConfirmButton';
+import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import { getAi } from '../../utils/globalProfiles';
-import { ChichiCrying, DadaCrying, LuluCrying } from '../../assets';
+import { getAi } from '../../../utils/globalProfiles';
+import { ChichiCrying, DadaCrying, LuluCrying } from '../../../assets';
 
 const AccountQuitFinish = () => {
   const navigate = useNavigate();

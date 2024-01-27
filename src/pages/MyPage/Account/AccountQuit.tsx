@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styles from './AccountQuit.module.scss';
 
-import ChangeHeader from '../../components/common/Header/ChangeHeader/ChangeHeader';
-import ConfirmButton from '../../components/common/Buttons/ConfirmBtn/ConfirmButton';
+import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
+import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useNavigate } from 'react-router-dom';
-import QuitRadio from '../../components/common/Buttons/QuitRadio/QuitRadio';
-import AccountQuitDialog from '../../components/common/Dialog/AccountQuit/AccountQuitDialog';
-import InputForm from '../../components/common/Input/InputForm';
+import QuitRadio from '../../../components/common/Buttons/QuitRadio/QuitRadio';
+import AccountQuitDialog from '../../../components/common/Dialog/AccountQuit/AccountQuitDialog';
+import InputForm from '../../../components/common/Input/InputForm';
 
 const AccountQuit = () => {
   const navigate = useNavigate();
