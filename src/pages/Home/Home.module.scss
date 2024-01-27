@@ -1,0 +1,67 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.wholeWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-top: 56px;
+  padding-bottom: 64px;
+}
+.dateNav {
+  display: flex;
+  padding: 9px 16px 15px 15.5px;
+  justify-content: space-between;
+  position: sticky;
+  top: 56px;
+  background-color: $WH;
+  .currentDateBox {
+    display: flex;
+    flex-direction: column;
+    .dateSelector {
+      display: flex;
+      gap: 12px;
+      .yearAndMonth {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include sub16;
+      }
+      .chevronWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+      }
+    }
+    .diaryNumber {
+      @include caption;
+    }
+  }
+  .rightContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 7px;
+    margin-bottom: 13px;
+    .iconWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    .today {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 16px 6px 15px;
+      @include btn;
+    }
+  }
+}

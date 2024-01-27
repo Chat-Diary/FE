@@ -1,0 +1,40 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.profileContainer {
+    margin-top: 56px;
+    padding-top: 31.89px;
+    padding-bottom: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 2px solid $BK30;
+    margin-left: 16px;
+    margin-right: 16px;
+
+  .profileImg {
+    width: 108px;
+    height: 108px;
+  }
+
+  .profileName {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 4px;
+    padding-left: 8px;
+
+    & span {
+        @include header20;
+        color: $BK90;
+    }
+  }
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 16.11px;
+}

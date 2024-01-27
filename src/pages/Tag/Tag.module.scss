@@ -1,0 +1,60 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagPageWrapper {
+  margin-top: 56px;
+  padding-bottom: 64px;
+
+  .selectedTags {
+    padding: 12px 16px;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    text-decoration-line: none;
+  }
+
+  .tagControll {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 10px;
+
+    .tagSort {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      color: $BK70;
+
+      .dateSort {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include body14;
+      }
+      .chevronWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .sortIcons {
+      display: flex;
+      gap: 4px;
+
+      .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
