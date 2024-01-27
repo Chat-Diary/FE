@@ -4,9 +4,10 @@ import styles from './InputForm.module.scss';
 interface IProps {
   length: number;
   placeHolder: string;
+  setCount?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const InputForm = ({ length, placeHolder }: IProps) => {
+const InputForm = ({ length, placeHolder, setCount }: IProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [inputCount, setInputCount] = useState<number>(0);
   let maxTyping = 0;
@@ -21,6 +22,7 @@ const InputForm = ({ length, placeHolder }: IProps) => {
     // input 값이 변경될 때 호출
     setInputValue(e.target.value);
     setInputCount(e.target.value.length);
+    if (setCount !== undefined) setCount(e.target.value.length);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

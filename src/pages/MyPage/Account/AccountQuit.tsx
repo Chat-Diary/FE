@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './AccountQuit.module.scss';
 
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
@@ -13,6 +13,7 @@ const AccountQuit = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(5);
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [typingCount, setTypingCount] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const quitReason = [
@@ -39,6 +40,14 @@ const AccountQuit = () => {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    if (checkedId === 4 && typingCount === 0) {
+      setIsAble(false);
+    } else if (checkedId === 4 && typingCount !== 0) {
+      setIsAble(true);
+    }
+  });
+
   return (
     <>
       <ChangeHeader>탈퇴하기</ChangeHeader>
@@ -62,6 +71,7 @@ const AccountQuit = () => {
             <InputForm
               length={140}
               placeHolder={'내용을 입력해주세요'}
+              setCount={setTypingCount}
             ></InputForm>
           ) : (
             ''
@@ -74,7 +84,7 @@ const AccountQuit = () => {
       {isModalOpen ? (
         <AccountQuitDialog
           onClickCancel={onClickClose}
-          onClickConfirm={() => navigate('/mypage/quit/finish')}
+          onClickConfirm={() => navigate('/mypage/account/quit/finish')}
           isOpen={isModalOpen}
         />
       ) : (
