@@ -9,11 +9,11 @@ import DetailEditing from './Detail/DetailEditing/DetailEditing';
 import SelectTag from './Detail/DetailEditing/SelectTag/SelectTag';
 import AnalysisDetail from './Analysis/AnalysisDetail/AnalysisDetail';
 import TagFilter from './Tag/TagFilter/TagFilter';
-import Mypage from './Mypage/Mypage';
-import Account from './Mypage/Account/Account';
-import Notice from './Mypage/Notice/Notice';
-import AccountQuit from './Mypage/Account/AccountQuit';
-import AccountQuitFinish from './Mypage/Account/AccountQuitFinish';
+import Mypage from './MyPage/Mypage';
+import Account from './MyPage/Account/Account';
+import Notice from './MyPage/Notice/Notice';
+import AccountQuit from './MyPage/Account/AccountQuit';
+import AccountQuitFinish from './MyPage/Account/AccountQuitFinish';
 
 const Router = () => {
   const router = createBrowserRouter([
