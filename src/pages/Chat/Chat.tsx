@@ -16,14 +16,17 @@ import {
   saveMessagesToLocalStorage,
   makeSection,
 } from '../../utils/chattings';
-import { io, Socket } from 'socket.io-client';
 
 const Chat = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [socket, setSocket] = useState<Socket>();
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  const [socket, setSocket] = useState<WebSocket>(
+    new WebSocket(`${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`),
+  );
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,13 +48,38 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    const newSocket = io(`${process.env.REACT_APP_API_KEY}/chatwebsocket`);
-    setSocket(newSocket);
-
-    return () => {
-      newSocket.disconnect();
-    };
+    socket.addEventListener('open', () => {
+      console.log('WebSocket connection established');
+    });
+    socket.addEventListener('close', (event) => {
+      console.log(`WebSocket connection closed: ${event.reason}`);
+    });
   }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.addEventListener('message', (event: MessageEvent) => {
+      const res = JSON.parse(event.data);
+      console.log(res);
+
+      const ai = getAiEnglish();
+
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages[updatedMessages.length - 1] = {
+          chatId: Date.now(),
+          sender: ai,
+          content: res.content,
+          createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
+        };
+        saveMessagesToLocalStorage(updatedMessages);
+        return updatedMessages;
+      });
+      setIsLoading(false);
+    });
+  }, [socket]);
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ai = getAiEnglish();
@@ -84,23 +112,7 @@ const Chat = () => {
       ]);
     };
     reader.readAsDataURL(file);
-
-    setTimeout(() => {
-      const aiResponse = 'AI 응답';
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = {
-          chatId: Date.now(),
-          sender: ai,
-          content: aiResponse,
-          createdAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
-        };
-        saveMessagesToLocalStorage(updatedMessages);
-        return updatedMessages;
-      });
-      setIsLoading(false);
-    }, 1000);
+    setIsLoading(false);
   };
 
   const handleSendMessage = () => {
@@ -127,22 +139,16 @@ const Chat = () => {
       },
     ]);
     setInputText('');
-    setTimeout(() => {
-      const aiResponse = 'AI 응답';
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = {
-          chatId: Date.now(),
-          sender: ai,
-          content: aiResponse,
-          createdAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
-        };
-        saveMessagesToLocalStorage(updatedMessages);
-        return updatedMessages;
-      });
-      setIsLoading(false);
-    }, 1000);
+    socket?.send(
+      JSON.stringify({
+        userId: 1,
+        content: inputText,
+        selectedModel: localStorage.getItem('currentCharacter'),
+        chatType: 'CHAT',
+      }),
+    );
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
