@@ -41,7 +41,7 @@ const Account = () => {
         </div>
         <div
           className={styles.listItemContainer}
-          onClick={() => onClickAccountDetail('/account/delete')}
+          onClick={() => onClickAccountDetail('/mypage/account/quit')}
         >
           <span>탈퇴하기</span>
           <RightChevron />
