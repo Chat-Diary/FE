@@ -16,14 +16,17 @@ import {
   saveMessagesToLocalStorage,
   makeSection,
 } from '../../utils/chattings';
+import { io, Socket } from 'socket.io-client';
 
 const Chat = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
-  console.log(localStorage.getItem('chatData'));
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [socket, setSocket] = useState<Socket>();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const MessageSections = useMemo(() => {
     if (!messages) return;
     return makeSection(messages || []);
@@ -40,6 +43,15 @@ const Chat = () => {
   const handleAddFileClick = () => {
     fileInputRef.current?.click();
   };
+
+  useEffect(() => {
+    const newSocket = io(`${process.env.REACT_APP_API_KEY}/chatwebsocket`);
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ai = getAiEnglish();
