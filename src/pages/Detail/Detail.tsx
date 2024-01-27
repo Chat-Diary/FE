@@ -25,11 +25,11 @@ interface IProp {
 }
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
-const imgDiary = [
-  <DetailSlider key={0} />,
-  <DetailSlider key={1} />,
-  <DetailSlider key={2} />,
-];
+// const imgDiary = [
+//   <DetailSlider key={0} />,
+//   <DetailSlider key={1} />,
+//   <DetailSlider key={2} />,
+// ];
 
 const Detail = ({ diaryId }: IProp) => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Detail = ({ diaryId }: IProp) => {
   const [tags, setTags] = useState<string[]>([]);
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const sliderLength = imgDiary.length;
+  const [sliderLength, setSliderLength] = useState<number>(0);
 
   const [isPlusSelected, setIsPlusSelected] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -84,6 +84,7 @@ const Detail = ({ diaryId }: IProp) => {
 
       // 사진 fetching
       setDiaryImgs(data.imgUrl);
+      setSliderLength(data.imgUrl.length);
 
       // 태그 fetching
       setTags(data.tagName);
