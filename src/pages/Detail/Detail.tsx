@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
@@ -20,10 +20,8 @@ import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/
 import { useQuery } from 'react-query';
 
 interface IProp {
-  // 임시로 테스트 위해 모든 프로퍼티 선택형으로 선언
-  userId?: number;
+  // 임시로 테스트 위해 선택형으로 선언
   diaryId?: number;
-  diaryDate?: string;
 }
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
@@ -33,9 +31,13 @@ const imgDiary = [
   <DetailSlider key={2} />,
 ];
 
-const Detail = ({ userId, diaryId, diaryDate }: IProp) => {
+const Detail = ({ diaryId }: IProp) => {
   const navigate = useNavigate();
-  const tags = [''];
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get('user_id');
+  const diaryDate = searchParams.get('diary_date');
+  const [formattedDate, setFormattedDate] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]);
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const sliderLength = imgDiary.length;
@@ -56,7 +58,6 @@ const Detail = ({ userId, diaryId, diaryDate }: IProp) => {
 
   const onChangeEdit = () => {
     navigate('/detail/edit');
-    console.log('편집 버튼 클릭');
   };
 
   const onClickPlus = () => {
@@ -70,8 +71,16 @@ const Detail = ({ userId, diaryId, diaryDate }: IProp) => {
   };
 
   useEffect(() => {
-    userId = 1;
-    diaryDate = '2024-01-03';
+    if (data) {
+      setTags(data.tagName);
+      const d = new Date(data.diaryDate);
+      const date = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }).format(d);
+      setFormattedDate(date);
+    }
   });
 
   const { isLoading, error, data } = useQuery({
@@ -88,7 +97,7 @@ const Detail = ({ userId, diaryId, diaryDate }: IProp) => {
 
   return (
     <>
-      <DetailHeader onClick={onChangeEdit}>2023년 11월 12일</DetailHeader>
+      <DetailHeader onClick={onChangeEdit}>{formattedDate}</DetailHeader>
       <div className={styles.detailContainer}>
         <div className={styles.header}>
           <div>
@@ -110,11 +119,10 @@ const Detail = ({ userId, diaryId, diaryDate }: IProp) => {
               {currentSlide + 1} / {sliderLength}
             </div>
           </div>
-
           <span>{data.content}</span>
           <div className={styles.tags}>
-            {tags.map((tag) => {
-              return <TagChip>{tag}</TagChip>;
+            {tags.map((tag, index) => {
+              return <TagChip key={index}>{tag}</TagChip>;
             })}
           </div>
         </div>
