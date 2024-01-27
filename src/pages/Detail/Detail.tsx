@@ -37,6 +37,7 @@ const Detail = ({ diaryId }: IProp) => {
   const userId = searchParams.get('user_id');
   const diaryDate = searchParams.get('diary_date');
   const [formattedDate, setFormattedDate] = useState<string>('');
+  const [diaryImgs, setDiaryImgs] = useState([]);
   const [tags, setTags] = useState<string[]>([]);
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -72,7 +73,7 @@ const Detail = ({ diaryId }: IProp) => {
 
   useEffect(() => {
     if (data) {
-      setTags(data.tagName);
+      // 날짜 fetching
       const d = new Date(data.diaryDate);
       const date = new Intl.DateTimeFormat('ko-KR', {
         year: 'numeric',
@@ -80,6 +81,12 @@ const Detail = ({ diaryId }: IProp) => {
         day: 'numeric',
       }).format(d);
       setFormattedDate(date);
+
+      // 사진 fetching
+      setDiaryImgs(data.imgUrl);
+
+      // 태그 fetching
+      setTags(data.tagName);
     }
   });
 
@@ -109,10 +116,8 @@ const Detail = ({ diaryId }: IProp) => {
         <div className={styles.content}>
           <div className={styles.sliderContainer}>
             <Slider {...settings} className={styles.slider}>
-              {imgDiary.map((img, index) => (
-                <div key={index} className={styles.img}>
-                  {img}
-                </div>
+              {diaryImgs.map((img: string, index: number) => (
+                <img key={index} className={styles.img} src={img} alt="사진" />
               ))}
             </Slider>
             <div className={styles.index}>
