@@ -1,4 +1,4 @@
-import styles from './MypageItem.module.scss';
+import styles from './MyPageItem.module.scss';
 
 interface IProps {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;

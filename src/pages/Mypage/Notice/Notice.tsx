@@ -1,4 +1,4 @@
-import NoticeItem from '../../../components/Mypage/Notice/NoticeItem';
+import NoticeItem from '../../../components/MyPage/Notice/NoticeItem';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import styles from './Notice.module.scss';
 

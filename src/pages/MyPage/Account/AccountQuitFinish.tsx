@@ -8,6 +8,7 @@ import { ChichiCrying, DadaCrying, LuluCrying } from '../../../assets';
 const AccountQuitFinish = () => {
   const navigate = useNavigate();
   const ai = getAi();
+  console.log(ai);
 
   const aiImgs = [
     <DadaCrying key={1} />,

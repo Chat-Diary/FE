@@ -10,8 +10,8 @@ import {
   Theme,
   Refresh,
 } from '../../assets/index';
-import styles from './Mypage.module.scss';
-import MypageItem from '../../components/Mypage/MypageItem';
+import styles from './MyPage.module.scss';
+import MypageItem from '../../components/MyPage/MyPageItem';
 import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {

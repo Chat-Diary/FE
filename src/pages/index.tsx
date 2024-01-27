@@ -9,7 +9,7 @@ import DetailEditing from './Detail/DetailEditing/DetailEditing';
 import SelectTag from './Detail/DetailEditing/SelectTag/SelectTag';
 import AnalysisDetail from './Analysis/AnalysisDetail/AnalysisDetail';
 import TagFilter from './Tag/TagFilter/TagFilter';
-import Mypage from './MyPage/Mypage';
+import Mypage from './MyPage/MyPage';
 import Account from './MyPage/Account/Account';
 import Notice from './MyPage/Notice/Notice';
 import AccountQuit from './MyPage/Account/AccountQuit';
