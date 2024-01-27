@@ -26,7 +26,7 @@ const Mypage = () => {
     '공지사항',
     '정보',
   ];
-  const navigateUrl = ['/mypage/account'];
+  const navigateUrl = ['/mypage/account', '', '', '', '/mypage/notice'];
 
   const onClickMypageDetail = (url: string) => {
     navigate(url);
