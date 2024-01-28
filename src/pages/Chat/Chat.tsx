@@ -47,52 +47,16 @@ const Chat = () => {
     fileInputRef.current?.click();
   };
 
-  useEffect(() => {
-    socket.addEventListener('open', () => {
-      console.log('WebSocket connection established');
-    });
-    socket.addEventListener('close', (event) => {
-      console.log(`WebSocket connection closed: ${event.reason}`);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!socket) return;
-
-    socket.addEventListener('message', async (event: MessageEvent) => {
-      const res = await JSON.parse(event.data);
-      console.log(res);
-      if (typeof res === 'number') {
-        return;
-      }
-      const updatedMessage = {
-        chatId: res.chatId,
-        sender: res.sender,
-        content: res.content,
-        createdAt: res.createdAt,
-        chatType: res.chatType,
-      };
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = updatedMessage;
-        saveMessagesToLocalStorage(updatedMessages);
-        return updatedMessages;
-      });
-      setIsLoading(false);
-    });
-  }, [socket]);
-
+  /* 사진 업로드는 구현 예정 */
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ai = getAiEnglish();
-
     const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
+
+    if (!file) return;
+
     const reader = new FileReader();
     reader.onload = () => {
       const url = reader.result as string;
-
       setIsLoading(true);
       setMessages((prev) => [
         ...prev,
@@ -112,16 +76,16 @@ const Chat = () => {
         },
       ]);
     };
+
     reader.readAsDataURL(file);
     setIsLoading(false);
   };
 
   const handleSendMessage = () => {
-    if (inputText.trim() === '' || isLoading) return;
-
-    const ai = getAiEnglish();
+    if (isLoading || inputText.trim() === '') return;
 
     setIsLoading(true);
+    const ai = getAiEnglish();
     setMessages((prev) => [
       ...prev,
       {
@@ -148,9 +112,43 @@ const Chat = () => {
         chatType: 'CHAT',
       }),
     );
-
-    setIsLoading(false);
   };
+
+  useEffect(() => {
+    socket.addEventListener('open', () => {
+      console.log('WebSocket connection established');
+    });
+    socket.addEventListener('close', (event) => {
+      console.log(`WebSocket connection closed: ${event.reason}`);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.addEventListener('message', async (event: MessageEvent) => {
+      const res = await JSON.parse(event.data);
+      console.log(res);
+
+      if (typeof res === 'number') return;
+
+      const updatedMessage = {
+        chatId: res.chatId,
+        sender: res.sender,
+        content: res.content,
+        createdAt: res.createAt,
+        chatType: res.chatType,
+      };
+
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages[updatedMessages.length - 1] = updatedMessage;
+        saveMessagesToLocalStorage(updatedMessages);
+        return updatedMessages;
+      });
+      setIsLoading(false);
+    });
+  }, [socket]);
 
   useEffect(() => {
     const storedChatData = localStorage.getItem('chatData');
