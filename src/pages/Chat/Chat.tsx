@@ -59,21 +59,22 @@ const Chat = () => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.addEventListener('message', (event: MessageEvent) => {
-      const res = JSON.parse(event.data);
+    socket.addEventListener('message', async (event: MessageEvent) => {
+      const res = await JSON.parse(event.data);
       console.log(res);
-
-      const ai = getAiEnglish();
-
+      if (typeof res === 'number') {
+        return;
+      }
+      const updatedMessage = {
+        chatId: res.chatId,
+        sender: res.sender,
+        content: res.content,
+        createdAt: res.createdAt,
+        chatType: res.chatType,
+      };
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = {
-          chatId: Date.now(),
-          sender: ai,
-          content: res.content,
-          createdAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
-        };
+        updatedMessages[updatedMessages.length - 1] = updatedMessage;
         saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
       });
