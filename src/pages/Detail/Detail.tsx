@@ -11,7 +11,7 @@ import {
   Chichi36,
   Lulu36,
   DetailPlus,
-  DetailSlider,
+  // DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
 import { useEffect, useState } from 'react';
@@ -19,10 +19,10 @@ import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/Det
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
 import { useQuery } from 'react-query';
 
-interface IProp {
-  // 임시로 테스트 위해 선택형으로 선언
-  diaryId?: number;
-}
+// interface IProp {
+//   // 임시로 테스트 위해 선택형으로 선언
+//   diaryId?: number;
+// }
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 // const imgDiary = [
@@ -31,7 +31,7 @@ const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 //   <DetailSlider key={2} />,
 // ];
 
-const Detail = ({ diaryId }: IProp) => {
+const Detail = (/*{ diaryId }: IProp*/) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get('user_id');
@@ -101,7 +101,7 @@ const Detail = ({ diaryId }: IProp) => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  if (error) console.log(data);
+  if (error) console.log(error);
 
   return (
     <>
