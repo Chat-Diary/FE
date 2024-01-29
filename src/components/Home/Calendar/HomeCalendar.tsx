@@ -7,7 +7,6 @@ interface IProps {
 
 const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
   const handleDateClick = (day: number) => {
-    // 특정 날짜를 클릭하는 이벤트 처리
     console.log(
       `${currentDate.getFullYear()}-${
         currentDate.getMonth() + 1
@@ -15,16 +14,17 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
     );
   };
 
-  console.log(weekCalendarList);
   return (
     <div>
       <table className={styles.calendarWrapper}>
-        <thead className={styles.dayOfWeekList}>
-          {['일', '월', '화', '수', '목', '금', '토'].map((day, index) => (
-            <td className={styles.dayOfWeek} key={index}>
-              {day}
-            </td>
-          ))}
+        <thead>
+          <tr className={styles.dayOfWeekList}>
+            {['일', '월', '화', '수', '목', '금', '토'].map((day, index) => (
+              <th className={styles.dayOfWeek} key={index}>
+                {day}
+              </th>
+            ))}
+          </tr>
         </thead>
         <tbody className={styles.daysContainer}>
           {weekCalendarList.map((week, weekIndex) => (

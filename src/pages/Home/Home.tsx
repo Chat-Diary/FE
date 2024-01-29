@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useCalendar from '../../hooks/useCalendar';
 import styles from './Home.module.scss';
 import HomeCalendar from '../../components/Home/Calendar/HomeCalendar';
@@ -19,16 +19,8 @@ const Home = () => {
 
   const onSelectDate = () => {
     setIsSelectedDate(true);
+    //setCurrentDate(new Date(2023, 10));
   };
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setCurrentDate(new Date(2023, 10)); // 2023년 11월로 변경
-    }, 3000); // 3초 후에 실행될 수 있도록 설정
-
-    // 컴포넌트가 언마운트되면 타임아웃 클리어
-    return () => clearTimeout(timeout);
-  }, []);
 
   return (
     <>
