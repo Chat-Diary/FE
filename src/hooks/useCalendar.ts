@@ -1,5 +1,17 @@
 import { getDaysInMonth } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { getCalendarData } from '../apis/home';
+
+interface IChatData {
+  dates: string[];
+  responses: Response[];
+}
+
+interface Response {
+  sender: string;
+  exists: boolean;
+}
 
 const DATE_MONTH_FIXER = 1;
 const CALENDER_LENGTH = 35;
@@ -9,51 +21,20 @@ const DAY_OF_WEEK = 7;
 const useCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const totalMonthDays = getDaysInMonth(currentDate);
+  const [chatData, setChatData] = useState<IChatData[]>([]);
 
-  const chatData = [
-    {
-      dates: ['2024-01-28'],
-      responses: [
-        {
-          sender: 'USER',
-          exists: true,
-        },
-        {
-          sender: 'DADA',
-          exists: true,
-        },
-        {
-          sender: 'CHICHI',
-          exists: true,
-        },
-        {
-          sender: 'LULU',
-          exists: true,
-        },
-      ],
-    },
-    {
-      dates: ['2024-01-27'],
-      responses: [
-        {
-          sender: 'USER',
-          exists: true,
-        },
-        {
-          sender: 'DADA',
-          exists: true,
-        },
-        {
-          sender: 'CHICHI',
-          exists: false,
-        },
-        {
-          sender: 'LULU',
-          exists: true,
-        },
-      ],
-    },
-  ];
+  const formattedDate = currentDate.toISOString().slice(0, 7);
+
+  const { data, isLoading, error } = useQuery<IChatData[]>(
+    ['chatData', formattedDate],
+    () => getCalendarData(formattedDate),
+  );
+
+  useEffect(() => {
+    if (chatData.length === 0 && !isLoading && !error && data) {
+      setChatData(data);
+    }
+  }, [chatData, data, isLoading, error]);
 
   const prevDayList = Array.from({
     length: Math.max(0, currentDate.getDay()),
