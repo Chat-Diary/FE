@@ -14,6 +14,8 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
     );
   };
 
+  const today = new Date();
+
   return (
     <div>
       <table className={styles.calendarWrapper}>
@@ -31,7 +33,9 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
             <tr className={styles.weekRow} key={weekIndex}>
               {week.map((dayInfo, dayIndex) => (
                 <td
-                  className={styles.dayBtn}
+                  className={`${styles.dayBtn} ${
+                    dayInfo.day === today.getDate() ? styles.active : ''
+                  }`}
                   key={dayIndex}
                   onClick={() => handleDateClick(dayInfo.day)}
                 >
