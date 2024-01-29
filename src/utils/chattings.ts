@@ -4,10 +4,11 @@ import { format, parseISO } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 export interface IMessage {
-  id: number;
-  type: string;
+  chatId: number;
+  sender: string;
   content: string | ReactNode;
   createdAt: string;
+  chatType: string;
 }
 
 interface ISection {
@@ -21,19 +22,22 @@ export const saveMessagesToLocalStorage = (messages: IMessage[]) => {
 export const getAiEnglish = () => {
   const aiCharacter = getAi();
   if (!aiCharacter) {
-    return 'dada';
-  } else {
-    let ai = '';
-    const { name } = aiCharacter;
-    if (name === '다다') {
-      ai = 'dada';
-    } else if (name === '루루') {
-      ai = 'lulu';
-    } else if (name === '치치') {
-      ai = 'chichi';
-    }
-    return ai;
+    return 'DADA';
   }
+  let ai = '';
+  const { name } = aiCharacter;
+  switch (name) {
+    case '다다':
+      ai = 'DADA';
+      break;
+    case '루루':
+      ai = 'LULU';
+      break;
+    case '치치':
+      ai = 'CHICHI';
+      break;
+  }
+  return ai;
 };
 
 export const makeSection = (messages: IMessage[]) => {

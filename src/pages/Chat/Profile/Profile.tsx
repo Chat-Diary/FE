@@ -44,10 +44,11 @@ const Profile = () => {
         'chatData',
         JSON.stringify([
           {
+            chatId: Date.now(),
+            sender: 'SYSTEM',
             content: `채팅 대상이${newAi.name}으로 변경되었습니다.`,
             createdAt: formatFullDateToString(new Date()),
-            id: Date.now(),
-            type: 'change',
+            chatType: 'SYSTEM',
           },
         ]),
       );
@@ -61,10 +62,11 @@ const Profile = () => {
           JSON.stringify([
             ...previousData,
             {
+              chatId: Date.now(),
+              sender: 'SYSTEM',
               content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
               createdAt: formatFullDateToString(new Date()),
-              id: Date.now(),
-              type: 'change',
+              chatType: 'SYSTEM',
             },
           ]),
         );

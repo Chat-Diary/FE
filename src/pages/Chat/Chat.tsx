@@ -19,11 +19,17 @@ import {
 
 const Chat = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
-  console.log(localStorage.getItem('chatData'));
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  const [socket, setSocket] = useState<WebSocket>(
+    new WebSocket(`${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`),
+  );
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const MessageSections = useMemo(() => {
     if (!messages) return;
     return makeSection(messages || []);
@@ -41,91 +47,108 @@ const Chat = () => {
     fileInputRef.current?.click();
   };
 
+  /* 사진 업로드는 구현 예정 */
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ai = getAiEnglish();
-
     const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
+
+    if (!file) return;
+
     const reader = new FileReader();
     reader.onload = () => {
       const url = reader.result as string;
-
       setIsLoading(true);
       setMessages((prev) => [
         ...prev,
         {
-          id: Date.now(),
-          type: 'user',
+          chatId: Date.now(),
+          sender: 'user',
           content: url,
           createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
         },
         {
-          id: Date.now(),
-          type: ai,
+          chatId: Date.now(),
+          sender: ai,
           content: <LoadingChat />,
           createdAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
         },
       ]);
     };
-    reader.readAsDataURL(file);
 
-    setTimeout(() => {
-      const aiResponse = 'AI 응답';
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = {
-          id: Date.now(),
-          type: ai,
-          content: aiResponse,
-          createdAt: formatFullDateToString(new Date()),
-        };
-        saveMessagesToLocalStorage(updatedMessages);
-        return updatedMessages;
-      });
-      setIsLoading(false);
-    }, 1000);
+    reader.readAsDataURL(file);
+    setIsLoading(false);
   };
 
   const handleSendMessage = () => {
-    if (inputText.trim() === '' || isLoading) return;
-
-    const ai = getAiEnglish();
+    if (isLoading || inputText.trim() === '') return;
 
     setIsLoading(true);
+    const ai = getAiEnglish();
     setMessages((prev) => [
       ...prev,
       {
-        id: Date.now(),
-        type: 'user',
+        chatId: Date.now(),
+        sender: 'USER',
         content: inputText,
         createdAt: formatFullDateToString(new Date()),
+        chatType: 'CHAT',
       },
       {
-        id: Date.now(),
-        type: ai,
+        chatId: Date.now(),
+        sender: ai,
         content: <LoadingChat />,
         createdAt: formatFullDateToString(new Date()),
+        chatType: 'CHAT',
       },
     ]);
     setInputText('');
-    setTimeout(() => {
-      const aiResponse = 'AI 응답';
+    socket?.send(
+      JSON.stringify({
+        userId: 1,
+        content: inputText,
+        selectedModel: localStorage.getItem('currentCharacter'),
+        chatType: 'CHAT',
+      }),
+    );
+  };
+
+  useEffect(() => {
+    socket.addEventListener('open', () => {
+      console.log('WebSocket connection established');
+    });
+    socket.addEventListener('close', (event) => {
+      console.log(`WebSocket connection closed: ${event.reason}`);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.addEventListener('message', async (event: MessageEvent) => {
+      const res = await JSON.parse(event.data);
+      console.log(res);
+
+      if (typeof res === 'number') return;
+
+      const updatedMessage = {
+        chatId: res.chatId,
+        sender: res.sender,
+        content: res.content,
+        createdAt: res.createAt,
+        chatType: res.chatType,
+      };
+
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = {
-          id: Date.now(),
-          type: ai,
-          content: aiResponse,
-          createdAt: formatFullDateToString(new Date()),
-        };
+        updatedMessages[updatedMessages.length - 1] = updatedMessage;
         saveMessagesToLocalStorage(updatedMessages);
         return updatedMessages;
       });
       setIsLoading(false);
-    }, 1000);
-  };
+    });
+  }, [socket]);
 
   useEffect(() => {
     const storedChatData = localStorage.getItem('chatData');
@@ -146,28 +169,20 @@ const Chat = () => {
           <>
             <p className={styles.fullDate}>{day}</p>
             {messages.map((m) =>
-              m.type === 'dada' ? (
-                <AiChatBox key={m.id} ai="dada">
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-                </AiChatBox>
-              ) : m.type === 'lulu' ? (
-                <AiChatBox key={m.id} ai="lulu">
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-                </AiChatBox>
-              ) : m.type === 'chichi' ? (
-                <AiChatBox key={m.id} ai="chichi">
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
-                </AiChatBox>
-              ) : m.type == 'user' ? (
+              m.sender == 'USER' ? (
                 isImageUrl(m.content as string) ? (
                   <PhotoChatBox url={m.content as string} date={m.createdAt} />
                 ) : (
-                  <RightChatBox date={m.createdAt} key={m.id}>
+                  <RightChatBox date={m.createdAt} key={m.chatId}>
                     {m.content}
                   </RightChatBox>
                 )
-              ) : (
+              ) : m.sender == 'SYSTEM' ? (
                 <p className={styles.aiChanged}>{m.content}</p>
+              ) : (
+                <AiChatBox key={m.chatId} ai={m.sender}>
+                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
+                </AiChatBox>
               ),
             )}
           </>

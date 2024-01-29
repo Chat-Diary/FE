@@ -50,7 +50,6 @@ export const getAi = (): character | null => {
 
   const aiIndex = parseInt(aiString, 10) - 1;
   if (isNaN(aiIndex)) return null;
-  console.log(aiIndex);
   // // const aiIndex = aiString ? (JSON.parse(aiString) as number) : null;
   // const aiIndex = JSON.parse(aiString) as number;
   return aiCharacters[aiIndex];
