@@ -11,10 +11,48 @@ const useCalendar = () => {
   const totalMonthDays = getDaysInMonth(currentDate);
 
   const chatData = [
-    // 가정: 날짜별 대화 정보가 있는 배열
-    { date: '2024-01-01', characters: ['dada'] },
-    { date: '2024-01-02', characters: ['lulu', 'chichi'] },
-    // ...
+    {
+      dates: ['2024-01-28'],
+      responses: [
+        {
+          sender: 'USER',
+          exists: true,
+        },
+        {
+          sender: 'DADA',
+          exists: true,
+        },
+        {
+          sender: 'CHICHI',
+          exists: true,
+        },
+        {
+          sender: 'LULU',
+          exists: true,
+        },
+      ],
+    },
+    {
+      dates: ['2024-01-27'],
+      responses: [
+        {
+          sender: 'USER',
+          exists: true,
+        },
+        {
+          sender: 'DADA',
+          exists: true,
+        },
+        {
+          sender: 'CHICHI',
+          exists: false,
+        },
+        {
+          sender: 'LULU',
+          exists: true,
+        },
+      ],
+    },
   ];
 
   const prevDayList = Array.from({
@@ -39,10 +77,16 @@ const useCalendar = () => {
           ? '0' + (currentDate.getMonth() + DATE_MONTH_FIXER)
           : currentDate.getMonth() + DATE_MONTH_FIXER
       }-${cur < 10 ? '0' + cur : cur}`;
-      const chatInfo = chatData.find((chat) => chat.date === currentDateStr);
+      const chatInfo = chatData.find(
+        (chat) => chat.dates[0] === currentDateStr,
+      );
       acc[chunkIndex].push({
         day: cur,
-        characters: chatInfo?.characters || [],
+        characters: chatInfo
+          ? chatInfo.responses
+              .filter((response) => response.exists)
+              .map((response) => response.sender)
+          : [],
       });
       return acc;
     },

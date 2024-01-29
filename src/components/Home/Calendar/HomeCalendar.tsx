@@ -43,11 +43,13 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
                           <div
                             key={character}
                             className={
-                              character === 'dada'
+                              character === 'DADA'
                                 ? styles.dada
-                                : character === 'lulu'
+                                : character === 'LULU'
                                   ? styles.lulu
-                                  : styles.chichi
+                                  : character === 'CHICHI'
+                                    ? styles.chichi
+                                    : ''
                             }
                           ></div>
                         ))}
