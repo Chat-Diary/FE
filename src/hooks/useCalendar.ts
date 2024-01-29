@@ -56,7 +56,7 @@ const useCalendar = () => {
   ];
 
   const prevDayList = Array.from({
-    length: Math.max(0, currentDate.getDay() - 1),
+    length: Math.max(0, currentDate.getDay()),
   }).map(() => DEFAULT_TRASH_VALUE);
   const currentDayList = Array.from({ length: totalMonthDays }).map(
     (_, i) => i + 1,
