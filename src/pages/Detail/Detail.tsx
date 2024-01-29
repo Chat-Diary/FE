@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
@@ -18,6 +17,7 @@ import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
 import { useQuery } from 'react-query';
+import { getDiaryDetail } from '../../apis/diaryDetailApi';
 
 // interface IProp {
 //   // 임시로 테스트 위해 선택형으로 선언
@@ -93,10 +93,7 @@ const Detail = (/*{ diaryId }: IProp*/) => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
-    queryFn: () =>
-      fetch(
-        `http://3.35.247.53:8080/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,
-      ).then((res) => res.json()),
+    queryFn: () => getDiaryDetail(userId!, diaryDate!),
   });
 
   if (isLoading) return <div>Loading...</div>;
