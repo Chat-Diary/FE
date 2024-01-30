@@ -108,7 +108,9 @@ const Chat = () => {
       JSON.stringify({
         userId: 1,
         content: inputText,
-        selectedModel: localStorage.getItem('currentCharacter'),
+        selectedModel: localStorage.getItem('currentCharacter')
+          ? localStorage.getItem('currentCharacter')
+          : 1,
         chatType: 'CHAT',
       }),
     );
