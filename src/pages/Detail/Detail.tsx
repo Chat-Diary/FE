@@ -29,6 +29,7 @@ const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 const Detail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const diaryDate = searchParams.get('diary_date');
   const [formattedDate, setFormattedDate] = useState<string>('');
   const [diaryImgs, setDiaryImgs] = useState([]);
@@ -87,7 +88,7 @@ const Detail = () => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
-    queryFn: () => getDiaryDetail(diaryDate!),
+    queryFn: () => getDiaryDetail(userId, diaryDate!),
   });
 
   if (isLoading) return <div>Loading...</div>;
