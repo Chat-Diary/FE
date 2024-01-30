@@ -46,7 +46,7 @@ const Profile = () => {
           {
             chatId: Date.now(),
             sender: 'SYSTEM',
-            content: `채팅 대상이 '${newAi.name}'로 변경되었습니다.`,
+            content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
             createdAt: formatFullDateToString(new Date()),
             chatType: 'SYSTEM',
           },
