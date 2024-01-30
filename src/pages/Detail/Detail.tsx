@@ -19,11 +19,6 @@ import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/
 import { useQuery } from 'react-query';
 import { getDiaryDetail } from '../../apis/diaryDetailApi';
 
-// interface IProp {
-//   // 임시로 테스트 위해 선택형으로 선언
-//   diaryId?: number;
-// }
-
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 // const imgDiary = [
 //   <DetailSlider key={0} />,
@@ -31,10 +26,9 @@ const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 //   <DetailSlider key={2} />,
 // ];
 
-const Detail = (/*{ diaryId }: IProp*/) => {
+const Detail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get('user_id');
   const diaryDate = searchParams.get('diary_date');
   const [formattedDate, setFormattedDate] = useState<string>('');
   const [diaryImgs, setDiaryImgs] = useState([]);
@@ -93,7 +87,7 @@ const Detail = (/*{ diaryId }: IProp*/) => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
-    queryFn: () => getDiaryDetail(userId!, diaryDate!),
+    queryFn: () => getDiaryDetail(diaryDate!),
   });
 
   if (isLoading) return <div>Loading...</div>;
