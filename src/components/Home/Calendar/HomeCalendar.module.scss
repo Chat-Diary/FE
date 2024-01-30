@@ -39,10 +39,10 @@
       position: relative;
       align-items: center;
       border-radius: 50%;
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       @include body14;
-      &:active {
+      &.active {
         background-color: $primary-default;
         color: $WH;
       }
