@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-key */
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
@@ -11,26 +10,33 @@ import {
   Chichi36,
   Lulu36,
   DetailPlus,
-  DetailSlider,
+  // DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
+import { useQuery } from 'react-query';
+import { getDiaryDetail } from '../../apis/diaryDetailApi';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
-const imgDiary = [
-  <DetailSlider key={0} />,
-  <DetailSlider key={1} />,
-  <DetailSlider key={2} />,
-];
+// const imgDiary = [
+//   <DetailSlider key={0} />,
+//   <DetailSlider key={1} />,
+//   <DetailSlider key={2} />,
+// ];
 
 const Detail = () => {
   const navigate = useNavigate();
-  const tags = ['기쁨', '식당', '초면', '학교', '카페', '선후배', '공부'];
+  const [searchParams] = useSearchParams();
+  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
+  const diaryDate = searchParams.get('diary_date');
+  const [formattedDate, setFormattedDate] = useState<string>('');
+  const [diaryImgs, setDiaryImgs] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const sliderLength = imgDiary.length;
+  const [sliderLength, setSliderLength] = useState<number>(0);
 
   const [isPlusSelected, setIsPlusSelected] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -48,7 +54,6 @@ const Detail = () => {
 
   const onChangeEdit = () => {
     navigate('/detail/edit');
-    console.log('편집 버튼 클릭');
   };
 
   const onClickPlus = () => {
@@ -61,41 +66,61 @@ const Detail = () => {
     setIsPlusSelected(false);
   };
 
+  useEffect(() => {
+    if (data) {
+      // 날짜 fetching
+      const d = new Date(data.diaryDate);
+      const date = new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }).format(d);
+      setFormattedDate(date);
+
+      // 사진 fetching
+      setDiaryImgs(data.imgUrl);
+      setSliderLength(data.imgUrl.length);
+
+      // 태그 fetching
+      setTags(data.tagName);
+    }
+  });
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['user_id', 'diary_date'],
+    queryFn: () => getDiaryDetail(userId, diaryDate!),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) console.log(error);
+
   return (
     <>
-      <DetailHeader onClick={onChangeEdit}>2023년 11월 12일</DetailHeader>
+      <DetailHeader onClick={onChangeEdit}>{formattedDate}</DetailHeader>
       <div className={styles.detailContainer}>
         <div className={styles.header}>
           <div>
             {img36[0]}
-            <span>챗다이어리 첫 오프라인</span>
+            <span>{data.title}</span>
           </div>
           <DetailPlus onClick={onClickPlus} />
         </div>
         <div className={styles.content}>
           <div className={styles.sliderContainer}>
             <Slider {...settings} className={styles.slider}>
-              {imgDiary.map((img, index) => (
-                <div key={index} className={styles.img}>
-                  {img}
-                </div>
+              {diaryImgs.map((img: string, index: number) => (
+                <img key={index} className={styles.img} src={img} alt="사진" />
               ))}
             </Slider>
             <div className={styles.index}>
               {currentSlide + 1} / {sliderLength}
             </div>
           </div>
-
-          <span>
-            처음으로 개발자랑 디자이너랑 만났어! 어색하지 않을까 걱정했는데
-            다행히 말도 잘 통해서 그런일은 없었다ㅎㅎ 대략적인 작업 이야기를
-            마치고 저녁메뉴를 이야기했는데 다들 눈이 더 반짝이더라고... 건대생
-            덕분에 건대 맛집에서 맛있게 먹어서 기분 최고다! 다음에 건대 올 때 또
-            와야지~
-          </span>
+          <span>{data.content}</span>
           <div className={styles.tags}>
-            {tags.map((tag) => {
-              return <TagChip>{tag}</TagChip>;
+            {tags.map((tag, index) => {
+              return <TagChip key={index}>{tag}</TagChip>;
             })}
           </div>
         </div>
