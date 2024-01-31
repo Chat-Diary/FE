@@ -5,13 +5,12 @@ import styles from './Analysis.module.scss';
 import HomeHeader from '../../components/common/Header/Header';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getFrequentAis, getFrequentTags } from '../../apis/analysisApi';
-
-interface frequentAiType {
-  sender: string;
-  chatCount: number;
-  percentage: number;
-}
+import {
+  frequentAiType,
+  frequentTagType,
+  getFrequentAis,
+  getFrequentTags,
+} from '../../apis/analysisApi';
 
 export const Analysis = () => {
   const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
@@ -21,10 +20,10 @@ export const Analysis = () => {
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
-    console.log(aiData);
+    console.log(tagData);
   };
 
-  const [tagData, setTagData] = useState([]);
+  const [tagData, setTagData] = useState<frequentTagType[]>([]);
   const [aiData, setAiData] = useState<frequentAiType[]>([]);
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -116,18 +115,20 @@ export const Analysis = () => {
           </button>
         ))}
       </div>
-      {/* <div className={styles.tagChartBox}>
+      <div className={styles.tagChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
           <p className={styles.chartPeriod}>2023.10.09 ~ 2023.10.16</p>
         </div>
         <div className={styles.barsBox}>
-          {periodData.map((data, index) => (
+          {tagData.map((data, index) => (
             <div key={index} className={styles.barWrapper}>
               <span className={styles.portionNumber}>{data.percentage}%</span>
               <div
                 className={styles.bar}
-                style={{ height: `${200 * data.percentage}px` }}
+                style={{
+                  height: `${(data.percentage / tagData[0].percentage) * 100}%`,
+                }}
               ></div>
               <h4 className={styles.tagName}>{`#${data.tagName}`}</h4>
             </div>
@@ -147,7 +148,7 @@ export const Analysis = () => {
             <RightChevron />
           </Link>
         </div>
-      </div> */}
+      </div>
       {/* <div className={styles.aiChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>

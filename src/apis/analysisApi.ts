@@ -1,3 +1,18 @@
+export interface frequentTagType {
+  category: string;
+  tagName: string;
+  count: number;
+  percentage: number;
+  startDate: string;
+  endDate: number;
+}
+
+export interface frequentAiType {
+  sender: string;
+  chatCount: number;
+  percentage: number;
+}
+
 export const getFrequentTags = (
   memberId: number,
   type: string,
