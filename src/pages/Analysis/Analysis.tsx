@@ -1,48 +1,96 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Chichi48, Dada48, Lulu48, Notice, RightChevron } from '../../assets';
 import BottomNav from '../../components/common/BottomNav/BottomNav';
 import styles from './Analysis.module.scss';
 import HomeHeader from '../../components/common/Header/Header';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getFrequentAis, getFrequentTags } from '../../apis/analysisApi';
+
+interface frequentAiType {
+  sender: string;
+  chatCount: number;
+  percentage: number;
+}
 
 export const Analysis = () => {
+  const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
+
+  const periodTab = ['이번 주', '이번 달', '올해'];
   const [activeTab, setActiveTab] = useState(0);
+
   const handleTabClick = (index: number) => {
     setActiveTab(index);
+    console.log(aiData);
   };
 
-  const tagsData = [
-    {
-      portion: 0.85,
-      name: '기쁨',
-    },
-    {
-      portion: 0.35,
-      name: '설렘',
-    },
-    {
-      portion: 0.11,
-      name: '피곤함',
-    },
-  ];
-  const aisData = [
-    {
-      portion: 0.85,
-      name: '다다',
-    },
-    {
-      portion: 0.1,
-      name: '치치',
-    },
-    {
-      portion: 0.05,
-      name: '루루',
-    },
-  ];
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [periodData, setperiodData] = useState(tagsData);
-  const [periodData2, setperiodData2] = useState(aisData);
+  const [tagData, setTagData] = useState([]);
+  const [aiData, setAiData] = useState<frequentAiType[]>([]);
   /* eslint-enable @typescript-eslint/no-unused-vars */
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['user_id', 'type', 'date'],
+    queryFn: () => {
+      let type = '';
+      switch (activeTab) {
+        case 0:
+          type = 'weekly';
+          break;
+        case 1:
+          type = 'monthly';
+          break;
+        case 2:
+          type = 'yearly';
+          break;
+      }
+
+      return [
+        getFrequentTags(userId, type, '2024-01-02'),
+        getFrequentAis(userId, type, '2024-01-02'),
+      ];
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      Promise.all(data).then(([tagsData, aisData]) => {
+        // 기본 캐릭터 정보
+        const defaultAi = [
+          { sender: 'DADA', chatCount: 0, percentage: 0 },
+          { sender: 'CHICHI', chatCount: 0, percentage: 0 },
+          { sender: 'LULU', chatCount: 0, percentage: 0 },
+        ];
+
+        if (tagsData) {
+          setTagData(tagsData.slice(0, 3));
+        }
+        if (aisData) {
+          const aiSlice = aisData
+            .slice(1)
+            .map(({ sender, chatCount, percentage }: frequentAiType) => ({
+              sender,
+              chatCount,
+              percentage,
+            }));
+
+          // aiComplete에 defaultAi에 없는 원소만 추가
+          const aiComplete = [...aiSlice];
+
+          defaultAi.forEach((c) => {
+            if (!aiSlice.some((ai: frequentAiType) => ai.sender === c.sender)) {
+              aiComplete.push(c);
+            }
+          });
+
+          setAiData(aiComplete);
+        }
+      });
+    }
+  }, [data]);
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) console.log(error);
 
   return (
     <>
@@ -56,7 +104,7 @@ export const Analysis = () => {
         </span>
       </div>
       <div className={styles.tab}>
-        {['이번 주', '이번 달', '올해'].map((tab, index) => (
+        {periodTab.map((tab, index) => (
           <button
             key={index}
             className={`${styles.tabBtn} ${
@@ -68,7 +116,7 @@ export const Analysis = () => {
           </button>
         ))}
       </div>
-      <div className={styles.tagChartBox}>
+      {/* <div className={styles.tagChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
           <p className={styles.chartPeriod}>2023.10.09 ~ 2023.10.16</p>
@@ -76,14 +124,12 @@ export const Analysis = () => {
         <div className={styles.barsBox}>
           {periodData.map((data, index) => (
             <div key={index} className={styles.barWrapper}>
-              <span className={styles.portionNumber}>{`${
-                data.portion * 100
-              }%`}</span>
+              <span className={styles.portionNumber}>{data.percentage}%</span>
               <div
                 className={styles.bar}
-                style={{ height: `${200 * data.portion}px` }}
+                style={{ height: `${200 * data.percentage}px` }}
               ></div>
-              <h4 className={styles.tagName}>{`#${data.name}`}</h4>
+              <h4 className={styles.tagName}>{`#${data.tagName}`}</h4>
             </div>
           ))}
         </div>
@@ -101,14 +147,14 @@ export const Analysis = () => {
             <RightChevron />
           </Link>
         </div>
-      </div>
-      <div className={styles.aiChartBox}>
+      </div> */}
+      {/* <div className={styles.aiChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
           <p className={styles.chartPeriod}>2023.10.09 ~ 2023.10.16</p>
         </div>
         <div className={styles.horizonsContainer}>
-          {periodData2.map((data, index) => (
+          {aiData.map((data, index) => (
             <div key={index} className={styles.horizonBox}>
               <div className={styles.aiProfileWrapper}>
                 {data.name === '다다' ? (
@@ -134,7 +180,7 @@ export const Analysis = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <BottomNav page={2} />
     </>
   );
