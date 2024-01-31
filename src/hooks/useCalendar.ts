@@ -37,7 +37,7 @@ const useCalendar = () => {
   }, [chatData, data, isLoading, error]);
 
   const prevDayList = Array.from({
-    length: Math.max(0, currentDate.getDay()),
+    length: Math.max(0, currentDate.getDay() - 1),
   }).map(() => DEFAULT_TRASH_VALUE);
   const currentDayList = Array.from({ length: totalMonthDays }).map(
     (_, i) => i + 1,

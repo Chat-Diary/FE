@@ -46,7 +46,7 @@ const Profile = () => {
           {
             chatId: Date.now(),
             sender: 'SYSTEM',
-            content: `채팅 대상이${newAi.name}으로 변경되었습니다.`,
+            content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
             createdAt: formatFullDateToString(new Date()),
             chatType: 'SYSTEM',
           },
@@ -91,7 +91,7 @@ const Profile = () => {
 
   return (
     <>
-      <ChangeHeader >대화 상대 변경</ChangeHeader>
+      <ChangeHeader>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
         {React.cloneElement(imgB[currentId], {
           style: { width: '160px', height: '160px' },
