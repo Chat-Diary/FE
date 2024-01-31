@@ -7,7 +7,7 @@ export interface IMessage {
   chatId: number;
   sender: string;
   content: string | ReactNode;
-  createdAt: string;
+  createAt: string;
   chatType: string;
 }
 
@@ -44,7 +44,7 @@ export const makeSection = (messages: IMessage[]) => {
   const sections: ISection = {};
 
   messages.forEach((m) => {
-    const dateObj = parseISO(m.createdAt);
+    const dateObj = parseISO(m.createAt);
     const monthDate = format(dateObj, 'yyyy.MM.dd EEEE', { locale: ko });
     if (sections[monthDate]) {
       sections[monthDate].push(m);

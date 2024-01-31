@@ -26,7 +26,7 @@ const useCalendar = () => {
   const formattedDate = currentDate.toISOString().slice(0, 7);
 
   const { data, isLoading, error } = useQuery<IChatData[]>(
-    ['chatData', formattedDate],
+    ['calendarData', formattedDate],
     () => getCalendarData(formattedDate),
   );
 
