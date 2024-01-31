@@ -60,9 +60,10 @@ export const Analysis = () => {
           { sender: 'LULU', chatCount: 0, percentage: 0 },
         ];
 
-        if (tagsData) {
+        if (tagsData && tagsData.length >= 3) {
           setTagData(tagsData.slice(0, 3));
         }
+
         if (aisData) {
           const aiSlice = aisData
             .slice(1)
@@ -118,7 +119,7 @@ export const Analysis = () => {
       <div className={styles.tagChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
-          <p className={styles.chartPeriod}>2023.10.09 ~ 2023.10.16</p>
+          <p className={styles.chartPeriod}>{} ~ 2023.10.16</p>
         </div>
         <div className={styles.barsBox}>
           {tagData.map((data, index) => (
