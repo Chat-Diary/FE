@@ -18,6 +18,7 @@ import React from 'react';
 import { character } from '../../../utils/globalProfiles';
 import ProfileRadio from '../../../components/common/Buttons/ChangeRadio/ProfileRadio';
 import { formatFullDateToString } from '../../../utils/dateFormatters';
+import useChatStore from '../../../stores/chatStore';
 
 const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
 const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];
@@ -29,6 +30,8 @@ const Profile = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(3);
 
+  const { addNextMessage } = useChatStore();
+
   const navigate = useNavigate();
 
   const handleRadioChange = (id: number) => {
@@ -39,39 +42,15 @@ const Profile = () => {
     navigate('/chat');
     const newAi = setAi(id);
     setCurrentAi(newAi);
-    if (!localStorage.getItem('chatData')) {
-      localStorage.setItem(
-        'chatData',
-        JSON.stringify([
-          {
-            chatId: Date.now(),
-            sender: 'SYSTEM',
-            content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
-            createdAt: formatFullDateToString(new Date()),
-            chatType: 'SYSTEM',
-          },
-        ]),
-      );
-    } else {
-      const storedData = localStorage.getItem('chatData');
-      let previousData;
-      if (storedData !== null) {
-        previousData = JSON.parse(storedData);
-        localStorage.setItem(
-          'chatData',
-          JSON.stringify([
-            ...previousData,
-            {
-              chatId: Date.now(),
-              sender: 'SYSTEM',
-              content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
-              createdAt: formatFullDateToString(new Date()),
-              chatType: 'SYSTEM',
-            },
-          ]),
-        );
-      }
-    }
+    addNextMessage([
+      {
+        chatId: Date.now(),
+        sender: 'SYSTEM',
+        content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
+        createAt: formatFullDateToString(new Date()),
+        chatType: 'SYSTEM',
+      },
+    ]);
   };
 
   useEffect(() => {

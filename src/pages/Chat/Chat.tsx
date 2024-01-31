@@ -35,7 +35,7 @@ const Chat = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (chatId) {
+    if (chatId && messages.length === 0) {
       try {
         getChatData((Number(chatId) - 10).toString()).then((result) => {
           setMessages(result);

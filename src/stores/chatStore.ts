@@ -11,18 +11,18 @@ interface IChatStore {
 
 const useChatStore = create<IChatStore>((set) => ({
   messages: [],
-  setMessages: (newArray: IMessage[]) => set({ messages: newArray }),
-  addPreviousMessage: (newMessages: IMessage[]) => {
+  setMessages: (newArray) => set({ messages: newArray }),
+  addPreviousMessage: (newMessages) => {
     set((state) => ({
       messages: [...newMessages, ...state.messages],
     }));
   },
-  addNextMessage: (newMessages: IMessage[]) => {
+  addNextMessage: (newMessages) => {
     set((state) => ({
       messages: [...state.messages, ...newMessages],
     }));
   },
-  replaceLastMessage: (newMessage: IMessage) => {
+  replaceLastMessage: (newMessage) => {
     set((state) => {
       const updatedMessages = [...state.messages];
       updatedMessages.pop();
