@@ -15,7 +15,6 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
         ? '0' + (currentDate.getMonth() + 1)
         : currentDate.getMonth() + 1
     }-${dayInfo.day < 10 ? '0' + dayInfo.day : dayInfo.day}`;
-    console.log(dateString);
     if (dayInfo.characters.length > 0) {
       navigate(`/detail?diary_date=${dateString}`);
     }
