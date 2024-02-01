@@ -13,6 +13,7 @@ import { isImageUrl } from '../../utils/fileFormats';
 import { getAiEnglish, makeSection } from '../../utils/chattings';
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 const Chat = () => {
   const {
@@ -25,6 +26,7 @@ const Chat = () => {
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isGPTLoading, setIsGPTLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [chatId, setChatId] = useState(localStorage.getItem('chatId'));
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [socket, setSocket] = useState<WebSocket>(
@@ -32,7 +34,41 @@ const Chat = () => {
   );
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    // setChatId((prev) => (Number(prev) - 10).toString());
+    console.log('대상이 관찰되었습니다');
+  });
+
+  const target = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (chatId && target.current) {
+      observe(target.current);
+    }
+
+    if (chatId === '0' && target.current) {
+      unobserve(target.current);
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    try {
+      getChatData((Number(chatId) - 10).toString()).then((result) => {
+        addPreviousMessage(result);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [chatId]);
+
+  useEffect(() => {
+    if (isLoading && target.current) {
+      unobserve(target.current);
+    } else if (target.current) {
+      observe(target.current);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (chatId && messages.length === 0) {
@@ -166,6 +202,7 @@ const Chat = () => {
   return (
     <div>
       <ChatHeader onClick={onSelectDate} />
+      <div ref={target}></div>
       <div className={styles.messagesContainer}>
         {Object.entries(MessageSections || {})?.map(([day, messages]) => (
           <>
