@@ -33,7 +33,7 @@ export const Analysis = () => {
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ['user_id', 'type', 'date'],
+    queryKey: ['user_id', 'type', 'date', activeTab],
     queryFn: () => {
       let type = '';
       switch (activeTab) {
