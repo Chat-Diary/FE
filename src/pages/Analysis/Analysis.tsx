@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Chichi48, Dada48, Lulu48, Notice, RightChevron } from '../../assets';
 import BottomNav from '../../components/common/BottomNav/BottomNav';
@@ -30,7 +31,6 @@ export const Analysis = () => {
 
   const [tagData, setTagData] = useState<frequentTagType[]>([]);
   const [aiData, setAiData] = useState<frequentAiType[]>([]);
-  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'type', 'date', activeTab],
