@@ -18,6 +18,11 @@ export const Analysis = () => {
   const periodTab = ['이번 주', '이번 달', '올해'];
   const [activeTab, setActiveTab] = useState(0);
 
+  // const today = new Date();
+  // const year: number = today.getFullYear();
+  // const month: number = today.getMonth() + 1;
+  // const date: number = today.getDate();
+
   const handleTabClick = (index: number) => {
     setActiveTab(index);
     console.log(tagData);
@@ -43,7 +48,16 @@ export const Analysis = () => {
           break;
       }
 
+      // const currentDate =
+      //   year +
+      //   '-' +
+      //   month.toString().padStart(2, '0') +
+      //   '-' +
+      //   date.toString().padStart(2, '0');
+      // console.log(currentDate);
+
       return [
+        // getFrequentTags(userId, type, currentDate),
         getFrequentTags(userId, type, '2024-01-02'),
         getFrequentAis(userId, type, '2024-01-02'),
       ];
@@ -86,7 +100,7 @@ export const Analysis = () => {
         }
       });
     }
-  }, [data]);
+  }, [data, activeTab]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -119,7 +133,10 @@ export const Analysis = () => {
       <div className={styles.tagChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
-          <p className={styles.chartPeriod}>{} ~ 2023.10.16</p>
+          <p className={styles.chartPeriod}>
+            {tagData.length > 0 && tagData[1].startDate} ~{' '}
+            {tagData.length > 0 && tagData[1].endDate}
+          </p>
         </div>
         <div className={styles.barsBox}>
           {tagData.map((data, index) => (

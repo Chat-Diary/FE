@@ -13,7 +13,7 @@ export interface frequentAiType {
   percentage: number;
 }
 
-export const getFrequentTags = (
+export const getFrequentTags = async (
   memberId: number,
   type: string,
   date: string,
