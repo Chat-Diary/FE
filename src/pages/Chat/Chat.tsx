@@ -14,6 +14,7 @@ import { getAiEnglish, makeSection } from '../../utils/chattings';
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { getAi } from '../../utils/globalProfiles';
 
 const Chat = () => {
   const {
@@ -35,8 +36,8 @@ const Chat = () => {
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const [observe, unobserve] = useIntersectionObserver(() => {
-    // setChatId((prev) => (Number(prev) - 10).toString());
-    console.log('대상이 관찰되었습니다');
+    setChatId((prev) => (Number(prev) - 10).toString());
+    console.log('대상이 감지되었습니다.');
   });
 
   const target = useRef<HTMLDivElement>(null);
@@ -46,20 +47,19 @@ const Chat = () => {
     if (chatId && target.current) {
       observe(target.current);
     }
-
-    if (chatId === '0' && target.current) {
+    if (Number(chatId) - 10 < 0 && target.current) {
       unobserve(target.current);
     }
   }, [messages]);
 
   useEffect(() => {
-    try {
-      getChatData((Number(chatId) - 10).toString()).then((result) => {
-        addPreviousMessage(result);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    getChatData((Number(chatId) - 10).toString()).then((result) => {
+      addPreviousMessage(result);
+      const scrollHeight = document.body.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const middlePosition = scrollHeight / 2 - windowHeight / 2;
+      window.scrollTo(0, middlePosition);
+    });
   }, [chatId]);
 
   useEffect(() => {
@@ -72,14 +72,31 @@ const Chat = () => {
 
   useEffect(() => {
     if (chatId && messages.length === 0) {
-      try {
-        getChatData((Number(chatId) - 10).toString()).then((result) => {
-          setMessages(result);
-        });
-      } catch (error) {
-        console.log(error);
+      const ai = getAi();
+      if (ai !== null) {
+        getChatData((Number(chatId) - 10).toString())
+          .then((result) => {
+            setMessages(result);
+          })
+          .then(() => {
+            addNextMessage([
+              {
+                chatId: Date.now(),
+                sender: 'SYSTEM',
+                content: `채팅 대상이 '${ai.name}' 로 변경되었습니다.`,
+                createAt: formatFullDateToString(new Date()),
+                chatType: 'SYSTEM',
+              },
+            ]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     }
+    return () => {
+      setMessages([]);
+    };
   }, []);
 
   const MessageSections = useMemo(() => {
@@ -153,6 +170,7 @@ const Chat = () => {
         chatType: 'CHAT',
       },
     ]);
+    window.scrollTo(0, document.body.scrollHeight);
     setInputText('');
     socket?.send(
       JSON.stringify({
@@ -194,10 +212,6 @@ const Chat = () => {
       setIsGPTLoading(false);
     };
   }, [socket]);
-
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, [messages]);
 
   return (
     <div>

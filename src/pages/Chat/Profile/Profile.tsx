@@ -42,15 +42,6 @@ const Profile = () => {
     navigate('/chat');
     const newAi = setAi(id);
     setCurrentAi(newAi);
-    addNextMessage([
-      {
-        chatId: Date.now(),
-        sender: 'SYSTEM',
-        content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
-        createAt: formatFullDateToString(new Date()),
-        chatType: 'SYSTEM',
-      },
-    ]);
   };
 
   useEffect(() => {
