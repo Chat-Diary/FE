@@ -52,9 +52,9 @@ const Detail = () => {
     afterChange: (current: number) => setCurrentSlide(current),
   };
 
-  const onChangeEdit = () => {
-    navigate('/detail/edit');
-  };
+  // const onChangeEdit = () => {
+  //   navigate('/detail/edit');
+  // };
 
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
@@ -97,7 +97,9 @@ const Detail = () => {
 
   return (
     <>
-      <DetailHeader onClick={onChangeEdit}>{formattedDate}</DetailHeader>
+      <DetailHeader date={data.diaryDate} info={data}>
+        {formattedDate}
+      </DetailHeader>
       <div className={styles.detailContainer}>
         <div className={styles.header}>
           <div>

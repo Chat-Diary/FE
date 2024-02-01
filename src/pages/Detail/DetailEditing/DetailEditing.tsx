@@ -10,10 +10,17 @@ import {
   DetailImgDelete,
 } from '../../../assets/index';
 import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 
 const DetailEditing = () => {
   const navigator = useNavigate();
+  const [searchParams] = useSearchParams();
+  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
+  const diaryDate = searchParams.get('diary_date');
+
+  const location = useLocation();
+  const currentData = location.state.detailInfo;
 
   const imgInput = useRef<HTMLInputElement>(null);
   const [imgDiary, setImgDiary] = useState([
@@ -57,11 +64,12 @@ const DetailEditing = () => {
 
   const handleSave = () => {
     console.log('저장 버튼 클릭');
+    console.log(currentData);
   };
 
   return (
     <>
-      <ChangeHeader >일기 수정하기</ChangeHeader>
+      <ChangeHeader>일기 수정하기</ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
           <div>2023 11월 12일</div>

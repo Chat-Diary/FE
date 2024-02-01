@@ -73,7 +73,7 @@ const Router = () => {
               element: <Detail />,
             },
             {
-              path: 'edit',
+              path: 'modify',
               children: [
                 {
                   index: true,
