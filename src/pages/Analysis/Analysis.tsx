@@ -24,6 +24,9 @@ export const Analysis = () => {
   // const month: number = today.getMonth() + 1;
   // const date: number = today.getDate();
 
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+
   const handleTabClick = (index: number) => {
     setActiveTab(index);
     console.log(tagData);
@@ -32,7 +35,7 @@ export const Analysis = () => {
   const [tagData, setTagData] = useState<frequentTagType[]>([]);
   const [aiData, setAiData] = useState<frequentAiType[]>([]);
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['user_id', 'type', 'date', activeTab],
     queryFn: () => {
       let type = '';
@@ -75,7 +78,17 @@ export const Analysis = () => {
         ];
 
         if (tagsData && tagsData.length >= 3) {
-          setTagData(tagsData.slice(0, 3));
+          setTagData((prev) => {
+            const slicedTagsData = tagsData.slice(0, 3);
+
+            // timestamp 형식에서 YYYY년 MM월 DD일 형식으로 바꾸기 위함
+            const startObject = new Date(slicedTagsData[0].startDate);
+            setStartDate(startObject);
+            const endObject = new Date(slicedTagsData[0].endDate);
+            setEndDate(endObject);
+
+            return slicedTagsData;
+          });
         }
 
         if (aisData) {
@@ -101,6 +114,11 @@ export const Analysis = () => {
       });
     }
   }, [data, activeTab]);
+
+  // activeTab이 변경될 때마다 refetch 호출
+  useEffect(() => {
+    refetch();
+  }, [activeTab]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -133,10 +151,19 @@ export const Analysis = () => {
       <div className={styles.tagChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
-          <p className={styles.chartPeriod}>
-            {tagData.length > 0 && tagData[1].startDate} ~{' '}
-            {tagData.length > 0 && tagData[1].endDate}
-          </p>
+          <div className={styles.chartPeriodContainer}>
+            <p className={styles.chartPeriod}>
+              {startDate?.getFullYear()}년{' '}
+              {startDate?.getMonth() !== undefined && startDate?.getMonth() + 1}
+              월 {startDate?.getDate()}일
+            </p>
+            <p className={styles.chartPeriod}>~</p>
+            <p className={styles.chartPeriod}>
+              {endDate?.getFullYear()}년{' '}
+              {endDate?.getMonth() !== undefined && endDate.getMonth() + 1}월{' '}
+              {endDate?.getDate()}일
+            </p>
+          </div>
         </div>
         <div className={styles.barsBox}>
           {tagData.map((data, index) => (
