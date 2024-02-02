@@ -1,3 +1,12 @@
+export interface DiaryDetailType {
+  diaryDate: string;
+  title: string;
+  imgUrl: string[];
+  content: string;
+  tagName: string[];
+  characterIndex: number;
+}
+
 export const getDiaryDetail = async (userId: number, diaryDate: string) => {
   return fetch(
     `${process.env.REACT_APP_HTTP_API_KEY}/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,

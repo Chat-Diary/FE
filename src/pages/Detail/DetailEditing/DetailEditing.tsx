@@ -13,7 +13,10 @@ import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/Confirm
 import { useLocation, useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { modifyDiaryDetail } from '../../../apis/diaryDetailApi';
+import {
+  DiaryDetailType,
+  modifyDiaryDetail,
+} from '../../../apis/diaryDetailApi';
 
 const DetailEditing = () => {
   const navigator = useNavigate();
@@ -24,14 +27,14 @@ const DetailEditing = () => {
   const location = useLocation();
   const currentData = location.state.detailData;
   const currentDate = currentData.diaryDate;
+  const currentTitle = currentData.title;
+  const [currentImgs, setCurrentImgs] = useState<string[]>(currentData.imgUrl);
+  const currentContent = currentData.content;
   const currentTags = currentData.tagName;
 
+  const [newData, setNewData] = useState<DiaryDetailType>(currentData);
+
   const imgInput = useRef<HTMLInputElement>(null);
-  const [imgDiary, setImgDiary] = useState([
-    <DetailEditImg key={0} />,
-    <DetailEditImg key={1} />,
-    <DetailEditImg key={2} />,
-  ]);
 
   const handleImgAdd = () => {
     if (imgInput.current) {
@@ -41,17 +44,39 @@ const DetailEditing = () => {
 
   const handleImgDel = (index: number) => {
     // 클릭된 index의 이미지를 배열에서 제외
-    setImgDiary((prev) => prev.filter((img, imgIndex) => imgIndex !== index));
+    setCurrentImgs((prev) =>
+      prev.filter((img, imgIndex) => imgIndex !== index),
+    );
+
+    setNewData((prev) => ({
+      ...prev,
+      imgUrl: prev.imgUrl.filter((img, imgIndex) => imgIndex !== index),
+    }));
   };
 
   const handleTagClick = () => {
     // console.log('태그 선택 클릭');
+
     navigator('/detail/edit/tags');
   };
 
+  const handleTitle = (value: string) => {
+    setNewData((prev) => ({
+      ...prev,
+      title: value,
+    }));
+  };
+
+  const handleContent = (value: string) => {
+    setNewData((prev) => ({
+      ...prev,
+      content: value,
+    }));
+  };
+
   const handleSave = () => {
-    console.log('저장 버튼 클릭');
     console.log(currentData);
+    console.log(newData);
   };
 
   const { isLoading, error, data } = useQuery({
@@ -69,7 +94,12 @@ const DetailEditing = () => {
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
           <div>{currentDate}</div>
-          <InputForm length={44} placeHolder={'이름을 입력해주세요'} />
+          <InputForm
+            length={44}
+            placeHolder={'이름을 입력해주세요'}
+            value={currentTitle}
+            onSave={handleTitle}
+          />
         </div>
         <div className={styles.content}>
           <div>사진 첨부하기</div>
@@ -84,18 +114,23 @@ const DetailEditing = () => {
               />
               <DetailCamera onClick={handleImgAdd} />
             </label>
-            {imgDiary.map((img, index) => (
+            {currentImgs.map((img: string, key: number) => (
               <>
-                <div key={index} className={styles.img}>
-                  {img}
+                <div key={key} className={styles.img}>
+                  <img src={img} />
                   <div className={styles.imgDel}>
-                    <DetailImgDelete onClick={() => handleImgDel(index)} />
+                    <DetailImgDelete onClick={() => handleImgDel(key)} />
                   </div>
                 </div>
               </>
             ))}
           </div>
-          <InputForm length={240} placeHolder={'내용을 입력해주세요'} />
+          <InputForm
+            length={240}
+            placeHolder={'내용을 입력해주세요'}
+            value={currentContent}
+            onSave={handleContent}
+          />
           <div className={styles.tagSelect} onClick={handleTagClick}>
             <div>태그 선택하기</div>
             <div className={styles.tags}>

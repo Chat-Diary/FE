@@ -41,8 +41,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 5px;
         position: relative;
+
+        img {
+          width: 84px;
+          height: 84px;
+          border-radius: 5px;
+        }
       }
 
       & .imgDel {

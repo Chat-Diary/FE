@@ -3,15 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './DetailHeader.module.scss';
 
 import { LeftChevron, DetailEdit } from '../../../../assets/index';
-
-interface DiaryDetailType {
-  diaryDate: string;
-  title: string;
-  imgUrl: string[];
-  content: string;
-  tagName: string[];
-  characterIndex: number;
-}
+import { DiaryDetailType } from '../../../../apis/diaryDetailApi';
 
 interface IProps {
   children: string;
