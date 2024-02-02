@@ -55,29 +55,23 @@ const Chat = () => {
   }, [messages, isLoading]);
 
   useEffect(() => {
-    if (Number(chatId) >= 10) {
-      setIsLoading(true);
-      getChatData((Number(chatId) - 10).toString())
-        .then((result) => {
+    setIsLoading(true);
+    const previousScrollHeight = document.body.scrollHeight;
+
+    getChatData((Number(chatId) - 10).toString())
+      .then((result) => {
+        if (Number(chatId) >= 10) {
           addPreviousMessage(result);
-          const scrollHeight = document.body.scrollHeight;
-          const windowHeight = window.innerHeight;
-          const middlePosition = scrollHeight / 2 - windowHeight / 2;
-          window.scrollTo(0, middlePosition);
-        })
-        .then(() => setIsLoading(false));
-    } else if (Number(chatId) >= 0) {
-      setIsLoading(true);
-      getChatData((Number(chatId) - 10).toString())
-        .then((result) => {
+        } else if (Number(chatId) >= 0) {
           addPreviousMessage(result.slice(0, chatId));
-          const scrollHeight = document.body.scrollHeight;
-          const windowHeight = window.innerHeight;
-          const middlePosition = scrollHeight / 2 - windowHeight / 2;
-          window.scrollTo(0, middlePosition);
-        })
-        .then(() => setIsLoading(false));
-    }
+        }
+      })
+      .then(() => {
+        const afterScrollHeight = document.body.scrollHeight;
+        const offset = afterScrollHeight - previousScrollHeight;
+        window.scrollTo(0, offset);
+      })
+      .then(() => setIsLoading(false));
   }, [chatId]);
 
   useEffect(() => {
