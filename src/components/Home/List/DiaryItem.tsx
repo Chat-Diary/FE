@@ -1,19 +1,5 @@
+import { Diary } from '../../../utils/diary';
 import styles from './DiaryItem.module.scss';
-
-interface TagInfo {
-  tagId: number;
-  tagName: string;
-}
-
-interface Diary {
-  id: number;
-  title: string;
-  diaryDate: string;
-  photoUrls: string[];
-  tagList: TagInfo[];
-  tagId: number;
-  tagName: string;
-}
 
 interface DiaryItemProps {
   diary: Diary;

@@ -34,7 +34,7 @@ const Home = () => {
       'diary',
       userId,
       currentDate.getFullYear(),
-      currentDate.getMonth(),
+      currentDate.getMonth() + 1,
     ],
     queryFn: () =>
       getDiaryList(
