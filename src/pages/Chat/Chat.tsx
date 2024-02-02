@@ -43,16 +43,22 @@ const Chat = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (chatId && target.current) {
-      observe(target.current);
+    if (target.current) {
+      if (chatId) {
+        observe(target.current);
+      }
+      if (Number(chatId) - 10 < 0) {
+        unobserve(target.current);
+      }
+      if (isLoading) {
+        unobserve(target.current);
+      }
     }
-    if (Number(chatId) - 10 < 0 && target.current) {
-      unobserve(target.current);
-    }
-    if (isLoading && target.current) {
-      unobserve(target.current);
-    }
-  }, [messages, isLoading]);
+  }, [isLoading]);
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [messages]);
 
   useEffect(() => {
     setIsLoading(true);
