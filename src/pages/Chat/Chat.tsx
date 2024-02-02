@@ -172,15 +172,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket.onopen = () => {
-      console.log('WebSocket connection established');
-    };
-    socket.onclose = (event) => {
-      console.log(`WebSocket connection closed: ${event.reason}`);
-    };
-  }, []);
-
-  useEffect(() => {
     if (!socket) return;
 
     socket.onmessage = async (event: MessageEvent) => {
