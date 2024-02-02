@@ -17,9 +17,13 @@ const Home = () => {
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
 
-  const onSelectDate = () => {
+  const onClickSelector = () => {
     setIsSelectedDate(true);
-    //setCurrentDate(new Date(2023, 10));
+  };
+
+  const onSelectDate = (year: string | number, month: string | number) => {
+    setCurrentDate(new Date(year as number, month as number-1));
+    setIsSelectedDate(false);
   };
 
   return (
@@ -29,7 +33,7 @@ const Home = () => {
         <HomeProfileHeader />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
-            <div className={styles.dateSelector} onClick={onSelectDate}>
+            <div className={styles.dateSelector} onClick={onClickSelector}>
               <p className={styles.yearAndMonth}>
                 {currentDate.toLocaleDateString('ko-KR', {
                   year: 'numeric',
@@ -68,6 +72,7 @@ const Home = () => {
           clickOuter={setIsSelectedDate}
           isFullDate={false}
           isOpen={isSelectedDate}
+          onSelectDate={onSelectDate}
         />
       ) : null}
       <BottomNav page={0} />

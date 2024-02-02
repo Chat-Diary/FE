@@ -14,6 +14,8 @@ const tags = [
   { id: 9, tag: '#선후배' },
 ];
 
+
+
 const tagMaxLengthToShow = 23;
 let currentLength = 0;
 const result: string[] = [];
