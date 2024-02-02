@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useState } from 'react';
 import styles from './DetailEditing.module.scss';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
@@ -8,7 +9,7 @@ import { DetailCamera, DetailImgDelete } from '../../../assets/index';
 import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useLocation, useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 import {
   DiaryDetailType,
   modifyDiaryDetail,
@@ -45,9 +46,10 @@ const DetailEditing = () => {
       prev.filter((img, imgIndex) => imgIndex !== index),
     );
 
+    // 삭제된 이미지의 url
     setNewData((prev) => ({
       ...prev,
-      imgUrl: prev.imgUrl.filter((img, imgIndex) => imgIndex !== index),
+      deleteImgUrls: [...(prev.deleteImgUrls || []), currentImgs[index]],
     }));
   };
 
@@ -66,18 +68,15 @@ const DetailEditing = () => {
   };
 
   const handleSave = () => {
-    console.log(currentData);
     console.log(newData);
+    // mutate(newData);
   };
 
-  // const { isLoading, error, data } = useQuery({
-  //   queryKey: ['user_id', 'diary_date'],
-  //   queryFn: () => modifyDiaryDetail(userId, diaryDate!, currentData.title),
-  // });
+  const { mutate, isLoading } = useMutation((value: DiaryDetailType) =>
+    modifyDiaryDetail(value),
+  );
 
-  // if (isLoading) return <div>Loading...</div>;
-
-  // if (error) console.log(error);
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
