@@ -37,6 +37,9 @@ const InputForm = ({
     if (value !== undefined) {
       setInputCount(value?.length);
     }
+  }, []);
+
+  useEffect(() => {
     if (length === 140) {
       maxTyping = 120;
     } else if (length === 240) {
