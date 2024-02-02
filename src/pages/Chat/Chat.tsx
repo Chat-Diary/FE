@@ -36,7 +36,6 @@ const Chat = () => {
 
   const [observe, unobserve] = useIntersectionObserver(() => {
     setChatId((prev) => (Number(prev) - 10).toString());
-    console.log('대상이 감지되었습니다.');
   });
 
   const target = useRef<HTMLDivElement>(null);
