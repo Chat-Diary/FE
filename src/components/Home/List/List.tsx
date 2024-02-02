@@ -1,31 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DiaryItem from './DiaryItem';
-import { useQuery } from 'react-query';
-import { getDiaryList } from '../../../apis/diaryListApi';
+import useCalendar from '../../../hooks/useCalendar';
 
-const diaries = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-  { id: 10 },
-];
+interface TagInfo {
+  tagId: number;
+  tagName: string;
+}
 
-// const { isLoading, error, data } = useQuery({
-//   queryKey: ['user_id', 'year', 'month'],
-//   queryFn: () => getDiaryList(userId, year, month),
-// });
+interface Diary {
+  id: number;
+  title: string;
+  diaryDate: string;
+  photoUrls: string[];
+  tagList: TagInfo[];
+  tagId: number;
+  tagName: string;
+}
 
-const List = () => {
+interface IProps {
+  dataList?: Diary[];
+}
+
+const List = ({dataList}: IProps) => {
+  console.log(dataList)
+
+  if (!dataList) {
+    return <></>;
+  }
+
   return (
     <div>
-      {diaries.map((diary) => {
-        return <DiaryItem key={diary.id} />;
+      {dataList?.map((diaryItem: Diary) => {
+        return <DiaryItem key={diaryItem.id} diary={diaryItem} />;
       })}
     </div>
   );

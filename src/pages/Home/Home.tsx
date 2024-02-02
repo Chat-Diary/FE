@@ -8,6 +8,8 @@ import BottomNav from '../../components/common/BottomNav/BottomNav';
 import HomeHeader from '../../components/common/Header/Header';
 import HomeProfileHeader from '../../components/common/Header/HomeProfildHeader/HomeProfileHeader';
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
+import { useQuery } from 'react-query';
+import { getDiaryList } from '../../apis/diaryListApi';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -16,15 +18,37 @@ const Home = () => {
   };
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
+  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
 
   const onClickSelector = () => {
     setIsSelectedDate(true);
   };
 
   const onSelectDate = (year: string | number, month: string | number) => {
-    setCurrentDate(new Date(year as number, month as number-1));
+    setCurrentDate(new Date(year as number, (month as number) - 1));
     setIsSelectedDate(false);
   };
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: [
+      'diary',
+      userId,
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+    ],
+    queryFn: () =>
+      getDiaryList(
+        userId,
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+      ),
+  });
+
+  if (isLoading) {
+    return <>loading..</>;
+  }
+
+  if (error) console.log(error);
 
   return (
     <>
@@ -44,7 +68,11 @@ const Home = () => {
                 <DownChevron />
               </div>
             </div>
-            <span className={styles.diaryNumber}>12개의 일기</span>
+            {data ? (
+              <span className={styles.diaryNumber}>{data.length}개의 일기</span>
+            ) : (
+              <span className={styles.diaryNumber}>0개의 일기</span>
+            )}
           </div>
           <div className={styles.rightContainer}>
             <p
@@ -59,7 +87,11 @@ const Home = () => {
           </div>
         </div>
         {isList ? (
-          <List />
+          data ? (
+            <List dataList={data} />
+          ) : (
+            <></>
+          )
         ) : (
           <HomeCalendar
             weekCalendarList={weekCalendarList}

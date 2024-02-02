@@ -14,8 +14,6 @@ const tags = [
   { id: 9, tag: '#선후배' },
 ];
 
-
-
 const tagMaxLengthToShow = 23;
 let currentLength = 0;
 const result: string[] = [];
@@ -32,20 +30,37 @@ for (const tag of tags) {
   }
 }
 
-const diaryTitle = '쿠잇X스택 첫 오프라인 회의 가나라마바사';
+interface TagInfo {
+  tagId: number;
+  tagName: string;
+}
 
-const DiaryItem = () => {
+interface Diary {
+  id: number;
+  title: string;
+  diaryDate: string;
+  photoUrls: string[];
+  tagList: TagInfo[];
+  tagId: number;
+  tagName: string;
+}
+
+interface DiaryItemProps {
+  diary: Diary;
+}
+
+const DiaryItem = ({ diary }: DiaryItemProps) => {
   return (
     <div className={styles.DiaryItem}>
       <DetailSlider className={styles.DiaryImg} key={0} />
       <div>
         <div className={styles.DiaryTitleContainer}>
-          <div className={styles.DiaryTitle}>{diaryTitle}</div>
+          <div className={styles.DiaryTitle}>{diary.title}</div>
         </div>
-        <div className={styles.DiaryDate}>2023.11.14</div>
+        <div className={styles.DiaryDate}>{diary.diaryDate}</div>
         <div className={styles.DiaryTags}>
-          {result.map((tagText) => {
-            return <div key={1}>{tagText}</div>;
+          {diary.tagList.map((tagText) => {
+            return <div key={1}>{tagText.tagName}</div>;
           })}
         </div>
       </div>
