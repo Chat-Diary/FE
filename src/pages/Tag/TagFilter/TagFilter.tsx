@@ -21,14 +21,15 @@ const TagFilter = () => {
 
   return (
     <>
-      <ChangeHeader >필터 선택</ChangeHeader>
+      <ChangeHeader>필터 선택</ChangeHeader>
       <AllTags
-        index={[
-          { category: '감정', index: [0, 3, 4] },
-          { category: '인물', index: [0] },
-          { category: '행동', index: [0, 3, 4, 5] },
-          { category: '장소', index: [0, 3, 4, 5] },
-        ]}
+        // index={[
+        //   { category: '감정', index: [0, 3, 4] },
+        //   { category: '인물', index: [0] },
+        //   { category: '행동', index: [0, 3, 4, 5] },
+        //   { category: '장소', index: [0, 3, 4, 5] },
+        // ]}
+        currentTags={['태그']}
         isInit={isInit}
         setIsInit={setIsInit}
       />

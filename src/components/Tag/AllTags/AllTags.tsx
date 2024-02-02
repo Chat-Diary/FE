@@ -10,20 +10,20 @@ interface SelectedTag {
 
 interface TagCategory {
   category: string;
-  tags: string[];
+  tagName: string[];
 }
 
 interface IProps {
-  index?: SelectedTag[]; // 선택된 게 없을 때
+  currentTags: string[];
   isInit?: boolean;
   setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AllTags = ({ index, isInit = false, setIsInit }: IProps) => {
+const AllTags = ({ currentTags, isInit = false, setIsInit }: IProps) => {
   const allTags: TagCategory[] = [
     {
       category: '감정',
-      tags: [
+      tagName: [
         '기쁨',
         '슬픔',
         '화남',
@@ -36,42 +36,40 @@ const AllTags = ({ index, isInit = false, setIsInit }: IProps) => {
     },
     {
       category: '인물',
-      tags: ['친구', '가족', '동료', '선후배', '초면', '선생님'],
+      tagName: ['친구', '가족', '동료', '선후배', '초면', '선생님'],
     },
     {
       category: '행동',
-      tags: ['식사', '공부', '여행', '술', '영화', '수다', '게임', '업무'],
+      tagName: ['식사', '공부', '여행', '술', '영화', '수다', '게임', '업무'],
     },
     {
       category: '장소',
-      tags: ['식당', '학교', '회사', '집', '버스', '카페'],
+      tagName: ['식당', '학교', '회사', '집', '버스', '카페'],
     },
   ];
 
   // 선택된 태그 담는 배열
-  const [selectedTags, setSelectedTags] = useState<Record<string, number[]>>(
-    {},
-  );
+  const [selectedTags, setSelectedTags] = useState<string[]>(currentTags);
 
   //초기화하는 함수
   const resetTags = () => {
-    const updatedSelectedTags: Record<string, number[]> = {};
+    const updatedSelectedTags: string[] = [];
     setSelectedTags(updatedSelectedTags);
   };
 
   useEffect(() => {
-    // 기존에 선택되어 있는 태그들 배열에 추가
-    if (index) {
-      const updatedSelectedTags: Record<string, number[]> = {};
-      index.forEach((t) => {
-        allTags.forEach((c) => {
-          if (c.category === t.category) {
-            updatedSelectedTags[t.category] = t.index;
-          }
-        });
-      });
-      setSelectedTags(updatedSelectedTags);
-    }
+    // // 기존에 선택되어 있는 태그들 배열에 추가
+    // if (currentTags.length !== 0) {
+    //   const updatedSelectedTags: Record<string, number[]> = {};
+    //   index.forEach((t) => {
+    //     allTags.forEach((c) => {
+    //       if (c.category === t.category) {
+    //         updatedSelectedTags[t.category] = t.index;
+    //       }
+    //     });
+    //   });
+    //   setSelectedTags(updatedSelectedTags);
+    // }
 
     // 초기화
     if (isInit) {
