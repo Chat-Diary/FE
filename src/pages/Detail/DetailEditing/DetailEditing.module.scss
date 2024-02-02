@@ -61,10 +61,15 @@
       }
     }
 
+    a {
+      text-decoration: none;
+    }
+
     & .tagSelect {
       display: flex;
       flex-direction: column;
       margin-top: 32px;
+      color: $BK90;
 
       & .tags {
         margin-top: 16px;

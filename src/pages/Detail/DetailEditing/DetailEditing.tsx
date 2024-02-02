@@ -4,11 +4,7 @@ import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeH
 import InputForm from '../../../components/common/Input/InputForm';
 import TagChip from '../../../components/Tag/AllTags/TagChip';
 
-import {
-  DetailCamera,
-  DetailEditImg,
-  DetailImgDelete,
-} from '../../../assets/index';
+import { DetailCamera, DetailImgDelete } from '../../../assets/index';
 import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useLocation, useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
@@ -17,9 +13,10 @@ import {
   DiaryDetailType,
   modifyDiaryDetail,
 } from '../../../apis/diaryDetailApi';
+import { Link } from 'react-router-dom';
 
 const DetailEditing = () => {
-  const navigator = useNavigate();
+  // const navigator = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const diaryDate = searchParams.get('diary_date');
@@ -54,12 +51,6 @@ const DetailEditing = () => {
     }));
   };
 
-  const handleTagClick = () => {
-    // console.log('태그 선택 클릭');
-
-    navigator('/detail/edit/tags');
-  };
-
   const handleTitle = (value: string) => {
     setNewData((prev) => ({
       ...prev,
@@ -79,14 +70,14 @@ const DetailEditing = () => {
     console.log(newData);
   };
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['user_id', 'diary_date'],
-    queryFn: () => modifyDiaryDetail(userId, diaryDate!, currentData.title),
-  });
+  // const { isLoading, error, data } = useQuery({
+  //   queryKey: ['user_id', 'diary_date'],
+  //   queryFn: () => modifyDiaryDetail(userId, diaryDate!, currentData.title),
+  // });
 
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div>Loading...</div>;
 
-  if (error) console.log(error);
+  // if (error) console.log(error);
 
   return (
     <>
@@ -131,15 +122,19 @@ const DetailEditing = () => {
             value={currentContent}
             onSave={handleContent}
           />
-          <div className={styles.tagSelect} onClick={handleTagClick}>
-            <div>태그 선택하기</div>
-            <div className={styles.tags}>
-              {currentTags.map((tag: string) => {
-                // eslint-disable-next-line react/jsx-key
-                return <TagChip>{tag}</TagChip>;
-              })}
+          <Link
+            to={`/detail/modify/tags?diary_date=${currentDate}`}
+            state={{ tagsData: currentTags }}
+          >
+            <div className={styles.tagSelect}>
+              <div>태그 선택하기</div>
+              <div className={styles.tags}>
+                {currentTags.map((tag: string, key: number) => {
+                  return <TagChip key={key}>{tag}</TagChip>;
+                })}
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className={styles.btn}>
