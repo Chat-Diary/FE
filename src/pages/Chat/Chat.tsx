@@ -14,7 +14,6 @@ import { getAiEnglish, makeSection } from '../../utils/chattings';
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import { getAi } from '../../utils/globalProfiles';
 
 const Chat = () => {
   const {
@@ -28,7 +27,7 @@ const Chat = () => {
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isGPTLoading, setIsGPTLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [chatId, setChatId] = useState(localStorage.getItem('chatId'));
+  const [chatId, setChatId] = useState<string | null>(null);
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [socket, setSocket] = useState<WebSocket>(
     new WebSocket(`${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`),
@@ -50,49 +49,40 @@ const Chat = () => {
     if (Number(chatId) - 10 < 0 && target.current) {
       unobserve(target.current);
     }
-  }, [messages]);
+    if (isLoading && target.current) {
+      unobserve(target.current);
+    }
+  }, [messages, isLoading]);
 
   useEffect(() => {
-    getChatData((Number(chatId) - 10).toString()).then((result) => {
-      addPreviousMessage(result);
-      const scrollHeight = document.body.scrollHeight;
-      const windowHeight = window.innerHeight;
-      const middlePosition = scrollHeight / 2 - windowHeight / 2;
-      window.scrollTo(0, middlePosition);
-    });
+    if (Number(chatId) >= 10) {
+      setIsLoading(true);
+      getChatData((Number(chatId) - 10).toString())
+        .then((result) => {
+          addPreviousMessage(result);
+          const scrollHeight = document.body.scrollHeight;
+          const windowHeight = window.innerHeight;
+          const middlePosition = scrollHeight / 2 - windowHeight / 2;
+          window.scrollTo(0, middlePosition);
+        })
+        .then(() => setIsLoading(false));
+    } else if (Number(chatId) >= 0) {
+      setIsLoading(true);
+      getChatData((Number(chatId) - 10).toString())
+        .then((result) => {
+          addPreviousMessage(result.slice(0, chatId));
+          const scrollHeight = document.body.scrollHeight;
+          const windowHeight = window.innerHeight;
+          const middlePosition = scrollHeight / 2 - windowHeight / 2;
+          window.scrollTo(0, middlePosition);
+        })
+        .then(() => setIsLoading(false));
+    }
   }, [chatId]);
 
   useEffect(() => {
-    if (isLoading && target.current) {
-      unobserve(target.current);
-    } else if (target.current) {
-      observe(target.current);
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (chatId && messages.length === 0) {
-      const ai = getAi();
-      if (ai !== null) {
-        getChatData((Number(chatId) - 10).toString())
-          .then((result) => {
-            setMessages(result);
-          })
-          .then(() => {
-            addNextMessage([
-              {
-                chatId: Date.now(),
-                sender: 'SYSTEM',
-                content: `채팅 대상이 '${ai.name}' 로 변경되었습니다.`,
-                createAt: formatFullDateToString(new Date()),
-                chatType: 'SYSTEM',
-              },
-            ]);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+    if (localStorage.getItem('chatId')) {
+      setChatId(localStorage.getItem('chatId'));
     }
     return () => {
       setMessages([]);
@@ -170,7 +160,6 @@ const Chat = () => {
         chatType: 'CHAT',
       },
     ]);
-    window.scrollTo(0, document.body.scrollHeight);
     setInputText('');
     socket?.send(
       JSON.stringify({
@@ -183,12 +172,12 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket.addEventListener('open', () => {
+    socket.onopen = () => {
       console.log('WebSocket connection established');
-    });
-    socket.addEventListener('close', (event) => {
+    };
+    socket.onclose = (event) => {
       console.log(`WebSocket connection closed: ${event.reason}`);
-    });
+    };
   }, []);
 
   useEffect(() => {
@@ -196,7 +185,6 @@ const Chat = () => {
 
     socket.onmessage = async (event: MessageEvent) => {
       const res = await JSON.parse(event.data);
-      console.log(res);
 
       if (typeof res === 'number') return;
 

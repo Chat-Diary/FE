@@ -30,9 +30,9 @@ const Profile = () => {
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(3);
 
-  const { addNextMessage } = useChatStore();
-
   const navigate = useNavigate();
+
+  const { setMessages } = useChatStore();
 
   const handleRadioChange = (id: number) => {
     setCheckedId(id);
@@ -42,6 +42,15 @@ const Profile = () => {
     navigate('/chat');
     const newAi = setAi(id);
     setCurrentAi(newAi);
+    setMessages([
+      {
+        chatId: Date.now(),
+        sender: 'SYSTEM',
+        content: `채팅 대상이 '${newAi.name}' 로 변경되었습니다.`,
+        createAt: formatFullDateToString(new Date()),
+        chatType: 'SYSTEM',
+      },
+    ]);
   };
 
   useEffect(() => {
