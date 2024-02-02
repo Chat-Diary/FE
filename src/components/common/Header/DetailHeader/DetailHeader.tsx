@@ -4,11 +4,19 @@ import styles from './DetailHeader.module.scss';
 
 import { LeftChevron, DetailEdit } from '../../../../assets/index';
 
+interface DiaryDetailType {
+  diaryDate: string;
+  title: string;
+  imgUrl: string[];
+  content: string;
+  tagName: string[];
+  characterIndex: number;
+}
+
 interface IProps {
   children: string;
   date: Date;
-  info: any;
-  // onClick: () => void;
+  info: DiaryDetailType;
 }
 const DetailHeader = ({ children, date, info }: IProps) => {
   const navigate = useNavigate();

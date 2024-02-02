@@ -12,6 +12,8 @@ import {
 import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 import { useLocation, useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { modifyDiaryDetail } from '../../../apis/diaryDetailApi';
 
 const DetailEditing = () => {
   const navigator = useNavigate();
@@ -20,7 +22,9 @@ const DetailEditing = () => {
   const diaryDate = searchParams.get('diary_date');
 
   const location = useLocation();
-  const currentData = location.state.detailInfo;
+  const currentData = location.state.detailData;
+  const currentDate = currentData.diaryDate;
+  const currentTags = currentData.tagName;
 
   const imgInput = useRef<HTMLInputElement>(null);
   const [imgDiary, setImgDiary] = useState([
@@ -28,23 +32,6 @@ const DetailEditing = () => {
     <DetailEditImg key={1} />,
     <DetailEditImg key={2} />,
   ]);
-
-  const tags = [
-    '기쁨',
-    '식당',
-    '초면',
-    '학교',
-    '카페',
-    '선후배',
-    '공부',
-    '기쁨',
-    '식당',
-    '초면',
-    '학교',
-    '카페',
-    '선후배',
-    '공부',
-  ];
 
   const handleImgAdd = () => {
     if (imgInput.current) {
@@ -67,12 +54,21 @@ const DetailEditing = () => {
     console.log(currentData);
   };
 
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['user_id', 'diary_date'],
+    queryFn: () => modifyDiaryDetail(userId, diaryDate!, currentData.title),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) console.log(error);
+
   return (
     <>
       <ChangeHeader>일기 수정하기</ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
-          <div>2023 11월 12일</div>
+          <div>{currentDate}</div>
           <InputForm length={44} placeHolder={'이름을 입력해주세요'} />
         </div>
         <div className={styles.content}>
@@ -103,7 +99,7 @@ const DetailEditing = () => {
           <div className={styles.tagSelect} onClick={handleTagClick}>
             <div>태그 선택하기</div>
             <div className={styles.tags}>
-              {tags.map((tag) => {
+              {currentTags.map((tag: string) => {
                 // eslint-disable-next-line react/jsx-key
                 return <TagChip>{tag}</TagChip>;
               })}
