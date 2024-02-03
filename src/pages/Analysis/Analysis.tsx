@@ -19,10 +19,10 @@ export const Analysis = () => {
   const periodTab = ['이번 주', '이번 달', '올해'];
   const [activeTab, setActiveTab] = useState(0);
 
-  // const today = new Date();
-  // const year: number = today.getFullYear();
-  // const month: number = today.getMonth() + 1;
-  // const date: number = today.getDate();
+  const today = new Date();
+  const year: number = today.getFullYear();
+  const month: number = today.getMonth() + 1;
+  const date: number = today.getDate();
 
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
@@ -30,6 +30,7 @@ export const Analysis = () => {
   const handleTabClick = (index: number) => {
     setActiveTab(index);
     console.log(tagData);
+    console.log(aiData);
   };
 
   const [tagData, setTagData] = useState<frequentTagType[]>([]);
@@ -51,18 +52,20 @@ export const Analysis = () => {
           break;
       }
 
-      // const currentDate =
-      //   year +
-      //   '-' +
-      //   month.toString().padStart(2, '0') +
-      //   '-' +
-      //   date.toString().padStart(2, '0');
-      // console.log(currentDate);
+      const currentDate =
+        year +
+        '-' +
+        month.toString().padStart(2, '0') +
+        '-' +
+        date.toString().padStart(2, '0');
+      console.log(currentDate);
 
       return [
-        // getFrequentTags(userId, type, currentDate),
-        getFrequentTags(userId, type, '2024-01-02'),
-        getFrequentAis(userId, type, '2024-01-02'),
+        getFrequentTags(userId, type, currentDate),
+        getFrequentAis(userId, type, currentDate),
+
+        // getFrequentTags(userId, type, '2024-01-02'),
+        // getFrequentAis(userId, type, '2024-01-02'),
       ];
     },
   });
@@ -77,7 +80,7 @@ export const Analysis = () => {
           { sender: 'LULU', chatCount: 0, percentage: 0 },
         ];
 
-        if (tagsData && tagsData.length >= 3) {
+        if (tagsData) {
           setTagData((prev) => {
             const slicedTagsData = tagsData.slice(0, 3);
 
@@ -93,14 +96,14 @@ export const Analysis = () => {
 
         if (aisData) {
           const aiSlice = aisData
-            .slice(1)
+            .slice(1) // sender 제외하는 걸로 수정 완료되면 바꿀 예정
             .map(({ sender, chatCount, percentage }: frequentAiType) => ({
               sender,
               chatCount,
               percentage,
             }));
 
-          // aiComplete에 defaultAi에 없는 원소만 추가
+          // aiComplete에 defaultAi에 없는 원소만 추가 -> api 수정 완료되면 바꿀 예정
           const aiComplete = [...aiSlice];
 
           defaultAi.forEach((c) => {
@@ -194,39 +197,57 @@ export const Analysis = () => {
           </Link>
         </div>
       </div>
-      {/* <div className={styles.aiChartBox}>
+      <div className={styles.aiChartBox}>
         <div className={styles.chartTitleBox}>
           <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
-          <p className={styles.chartPeriod}>2023.10.09 ~ 2023.10.16</p>
+          <div className={styles.chartPeriodContainer}>
+            <p className={styles.chartPeriod}>
+              {startDate?.getFullYear()}년{' '}
+              {startDate?.getMonth() !== undefined && startDate?.getMonth() + 1}
+              월 {startDate?.getDate()}일
+            </p>
+            <p className={styles.chartPeriod}>~</p>
+            <p className={styles.chartPeriod}>
+              {endDate?.getFullYear()}년{' '}
+              {endDate?.getMonth() !== undefined && endDate.getMonth() + 1}월{' '}
+              {endDate?.getDate()}일
+            </p>
+          </div>
         </div>
         <div className={styles.horizonsContainer}>
           {aiData.map((data, index) => (
             <div key={index} className={styles.horizonBox}>
               <div className={styles.aiProfileWrapper}>
-                {data.name === '다다' ? (
+                {data.sender === 'DADA' ? (
                   <Dada48 />
-                ) : data.name === '루루' ? (
+                ) : data.sender === 'LULU' ? (
                   <Lulu48 />
                 ) : (
                   <Chichi48 />
                 )}
-                <span className={styles.aiName}>{data.name}</span>
+                <span className={styles.aiName}>
+                  {data.sender === 'DADA'
+                    ? '다다'
+                    : data.sender === 'LULU'
+                      ? '루루'
+                      : '치치'}
+                </span>
               </div>
               <div className={styles.barWrapper}>
                 <div className={styles.greyBar}>
                   <div
                     className={styles.orangeBar}
-                    style={{ width: `${100 * data.portion}%` }}
+                    style={{ width: `${data.percentage}%` }}
                   ></div>
                 </div>
-                <p className={styles.aiPortionNumber}>{`${
-                  data.portion * 100
-                }%`}</p>
+                <p
+                  className={styles.aiPortionNumber}
+                >{`${data.percentage}%`}</p>
               </div>
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
       <BottomNav page={2} />
     </>
   );

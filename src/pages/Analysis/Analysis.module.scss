@@ -48,23 +48,29 @@
   display: flex;
   flex-direction: column;
   padding: 16px;
+
   .barsBox {
     display: flex;
-    justify-content: space-between;
-    width: 80%;
+    gap: 48px;
+    justify-content: center;
+    padding: 0px 44px;
+    width: 100%;
     height: 208px;
     margin: auto;
     margin-top: 30px;
+
     .barWrapper {
       display: flex;
+      text-wrap: nowrap;
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
-      width: 100px;
+
       .portionNumber {
         @include caption;
         color: $BK70;
       }
+
       .bar {
         background-color: $primary_default;
         border-radius: 8px;
@@ -103,11 +109,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  .chartTitle {
+
+  & .chartTitle {
     @include header20;
   }
-  .chartPeriodContainer {
+
+  & .chartPeriodContainer {
     display: flex;
+    flex-direction: row;
     gap: 8px;
 
     .chartPeriod {
@@ -136,6 +145,7 @@
         justify-content: center;
         align-items: center;
         .aiName {
+          margin-top: 2px;
           @include body14;
         }
       }
@@ -143,7 +153,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-end;
+        align-items: flex-start;
         flex-grow: 1;
         gap: 8px;
         margin-top: 14px;
@@ -160,6 +170,7 @@
         }
         .aiPortionNumber {
           @include sub16;
+          color: $BK90;
         }
       }
     }
