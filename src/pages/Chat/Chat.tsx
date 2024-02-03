@@ -10,25 +10,83 @@ import LoadingChat from '../../components/Chat/LoadingChat';
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
 import { isImageUrl } from '../../utils/fileFormats';
-import {
-  IMessage,
-  getAiEnglish,
-  saveMessagesToLocalStorage,
-  makeSection,
-} from '../../utils/chattings';
+import { getAiEnglish, makeSection } from '../../utils/chattings';
+import { getChatData } from '../../apis/aiChatApi';
+import useChatStore from '../../stores/chatStore';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 const Chat = () => {
-  const [messages, setMessages] = useState<IMessage[]>([]);
+  const {
+    messages,
+    setMessages,
+    addPreviousMessage,
+    addNextMessage,
+    replaceLastMessage,
+  } = useChatStore();
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
+  const [isGPTLoading, setIsGPTLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [chatId, setChatId] = useState<string | null>(null);
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [socket, setSocket] = useState<WebSocket>(
     new WebSocket(`${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`),
   );
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    setChatId((prev) => (Number(prev) - 10).toString());
+  });
+
+  const target = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (target.current) {
+      if (chatId) {
+        observe(target.current);
+      }
+      if (Number(chatId) - 10 < 0) {
+        unobserve(target.current);
+      }
+      if (isLoading) {
+        unobserve(target.current);
+      }
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [messages]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const previousScrollHeight = document.body.scrollHeight;
+
+    getChatData((Number(chatId) - 10).toString())
+      .then((result) => {
+        if (Number(chatId) >= 10) {
+          addPreviousMessage(result);
+        } else if (Number(chatId) >= 0) {
+          addPreviousMessage(result.slice(0, chatId));
+        }
+      })
+      .then(() => {
+        const afterScrollHeight = document.body.scrollHeight;
+        const offset = afterScrollHeight - previousScrollHeight;
+        window.scrollTo(0, offset);
+      })
+      .then(() => setIsLoading(false));
+  }, [chatId]);
+
+  useEffect(() => {
+    if (localStorage.getItem('chatId')) {
+      setChatId(localStorage.getItem('chatId'));
+    }
+    return () => {
+      setMessages([]);
+    };
+  }, []);
 
   const MessageSections = useMemo(() => {
     if (!messages) return;
@@ -57,49 +115,47 @@ const Chat = () => {
     const reader = new FileReader();
     reader.onload = () => {
       const url = reader.result as string;
-      setIsLoading(true);
-      setMessages((prev) => [
-        ...prev,
+      setIsGPTLoading(true);
+      addNextMessage([
         {
           chatId: Date.now(),
           sender: 'user',
           content: url,
-          createdAt: formatFullDateToString(new Date()),
+          createAt: formatFullDateToString(new Date()),
           chatType: 'CHAT',
         },
         {
           chatId: Date.now(),
           sender: ai,
           content: <LoadingChat />,
-          createdAt: formatFullDateToString(new Date()),
+          createAt: formatFullDateToString(new Date()),
           chatType: 'CHAT',
         },
       ]);
     };
 
     reader.readAsDataURL(file);
-    setIsLoading(false);
+    setIsGPTLoading(false);
   };
 
   const handleSendMessage = () => {
-    if (isLoading || inputText.trim() === '') return;
+    if (isGPTLoading || inputText.trim() === '') return;
 
-    setIsLoading(true);
+    setIsGPTLoading(true);
     const ai = getAiEnglish();
-    setMessages((prev) => [
-      ...prev,
+    addNextMessage([
       {
         chatId: Date.now(),
         sender: 'USER',
         content: inputText,
-        createdAt: formatFullDateToString(new Date()),
+        createAt: formatFullDateToString(new Date()),
         chatType: 'CHAT',
       },
       {
         chatId: Date.now(),
         sender: ai,
         content: <LoadingChat />,
-        createdAt: formatFullDateToString(new Date()),
+        createAt: formatFullDateToString(new Date()),
         chatType: 'CHAT',
       },
     ]);
@@ -115,20 +171,10 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket.addEventListener('open', () => {
-      console.log('WebSocket connection established');
-    });
-    socket.addEventListener('close', (event) => {
-      console.log(`WebSocket connection closed: ${event.reason}`);
-    });
-  }, []);
-
-  useEffect(() => {
     if (!socket) return;
 
-    socket.addEventListener('message', async (event: MessageEvent) => {
+    socket.onmessage = async (event: MessageEvent) => {
       const res = await JSON.parse(event.data);
-      console.log(res);
 
       if (typeof res === 'number') return;
 
@@ -136,34 +182,19 @@ const Chat = () => {
         chatId: res.chatId,
         sender: res.sender,
         content: res.content,
-        createdAt: res.createAt,
+        createAt: res.createAt,
         chatType: res.chatType,
       };
-
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = updatedMessage;
-        saveMessagesToLocalStorage(updatedMessages);
-        return updatedMessages;
-      });
-      setIsLoading(false);
-    });
+      replaceLastMessage(updatedMessage);
+      localStorage.setItem('chatId', res.chatId);
+      setIsGPTLoading(false);
+    };
   }, [socket]);
-
-  useEffect(() => {
-    const storedChatData = localStorage.getItem('chatData');
-    if (storedChatData && JSON.parse(storedChatData).length !== 0) {
-      setMessages(JSON.parse(storedChatData));
-    }
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, [messages]);
 
   return (
     <div>
       <ChatHeader onClick={onSelectDate} />
+      <div ref={target}></div>
       <div className={styles.messagesContainer}>
         {Object.entries(MessageSections || {})?.map(([day, messages]) => (
           <>
@@ -171,9 +202,9 @@ const Chat = () => {
             {messages.map((m) =>
               m.sender == 'USER' ? (
                 isImageUrl(m.content as string) ? (
-                  <PhotoChatBox url={m.content as string} date={m.createdAt} />
+                  <PhotoChatBox url={m.content as string} date={m.createAt} />
                 ) : (
-                  <RightChatBox date={m.createdAt} key={m.chatId}>
+                  <RightChatBox date={m.createAt} key={m.chatId}>
                     {m.content}
                   </RightChatBox>
                 )
@@ -181,7 +212,7 @@ const Chat = () => {
                 <p className={styles.aiChanged}>{m.content}</p>
               ) : (
                 <AiChatBox key={m.chatId} ai={m.sender}>
-                  <LeftChatBox date={m.createdAt}>{m.content}</LeftChatBox>
+                  <LeftChatBox date={m.createAt}>{m.content}</LeftChatBox>
                 </AiChatBox>
               ),
             )}

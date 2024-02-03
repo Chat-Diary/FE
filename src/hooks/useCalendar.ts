@@ -23,10 +23,15 @@ const useCalendar = () => {
   const totalMonthDays = getDaysInMonth(currentDate);
   const [chatData, setChatData] = useState<IChatData[]>([]);
 
-  const formattedDate = currentDate.toISOString().slice(0, 7);
+  const [formattedDate, setFormattedDate] = useState(
+    currentDate.toISOString().slice(0, 7),
+  );
+  useEffect(() => {
+    setFormattedDate(currentDate.toISOString().slice(0, 7));
+  }, [currentDate]);
 
   const { data, isLoading, error } = useQuery<IChatData[]>(
-    ['chatData', formattedDate],
+    ['calendarData', formattedDate],
     () => getCalendarData(formattedDate),
   );
 

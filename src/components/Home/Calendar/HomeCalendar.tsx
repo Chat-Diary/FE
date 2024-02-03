@@ -15,7 +15,7 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
         ? '0' + (currentDate.getMonth() + 1)
         : currentDate.getMonth() + 1
     }-${dayInfo.day < 10 ? '0' + dayInfo.day : dayInfo.day}`;
-    if (dayInfo.characters.length > 0) {
+    if (dayInfo.characters.length > 0 && dayInfo.day !== today.getDate()) {
       navigate(`/detail?diary_date=${dateString}`);
     }
   };
@@ -48,22 +48,24 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
                   {dayInfo.day !== 0 && (
                     <>
                       <span className={styles.dayString}>{dayInfo.day}</span>
-                      <span className={styles.characterDots}>
-                        {dayInfo.characters.map((character) => (
-                          <div
-                            key={character}
-                            className={
-                              character === 'DADA'
-                                ? styles.dada
-                                : character === 'LULU'
-                                  ? styles.lulu
-                                  : character === 'CHICHI'
-                                    ? styles.chichi
-                                    : ''
-                            }
-                          ></div>
-                        ))}
-                      </span>
+                      {dayInfo.day !== today.getDate() && (
+                        <span className={styles.characterDots}>
+                          {dayInfo.characters.map((character) => (
+                            <div
+                              key={character}
+                              className={
+                                character === 'DADA'
+                                  ? styles.dada
+                                  : character === 'LULU'
+                                    ? styles.lulu
+                                    : character === 'CHICHI'
+                                      ? styles.chichi
+                                      : ''
+                              }
+                            ></div>
+                          ))}
+                        </span>
+                      )}
                     </>
                   )}
                 </td>
