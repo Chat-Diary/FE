@@ -27,6 +27,7 @@ export const Analysis = () => {
 
   const [tagData, setTagData] = useState<frequentTagType[]>([]);
   const [aiData, setAiData] = useState<frequentAiType[]>([]);
+  const [noTag, setNoTag] = useState<boolean>(false);
 
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
@@ -99,6 +100,7 @@ export const Analysis = () => {
         if (tagsData) {
           setTagData((prev) => {
             const slicedTagsData = tagsData.slice(0, 3);
+            if (slicedTagsData.length === 0) setNoTag(true);
 
             // timestamp 형식에서 YYYY년 MM월 DD일 형식으로 바꾸기 위함
             const startObject = new Date(slicedTagsData[0].startDate);
@@ -181,32 +183,55 @@ export const Analysis = () => {
           </div>
         </div>
         <div className={styles.barsBox}>
-          {tagData.map((data, index) => (
-            <div key={index} className={styles.barWrapper}>
-              <span className={styles.portionNumber}>{data.percentage}%</span>
-              <div
-                className={styles.bar}
-                style={{
-                  height: `${(data.percentage / tagData[0].percentage) * 100}%`,
-                }}
-              ></div>
-              <h4 className={styles.tagName}>{`#${data.tagName}`}</h4>
+          {noTag ? (
+            <div className={styles.noTag}>
+              아직 태그를 사용한 적이 없어요.<br></br>일기에 태그를
+              적용해보세요!
             </div>
-          ))}
+          ) : (
+            <>
+              {tagData.map((data, index) => (
+                <div key={index} className={styles.barWrapper}>
+                  <span className={styles.portionNumber}>
+                    {data.percentage}%
+                  </span>
+                  <div
+                    className={styles.bar}
+                    style={{
+                      height: `${
+                        (data.percentage / tagData[0].percentage) * 100
+                      }%`,
+                    }}
+                  ></div>
+                  <h4 className={styles.tagName}>{`#${data.tagName}`}</h4>
+                </div>
+              ))}
+            </>
+          )}
         </div>
         <hr className={styles.hr} />
         <div className={styles.showMore}>
-          <Link
-            to={{
-              pathname: `/analysis/${
-                activeTab === 0 ? 'week' : activeTab === 1 ? 'month' : 'year'
-              }`,
-            }}
-            className={styles.showMoreStrContainer}
-          >
-            <span className={styles.showMoreStr}>자세히 보기</span>
-            <RightChevron />
-          </Link>
+          {noTag ? (
+            ''
+          ) : (
+            <>
+              <Link
+                to={{
+                  pathname: `/analysis/${
+                    activeTab === 0
+                      ? 'week'
+                      : activeTab === 1
+                        ? 'month'
+                        : 'year'
+                  }`,
+                }}
+                className={styles.showMoreStrContainer}
+              >
+                <span className={styles.showMoreStr}>자세히 보기</span>
+                <RightChevron />
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className={styles.aiChartBox}>

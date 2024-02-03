@@ -59,6 +59,14 @@
     margin: auto;
     margin-top: 30px;
 
+    .noTag {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      @include body14;
+      color: $BK70;
+    }
     .barWrapper {
       display: flex;
       text-wrap: nowrap;
