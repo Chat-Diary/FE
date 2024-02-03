@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
-import { Chichi48, Dada48, Lulu48, Notice, RightChevron } from '../../assets';
+import {
+  Dada48,
+  Chichi48,
+  Lulu48,
+  DadaCrying,
+  ChichiCrying,
+  LuluCrying,
+  Notice,
+  RightChevron,
+} from '../../assets';
 import BottomNav from '../../components/common/BottomNav/BottomNav';
 import styles from './Analysis.module.scss';
 import HomeHeader from '../../components/common/Header/Header';
@@ -218,11 +227,21 @@ export const Analysis = () => {
             <div key={index} className={styles.horizonBox}>
               <div className={styles.aiProfileWrapper}>
                 {data.sender === 'DADA' ? (
-                  <Dada48 />
+                  data.chatCount !== 0 ? (
+                    <Dada48 />
+                  ) : (
+                    <DadaCrying />
+                  )
                 ) : data.sender === 'LULU' ? (
-                  <Lulu48 />
-                ) : (
+                  data.chatCount !== 0 ? (
+                    <Lulu48 />
+                  ) : (
+                    <LuluCrying />
+                  )
+                ) : data.chatCount !== 0 ? (
                   <Chichi48 />
+                ) : (
+                  <ChichiCrying />
                 )}
                 <span className={styles.aiName}>
                   {data.sender === 'DADA'
