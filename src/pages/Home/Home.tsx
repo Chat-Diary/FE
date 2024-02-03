@@ -24,8 +24,8 @@ const Home = () => {
     setIsSelectedDate(true);
   };
 
-  const onSelectDate = (year: string | number, month: string | number) => {
-    setCurrentDate(new Date(year as number, (month as number) - 1));
+  const onSelectDate = (year: number, month: number) => {
+    setCurrentDate(new Date(year, month - 1));
     setIsSelectedDate(false);
   };
 

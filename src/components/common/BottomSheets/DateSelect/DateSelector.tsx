@@ -9,9 +9,9 @@ interface DateSelectorProps {
   isFullDate: boolean;
   isOpen: boolean;
   onSelectDate: (
-    year: string | number,
-    month: string | number,
-    day: string | number,
+    year: number,
+    month: number,
+    day: number,
   ) => void;
 }
 
@@ -117,7 +117,7 @@ const DateSelector = ({
     const monthFormattedString = month.replace(/[^0-9]/g, '');
     const dayFormattedString = day.replace(/[^0-9]/g, '');
 
-    onSelectDate(yearFormattedString, monthFormattedString, dayFormattedString);
+    onSelectDate(Number(yearFormattedString), Number(monthFormattedString), Number(dayFormattedString));
   };
 
   return (
