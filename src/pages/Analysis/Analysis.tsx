@@ -16,6 +16,12 @@ import {
 export const Analysis = () => {
   const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
 
+  const [tagData, setTagData] = useState<frequentTagType[]>([]);
+  const [aiData, setAiData] = useState<frequentAiType[]>([]);
+
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+
   const periodTab = ['이번 주', '이번 달', '올해'];
   const [activeTab, setActiveTab] = useState(0);
 
@@ -24,17 +30,21 @@ export const Analysis = () => {
   const month: number = today.getMonth() + 1;
   const date: number = today.getDate();
 
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  // UI 상에서 파싱된 날짜 보여주기 위한 함수
+  const parseDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const parsedDate = year + '년 ' + month + '월 ' + day + '일';
+    return parsedDate;
+  };
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
     console.log(tagData);
     console.log(aiData);
   };
-
-  const [tagData, setTagData] = useState<frequentTagType[]>([]);
-  const [aiData, setAiData] = useState<frequentAiType[]>([]);
 
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['user_id', 'type', 'date', activeTab],
@@ -63,9 +73,6 @@ export const Analysis = () => {
       return [
         getFrequentTags(userId, type, currentDate),
         getFrequentAis(userId, type, currentDate),
-
-        // getFrequentTags(userId, type, '2024-01-02'),
-        // getFrequentAis(userId, type, '2024-01-02'),
       ];
     },
   });
@@ -156,15 +163,11 @@ export const Analysis = () => {
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
-              {startDate?.getFullYear()}년{' '}
-              {startDate?.getMonth() !== undefined && startDate?.getMonth() + 1}
-              월 {startDate?.getDate()}일
+              {parseDate(startDate !== undefined ? startDate : today)}
             </p>
             <p className={styles.chartPeriod}>~</p>
             <p className={styles.chartPeriod}>
-              {endDate?.getFullYear()}년{' '}
-              {endDate?.getMonth() !== undefined && endDate.getMonth() + 1}월{' '}
-              {endDate?.getDate()}일
+              {parseDate(endDate !== undefined ? endDate : today)}
             </p>
           </div>
         </div>
@@ -202,15 +205,11 @@ export const Analysis = () => {
           <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
-              {startDate?.getFullYear()}년{' '}
-              {startDate?.getMonth() !== undefined && startDate?.getMonth() + 1}
-              월 {startDate?.getDate()}일
+              {parseDate(startDate !== undefined ? startDate : today)}
             </p>
             <p className={styles.chartPeriod}>~</p>
             <p className={styles.chartPeriod}>
-              {endDate?.getFullYear()}년{' '}
-              {endDate?.getMonth() !== undefined && endDate.getMonth() + 1}월{' '}
-              {endDate?.getDate()}일
+              {parseDate(endDate !== undefined ? endDate : today)}
             </p>
           </div>
         </div>
