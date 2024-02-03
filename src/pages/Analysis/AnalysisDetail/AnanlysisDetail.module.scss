@@ -10,9 +10,14 @@
   .chartTitle {
     @include header20;
   }
-  .chartPeriod {
-    @include caption;
-    color: $BK70;
+  .chartPeriodContainer {
+    display: flex;
+    gap: 8px;
+
+    .chartPeriod {
+      @include caption;
+      color: $BK70;
+    }
   }
 }
 .tagTabsContainer {

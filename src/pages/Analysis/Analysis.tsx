@@ -225,6 +225,7 @@ export const Analysis = () => {
                         : 'year'
                   }`,
                 }}
+                state={{ tagData: tagData }}
                 className={styles.showMoreStrContainer}
               >
                 <span className={styles.showMoreStr}>자세히 보기</span>
