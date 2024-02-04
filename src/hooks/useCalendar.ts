@@ -1,5 +1,5 @@
 import { getDaysInMonth } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getCalendarData } from '../apis/home';
 
@@ -40,6 +40,9 @@ const useCalendar = () => {
       setChatData(data);
     }
   }, [data, isLoading, error]);
+  useEffect(() => {
+    console.log(chatData);
+  }, [chatData]);
 
   const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
@@ -69,9 +72,11 @@ const useCalendar = () => {
           ? '0' + (currentDate.getMonth() + DATE_MONTH_FIXER)
           : currentDate.getMonth() + DATE_MONTH_FIXER
       }-${cur < 10 ? '0' + cur : cur}`;
-      const chatInfo = chatData.find(
-        (chat) => chat.dates[0] === currentDateStr,
-      );
+      const chatInfo = useMemo(() => {
+        if (chatData.length > 0) {
+          return chatData.find((chat) => chat.dates[0] === currentDateStr);
+        }
+      }, [chatData, currentDateStr]);
       acc[chunkIndex].push({
         day: cur,
         characters: chatInfo
