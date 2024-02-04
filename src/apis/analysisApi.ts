@@ -3,8 +3,6 @@ export interface frequentTagType {
   tagName: string;
   count: number;
   percentage: number;
-  startDate: string;
-  endDate: number;
 }
 
 export interface frequentAiType {
@@ -13,22 +11,14 @@ export interface frequentAiType {
   percentage: number;
 }
 
-export const getFrequentTags = async (
-  memberId: number,
-  type: string,
-  date: string,
-) => {
+export const getFrequentTags = async (memberId: number, type: string) => {
   return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/tags?memberId=${memberId}&type=${type}&date=${date}`,
+    `${process.env.REACT_APP_HTTP_API_KEY}/diary/tags?memberId=${memberId}&type=${type}`,
   ).then((res) => res.json());
 };
 
-export const getFrequentAis = (
-  memberId: number,
-  type: string,
-  date: string,
-) => {
+export const getFrequentAis = async (memberId: number, type: string) => {
   return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/chat/sender?memberId=${memberId}&type=${type}&date=${date}`,
+    `${process.env.REACT_APP_HTTP_API_KEY}/chat/sender?memberId=${memberId}&type=${type}`,
   ).then((res) => res.json());
 };

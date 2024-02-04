@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styles from './AnanlysisDetail.module.scss';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { useLocation, useParams } from 'react-router-dom';
@@ -5,12 +6,18 @@ import BottomNav from '../../../components/common/BottomNav/BottomNav';
 import { useState } from 'react';
 
 const AnalysisDetail = () => {
-  const { period } = useParams();
+  const { period } = useParams<{
+    period: string;
+  }>();
 
   const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const start = queryParams.get('start');
+  const end = queryParams.get('end');
+
+  // 많이 사용한 태그 데이터
   const currentData = location.state.tagData;
-  const startDate = currentData[0].startDate;
-  const endDate = currentData[0].endDate;
 
   const [activeTab, setActiveTab] = useState(0);
   const handleTabClick = (index: number) => {
@@ -20,12 +27,14 @@ const AnalysisDetail = () => {
   // UI 상에서 파싱된 날짜 보여주기 위한 함수
   const parseDate = (d: string) => {
     const date = new Date(d);
+    console.log(start);
 
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
     const parsedDate = year + '년 ' + month + '월 ' + day + '일';
+
     return parsedDate;
   };
 
@@ -47,9 +56,13 @@ const AnalysisDetail = () => {
               : '올해'
         }에 자주 썼던 태그`}</h2>
         <div className={styles.chartPeriodContainer}>
-          <p className={styles.chartPeriod}>{parseDate(startDate)}</p>
+          <p className={styles.chartPeriod}>
+            {parseDate(start !== null ? start : '')}
+          </p>
           <p className={styles.chartPeriod}>~</p>
-          <p className={styles.chartPeriod}>{parseDate(endDate)}</p>
+          <p className={styles.chartPeriod}>
+            {parseDate(end !== null ? end : '')}
+          </p>
         </div>
       </div>
       <div className={styles.tagTabsContainer}>

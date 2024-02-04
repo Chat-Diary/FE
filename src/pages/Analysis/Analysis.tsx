@@ -32,19 +32,22 @@ export const Analysis = () => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
 
+  const [urlStartDate, setUrlStartDate] = useState<string>();
+  const [urlEndDate, setUrlEndDate] = useState<string>();
+
   const periodTab = ['이번 주', '이번 달', '올해'];
   const [activeTab, setActiveTab] = useState(0);
 
-  const today = new Date();
-  const year: number = today.getFullYear();
-  const month: number = today.getMonth() + 1;
-  const date: number = today.getDate();
-
   // UI 상에서 파싱된 날짜 보여주기 위한 함수
-  const parseDate = (date: Date) => {
+  const parseDate = (date: Date, isUrl?: boolean) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
+
+    if (isUrl) {
+      const parsedDate = year + month + day;
+      return parsedDate;
+    }
 
     const parsedDate = year + '년 ' + month + '월 ' + day + '일';
     return parsedDate;
@@ -70,24 +73,37 @@ export const Analysis = () => {
           break;
       }
 
-      const currentDate =
-        year +
-        '-' +
-        month.toString().padStart(2, '0') +
-        '-' +
-        date.toString().padStart(2, '0');
-      console.log(currentDate);
-
-      return [
-        getFrequentTags(userId, type, currentDate),
-        getFrequentAis(userId, type, currentDate),
-      ];
+      return [getFrequentTags(userId, type), getFrequentAis(userId, type)];
     },
   });
 
   useEffect(() => {
     if (data) {
       Promise.all(data).then(([tagsData, aisData]) => {
+        if (tagsData) {
+          setTagData((prev) => {
+            setNoTag(false);
+            const slicedTagsData = tagsData.statistics.slice(0, 3);
+
+            // url 넘길 때 string으로 넘겨야 함
+            setUrlStartDate(tagsData.startDate);
+            setUrlEndDate(tagsData.endDate);
+
+            // timestamp 형식에서 YYYY년 MM월 DD일 형식으로 바꾸기 위함
+            const startObject = new Date(tagsData.startDate);
+            setStartDate(startObject);
+            const endObject = new Date(tagsData.endDate);
+            setEndDate(endObject);
+
+            if (slicedTagsData.length === 0) {
+              setNoTag(true);
+              return 0;
+            }
+
+            return slicedTagsData;
+          });
+        }
+
         // 기본 캐릭터 정보
         const defaultAi = [
           { sender: 'DADA', chatCount: 0, percentage: 0 },
@@ -95,45 +111,9 @@ export const Analysis = () => {
           { sender: 'LULU', chatCount: 0, percentage: 0 },
         ];
 
-        if (tagsData) {
-          setTagData((prev) => {
-            setNoTag(false);
-            const slicedTagsData = tagsData.slice(0, 3);
-            console.log(slicedTagsData);
-            if (slicedTagsData.length === 0) {
-              setNoTag(true);
-              return 0;
-            }
-
-            // timestamp 형식에서 YYYY년 MM월 DD일 형식으로 바꾸기 위함
-            const startObject = new Date(slicedTagsData[0].startDate);
-            setStartDate(startObject);
-            const endObject = new Date(slicedTagsData[0].endDate);
-            setEndDate(endObject);
-
-            return slicedTagsData;
-          });
-        }
-
         if (aisData) {
-          const aiSlice = aisData
-            .slice(1) // sender 제외하는 걸로 수정 완료되면 바꿀 예정
-            .map(({ sender, chatCount, percentage }: frequentAiType) => ({
-              sender,
-              chatCount,
-              percentage,
-            }));
-
-          // aiComplete에 defaultAi에 없는 원소만 추가 -> api 수정 완료되면 바꿀 예정
-          const aiComplete = [...aiSlice];
-
-          defaultAi.forEach((c) => {
-            if (!aiSlice.some((ai: frequentAiType) => ai.sender === c.sender)) {
-              aiComplete.push(c);
-            }
-          });
-
-          setAiData(aiComplete);
+          if (aisData.statistics.length === 0) setAiData(defaultAi);
+          else setAiData(aisData.statistics);
         }
       });
     }
@@ -177,11 +157,14 @@ export const Analysis = () => {
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
-              {parseDate(startDate !== undefined ? startDate : today)}
+              {parseDate(
+                startDate !== undefined ? startDate : new Date(),
+                false,
+              )}
             </p>
             <p className={styles.chartPeriod}>~</p>
             <p className={styles.chartPeriod}>
-              {parseDate(endDate !== undefined ? endDate : today)}
+              {parseDate(endDate !== undefined ? endDate : new Date(), false)}
             </p>
           </div>
         </div>
@@ -227,6 +210,7 @@ export const Analysis = () => {
                         ? 'month'
                         : 'year'
                   }`,
+                  search: `start=${urlStartDate}&end=${urlEndDate}`,
                 }}
                 state={{ tagData: tagData }}
                 className={styles.showMoreStrContainer}
@@ -243,11 +227,14 @@ export const Analysis = () => {
           <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
-              {parseDate(startDate !== undefined ? startDate : today)}
+              {parseDate(
+                startDate !== undefined ? startDate : new Date(),
+                false,
+              )}
             </p>
             <p className={styles.chartPeriod}>~</p>
             <p className={styles.chartPeriod}>
-              {parseDate(endDate !== undefined ? endDate : today)}
+              {parseDate(endDate !== undefined ? endDate : new Date(), false)}
             </p>
           </div>
         </div>
