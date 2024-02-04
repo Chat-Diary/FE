@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styles from './DateSelector.module.scss';
 import BottomModal from '../BottomModal';
 import DatePicker from './DatePicker';
@@ -7,14 +8,24 @@ interface DateSelectorProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
   isFullDate: boolean;
   isOpen: boolean;
+  onSelectDate: (
+    year: number,
+    month: number,
+    day: number,
+  ) => void;
 }
 
 const DateSelector = ({
   clickOuter,
   isFullDate,
   isOpen,
+  onSelectDate,
 }: DateSelectorProps) => {
-  const year = [
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
+
+  const yearList = [
     '2000년',
     '2001년',
     '2002년',
@@ -41,7 +52,7 @@ const DateSelector = ({
     '2023년',
     '2024년',
   ];
-  const month = [
+  const monthList = [
     '01월',
     '02월',
     '03월',
@@ -55,7 +66,7 @@ const DateSelector = ({
     '11월',
     '12월',
   ];
-  const day = [
+  const dayList = [
     '01일',
     '02일',
     '03일',
@@ -64,9 +75,7 @@ const DateSelector = ({
     '06일',
     '07일',
     '08일',
-    '9일',
     '09일',
-    '9일',
     '10일',
     '11일',
     '12일',
@@ -91,20 +100,24 @@ const DateSelector = ({
     '31일',
   ];
 
-  const handleYear = () => {
-    return;
+  const handleChangeYear = (selectedItem: string | number) => {
+    setYear(selectedItem as string);
   };
 
-  const handleMonth = () => {
-    return;
+  const handleChangeMonth = (selectedItem: string | number) => {
+    setMonth(selectedItem as string);
   };
 
-  const handleDay = () => {
-    return;
+  const handleChangeDay = (selectedItem: string | number) => {
+    setDay(selectedItem as string);
   };
 
-  const handleDateSelect = () => {
-    clickOuter(false);
+  const onClickConfirmButton = () => {
+    const yearFormattedString = year.replace(/[^0-9]/g, '');
+    const monthFormattedString = month.replace(/[^0-9]/g, '');
+    const dayFormattedString = day.replace(/[^0-9]/g, '');
+
+    onSelectDate(Number(yearFormattedString), Number(monthFormattedString), Number(dayFormattedString));
   };
 
   return (
@@ -117,17 +130,17 @@ const DateSelector = ({
             <div className={styles.SelectDate}>년/월 선택</div>
           )}
           <div className={styles.DatePicker}>
-            <DatePicker list={year} onSelectedChange={handleYear} />
-            <DatePicker list={month} onSelectedChange={handleMonth} />
+            <DatePicker list={yearList} onSelectedChange={handleChangeYear} />
+            <DatePicker list={monthList} onSelectedChange={handleChangeMonth} />
             {isFullDate ? (
-              <DatePicker list={day} onSelectedChange={handleDay} />
+              <DatePicker list={dayList} onSelectedChange={handleChangeDay} />
             ) : (
               <></>
             )}
           </div>
           <div className={styles.DateListCenter} />
         </div>
-        <ConfirmButton isAble={true} id={1} onClick={handleDateSelect}>
+        <ConfirmButton isAble={true} id={1} onClick={onClickConfirmButton}>
           선택 완료
         </ConfirmButton>
       </div>

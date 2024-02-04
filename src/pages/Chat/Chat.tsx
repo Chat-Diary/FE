@@ -93,7 +93,7 @@ const Chat = () => {
     return makeSection(messages || []);
   }, [messages]);
 
-  const onSelectDate = () => {
+  const onClickSelector = () => {
     setIsSelectedDate(true);
   };
 
@@ -193,8 +193,7 @@ const Chat = () => {
 
   return (
     <div>
-      <ChatHeader onClick={onSelectDate} />
-      <div ref={target}></div>
+      <ChatHeader onClick={onClickSelector} />
       <div className={styles.messagesContainer}>
         {Object.entries(MessageSections || {})?.map(([day, messages]) => (
           <>
@@ -244,6 +243,7 @@ const Chat = () => {
           clickOuter={setIsSelectedDate}
           isFullDate={true}
           isOpen={isSelectedDate}
+          onSelectDate={onClickSelector}
         />
       ) : null}
     </div>

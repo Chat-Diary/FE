@@ -1,24 +1,21 @@
-import React from 'react';
+import { Diary } from '../../../utils/diary';
 import DiaryItem from './DiaryItem';
 
-const diaries = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-  { id: 10 },
-];
+interface IProps {
+  dataList?: Diary[];
+}
 
-const List = () => {
+const List = ({dataList}: IProps) => {
+  console.log(dataList)
+
+  if (!dataList) {
+    return <></>;
+  }
+
   return (
     <div>
-      {diaries.map((diary) => {
-        return <DiaryItem key={diary.id} />;
+      {dataList?.map((diaryItem: Diary) => {
+        return <DiaryItem key={diaryItem.id} diary={diaryItem} />;
       })}
     </div>
   );
