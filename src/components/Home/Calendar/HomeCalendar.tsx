@@ -40,7 +40,11 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
               {week.map((dayInfo, dayIndex) => (
                 <td
                   className={`${styles.dayBtn} ${
-                    dayInfo.day === today.getDate() ? styles.active : ''
+                    currentDate.getFullYear() === today.getFullYear() &&
+                    currentDate.getMonth() === today.getMonth() &&
+                    dayInfo.day === today.getDate()
+                      ? styles.active
+                      : ''
                   }`}
                   key={dayIndex}
                   onClick={() => handleDateClick(dayInfo)}
@@ -48,7 +52,9 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
                   {dayInfo.day !== 0 && (
                     <>
                       <span className={styles.dayString}>{dayInfo.day}</span>
-                      {dayInfo.day !== today.getDate() && (
+                      {(currentDate.getFullYear() !== today.getFullYear() ||
+                        currentDate.getMonth() !== today.getMonth() ||
+                        dayInfo.day !== today.getDate()) && (
                         <span className={styles.characterDots}>
                           {dayInfo.characters.map((character) => (
                             <div
