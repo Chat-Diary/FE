@@ -68,11 +68,9 @@ const Home = () => {
                 <DownChevron />
               </div>
             </div>
-            {data ? (
-              <span className={styles.diaryNumber}>{data.length}개의 일기</span>
-            ) : (
-              <span className={styles.diaryNumber}>0개의 일기</span>
-            )}
+            <span className={styles.diaryNumber}>
+              {data ? data.length : 0}개의 일기
+            </span>
           </div>
           <div className={styles.rightContainer}>
             <p
