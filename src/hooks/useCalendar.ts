@@ -46,9 +46,6 @@ const useCalendar = () => {
       setChatData(data);
     }
   }, [data, isLoading, error]);
-  useEffect(() => {
-    console.log('chatData : ', chatData);
-  }, [chatData]);
 
   const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
