@@ -3,8 +3,6 @@ export interface frequentTagType {
   tagName: string;
   count: number;
   percentage: number;
-  startDate: string;
-  endDate: number;
 }
 
 export interface frequentAiType {

@@ -80,13 +80,6 @@ export const Analysis = () => {
   useEffect(() => {
     if (data) {
       Promise.all(data).then(([tagsData, aisData]) => {
-        // 기본 캐릭터 정보
-        const defaultAi = [
-          { sender: 'DADA', chatCount: 0, percentage: 0 },
-          { sender: 'CHICHI', chatCount: 0, percentage: 0 },
-          { sender: 'LULU', chatCount: 0, percentage: 0 },
-        ];
-
         if (tagsData) {
           setTagData((prev) => {
             setNoTag(false);
@@ -111,26 +104,24 @@ export const Analysis = () => {
           });
         }
 
-        // if (aisData) {
-        //   const aiSlice = aisData
-        //     .slice(1) // sender 제외하는 걸로 수정 완료되면 바꿀 예정
-        //     .map(({ sender, chatCount, percentage }: frequentAiType) => ({
-        //       sender,
-        //       chatCount,
-        //       percentage,
-        //     }));
+        // 기본 캐릭터 정보
+        const defaultAi = [
+          { sender: 'DADA', chatCount: 0, percentage: 0 },
+          { sender: 'CHICHI', chatCount: 0, percentage: 0 },
+          { sender: 'LULU', chatCount: 0, percentage: 0 },
+        ];
 
-        //   // aiComplete에 defaultAi에 없는 원소만 추가 -> api 수정 완료되면 바꿀 예정
-        //   const aiComplete = [...aiSlice];
+        if (aisData) {
+          const aiSlice = aisData.map(
+            ({ sender, chatCount, percentage }: frequentAiType) => ({
+              sender,
+              chatCount,
+              percentage,
+            }),
+          );
 
-        //   defaultAi.forEach((c) => {
-        //     if (!aiSlice.some((ai: frequentAiType) => ai.sender === c.sender)) {
-        //       aiComplete.push(c);
-        //     }
-        //   });
-
-        //   setAiData(aiComplete);
-        // }
+          setAiData(aiSlice);
+        }
       });
     }
   }, [data, activeTab]);
