@@ -20,14 +20,14 @@ const DAY_OF_WEEK = 7;
 
 const useCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [formattedDate, setFormattedDate] = useState('');
   const totalMonthDays = getDaysInMonth(currentDate);
   const [chatData, setChatData] = useState<IChatData[]>([]);
 
-  const [formattedDate, setFormattedDate] = useState(
-    currentDate.toISOString().slice(0, 7),
-  );
   useEffect(() => {
-    setFormattedDate(currentDate.toISOString().slice(0, 7));
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    setFormattedDate(`${year}-${month < 10 ? '0' + month : month}`);
   }, [currentDate]);
 
   const { data, isLoading, error } = useQuery<IChatData[]>(
@@ -36,10 +36,10 @@ const useCalendar = () => {
   );
 
   useEffect(() => {
-    if (chatData.length === 0 && !isLoading && !error && data) {
+    if (!isLoading && !error && data) {
       setChatData(data);
     }
-  }, [chatData, data, isLoading, error]);
+  }, [data, isLoading, error]);
 
   const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
