@@ -4,6 +4,7 @@ import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeH
 import { useLocation, useParams } from 'react-router-dom';
 import BottomNav from '../../../components/common/BottomNav/BottomNav';
 import { useState } from 'react';
+import TagRankingItem from '../../../components/Analysis/TagRankingItem';
 
 const AnalysisDetail = () => {
   const { period } = useParams<{
@@ -15,6 +16,8 @@ const AnalysisDetail = () => {
 
   const start = queryParams.get('start');
   const end = queryParams.get('end');
+
+  const rankingList = new Array(5).fill(0);
 
   // 많이 사용한 태그 데이터
   const currentData = location.state.tagData;
@@ -78,7 +81,9 @@ const AnalysisDetail = () => {
           </button>
         ))}
       </div>
-
+      {rankingList.map((rank, index) => {
+        return <TagRankingItem key={index} rank={index+1}/>
+      })}
       <BottomNav page={2} isBtn={false} />
     </>
   );
