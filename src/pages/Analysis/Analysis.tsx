@@ -52,8 +52,6 @@ export const Analysis = () => {
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
-    console.log(tagData);
-    console.log(aiData);
   };
 
   const { isLoading, error, data, refetch } = useQuery({
@@ -99,7 +97,9 @@ export const Analysis = () => {
 
         if (tagsData) {
           setTagData((prev) => {
+            setNoTag(false);
             const slicedTagsData = tagsData.slice(0, 3);
+            console.log(slicedTagsData);
             if (slicedTagsData.length === 0) {
               setNoTag(true);
               return 0;
