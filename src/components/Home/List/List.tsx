@@ -5,8 +5,8 @@ interface IProps {
   dataList?: Diary[];
 }
 
-const List = ({dataList}: IProps) => {
-  console.log(dataList)
+const List = ({ dataList }: IProps) => {
+  console.log(dataList);
 
   if (!dataList) {
     return <></>;
