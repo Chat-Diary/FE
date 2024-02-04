@@ -100,7 +100,10 @@ export const Analysis = () => {
         if (tagsData) {
           setTagData((prev) => {
             const slicedTagsData = tagsData.slice(0, 3);
-            if (slicedTagsData.length === 0) setNoTag(true);
+            if (slicedTagsData.length === 0) {
+              setNoTag(true);
+              return 0;
+            }
 
             // timestamp 형식에서 YYYY년 MM월 DD일 형식으로 바꾸기 위함
             const startObject = new Date(slicedTagsData[0].startDate);
