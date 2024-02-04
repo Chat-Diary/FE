@@ -14,13 +14,19 @@ interface Response {
 }
 
 const DATE_MONTH_FIXER = 1;
-const CALENDER_LENGTH = 35;
+const CALENDER_LENGTH = 42;
 const DEFAULT_TRASH_VALUE = 0;
 const DAY_OF_WEEK = 7;
 
 const useCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedDate, setFormattedDate] = useState(
+    `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1 < 10
+        ? '0' + (currentDate.getMonth() + 1)
+        : currentDate.getMonth() + 1
+    }`,
+  );
   const totalMonthDays = getDaysInMonth(currentDate);
   const [chatData, setChatData] = useState<IChatData[]>([]);
 
@@ -41,7 +47,7 @@ const useCalendar = () => {
     }
   }, [data, isLoading, error]);
   useEffect(() => {
-    console.log(chatData);
+    console.log('chatData : ', chatData);
   }, [chatData]);
 
   const firstDayOfMonth = new Date(
@@ -73,7 +79,7 @@ const useCalendar = () => {
           : currentDate.getMonth() + DATE_MONTH_FIXER
       }-${cur < 10 ? '0' + cur : cur}`;
       const chatInfo = useMemo(() => {
-        if (chatData.length > 0) {
+        if (chatData && chatData.length > 0) {
           return chatData.find((chat) => chat.dates[0] === currentDateStr);
         }
       }, [chatData, currentDateStr]);
