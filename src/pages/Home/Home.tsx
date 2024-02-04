@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useCalendar from '../../hooks/useCalendar';
 import styles from './Home.module.scss';
 import HomeCalendar from '../../components/Home/Calendar/HomeCalendar';
@@ -10,6 +10,7 @@ import HomeProfileHeader from '../../components/common/Header/HomeProfildHeader/
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { useQuery } from 'react-query';
 import { getDiaryList } from '../../apis/diaryListApi';
+import { getDiaryStreakDate } from '../../apis/home';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -19,6 +20,8 @@ const Home = () => {
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
+  const [diaryList, setDiaryList] = useState([]);
+  const [diaryStreakDate, setDiaryStreakDate] = useState();
 
   const onClickSelector = () => {
     setIsSelectedDate(true);
@@ -36,13 +39,26 @@ const Home = () => {
       currentDate.getFullYear(),
       currentDate.getMonth() + 1,
     ],
-    queryFn: () =>
-      getDiaryList(
-        userId,
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-      ),
+    queryFn: () => {
+      return [
+        getDiaryList(
+          userId,
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+        ),
+        getDiaryStreakDate(),
+      ];
+    },
   });
+
+  useEffect(() => {
+    if (data) {
+      Promise.all(data).then(([listData, streakData]) => {
+        setDiaryList(listData);
+        setDiaryStreakDate(streakData);
+      })
+    }
+  }, [data]);
 
   if (isLoading) {
     return <>loading..</>;
@@ -54,7 +70,7 @@ const Home = () => {
     <>
       <HomeHeader />
       <div className={styles.wholeWrapper}>
-        <HomeProfileHeader />
+        <HomeProfileHeader diaryStreakDate={diaryStreakDate}/>
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector} onClick={onClickSelector}>
@@ -85,8 +101,8 @@ const Home = () => {
           </div>
         </div>
         {isList ? (
-          data ? (
-            <List dataList={data} />
+          diaryList ? (
+            <List dataList={diaryList} />
           ) : (
             <></>
           )
