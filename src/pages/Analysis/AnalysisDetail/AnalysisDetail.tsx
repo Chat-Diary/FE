@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styles from './AnanlysisDetail.module.scss';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { useLocation, useParams } from 'react-router-dom';
