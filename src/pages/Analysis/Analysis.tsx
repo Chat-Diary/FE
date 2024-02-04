@@ -112,15 +112,8 @@ export const Analysis = () => {
         ];
 
         if (aisData) {
-          const aiSlice = aisData.map(
-            ({ sender, chatCount, percentage }: frequentAiType) => ({
-              sender,
-              chatCount,
-              percentage,
-            }),
-          );
-
-          setAiData(aiSlice);
+          if (aisData.statistics.length === 0) setAiData(defaultAi);
+          else setAiData(aisData.statistics);
         }
       });
     }
