@@ -17,8 +17,12 @@ const ChangeHeader = ({ children, isMyPage = false, state, path }: IProps) => {
       {isMyPage ? (
         <></>
       ) : path ? (
-        <Link to={`${path}`} state={{ detailData: state }}>
-          <LeftChevron className={styles.leftChevron} />
+        <Link
+          to={`${path}`}
+          state={{ detailData: state }}
+          className={styles.leftChevron}
+        >
+          <LeftChevron />
         </Link>
       ) : (
         <LeftChevron
