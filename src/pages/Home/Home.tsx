@@ -11,6 +11,7 @@ import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSe
 import { useQuery } from 'react-query';
 import { getDiaryList } from '../../apis/diaryListApi';
 import { getDiaryStreakDate } from '../../apis/home';
+import { Diary, StreakDate } from '../../utils/diary';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -20,8 +21,8 @@ const Home = () => {
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
-  const [diaryList, setDiaryList] = useState([]);
-  const [diaryStreakDate, setDiaryStreakDate] = useState();
+  const [diaryList, setDiaryList] = useState<Diary[]>();
+  const [diaryStreakDate, setDiaryStreakDate] = useState<StreakDate>();
 
   const onClickSelector = () => {
     setIsSelectedDate(true);
@@ -32,45 +33,58 @@ const Home = () => {
     setIsSelectedDate(false);
   };
 
-  const { isLoading, error, data } = useQuery({
+  const {
+    isLoading: listLoading,
+    error: listError,
+    data: diaryListData,
+  } = useQuery({
     queryKey: [
       'diary',
       userId,
       currentDate.getFullYear(),
       currentDate.getMonth() + 1,
     ],
-    queryFn: () => {
-      return [
-        getDiaryList(
-          userId,
-          currentDate.getFullYear(),
-          currentDate.getMonth() + 1,
-        ),
-        getDiaryStreakDate(),
-      ];
-    },
+    queryFn: () =>
+      getDiaryList(
+        userId,
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+      ),
+  });
+
+  const {
+    isLoading: streakLoading,
+    error: streakError,
+    data: streakDateData,
+  } = useQuery({
+    queryKey: ['diaryStreakDate'],
+    queryFn: () => getDiaryStreakDate(),
   });
 
   useEffect(() => {
-    if (data) {
-      Promise.all(data).then(([listData, streakData]) => {
+    if (diaryListData) {
+      Promise.all(diaryListData).then((listData: Diary[]) => {
         setDiaryList(listData);
-        setDiaryStreakDate(streakData);
-      })
+      });
     }
-  }, [data]);
+  }, [diaryListData]);
 
-  if (isLoading) {
+  useEffect(() => {
+    setDiaryStreakDate(streakDateData);
+  }, [streakDateData]);
+
+  if (listLoading || streakLoading) {
     return <>loading..</>;
   }
 
-  if (error) console.log(error);
+  if (streakError) console.log(streakError);
+  if (listError) console.log(listError);
 
   return (
     <>
       <HomeHeader />
       <div className={styles.wholeWrapper}>
-        <HomeProfileHeader diaryStreakDate={diaryStreakDate}/>
+        <HomeProfileHeader diaryStreakDate={diaryStreakDate} />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector} onClick={onClickSelector}>
@@ -85,7 +99,7 @@ const Home = () => {
               </div>
             </div>
             <span className={styles.diaryNumber}>
-              {data ? data.length : 0}개의 일기
+              {diaryList ? diaryList.length : 0}개의 일기
             </span>
           </div>
           <div className={styles.rightContainer}>
