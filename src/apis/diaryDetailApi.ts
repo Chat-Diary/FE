@@ -7,6 +7,7 @@ export interface DiaryDetailType {
   tagName: string[];
   characterIndex: number;
   deleteImgUrls: string[];
+  newImgFile?: File[];
 }
 
 export const getDiaryDetail = async (userId: number, diaryDate: string) => {

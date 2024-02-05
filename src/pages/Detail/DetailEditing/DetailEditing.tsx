@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import styles from './DetailEditing.module.scss';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import InputForm from '../../../components/common/Input/InputForm';
@@ -35,19 +35,35 @@ const DetailEditing = () => {
   // 편집 화면으로 넘길 일기 상세 정보 (수정 중인 데이터)
   const [newData, setNewData] = useState<DiaryDetailType>(currentData);
 
+  // 이미지 추가 위함
   const imgInput = useRef<HTMLInputElement>(null);
+  const [selectedImgs, setSelectedImgs] = useState<File[]>(
+    currentData.newImgFile || [],
+  );
 
-  const handleImgAdd = () => {
-    if (imgInput.current) {
-      imgInput.current.click();
+  const handleChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target!.files;
+    if (files) {
+      const newImg: File[] = Array.from(files);
+      setSelectedImgs((prev) => [newImg[0], ...prev]);
     }
   };
 
   const handleImgDel = (index: number) => {
     // 클릭된 index의 이미지를 배열에서 제외
-    setCurrentImgs((prev) =>
-      prev.filter((img, imgIndex) => imgIndex !== index),
-    );
+    const allImages = [...selectedImgs, ...currentImgs];
+
+    if (allImages[index] instanceof File) {
+      // 만약 클릭된 이미지가 File 형태인 경우
+      setSelectedImgs((prev) =>
+        prev.filter((_, imgIndex) => imgIndex !== index),
+      );
+    } else if (typeof allImages[index] === 'string') {
+      // 만약 클릭된 이미지가 URL 형태인 경우
+      setCurrentImgs((prev) =>
+        prev.filter((_, imgIndex) => imgIndex !== index),
+      );
+    }
 
     // 삭제된 이미지의 url
     setNewData((prev) => {
@@ -87,9 +103,29 @@ const DetailEditing = () => {
 
   const handleSave = () => {
     console.log(newData);
-    console.log(currentImgs);
+    console.log(selectedImgs);
     // mutate(newData);
   };
+
+  useEffect(() => {
+    if (selectedImgs.length > 0) {
+      const formData = new FormData();
+
+      selectedImgs.forEach((image, index) => {
+        formData.append(`image_${index}`, image);
+      });
+
+      setNewData((prev) => {
+        return {
+          ...prev,
+          newImgFile: selectedImgs,
+        };
+      });
+
+      // 이제 formData에 이미지가 추가되었습니다. 서버로 전송하거나 상태에 저장할 수 있습니다.
+      // 예: setNewData((prev) => ({ ...prev, formData: formData }));
+    }
+  }, [selectedImgs]);
 
   useEffect(() => {
     setNewData((prev) => {
@@ -127,19 +163,20 @@ const DetailEditing = () => {
                 type="file"
                 multiple
                 accept=".jpg,.jpeg,.png"
+                onChange={handleChangeImg}
                 style={{ display: 'none' }}
               />
-              <DetailCamera onClick={handleImgAdd} />
+              <DetailCamera />
             </label>
-            {currentImgs.map((img: string, key: number) => (
-              <>
-                <div key={key} className={styles.img}>
-                  <img src={img} />
-                  <div className={styles.imgDel}>
-                    <DetailImgDelete onClick={() => handleImgDel(key)} />
-                  </div>
+            {[...selectedImgs, ...currentImgs].map((img, key) => (
+              <div key={key} className={styles.img}>
+                <img
+                  src={typeof img === 'string' ? img : URL.createObjectURL(img)}
+                />
+                <div className={styles.imgDel}>
+                  <DetailImgDelete onClick={() => handleImgDel(key)} />
                 </div>
-              </>
+              </div>
             ))}
           </div>
           <InputForm
