@@ -3,10 +3,14 @@ import styles from './AnanlysisDetail.module.scss';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { useLocation, useParams } from 'react-router-dom';
 import BottomNav from '../../../components/common/BottomNav/BottomNav';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TagRankingItem from '../../../components/Analysis/TagRankingItem';
+import { useQuery } from 'react-query';
+import { getTagDetailRanking } from '../../../apis/analysisApi';
+import { TagCounts, TagDetailRanking } from '../../../utils/analysisDetail';
 
 const AnalysisDetail = () => {
+  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const { period } = useParams<{
     period: string;
   }>();
@@ -27,6 +31,10 @@ const AnalysisDetail = () => {
     setActiveTab(index);
   };
 
+  const [tagDetailRanking, setTagDetailRanking] = useState<TagDetailRanking>();
+  const categoryList = ['전체', '감정', '행동', '장소', '인물'];
+  const [tagCountsData, setTagCountsData] = useState<TagCounts[]>();
+
   // UI 상에서 파싱된 날짜 보여주기 위한 함수
   const parseDate = (d: string) => {
     const date = new Date(d);
@@ -40,6 +48,64 @@ const AnalysisDetail = () => {
 
     return parsedDate;
   };
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['user_id', 'diary_date'],
+    queryFn: () => {
+      let type = '';
+      switch (period) {
+        case 'week':
+          type = 'weekly';
+          break;
+        case 'month':
+          type = 'monthly';
+          break;
+        case 'year':
+          type = 'yearly';
+          break;
+      }
+
+      return getTagDetailRanking(userId, type);
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      setTagDetailRanking(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    let tagCounts: TagCounts[];
+    switch (activeTab) {
+      case 0:
+        tagCounts = tagDetailRanking?.statistics.전체 || [];
+        setTagCountsData(tagCounts);
+        break;
+      case 1:
+        tagCounts = tagDetailRanking?.statistics.감정 || [];
+        setTagCountsData(tagCounts);
+        break;
+      case 2:
+        tagCounts = tagDetailRanking?.statistics.행동 || [];
+        setTagCountsData(tagCounts);
+        break;
+      case 3:
+        tagCounts = tagDetailRanking?.statistics.장소 || [];
+        setTagCountsData(tagCounts);
+        break;
+      case 4:
+        tagCounts = tagDetailRanking?.statistics.인물 || [];
+        setTagCountsData(tagCounts);
+        break;
+    }
+  }, [tagDetailRanking]);
+
+  if (isLoading) {
+    return <>loading..</>;
+  }
+
+  if (error) console.log(error);
 
   if (period === undefined || !['week', 'month', 'year'].includes(period)) {
     return <p>잘못된 페이지입니다.</p>;
@@ -69,7 +135,7 @@ const AnalysisDetail = () => {
         </div>
       </div>
       <div className={styles.tagTabsContainer}>
-        {['전체', '감정', '행동', '장소', '인물'].map((category, index) => (
+        {categoryList.map((category, index) => (
           <button
             key={index}
             className={`${styles.tabBtn} ${
@@ -81,9 +147,10 @@ const AnalysisDetail = () => {
           </button>
         ))}
       </div>
-      {rankingList.map((rank, index) => {
-        return <TagRankingItem key={index} rank={index+1}/>
-      })}
+      {tagCountsData !== undefined &&
+        tagCountsData.map((data, index) => {
+          return <TagRankingItem key={index} rank={index + 1} tagData={data} />;
+        })}
       <BottomNav page={2} isBtn={false} />
     </>
   );

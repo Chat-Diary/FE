@@ -1,17 +1,16 @@
+import { TagCounts } from '../../utils/analysisDetail';
 import TagChip from '../Tag/AllTags/TagChip';
 import styles from './TagRankingItem.module.scss';
 
 interface IProps {
   rank?: number;
+  tagData: TagCounts;
 }
 
-const TagRankingItem = ({ rank }: IProps) => {
+const TagRankingItem = ({ rank, tagData }: IProps) => {
   if (!rank) {
-    console.log(rank);
     return <></>;
   }
-
-  const TagList = ['집', '학교', '과제'];
 
   return (
     <div className={styles.Container}>
@@ -19,11 +18,11 @@ const TagRankingItem = ({ rank }: IProps) => {
         {rank}
       </div>
       <div className={styles.Tags}>
-        {TagList.map((tag, index) => {
+        {tagData.tags.map((tag, index) => {
           return (
             <TagChip
               key={index}
-              type={'line'}
+              type={`${rank <= 3 ? 'line' : 'default'}`}
               onClick={() => {
                 console.log();
               }}
@@ -34,7 +33,8 @@ const TagRankingItem = ({ rank }: IProps) => {
         })}
       </div>
       <div className={styles.Count}>
-        12<span>회</span>
+        {tagData.count}
+        <span>회</span>
       </div>
     </div>
   );
