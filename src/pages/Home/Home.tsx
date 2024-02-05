@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useCalendar from '../../hooks/useCalendar';
 import styles from './Home.module.scss';
 import HomeCalendar from '../../components/Home/Calendar/HomeCalendar';
@@ -10,6 +10,8 @@ import HomeProfileHeader from '../../components/common/Header/HomeProfildHeader/
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { useQuery } from 'react-query';
 import { getDiaryList } from '../../apis/diaryListApi';
+import { getDiaryStreakDate } from '../../apis/home';
+import { Diary, StreakDate } from '../../utils/diary';
 
 const Home = () => {
   const [isList, setIsList] = useState(false);
@@ -19,6 +21,8 @@ const Home = () => {
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
+  const [diaryList, setDiaryList] = useState<Diary[]>();
+  const [diaryStreakDate, setDiaryStreakDate] = useState<StreakDate>();
 
   const onClickSelector = () => {
     setIsSelectedDate(true);
@@ -29,7 +33,11 @@ const Home = () => {
     setIsSelectedDate(false);
   };
 
-  const { isLoading, error, data } = useQuery({
+  const {
+    isLoading: listLoading,
+    error: listError,
+    data: diaryListData,
+  } = useQuery({
     queryKey: [
       'diary',
       userId,
@@ -44,17 +52,39 @@ const Home = () => {
       ),
   });
 
-  if (isLoading) {
+  const {
+    isLoading: streakLoading,
+    error: streakError,
+    data: streakDateData,
+  } = useQuery({
+    queryKey: ['diaryStreakDate'],
+    queryFn: () => getDiaryStreakDate(),
+  });
+
+  useEffect(() => {
+    if (diaryListData) {
+      Promise.all(diaryListData).then((listData: Diary[]) => {
+        setDiaryList(listData);
+      });
+    }
+  }, [diaryListData]);
+
+  useEffect(() => {
+    setDiaryStreakDate(streakDateData);
+  }, [streakDateData]);
+
+  if (listLoading || streakLoading) {
     return <>loading..</>;
   }
 
-  if (error) console.log(error);
+  if (streakError) console.log(streakError);
+  if (listError) console.log(listError);
 
   return (
     <>
       <HomeHeader />
       <div className={styles.wholeWrapper}>
-        <HomeProfileHeader />
+        <HomeProfileHeader diaryStreakDate={diaryStreakDate} />
         <div className={styles.dateNav}>
           <div className={styles.currentDateBox}>
             <div className={styles.dateSelector} onClick={onClickSelector}>
@@ -69,7 +99,7 @@ const Home = () => {
               </div>
             </div>
             <span className={styles.diaryNumber}>
-              {data ? data.length : 0}개의 일기
+              {diaryList ? diaryList.length : 0}개의 일기
             </span>
           </div>
           <div className={styles.rightContainer}>
@@ -85,8 +115,8 @@ const Home = () => {
           </div>
         </div>
         {isList ? (
-          data ? (
-            <List dataList={data} />
+          diaryList ? (
+            <List dataList={diaryList} />
           ) : (
             <></>
           )

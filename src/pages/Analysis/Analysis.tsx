@@ -21,6 +21,8 @@ import {
   getFrequentAis,
   getFrequentTags,
 } from '../../apis/analysisApi';
+import { getDiaryStreakDate } from '../../apis/home';
+import { StreakDate } from '../../utils/diary';
 
 export const Analysis = () => {
   const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
@@ -37,6 +39,8 @@ export const Analysis = () => {
 
   const periodTab = ['이번 주', '이번 달', '올해'];
   const [activeTab, setActiveTab] = useState(0);
+
+  const [diaryStreakDate, setDiaryStreakDate] = useState<StreakDate>();
 
   // UI 상에서 파싱된 날짜 보여주기 위한 함수
   const parseDate = (date: Date, isUrl?: boolean) => {
@@ -56,6 +60,19 @@ export const Analysis = () => {
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
+
+  const {
+    isLoading: streakLoading,
+    error: streakError,
+    data: streakDateData,
+  } = useQuery({
+    queryKey: ['diaryStreakDate'],
+    queryFn: () => getDiaryStreakDate(),
+  });
+
+  useEffect(() => {
+    setDiaryStreakDate(streakDateData);
+  }, [streakDateData]);
 
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['user_id', 'type', 'date', activeTab],
@@ -124,9 +141,10 @@ export const Analysis = () => {
     refetch();
   }, [activeTab]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || streakLoading) return <div>Loading...</div>;
 
   if (error) console.log(error);
+  if (streakError) console.log(streakError);
 
   return (
     <>
@@ -135,7 +153,7 @@ export const Analysis = () => {
         <Notice />
         <span className={styles.streak}>
           꾸준히 일기를 쓴 지
-          <span className={styles.streakNumber}> 7일째 </span>
+          <span className={styles.streakNumber}> {diaryStreakDate?.diaryStreakDate}일째 </span>
           에요!
         </span>
       </div>
