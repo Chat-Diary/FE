@@ -17,6 +17,7 @@ import NoTagResult from '../../components/Tag/NoTagResult';
 import { useQuery } from 'react-query';
 import { getDiaryListByTag } from '../../apis/tagApi';
 import { Diary } from '../../utils/diary';
+import { getDiaryList } from '../../apis/diaryListApi';
 
 const Tag = () => {
   const [isList, setIsList] = useState<boolean>(true);
@@ -43,14 +44,12 @@ const Tag = () => {
     data: diaryListData,
   } = useQuery({
     queryKey: ['diary', userId, tags],
-    queryFn: () => getDiaryListByTag(userId, tags),
+    queryFn: () => getDiaryList(userId, 2024, 1),
   });
 
   useEffect(() => {
     if (diaryListData) {
-      Promise.all(diaryListData).then((listData: Diary[]) => {
-        setDiaryList(listData);
-      });
+      setDiaryList(diaryListData);
     }
   }, [diaryListData]);
 
@@ -65,6 +64,30 @@ const Tag = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isSelectedSorted, currentSort]);
+
+  useEffect(() => {
+    if (diaryList !== undefined) {
+      if (currentSort === 1) {
+        const sortedByLatest = [...diaryList].sort((a, b) => {
+          const dateA = new Date(a.diaryDate);
+          const dateB = new Date(b.diaryDate);
+          return (+dateB) - (+dateA); // dateB가 더 크다면 (최신이라면) 양수 반환하여 최신순으로 정렬
+        });
+        
+        setDiaryList(sortedByLatest);
+      } else {
+        const sortedByLatest = [...diaryList].sort((a, b) => {
+          const dateA = new Date(a.diaryDate);
+          const dateB = new Date(b.diaryDate);
+          return (+dateA) - (+dateB);
+        });
+        
+        setDiaryList(sortedByLatest);
+      }
+    }
+    
+  }, [currentSort]);
+
 
   if (listLoading) {
     return <>loading..</>;
@@ -99,7 +122,7 @@ const Tag = () => {
             </Link>
           </div>
         </div>
-        {hasTag ? isList ? <List /> : <CardView /> : <NoTagResult />}
+        {hasTag ? isList ? <List dataList={diaryList}/> : <CardView dataList={diaryList}/> : <NoTagResult />}
         {isSelectedSorted ? (
           <TagSortModal
             clickOuter={setIsSelectedSorted}
