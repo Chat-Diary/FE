@@ -142,13 +142,14 @@ const AllTags = ({
         ...prev,
         tagName: selectedTags,
       }));
+      console.log('AllTags: ', selectedTags);
     }
 
     // 초기화
     if (isInit) {
       resetTags();
     }
-  }, []);
+  }, [selectedTags]);
 
   // const handleToggleClick = (tagNames: string) => {
   //   if (setIsInit !== undefined && isInit === true) {
@@ -156,8 +157,6 @@ const AllTags = ({
   //     resetTags();
   //   }
   // };
-
-  // useEffect(() => {}, [selectedTags]);
 
   return (
     <div className={styles.container}>

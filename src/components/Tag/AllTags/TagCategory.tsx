@@ -15,24 +15,32 @@ const TagCategory = ({
   selectedTags,
   setSelectedTags,
 }: IProps) => {
-  // selectedTags는 선택된 모든 태그 (카테고리 무관)
-  const [selectedCategoryTags, setSelectedCategoryTags] =
-    useState<string[]>(selectedTags);
+  // // selectedTags는 선택된 모든 태그 (카테고리 무관)
+  // const [selectedCategoryTags, setSelectedCategoryTags] =
+  //   useState<string[]>(selectedTags);
 
   const handleClick = (tag: string) => {
-    console.log(selectedCategoryTags);
     // 태그 클릭 시 추가 또는 삭제
-    if (!selectedCategoryTags.includes(tag))
-      setSelectedCategoryTags((prev) => [...prev, tag]);
-    else setSelectedCategoryTags(selectedCategoryTags.filter((t) => t !== tag));
+    if (setSelectedTags !== undefined) {
+      if (!selectedTags.includes(tag))
+        setSelectedTags((prev) => [...prev, tag]);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      else setSelectedTags((prev) => selectedTags.filter((t) => t !== tag));
+    }
   };
 
-  useEffect(() => {
-    const array = Array.from(Object.values(selectedCategoryTags));
-    setSelectedCategoryTags(array);
+  // useEffect(() => {
+  //   const array = Array.from(Object.values(selectedCategoryTags));
+  //   setSelectedCategoryTags(array);
+  // }, []);
 
-    if (setSelectedTags !== undefined) setSelectedTags(selectedCategoryTags);
-  }, []);
+  // 태그 선택될 때마다 set
+  useEffect(() => {
+    if (setSelectedTags !== undefined)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      setSelectedTags((prev) => selectedTags);
+    console.log('TagCategory: ', selectedTags);
+  }, [selectedTags]);
 
   return (
     <div className={styles.container}>
@@ -44,7 +52,7 @@ const TagCategory = ({
               <TagChip
                 key={index}
                 type={
-                  Object.values(selectedCategoryTags).find((t) => tag === t)
+                  Object.values(selectedTags).find((t) => tag === t)
                     ? 'selected'
                     : 'default'
                 }
