@@ -194,6 +194,7 @@ const Chat = () => {
   return (
     <div>
       <ChatHeader onClick={onClickSelector} />
+      <div ref={target}></div>
       <div className={styles.messagesContainer}>
         {Object.entries(MessageSections || {})?.map(([day, messages]) => (
           <>

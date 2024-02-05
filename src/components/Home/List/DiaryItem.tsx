@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Diary } from '../../../utils/diary';
 import styles from './DiaryItem.module.scss';
 
@@ -23,7 +24,10 @@ const DiaryItem = ({ diary }: DiaryItemProps) => {
   }
 
   return (
-    <div className={styles.DiaryItem}>
+    <Link
+      to={`/detail?diary_date=${diary.diaryDate}`}
+      className={styles.DiaryItem}
+    >
       <img className={styles.DiaryImg} src={diary.photoUrls[0]} />
       <div>
         <div className={styles.DiaryTitleContainer}>
@@ -36,7 +40,7 @@ const DiaryItem = ({ diary }: DiaryItemProps) => {
           })}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
