@@ -58,7 +58,7 @@ const Home = () => {
     data: streakDateData,
   } = useQuery({
     queryKey: ['diaryStreakDate'],
-    queryFn: () => getDiaryStreakDate(),
+    queryFn: () => getDiaryStreakDate(1),
   });
 
   useEffect(() => {
