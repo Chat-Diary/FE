@@ -15,6 +15,7 @@ import {
   modifyDiaryDetail,
 } from '../../../apis/diaryDetailApi';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const DetailEditing = () => {
   // const navigator = useNavigate();
@@ -22,14 +23,16 @@ const DetailEditing = () => {
   const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const diaryDate = searchParams.get('diary_date');
 
+  // 이전 화면에서 받아온 일기 상세 정보
   const location = useLocation();
   const currentData = location.state.detailData;
   const currentDate = currentData.diaryDate;
   const currentTitle = currentData.title;
   const [currentImgs, setCurrentImgs] = useState<string[]>(currentData.imgUrl);
   const currentContent = currentData.content;
-  const currentTags = currentData.tagName;
+  const [currentTags, setCurrentTags] = useState<string[]>(currentData.tagName);
 
+  // 편집 화면으로 넘길 일기 상세 정보 (수정 중인 데이터)
   const [newData, setNewData] = useState<DiaryDetailType>(currentData);
 
   const imgInput = useRef<HTMLInputElement>(null);
@@ -47,10 +50,25 @@ const DetailEditing = () => {
     );
 
     // 삭제된 이미지의 url
-    setNewData((prev) => ({
-      ...prev,
-      deleteImgUrls: [...(prev.deleteImgUrls || []), currentImgs[index]],
-    }));
+    setNewData((prev) => {
+      const imageUrlToRemove = currentImgs[index];
+
+      // 화면 간 데이터 이동 시 url의 중복 추가 피하기 위함
+      const isUrlAlreadyAdded = (prev.deleteImgUrls || []).some(
+        (url) => url === imageUrlToRemove,
+      );
+
+      // 만약 해당 URL이 이미 추가되어 있지 않다면 추가
+      if (!isUrlAlreadyAdded) {
+        return {
+          ...prev,
+          deleteImgUrls: [...(prev.deleteImgUrls || []), imageUrlToRemove],
+        };
+      }
+
+      // 이미 추가된 경우 그대로 반환
+      return prev;
+    });
   };
 
   const handleTitle = (value: string) => {
@@ -69,8 +87,15 @@ const DetailEditing = () => {
 
   const handleSave = () => {
     console.log(newData);
+    console.log(currentImgs);
     // mutate(newData);
   };
+
+  useEffect(() => {
+    setNewData((prev) => {
+      return { ...prev, imgUrl: currentImgs };
+    });
+  }, [currentImgs]);
 
   const { mutate, isLoading } = useMutation((value: DiaryDetailType) =>
     modifyDiaryDetail(value),
@@ -80,7 +105,9 @@ const DetailEditing = () => {
 
   return (
     <>
-      <ChangeHeader>일기 수정하기</ChangeHeader>
+      <ChangeHeader path={`/detail?${searchParams}`}>
+        일기 수정하기
+      </ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
           <div>{currentDate}</div>
@@ -123,7 +150,7 @@ const DetailEditing = () => {
           />
           <Link
             to={`/detail/modify/tags?diary_date=${currentDate}`}
-            state={{ tagsData: currentTags }}
+            state={{ detailData: newData }}
           >
             <div className={styles.tagSelect}>
               <div>태그 선택하기</div>

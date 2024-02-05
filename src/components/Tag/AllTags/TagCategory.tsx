@@ -5,15 +5,22 @@ import TagChip from './TagChip';
 interface IProps {
   category: string;
   tagNames: string[];
-  selectedTag: string[];
+  selectedTags: string[];
+  setSelectedTags?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const TagCategory = ({ category, tagNames, selectedTag }: IProps) => {
+const TagCategory = ({
+  category,
+  tagNames,
+  selectedTags,
+  setSelectedTags,
+}: IProps) => {
   // selectedTags는 선택된 모든 태그 (카테고리 무관)
   const [selectedCategoryTags, setSelectedCategoryTags] =
-    useState<string[]>(selectedTag);
+    useState<string[]>(selectedTags);
 
   const handleClick = (tag: string) => {
+    console.log(selectedCategoryTags);
     // 태그 클릭 시 추가 또는 삭제
     if (!selectedCategoryTags.includes(tag))
       setSelectedCategoryTags((prev) => [...prev, tag]);
@@ -21,8 +28,10 @@ const TagCategory = ({ category, tagNames, selectedTag }: IProps) => {
   };
 
   useEffect(() => {
-    const array = Array.from(Object.values(selectedCategoryTags)[0]);
+    const array = Array.from(Object.values(selectedCategoryTags));
     setSelectedCategoryTags(array);
+
+    if (setSelectedTags !== undefined) setSelectedTags(selectedCategoryTags);
   }, []);
 
   return (

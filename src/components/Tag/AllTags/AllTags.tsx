@@ -3,6 +3,7 @@ import styles from './AllTags.module.scss';
 
 import TagChip from './TagChip';
 import TagCategory from './TagCategory';
+import { DiaryDetailType } from '../../../apis/diaryDetailApi';
 
 interface TagType {
   tagId: number;
@@ -17,11 +18,17 @@ interface CategoryType {
 
 interface IProps {
   currentTags: string[];
+  setNewTags?: React.Dispatch<React.SetStateAction<DiaryDetailType>>;
   isInit?: boolean;
   setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AllTags = ({ currentTags, isInit = false, setIsInit }: IProps) => {
+const AllTags = ({
+  currentTags,
+  setNewTags,
+  isInit = false,
+  setIsInit,
+}: IProps) => {
   const allTags: TagType[] = [
     {
       tagId: 1,
@@ -107,7 +114,6 @@ const AllTags = ({ currentTags, isInit = false, setIsInit }: IProps) => {
         });
       }
     });
-
     return parsedTags;
   };
 
@@ -130,6 +136,13 @@ const AllTags = ({ currentTags, isInit = false, setIsInit }: IProps) => {
     //   });
     //   setSelectedTags(updatedSelectedTags);
     // }
+
+    if (setNewTags !== undefined) {
+      setNewTags((prev) => ({
+        ...prev,
+        tagName: selectedTags,
+      }));
+    }
 
     // 초기화
     if (isInit) {
@@ -154,7 +167,8 @@ const AllTags = ({ currentTags, isInit = false, setIsInit }: IProps) => {
             key={key}
             category={tags.category}
             tagNames={tags.tagNames}
-            selectedTag={selectedTags}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
           />
         );
       })}
