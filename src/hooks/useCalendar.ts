@@ -13,16 +13,22 @@ interface Response {
   exists: boolean;
 }
 
+export interface ICalendar {
+  day: number;
+  characters: string[];
+}
+
 const DATE_MONTH_FIXER = 1;
 const CALENDER_LENGTH = 42;
 const DEFAULT_TRASH_VALUE = 0;
 const DAY_OF_WEEK = 7;
+const TWO_DIGIT_FORMAT = 10;
 
 const useCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState(
     `${currentDate.getFullYear()}-${
-      currentDate.getMonth() + 1 < 10
+      currentDate.getMonth() + 1 < TWO_DIGIT_FORMAT
         ? '0' + (currentDate.getMonth() + 1)
         : currentDate.getMonth() + 1
     }`,
@@ -33,7 +39,9 @@ const useCalendar = () => {
   useEffect(() => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
-    setFormattedDate(`${year}-${month < 10 ? '0' + month : month}`);
+    setFormattedDate(
+      `${year}-${month < TWO_DIGIT_FORMAT ? '0' + month : month}`,
+    );
   }, [currentDate]);
 
   const { data, isLoading, error } = useQuery<IChatData[]>(
@@ -65,7 +73,7 @@ const useCalendar = () => {
 
   const currentCalendarList = prevDayList.concat(currentDayList, nextDayList);
   const weekCalendarList = currentCalendarList.reduce(
-    (acc: { day: number; characters: string[] }[][], cur, idx) => {
+    (acc: ICalendar[][], cur, idx) => {
       const chunkIndex = Math.floor(idx / DAY_OF_WEEK);
       if (!acc[chunkIndex]) {
         acc[chunkIndex] = [];

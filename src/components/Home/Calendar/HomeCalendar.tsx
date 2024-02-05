@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './HomeCalendar.module.scss';
+import { isExactlyToday, isNotToday } from '../../../utils/dateFormatters';
+import { ICalendar } from '../../../hooks/useCalendar';
 
 interface IProps {
-  weekCalendarList: { day: number; characters: string[] }[][];
+  weekCalendarList: ICalendar[][];
   currentDate: Date;
 }
 
 const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
   const navigate = useNavigate();
 
-  const handleDateClick = (dayInfo: { day: number; characters: string[] }) => {
+  const handleDateClick = (dayInfo: ICalendar) => {
     const dateString = `${currentDate.getFullYear()}-${
       currentDate.getMonth() + 1 < 10
         ? '0' + (currentDate.getMonth() + 1)
@@ -40,11 +42,7 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
               {week.map((dayInfo, dayIndex) => (
                 <td
                   className={`${styles.dayBtn} ${
-                    currentDate.getFullYear() === today.getFullYear() &&
-                    currentDate.getMonth() === today.getMonth() &&
-                    dayInfo.day === today.getDate()
-                      ? styles.active
-                      : ''
+                    isExactlyToday(currentDate, today, dayInfo) && styles.active
                   }`}
                   key={dayIndex}
                   onClick={() => handleDateClick(dayInfo)}
@@ -52,9 +50,7 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
                   {dayInfo.day !== 0 && (
                     <>
                       <span className={styles.dayString}>{dayInfo.day}</span>
-                      {(currentDate.getFullYear() !== today.getFullYear() ||
-                        currentDate.getMonth() !== today.getMonth() ||
-                        dayInfo.day !== today.getDate()) && (
+                      {isNotToday(currentDate, today, dayInfo) && (
                         <span className={styles.characterDots}>
                           {dayInfo.characters.map((character) => (
                             <div
