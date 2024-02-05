@@ -14,11 +14,16 @@ import HomeHeader from '../../components/common/Header/Header';
 import TagChip from '../../components/Tag/AllTags/TagChip';
 import { Link } from 'react-router-dom';
 import NoTagResult from '../../components/Tag/NoTagResult';
+import { useQuery } from 'react-query';
+import { getDiaryListByTag } from '../../apis/tagApi';
+import { Diary } from '../../utils/diary';
 
 const Tag = () => {
   const [isList, setIsList] = useState<boolean>(true);
-  const tags = ['여행', '여행', '여행', '여행', '여행', '여행', '여행', '여행'];
+  const tags = ['화남', '여행'];
   const [currentSort, setCurrentSort] = useState<number>(2);
+  const [diaryList, setDiaryList] = useState<Diary[]>();
+  const userId = 1;
 
   const toggleMode = () => {
     setIsList((prev) => !prev);
@@ -32,6 +37,23 @@ const Tag = () => {
     setHasTag(true);
   };
 
+  const {
+    isLoading: listLoading,
+    error: listError,
+    data: diaryListData,
+  } = useQuery({
+    queryKey: ['diary', userId, tags],
+    queryFn: () => getDiaryListByTag(userId, tags),
+  });
+
+  useEffect(() => {
+    if (diaryListData) {
+      Promise.all(diaryListData).then((listData: Diary[]) => {
+        setDiaryList(listData);
+      });
+    }
+  }, [diaryListData]);
+
   useEffect(() => {
     if (isSelectedSorted) {
       document.body.style.overflow = 'hidden';
@@ -43,6 +65,12 @@ const Tag = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isSelectedSorted, currentSort]);
+
+  if (listLoading) {
+    return <>loading..</>;
+  }
+
+  if (listError) console.log(listError);
 
   return (
     <div className={styles.container}>
