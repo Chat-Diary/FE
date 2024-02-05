@@ -9,8 +9,6 @@ export interface Diary {
   diaryDate: string;
   photoUrls: string[];
   tagList: TagInfo[];
-  tagId: number;
-  tagName: string;
 }
 
 export interface StreakDate {
