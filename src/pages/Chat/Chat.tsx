@@ -174,8 +174,14 @@ const Chat = () => {
     if (!socket) return;
 
     socket.onmessage = async (event: MessageEvent) => {
+      // GPT message parsing error
+      if (typeof event.data === 'string') {
+        console.log(event.data);
+        return;
+      }
+      // message
       const res = await JSON.parse(event.data);
-
+      // 200, 500
       if (typeof res === 'number') return;
 
       const updatedMessage = {
