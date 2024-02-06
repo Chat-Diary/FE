@@ -70,7 +70,7 @@ const Detail = () => {
   useEffect(() => {
     if (data) {
       // 날짜 fetching
-      const d = new Date(data.diaryDate);
+      const d = new Date(diaryDate !== null ? diaryDate : '');
       const date = new Intl.DateTimeFormat('ko-KR', {
         year: 'numeric',
         month: 'long',
