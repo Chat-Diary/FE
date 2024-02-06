@@ -10,6 +10,7 @@ import {
   Chichi36,
   Lulu36,
   DetailPlus,
+  DetailSkProfile,
   // DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
@@ -91,7 +92,33 @@ const Detail = () => {
     queryFn: () => getDiaryDetail(userId, diaryDate!),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <>
+        <DetailHeader onClick={onChangeEdit}>{formattedDate}</DetailHeader>
+        <div className={styles.detailContainer}>
+          <div className={styles.header}>
+            <div>
+              <DetailSkProfile />
+              <div className={styles.skeletonTitle} />
+            </div>
+          </div>
+          <div className={styles.content}>
+            <div className={styles.sliderContainer}>
+              <Slider {...settings} className={styles.slider}>
+                <div className={styles.img} />
+              </Slider>
+            </div>
+            <div className={styles.skeletonContent}>
+              <div className={styles.skeletonLine} />
+              <div className={styles.skeletonLine} />
+              <div className={`${styles.skeletonLine} ${styles.lastLine}`} />
+            </div>
+            <div className={styles.skeletonTags}></div>
+          </div>
+        </div>
+      </>
+    );
 
   if (error) console.log(error);
 
