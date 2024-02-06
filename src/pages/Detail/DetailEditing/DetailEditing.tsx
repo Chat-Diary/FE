@@ -20,8 +20,10 @@ import { useEffect } from 'react';
 const DetailEditing = () => {
   // const navigator = useNavigate();
   const [searchParams] = useSearchParams();
-  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
+  const userId = 1; // 로그인 미구현 시 초기화
   const diaryDate = searchParams.get('diary_date');
+  // 서버에 formData 형식으로 넘기기 위한 formData 객체
+  const formData = new FormData();
 
   // 이전 화면에서 받아온 일기 상세 정보
   const location = useLocation();
@@ -33,7 +35,16 @@ const DetailEditing = () => {
   const [currentTags, setCurrentTags] = useState<string[]>(currentData.tagName);
 
   // 편집 화면으로 넘길 일기 상세 정보 (수정 중인 데이터)
-  const [newData, setNewData] = useState<DiaryDetailType>(currentData);
+  const [newData, setNewData] = useState<DiaryDetailType>({
+    userId: userId, // userId는 현재 사용자의 ID로 설정
+    diaryDate: currentData.diaryDate,
+    title: currentData.title || '', // 제목이 없을 경우 빈 문자열로 초기화
+    imgUrl: currentData.imgUrl, // imgUrl 초기화
+    content: currentData.content || '', // 내용이 없을 경우 빈 문자열로 초기화
+    tagName: currentData.tagName || [], // 태그명이 없을 경우 빈 배열로 초기화
+    deleteImgUrls: [], // 삭제된 이미지 URL이 없을 경우 빈 배열로 초기화
+    newImgUrls: [], // newImgUrls 초기화
+  });
 
   // 이미지 추가 위함
   const imgInput = useRef<HTMLInputElement>(null);
@@ -46,6 +57,10 @@ const DetailEditing = () => {
     if (files) {
       const newImg: File[] = Array.from(files);
       setSelectedImgs((prev) => [newImg[0], ...prev]);
+
+      // formData에 파일 추가
+      formData.append('image', newImg[0], newImg[0].name);
+      console.log('formData에 이미지 추가 : ', newImg[0]);
     }
   };
 
@@ -103,27 +118,31 @@ const DetailEditing = () => {
 
   const handleSave = () => {
     console.log(newData);
-    console.log(selectedImgs);
-    // mutate(newData);
+    // imgUrl과 newImgFile 속성 제외한 새로운 객체 생성
+    const newDataWithoutImgFile = { ...newData };
+    delete newDataWithoutImgFile.imgUrl;
+    delete newDataWithoutImgFile.newImgFile;
+    const jsonData = JSON.stringify(newDataWithoutImgFile);
+
+    formData.append('request', jsonData);
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+    // mutate(formData);
+    // console.log(mutate(formData));
   };
 
   useEffect(() => {
     if (selectedImgs.length > 0) {
-      const formData = new FormData();
-
-      selectedImgs.forEach((image, index) => {
-        formData.append(`image_${index}`, image);
-      });
-
       setNewData((prev) => {
         return {
           ...prev,
           newImgFile: selectedImgs,
         };
       });
-
-      // 이제 formData에 이미지가 추가되었습니다. 서버로 전송하거나 상태에 저장할 수 있습니다.
-      // 예: setNewData((prev) => ({ ...prev, formData: formData }));
     }
   }, [selectedImgs]);
 
@@ -133,7 +152,7 @@ const DetailEditing = () => {
     });
   }, [currentImgs]);
 
-  const { mutate, isLoading } = useMutation((value: DiaryDetailType) =>
+  const { mutate, isLoading } = useMutation((value: FormData) =>
     modifyDiaryDetail(value),
   );
 

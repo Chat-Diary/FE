@@ -2,12 +2,12 @@ export interface DiaryDetailType {
   userId: number;
   diaryDate: string;
   title: string;
-  imgUrl: string[];
+  imgUrl?: string[]; // 프론트 디버깅용 -> 서버에 전달 X
   content: string;
   tagName: string[];
-  characterIndex: number;
   deleteImgUrls: string[];
-  newImgFile?: File[];
+  newImgUrls: [];
+  newImgFile?: File[]; // 프론트 디버깅용 -> 서버에 전달 X
 }
 
 export const getDiaryDetail = async (userId: number, diaryDate: string) => {
@@ -16,7 +16,7 @@ export const getDiaryDetail = async (userId: number, diaryDate: string) => {
   ).then((res) => res.json());
 };
 
-export const modifyDiaryDetail = async (newData: DiaryDetailType) => {
+export const modifyDiaryDetail = async (newData: FormData) => {
   const response = await fetch(
     `${process.env.REACT_APP_HTTP_API_KEY}/diary/modify`,
     {
@@ -24,15 +24,7 @@ export const modifyDiaryDetail = async (newData: DiaryDetailType) => {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      body: JSON.stringify({
-        userId: newData.diaryDate,
-        diaryDate: newData.diaryDate,
-        title: newData.title,
-        content: newData.content,
-        tagNames: newData.tagName,
-        deleteImgUrls: newData.deleteImgUrls || [], //삭제된 이미지 url
-        newImgUrls: [],
-      }),
+      body: newData,
     },
   );
 
