@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const DetailEditing = () => {
-  // const navigator = useNavigate();
+  const navigator = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = 1; // 로그인 미구현 시 초기화
   const diaryDate = searchParams.get('diary_date');
@@ -143,6 +143,7 @@ const DetailEditing = () => {
     formData.append('request', jsonBlob);
 
     mutate(formData);
+    navigator(`/detail?diary_date=${diaryDate}`);
   };
 
   useEffect(() => {
