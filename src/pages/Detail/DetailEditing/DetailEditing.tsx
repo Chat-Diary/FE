@@ -32,7 +32,7 @@ const DetailEditing = () => {
   const currentTitle = currentData.title;
   const [currentImgs, setCurrentImgs] = useState<string[]>(currentData.imgUrl);
   const currentContent = currentData.content;
-  const [currentTags, setCurrentTags] = useState<string[]>(currentData.tagName);
+  const currentTags = currentData.tagName;
 
   // 편집 화면으로 넘길 일기 상세 정보 (수정 중인 데이터)
   const [newData, setNewData] = useState<DiaryDetailType>({
