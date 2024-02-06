@@ -7,6 +7,7 @@ export { ReactComponent as Chichi36 } from './icons/profiles/chichi-36.svg';
 export { ReactComponent as Dada48 } from './icons/profiles/dada-48.svg';
 export { ReactComponent as Lulu48 } from './icons/profiles/lulu-48.svg';
 export { ReactComponent as Chichi48 } from './icons/profiles/chichi-48.svg';
+export { ReactComponent as Dada200 } from './icons/profiles/dada-200.svg';
 export { ReactComponent as UserProfile } from './icons/profiles/user-profile.svg';
 
 export { ReactComponent as RightChevron } from './icons/nav/right-chevron.svg';
@@ -58,3 +59,5 @@ export { ReactComponent as Info } from './icons/mypage-info.svg';
 export { ReactComponent as mypageNotice } from './icons/mypage-notice.svg';
 export { ReactComponent as Theme } from './icons/mypage-theme.svg';
 export { ReactComponent as Refresh } from './icons/mypage-refresh.svg';
+
+export { ReactComponent as Kakao } from './icons/kakao.svg';

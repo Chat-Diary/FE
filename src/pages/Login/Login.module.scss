@@ -1,0 +1,47 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.wholeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .helloBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+    @include header24;
+    .dada {
+      color: $primary_default;
+    }
+  }
+  .psWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 45px;
+    margin-bottom: 50px;
+    @include body14;
+    color: $BK70;
+  }
+  .startBtnWrapper {
+    width: 328px;
+  }
+  .kakaoBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 327px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: #fee500;
+    color: #1b1d1f;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+}

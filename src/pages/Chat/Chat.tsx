@@ -174,8 +174,8 @@ const Chat = () => {
     if (!socket) return;
 
     socket.onmessage = async (event: MessageEvent) => {
-      // GPT message parsing error
-      if (typeof event.data === 'string') {
+      // GPT message processing error
+      if (event.data === 'GPT message processing error') {
         console.log(event.data);
         return;
       }
