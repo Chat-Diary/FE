@@ -4,7 +4,7 @@ export interface DiaryDetailType {
   title: string;
   imgUrl?: string[]; // 프론트 디버깅용 -> 서버에 전달 X
   content: string;
-  tagName: string[];
+  tagName?: string[];
   deleteImgUrls: string[];
   newImgUrls: [];
   newImgFile?: File[]; // 프론트 디버깅용 -> 서버에 전달 X
@@ -21,9 +21,9 @@ export const modifyDiaryDetail = async (newData: FormData) => {
     `${process.env.REACT_APP_HTTP_API_KEY}/diary/modify`,
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
       body: newData,
     },
   );

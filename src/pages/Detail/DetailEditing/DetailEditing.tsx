@@ -61,6 +61,9 @@ const DetailEditing = () => {
       // formData에 파일 추가
       formData.append('image', newImg[0], newImg[0].name);
       console.log('formData에 이미지 추가 : ', newImg[0]);
+      formData.forEach((value, key) => {
+        console.log(`${key}: `, value);
+      });
     }
   };
 
@@ -117,22 +120,7 @@ const DetailEditing = () => {
   };
 
   const handleSave = () => {
-    console.log(newData);
-    // imgUrl과 newImgFile 속성 제외한 새로운 객체 생성
-    const newDataWithoutImgFile = { ...newData };
-    delete newDataWithoutImgFile.imgUrl;
-    delete newDataWithoutImgFile.newImgFile;
-    const jsonData = JSON.stringify(newDataWithoutImgFile);
-
-    formData.append('request', jsonData);
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-    // mutate(formData);
-    // console.log(mutate(formData));
+    mutate(formData);
   };
 
   useEffect(() => {
@@ -151,6 +139,32 @@ const DetailEditing = () => {
       return { ...prev, imgUrl: currentImgs };
     });
   }, [currentImgs]);
+
+  useEffect(() => {
+    console.log(newData);
+    formData.forEach((value, key) => {
+      console.log(`${key}: `, value);
+    });
+    // imgUrl과 newImgFile 속성 제외한 새로운 객체 생성
+    const newDataWithoutImgFile = { ...newData };
+    delete newDataWithoutImgFile.imgUrl;
+    delete newDataWithoutImgFile.newImgFile;
+
+    // tagName 키를 tagNames로 변경
+    const newDataWithRenamedTagNames = {
+      ...newDataWithoutImgFile,
+      tagNames: newDataWithoutImgFile.tagName,
+    };
+    delete newDataWithRenamedTagNames.tagName;
+
+    const jsonData = JSON.stringify(newDataWithRenamedTagNames);
+    // const jsonBlob = new Blob([jsonData], {
+    //   type: 'application/json',
+    // });
+
+    formData.append('request', jsonData);
+    // formData.append('request', jsonBlob);
+  }, [newData]);
 
   const { mutate, isLoading } = useMutation((value: FormData) =>
     modifyDiaryDetail(value),

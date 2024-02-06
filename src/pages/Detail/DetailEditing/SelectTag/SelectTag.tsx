@@ -23,7 +23,7 @@ const SelectTag = () => {
         태그 선택하기
       </ChangeHeader>
       <AllTags
-        currentTags={newData.tagName}
+        currentTags={newData.tagName !== undefined ? newData.tagName : []}
         setNewTags={setNewData}
         isInit={false}
       />

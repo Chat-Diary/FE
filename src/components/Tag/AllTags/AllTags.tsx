@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AllTags.module.scss';
 
-import TagChip from './TagChip';
 import TagCategory from './TagCategory';
 import { DiaryDetailType } from '../../../apis/diaryDetailApi';
 
