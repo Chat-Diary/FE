@@ -90,6 +90,8 @@ const Detail = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
     queryFn: () => getDiaryDetail(userId, diaryDate!),
+    refetchOnWindowFocus: true,
+    staleTime: 5000, // 5초 동안 로딩 상태 유지 가능
   });
 
   if (isLoading)
@@ -151,7 +153,7 @@ const Detail = () => {
               {currentSlide + 1} / {sliderLength}
             </div>
           </div>
-          <span>{data.content}</span>
+          <div className={styles.realContent}>{data.content}</div>
           <div className={styles.tags}>
             {tags.map((tag, index) => {
               return <TagChip key={index}>{tag}</TagChip>;

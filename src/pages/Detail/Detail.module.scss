@@ -94,16 +94,20 @@
       }
     }
 
-    & span {
-      display: block;
+    & .realContent {
+      width: 100%;
       margin-top: 20px;
+      text-align: start;
+
       @include body14;
       color: $BK90;
     }
 
     & .tags {
+      width: 100%;
+
       display: flex;
-      margin-top: 38px;
+      margin-top: 48px;
       gap: 8px;
       flex-wrap: wrap;
     }
