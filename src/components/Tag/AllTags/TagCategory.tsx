@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './TagCategory.module.scss';
 import TagChip from './TagChip';
 
