@@ -1,20 +1,28 @@
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './DetailHeader.module.scss';
 
 import { LeftChevron, DetailEdit } from '../../../../assets/index';
+import { DiaryDetailType } from '../../../../apis/diaryDetailApi';
 
 interface IProps {
   children: string;
-  onClick: () => void;
+  date: Date;
+  info: DiaryDetailType;
 }
-const DetailHeader = ({ children, onClick }: IProps) => {
+const DetailHeader = ({ children, date, info }: IProps) => {
   const navigate = useNavigate();
 
   return (
     <div className={styles.changeHeader}>
       <LeftChevron onClick={() => navigate(-1)} />
       <span>{children}</span>
-      <DetailEdit onClick={onClick} />
+      <Link
+        to={`/detail/modify?diary_date=${date}`}
+        state={{ detailData: info }}
+      >
+        <DetailEdit />
+      </Link>
     </div>
   );
 };

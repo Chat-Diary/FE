@@ -52,9 +52,9 @@ const Detail = () => {
     afterChange: (current: number) => setCurrentSlide(current),
   };
 
-  const onChangeEdit = () => {
-    navigate('/detail/edit');
-  };
+  // const onChangeEdit = () => {
+  //   navigate('/detail/edit');
+  // };
 
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
@@ -97,7 +97,9 @@ const Detail = () => {
 
   return (
     <>
-      <DetailHeader onClick={onChangeEdit}>{formattedDate}</DetailHeader>
+      <DetailHeader date={data.diaryDate} info={data}>
+        {formattedDate}
+      </DetailHeader>
       <div className={styles.detailContainer}>
         <div className={styles.header}>
           <div>
@@ -110,7 +112,12 @@ const Detail = () => {
           <div className={styles.sliderContainer}>
             <Slider {...settings} className={styles.slider}>
               {diaryImgs.map((img: string, index: number) => (
-                <img key={index} className={styles.img} src={img} alt="사진" />
+                <img
+                  key={index}
+                  className={styles.sliderImg}
+                  src={img}
+                  alt="사진"
+                />
               ))}
             </Slider>
             <div className={styles.index}>
