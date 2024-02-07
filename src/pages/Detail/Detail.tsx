@@ -103,7 +103,7 @@ const Detail = () => {
       <div className={styles.detailContainer}>
         <div className={styles.header}>
           <div>
-            {img36[0]}
+            {img36[data.characterIndex - 1]}
             <span>{data.title}</span>
           </div>
           <DetailPlus onClick={onClickPlus} />
