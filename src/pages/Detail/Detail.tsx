@@ -64,16 +64,19 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      // 날짜 fetching
-      const d = new Date(diaryDate !== null ? diaryDate : '');
-      const date = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }).format(d);
-      setFormattedDate(date);
+    // 날짜 fetching
+    const d = new Date(diaryDate !== null ? diaryDate : '');
+    const date = new Intl.DateTimeFormat('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(d);
+    setFormattedDate(date);
 
+    if (error || !data) {
+      console.log(error);
+      return;
+    } else if (data) {
       // 사진 fetching
       setDiaryImgs(data.imgUrl);
       setSliderLength(data.imgUrl.length);
@@ -88,7 +91,7 @@ const Detail = () => {
     queryFn: () => getDiaryDetail(userId, diaryDate!),
   });
 
-  if (isLoading)
+  if (isLoading || !data)
     return (
       <>
         <DetailHeader date={diaryDate !== null ? diaryDate : ''}>
