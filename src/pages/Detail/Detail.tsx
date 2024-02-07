@@ -86,8 +86,6 @@ const Detail = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
     queryFn: () => getDiaryDetail(userId, diaryDate!),
-    refetchOnWindowFocus: true,
-    staleTime: 5000, // 5초 동안 로딩 상태 유지 가능
   });
 
   if (isLoading)
