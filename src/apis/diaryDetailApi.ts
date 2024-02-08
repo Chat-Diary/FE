@@ -11,13 +11,20 @@ export interface DiaryDetailType {
 }
 
 export const getDiaryDetail = async (userId: number, diaryDate: string) => {
-  return fetch(
+  const res = await fetch(
     `${process.env.REACT_APP_HTTP_API_KEY}/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,
-  ).then((res) => res.json());
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch diary detail');
+  }
+
+  const data = await res.json();
+  return data;
 };
 
 export const modifyDiaryDetail = async (newData: FormData) => {
-  const response = await fetch(
+  const res = await fetch(
     `${process.env.REACT_APP_HTTP_API_KEY}/diary/modify`,
     {
       method: 'POST',
@@ -28,12 +35,11 @@ export const modifyDiaryDetail = async (newData: FormData) => {
     },
   );
 
-  if (!response.ok) {
+  if (!res.ok) {
     // Handle error if the response status is not OK (e.g., 4xx or 5xx)
-    throw new Error(`HTTP error! Status: ${response.status}`);
+    throw new Error(`HTTP error! Status: ${res.status}`);
   }
 
-  const data = await response.json();
-  // Handle the data as needed};
+  const data = await res.json();
   return data;
 };

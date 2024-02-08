@@ -61,3 +61,5 @@ export { ReactComponent as Theme } from './icons/mypage-theme.svg';
 export { ReactComponent as Refresh } from './icons/mypage-refresh.svg';
 
 export { ReactComponent as Kakao } from './icons/kakao.svg';
+
+export { ReactComponent as DetailSkProfile } from './icons/detail-sk-profile.svg';

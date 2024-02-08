@@ -20,6 +20,14 @@
       gap: 10px;
     }
 
+    & .skeletonTitle {
+      width: 152px;
+      height: 24px;
+
+      border-radius: 4px;
+      background-color: $BK30;
+    }
+
     @include sub16;
     color: $BK90;
   }
@@ -66,18 +74,51 @@
       color: $BK70;
     }
 
-    & span {
-      display: block;
+    & .skeletonContent {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      & .skeletonLine {
+        width: 100%;
+        height: 24px;
+        margin-bottom: 12px;
+
+        border-radius: 4px;
+        background-color: $BK30;
+      }
+
+      & .lastLine {
+        width: 50%;
+      }
+    }
+
+    & .realContent {
+      width: 100%;
       margin-top: 20px;
+      text-align: start;
+
       @include body14;
       color: $BK90;
     }
 
     & .tags {
+      width: 100%;
+
       display: flex;
-      margin-top: 38px;
+      margin-top: 48px;
       gap: 8px;
       flex-wrap: wrap;
+    }
+
+    & .skeletonTags {
+      width: 100%;
+      height: 72px;
+      margin-top: 48px;
+
+      border-radius: 12px;
+      background-color: $BK30;
     }
   }
 }

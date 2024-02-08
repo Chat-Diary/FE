@@ -22,12 +22,7 @@ interface IProps {
   setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AllTags = ({
-  currentTags,
-  setNewTags,
-  isInit = false,
-  setIsInit,
-}: IProps) => {
+const AllTags = ({ currentTags, setNewTags, isInit = false }: IProps) => {
   const allTags: TagType[] = [
     {
       tagId: 1,

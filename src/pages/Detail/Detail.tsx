@@ -10,6 +10,7 @@ import {
   Chichi36,
   Lulu36,
   DetailPlus,
+  DetailSkProfile,
   // DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
@@ -52,10 +53,6 @@ const Detail = () => {
     afterChange: (current: number) => setCurrentSlide(current),
   };
 
-  // const onChangeEdit = () => {
-  //   navigate('/detail/edit');
-  // };
-
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
     console.log(isPlusSelected);
@@ -67,16 +64,19 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      // 날짜 fetching
-      const d = new Date(data.diaryDate);
-      const date = new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }).format(d);
-      setFormattedDate(date);
+    // 날짜 fetching
+    const d = new Date(diaryDate !== null ? diaryDate : '');
+    const date = new Intl.DateTimeFormat('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(d);
+    setFormattedDate(date);
 
+    if (error || !data) {
+      console.log(error);
+      return;
+    } else if (data) {
       // 사진 fetching
       setDiaryImgs(data.imgUrl);
       setSliderLength(data.imgUrl.length);
@@ -91,7 +91,35 @@ const Detail = () => {
     queryFn: () => getDiaryDetail(userId, diaryDate!),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || !data)
+    return (
+      <>
+        <DetailHeader date={diaryDate !== null ? diaryDate : ''}>
+          {formattedDate}
+        </DetailHeader>
+        <div className={styles.detailContainer}>
+          <div className={styles.header}>
+            <div>
+              <DetailSkProfile />
+              <div className={styles.skeletonTitle} />
+            </div>
+          </div>
+          <div className={styles.content}>
+            <div className={styles.sliderContainer}>
+              <Slider {...settings} className={styles.slider}>
+                <div className={styles.img} />
+              </Slider>
+            </div>
+            <div className={styles.skeletonContent}>
+              <div className={styles.skeletonLine} />
+              <div className={styles.skeletonLine} />
+              <div className={`${styles.skeletonLine} ${styles.lastLine}`} />
+            </div>
+            <div className={styles.skeletonTags}></div>
+          </div>
+        </div>
+      </>
+    );
 
   if (error) console.log(error);
 
@@ -124,7 +152,7 @@ const Detail = () => {
               {currentSlide + 1} / {sliderLength}
             </div>
           </div>
-          <span>{data.content}</span>
+          <div className={styles.realContent}>{data.content}</div>
           <div className={styles.tags}>
             {tags.map((tag, index) => {
               return <TagChip key={index}>{tag}</TagChip>;
