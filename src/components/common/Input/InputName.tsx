@@ -2,16 +2,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './InputName.module.scss';
 
 interface IProps {
-  value?: string;
   setCount?: React.Dispatch<React.SetStateAction<number>>;
   onSave?: (inputValue: string) => void;
 }
 
-const InputName = ({ value, setCount, onSave }: IProps) => {
+const InputName = ({ setCount, onSave }: IProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [inputCount, setInputCount] = useState<number>(0);
-
-  const [isLimited, setIsLimited] = useState<boolean>(true);
 
   const maxTyping = 12;
 
@@ -25,23 +22,15 @@ const InputName = ({ value, setCount, onSave }: IProps) => {
     if (onSave !== undefined) onSave(savedValue);
   };
 
-  useEffect(() => {
-    if (value !== undefined) {
-      setInputCount(value?.length);
-    }
-  }, []);
-
   return (
-    <form>
+    <form className={styles.container}>
       <div className={styles.textareaContainer}>
         <textarea
           onChange={handleInputChange}
           placeholder={'너의 이름은?'}
           maxLength={maxTyping}
           className={styles.default}
-        >
-          {value}
-        </textarea>
+        />
         <div className={styles.counter}>
           <span>{inputCount}</span>
           <span>/{maxTyping}</span>
