@@ -27,10 +27,9 @@ const InputForm = ({
     // input 값이 변경될 때 호출
     setInputValue(e.target.value);
     setInputCount(e.target.value.length);
-    if (setCount !== undefined) setCount(e.target.value.length);
 
-    const savedValue = inputValue;
-    if (onSave !== undefined) onSave(savedValue);
+    if (setCount !== undefined) setCount(e.target.value.length);
+    if (onSave !== undefined) onSave(e.target.value);
   };
 
   useEffect(() => {

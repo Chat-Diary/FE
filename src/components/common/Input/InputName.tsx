@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styles from './InputName.module.scss';
 
 interface IProps {
@@ -13,13 +13,16 @@ const InputName = ({ setCount, onSave }: IProps) => {
   const maxTyping = 12;
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    // input 값이 변경될 때 호출
-    setInputValue(e.target.value);
-    setInputCount(e.target.value.length);
-    if (setCount !== undefined) setCount(e.target.value.length);
+    // input이 변경될 때마다 호출
+    const value = e.target.value;
 
-    const savedValue = inputValue;
-    if (onSave !== undefined) onSave(savedValue);
+    if (value.length <= maxTyping) {
+      setInputValue(value);
+      setInputCount(value.length);
+
+      if (onSave !== undefined) onSave(value);
+      if (setCount !== undefined) setCount(value.length);
+    }
   };
 
   return (
@@ -30,6 +33,7 @@ const InputName = ({ setCount, onSave }: IProps) => {
           placeholder={'너의 이름은?'}
           maxLength={maxTyping}
           className={styles.default}
+          value={inputValue}
         />
         <div className={styles.counter}>
           <span>{inputCount}</span>
