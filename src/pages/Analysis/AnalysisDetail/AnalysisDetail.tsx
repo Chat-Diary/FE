@@ -21,8 +21,6 @@ const AnalysisDetail = () => {
   const start = queryParams.get('start');
   const end = queryParams.get('end');
 
-  const rankingList = new Array(5).fill(0);
-
   // 많이 사용한 태그 데이터
   const currentData = location.state.tagData;
 
@@ -49,7 +47,7 @@ const AnalysisDetail = () => {
     return parsedDate;
   };
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ['user_id', 'diary_date'],
     queryFn: () => {
       let type = '';
@@ -99,8 +97,14 @@ const AnalysisDetail = () => {
         setTagCountsData(tagCounts);
         break;
     }
-  }, [tagDetailRanking]);
+  }, [tagDetailRanking, activeTab]);
 
+  // activeTab이 변경될 때마다 refetch 호출
+  useEffect(() => {
+    refetch();
+  }, [activeTab]);
+
+  
   if (isLoading) {
     return <>loading..</>;
   }
@@ -149,7 +153,7 @@ const AnalysisDetail = () => {
       </div>
       {tagCountsData !== undefined &&
         tagCountsData.map((data, index) => {
-          return <TagRankingItem key={index} rank={index + 1} tagData={data} />;
+          return <TagRankingItem key={index} rank={index + 1} tagData={data}/>;
         })}
       <BottomNav page={2} isBtn={false} />
     </>
