@@ -230,7 +230,6 @@ export const Analysis = () => {
                   }`,
                   search: `start=${urlStartDate}&end=${urlEndDate}`,
                 }}
-                state={{ tagData: tagData }}
                 className={styles.showMoreStrContainer}
               >
                 <span className={styles.showMoreStr}>자세히 보기</span>

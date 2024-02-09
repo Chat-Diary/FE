@@ -21,9 +21,6 @@ const AnalysisDetail = () => {
   const start = queryParams.get('start');
   const end = queryParams.get('end');
 
-  // 많이 사용한 태그 데이터
-  const currentData = location.state.tagData;
-
   const [activeTab, setActiveTab] = useState(0);
   const handleTabClick = (index: number) => {
     setActiveTab(index);
