@@ -15,7 +15,7 @@ import Notice from './MyPage/Notice/Notice';
 import AccountQuit from './MyPage/Account/AccountQuit';
 import AccountQuitFinish from './MyPage/Account/AccountQuitFinish';
 import Login from './Login/Login';
-import LoginName from './Login/LoginName';
+import JoinName from './Login/JoinName';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -35,7 +35,7 @@ const Router = () => {
             },
             {
               path: 'name',
-              element: <LoginName />,
+              element: <JoinName />,
             },
           ],
         },

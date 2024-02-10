@@ -1,0 +1,33 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin-top: 136px;
+  margin-bottom: 40px;
+  gap: 24px;
+
+  @include header20;
+  color: $BK90;
+}
+
+.content {
+  position: relative;
+
+  & .inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 16px;
+  }
+
+  & .buttonContainer {
+    position: relative;
+    top: 184px;
+  }
+}
