@@ -43,3 +43,28 @@ export const modifyDiaryDetail = async (newData: FormData) => {
   const data = await res.json();
   return data;
 };
+
+export const deleteDiary = async (userId: number, diaryDate: string) => {
+  const res = await fetch(
+    `${process.env.REACT_APP_HTTP_API_KEY}/diary/delete`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: userId,
+        diaryDate: diaryDate,
+      }),
+    },
+  );
+
+  if (!res.ok) {
+    // Handle error if the response status is not OK (e.g., 4xx or 5xx)
+    throw new Error(`HTTP error! Status: ${res.status}`);
+  }
+
+  const data = await res.json();
+  if (data === 'success') return true;
+  else return false;
+};

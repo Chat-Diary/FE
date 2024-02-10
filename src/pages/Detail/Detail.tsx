@@ -11,23 +11,18 @@ import {
   Lulu36,
   DetailPlus,
   DetailSkProfile,
-  // DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
 import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
-import { useQuery } from 'react-query';
-import { getDiaryDetail } from '../../apis/diaryDetailApi';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deleteDiary, getDiaryDetail } from '../../apis/diaryDetailApi';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
-// const imgDiary = [
-//   <DetailSlider key={0} />,
-//   <DetailSlider key={1} />,
-//   <DetailSlider key={2} />,
-// ];
 
 const Detail = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
@@ -55,12 +50,19 @@ const Detail = () => {
 
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
-    console.log(isPlusSelected);
+    console.log(userId);
+    console.log(diaryDate);
   };
 
-  const onClickClose = () => {
+  const handleClose = () => {
     setIsModalOpen(false);
     setIsPlusSelected(false);
+  };
+
+  const handleConfirm = () => {
+    handleClose();
+    deleteMutation.mutate();
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -84,6 +86,14 @@ const Detail = () => {
       // 태그 fetching
       setTags(data.tagName);
     }
+  });
+
+  const deleteMutation = useMutation(() => deleteDiary(userId, diaryDate!), {
+    // 삭제 요청 성공한 경우에만 실행
+    onSuccess: () => {
+      // 삭제된 일기 캐시 제거
+      queryClient.invalidateQueries(['user_id', 'diary_date']);
+    },
   });
 
   const { isLoading, error, data } = useQuery({
@@ -171,11 +181,8 @@ const Detail = () => {
       )}
       {isModalOpen ? (
         <DiaryDeleteDialog
-          onClickCancel={onClickClose}
-          onClickConfirm={() => {
-            onClickClose;
-            navigate('/');
-          }}
+          onClickCancel={handleClose}
+          onClickConfirm={handleConfirm}
           isOpen={isModalOpen}
         />
       ) : (
