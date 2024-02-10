@@ -1,0 +1,40 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.Container {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+
+  .TopThree {
+    @include sub18;
+    color: $primary_default;
+    padding-top: 3.5px;
+  }
+
+  .NonTopThree {
+    @include sub18;
+    color: $BK70;
+    padding-top: 3.5px;
+  }
+
+  .Tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    width: 260px
+  }
+  
+  .Count {
+    @include sub16;
+    color: $BK90;
+    right: 0;
+    padding-top: 3.5px;
+
+    & span {
+      @include body14;
+      color: $BK70;
+      padding-left: 4px;
+    }
+  }
+}

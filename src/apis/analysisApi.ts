@@ -22,3 +22,10 @@ export const getFrequentAis = async (memberId: number, type: string) => {
     `${process.env.REACT_APP_HTTP_API_KEY}/chat/sender?memberId=${memberId}&type=${type}`,
   ).then((res) => res.json());
 };
+
+export const getTagDetailRanking = async (memberId: number, type: string) => {
+  console.log(`${process.env.REACT_APP_HTTP_API_KEY}/diary/tags/detail?memberId=${memberId}&type=${type}`);
+  return fetch(
+    `${process.env.REACT_APP_HTTP_API_KEY}/diary/tags/detail?memberId=${memberId}&type=${type}`,
+  ).then((res) => res.json());
+};
