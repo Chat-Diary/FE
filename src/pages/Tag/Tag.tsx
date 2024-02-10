@@ -115,7 +115,11 @@ const Tag = () => {
     <div className={styles.container}>
       <HomeHeader />
       <div className={styles.tagPageWrapper}>
-        <Link className={styles.selectedTags} to={'/tag/filter'}>
+        <Link
+          className={styles.selectedTags}
+          to={'/tag/filter'}
+          state={{ tags: tags }}
+        >
           {tags.map((tag, tagIndex) => {
             return <TagChip key={tagIndex}>{tag}</TagChip>;
           })}
@@ -133,7 +137,7 @@ const Tag = () => {
             <div className={styles.iconWrapper} onClick={toggleMode}>
               {isList ? <Card32 /> : <ListIcon />}
             </div>
-            <Link className={styles.iconWrapper} to={'/tag/filter'}>
+            <Link className={styles.iconWrapper} to={'/tag/filter'} state={{ tags: tags }}>
               <TagFilter />
             </Link>
           </div>
