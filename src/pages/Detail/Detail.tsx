@@ -67,7 +67,7 @@ const Detail = () => {
   const handleConfirm = () => {
     handleClose();
     mutate();
-    navigate('/');
+    navigate(-1);
   };
 
   useEffect(() => {
