@@ -5,22 +5,20 @@
   width: 100%;
 }
 
-.textareaContainer {
+.inputContainer {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid $BK30;
+  padding: 18px 0px 0px 0px;
 
   & .default {
     all: initial;
-    // position: absolute;
-    // right: 0px;
 
     width: 100%;
     height: 56px;
-    padding: 18px 0px 0px 0px;
     color: $BK90;
     box-sizing: border-box;
 

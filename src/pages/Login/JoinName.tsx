@@ -5,10 +5,15 @@ import ConfirmButton from '../../components/common/Buttons/ConfirmBtn/ConfirmBut
 import InputName from '../../components/common/Input/InputName';
 
 const LoginName = () => {
+  const [typingValue, setTypingValue] = useState<string>('');
   const [typingCount, setTypingCount] = useState<number>(0);
 
   const handleStart = () => {
-    console.log('시작하기: ', typingCount);
+    console.log('시작하기: ', typingValue);
+  };
+
+  const handleSave = (s: string) => {
+    setTypingValue(s);
   };
 
   return (
@@ -21,7 +26,7 @@ const LoginName = () => {
       </div>
       <div className={styles.content}>
         <div className={styles.inputContainer}>
-          <InputName setCount={setTypingCount} />
+          <InputName setCount={setTypingCount} onSave={handleSave} />
         </div>
         <div className={styles.buttonContainer}>
           <ConfirmButton

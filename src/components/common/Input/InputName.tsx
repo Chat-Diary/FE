@@ -12,7 +12,7 @@ const InputName = ({ setCount, onSave }: IProps) => {
 
   const maxTyping = 12;
 
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     // input이 변경될 때마다 호출
     const value = e.target.value;
 
@@ -27,8 +27,9 @@ const InputName = ({ setCount, onSave }: IProps) => {
 
   return (
     <form className={styles.container}>
-      <div className={styles.textareaContainer}>
-        <textarea
+      <div className={styles.inputContainer}>
+        <input
+          type="text"
           onChange={handleInputChange}
           placeholder={'너의 이름은?'}
           maxLength={maxTyping}
