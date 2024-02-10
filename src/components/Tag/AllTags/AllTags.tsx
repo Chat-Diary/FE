@@ -18,11 +18,12 @@ interface CategoryType {
 interface IProps {
   currentTags: string[];
   setNewTags?: React.Dispatch<React.SetStateAction<DiaryDetailType>>;
+  setTagFilter?: React.Dispatch<React.SetStateAction<string[]>>;
   isInit?: boolean;
   setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AllTags = ({ currentTags, setNewTags, isInit = false }: IProps) => {
+const AllTags = ({ currentTags, setNewTags, setTagFilter, isInit = false }: IProps) => {
   const allTags: TagType[] = [
     {
       tagId: 1,
@@ -137,6 +138,10 @@ const AllTags = ({ currentTags, setNewTags, isInit = false }: IProps) => {
         tagName: selectedTags,
       }));
       console.log('AllTags: ', selectedTags);
+    }
+
+    if (setTagFilter !== undefined) {
+      setTagFilter(selectedTags);
     }
 
     // 초기화
