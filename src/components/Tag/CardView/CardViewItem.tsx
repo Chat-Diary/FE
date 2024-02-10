@@ -1,4 +1,3 @@
-import { CardExImage } from '../../../assets/index';
 import { Diary } from '../../../utils/diary';
 import styles from './CardViewItem.module.scss';
 
