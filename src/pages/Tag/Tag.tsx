@@ -21,7 +21,7 @@ import useTagStore from '../../stores/tagStore';
 const Tag = () => {
   const { tags, diaryList, setDiaryList } = useTagStore();
   const [isList, setIsList] = useState<boolean>(true);
-  const [currentSort, setCurrentSort] = useState<number>(2);
+  const [currentSort, setCurrentSort] = useState<number>(1);
   const userId = 1;
 
   const toggleMode = () => {
@@ -73,7 +73,7 @@ const Tag = () => {
         const sortedByLatest = [...diaryList].sort((a, b) => {
           const dateA = new Date(a.diaryDate);
           const dateB = new Date(b.diaryDate);
-          return +dateB - +dateA; // dateB가 더 크다면 (최신이라면) 양수 반환하여 최신순으로 정렬
+          return +dateA - +dateB; // dateB가 더 크다면 (최신이라면) 양수 반환하여 최신순으로 정렬
         });
 
         setDiaryList(sortedByLatest);
@@ -81,7 +81,7 @@ const Tag = () => {
         const sortedByLatest = [...diaryList].sort((a, b) => {
           const dateA = new Date(a.diaryDate);
           const dateB = new Date(b.diaryDate);
-          return +dateA - +dateB;
+          return +dateB - +dateA;
         });
 
         setDiaryList(sortedByLatest);
