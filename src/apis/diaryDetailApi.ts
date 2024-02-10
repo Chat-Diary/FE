@@ -53,8 +53,8 @@ export const deleteDiary = async (userId: number, diaryDate: string) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user_id: userId,
-        diary_date: diaryDate,
+        userId: userId,
+        diaryDate: diaryDate,
       }),
     },
   );

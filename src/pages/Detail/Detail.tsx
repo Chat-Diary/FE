@@ -17,8 +17,8 @@ import TagChip from '../../components/Tag/AllTags/TagChip';
 import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
-import { useQuery } from 'react-query';
-import { getDiaryDetail } from '../../apis/diaryDetailApi';
+import { useMutation, useQuery } from 'react-query';
+import { deleteDiary, getDiaryDetail } from '../../apis/diaryDetailApi';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 // const imgDiary = [
@@ -55,12 +55,19 @@ const Detail = () => {
 
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
-    console.log(isPlusSelected);
+    console.log(userId);
+    console.log(diaryDate);
   };
 
-  const onClickClose = () => {
+  const handleClose = () => {
     setIsModalOpen(false);
     setIsPlusSelected(false);
+  };
+
+  const handleConfirm = () => {
+    handleClose();
+    mutate();
+    navigate('/');
   };
 
   useEffect(() => {
@@ -85,6 +92,8 @@ const Detail = () => {
       setTags(data.tagName);
     }
   });
+
+  const { mutate } = useMutation(() => deleteDiary(userId, diaryDate!));
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
@@ -171,11 +180,8 @@ const Detail = () => {
       )}
       {isModalOpen ? (
         <DiaryDeleteDialog
-          onClickCancel={onClickClose}
-          onClickConfirm={() => {
-            onClickClose;
-            navigate('/');
-          }}
+          onClickCancel={handleClose}
+          onClickConfirm={handleConfirm}
           isOpen={isModalOpen}
         />
       ) : (
