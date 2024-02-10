@@ -11,26 +11,15 @@ import {
   Lulu36,
   DetailPlus,
   DetailSkProfile,
-  // DetailSlider,
 } from '../../assets/index';
 import TagChip from '../../components/Tag/AllTags/TagChip';
 import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteDiary, getDiaryDetail } from '../../apis/diaryDetailApi';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
-// const imgDiary = [
-//   <DetailSlider key={0} />,
-//   <DetailSlider key={1} />,
-//   <DetailSlider key={2} />,
-// ];
 
 const Detail = () => {
   const queryClient = useQueryClient();
