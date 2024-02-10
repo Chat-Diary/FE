@@ -19,7 +19,7 @@ import { getDiaryListByTag } from '../../apis/tagApi';
 import useTagStore from '../../stores/tagStore';
 
 const Tag = () => {
-  const { tags, diaryList, setDiaryList } = useTagStore();
+  const { tags, diaryList, setTags, setDiaryList } = useTagStore();
   const [isList, setIsList] = useState<boolean>(true);
   const [currentSort, setCurrentSort] = useState<number>(1);
   const userId = 1;
@@ -48,6 +48,10 @@ const Tag = () => {
       }
     },
   });
+
+  useEffect(() => {
+    setTags(['화남']);
+  }, []);
 
   useEffect(() => {
     if (diaryListData) {
@@ -129,7 +133,11 @@ const Tag = () => {
             <div className={styles.iconWrapper} onClick={toggleMode}>
               {isList ? <Card32 /> : <ListIcon />}
             </div>
-            <Link className={styles.iconWrapper} to={'/tag/filter'} state={{ tags: tags }}>
+            <Link
+              className={styles.iconWrapper}
+              to={'/tag/filter'}
+              state={{ tags: tags }}
+            >
               <TagFilter />
             </Link>
           </div>
