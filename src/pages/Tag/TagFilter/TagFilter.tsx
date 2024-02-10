@@ -3,20 +3,25 @@ import styles from './TagFilter.module.scss';
 import AllTags from '../../../components/Tag/AllTags/AllTags';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { TagInit } from '../../../assets';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import useTagStore from '../../../stores/tagStore';
 
 const TagFilter = () => {
+  const { tags, setTags } = useTagStore();
   // 초기화 버튼 누르면 true로 변경
   const [isInit, setIsInit] = useState<boolean>(false);
   // 선택되어 있는 태그가 하나라도 있으면 true
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isSelected, setIsSelected] = useState<boolean>(false);
-  const location = useLocation();
-  const [newData, setNewData] = useState<string[]>(location.state.tags);
+  const [newData, setNewData] = useState<string[]>(tags);
 
   const toggleInit = () => {
     setIsInit(true);
   };
+
+  const onSaveTags = () => {
+    setTags(newData);
+  }
 
   useEffect(() => {
     if (newData) {
@@ -49,6 +54,7 @@ const TagFilter = () => {
           }`}
           to={`/tag`}
           state={{ tagData: newData !== undefined ? newData : [] }}
+          onClick={onSaveTags}
         >
           <div className={styles.conformText}>적용하기</div>
         </Link>

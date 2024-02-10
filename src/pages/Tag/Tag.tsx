@@ -12,18 +12,16 @@ import CardView from '../../components/Tag/CardView/CardView';
 import TagSortModal from '../../components/common/BottomSheets/TagSort/TagSortModal';
 import HomeHeader from '../../components/common/Header/Header';
 import TagChip from '../../components/Tag/AllTags/TagChip';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NoTagResult from '../../components/Tag/NoTagResult';
 import { useQuery } from 'react-query';
 import { getDiaryListByTag } from '../../apis/tagApi';
-import { Diary } from '../../utils/diary';
+import useTagStore from '../../stores/tagStore';
 
 const Tag = () => {
-  const location = useLocation();
+  const { tags, diaryList, setDiaryList } = useTagStore();
   const [isList, setIsList] = useState<boolean>(true);
-  const [tags, setTags] = useState<string[]>([]);
   const [currentSort, setCurrentSort] = useState<number>(2);
-  const [diaryList, setDiaryList] = useState<Diary[]>([]);
   const userId = 1;
 
   const toggleMode = () => {
@@ -50,12 +48,6 @@ const Tag = () => {
       }
     },
   });
-
-  useEffect(() => {
-    if (location.state !== null) {
-      setTags(location.state.tagData);
-    }
-  }, []);
 
   useEffect(() => {
     if (diaryListData) {
