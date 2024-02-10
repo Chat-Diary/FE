@@ -21,7 +21,7 @@ import { Diary } from '../../utils/diary';
 const Tag = () => {
   const location = useLocation();
   const [isList, setIsList] = useState<boolean>(true);
-  const [tags, setTags] = useState<string[]>(location.state.tagData);
+  const [tags, setTags] = useState<string[]>([]);
   const [currentSort, setCurrentSort] = useState<number>(2);
   const [diaryList, setDiaryList] = useState<Diary[]>([]);
   const userId = 1;
@@ -44,8 +44,18 @@ const Tag = () => {
     data: diaryListData,
   } = useQuery({
     queryKey: ['diary', userId, tags],
-    queryFn: () => getDiaryListByTag(userId, tags),
+    queryFn: () => {
+      if (tags.length !== 0) {
+        return getDiaryListByTag(userId, tags);
+      }
+    },
   });
+
+  useEffect(() => {
+    if (location.state !== null) {
+      setTags(location.state.tagData);
+    }
+  }, []);
 
   useEffect(() => {
     if (diaryListData) {
@@ -86,6 +96,14 @@ const Tag = () => {
       }
     }
   }, [currentSort]);
+
+  useEffect(() => {
+    if (diaryList.length === 0) {
+      setHasTag(false);
+    } else {
+      setHasTag(true);
+    }
+  }, [diaryList]);
 
   if (listLoading) {
     return <>loading..</>;
