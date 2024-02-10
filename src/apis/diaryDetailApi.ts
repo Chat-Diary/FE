@@ -65,5 +65,6 @@ export const deleteDiary = async (userId: number, diaryDate: string) => {
   }
 
   const data = await res.json();
-  return data;
+  if (data === 'success') return true;
+  else return false;
 };

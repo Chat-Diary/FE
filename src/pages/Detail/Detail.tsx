@@ -17,7 +17,12 @@ import TagChip from '../../components/Tag/AllTags/TagChip';
 import { useEffect, useState } from 'react';
 import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/DetailPlusModal';
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
-import { useMutation, useQuery } from 'react-query';
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import { deleteDiary, getDiaryDetail } from '../../apis/diaryDetailApi';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
@@ -28,6 +33,7 @@ const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 // ];
 
 const Detail = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
@@ -66,7 +72,7 @@ const Detail = () => {
 
   const handleConfirm = () => {
     handleClose();
-    mutate();
+    deleteMutation.mutate();
     navigate(-1);
   };
 
@@ -93,7 +99,13 @@ const Detail = () => {
     }
   });
 
-  const { mutate } = useMutation(() => deleteDiary(userId, diaryDate!));
+  const deleteMutation = useMutation(() => deleteDiary(userId, diaryDate!), {
+    // 삭제 요청 성공한 경우에만 실행
+    onSuccess: () => {
+      // 삭제된 일기 캐시 제거
+      queryClient.invalidateQueries(['user_id', 'diary_date']);
+    },
+  });
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['user_id', 'diary_date'],
