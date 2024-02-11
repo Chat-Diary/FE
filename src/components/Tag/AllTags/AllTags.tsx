@@ -23,7 +23,12 @@ interface IProps {
   setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AllTags = ({ currentTags, setNewTags, setTagFilter, isInit = false }: IProps) => {
+const AllTags = ({
+  currentTags,
+  setNewTags,
+  setTagFilter,
+  isInit = false,
+}: IProps) => {
   const allTags: TagType[] = [
     {
       tagId: 1,
@@ -119,19 +124,16 @@ const AllTags = ({ currentTags, setNewTags, setTagFilter, isInit = false }: IPro
   };
 
   useEffect(() => {
-    // // 기존에 선택되어 있는 태그들 배열에 추가
-    // if (currentTags.length !== 0) {
-    //   const updatedSelectedTags: Record<string, number[]> = {};
-    //   index.forEach((t) => {
-    //     allTags.forEach((c) => {
-    //       if (c.category === t.category) {
-    //         updatedSelectedTags[t.category] = t.index;
-    //       }
-    //     });
-    //   });
-    //   setSelectedTags(updatedSelectedTags);
-    // }
+    // 초기화
+    if (isInit) {
+      if (setTagFilter !== undefined) {
+        setTagFilter([]);
+      }
+      resetTags();
+    }
+  }, [isInit]);
 
+  useEffect(() => {
     if (setNewTags !== undefined) {
       setNewTags((prev) => ({
         ...prev,
@@ -143,19 +145,7 @@ const AllTags = ({ currentTags, setNewTags, setTagFilter, isInit = false }: IPro
     if (setTagFilter !== undefined) {
       setTagFilter(selectedTags);
     }
-
-    // 초기화
-    if (isInit) {
-      resetTags();
-    }
   }, [selectedTags]);
-
-  // const handleToggleClick = (tagNames: string) => {
-  //   if (setIsInit !== undefined && isInit === true) {
-  //     setIsInit(false);
-  //     resetTags();
-  //   }
-  // };
 
   return (
     <div className={styles.container}>

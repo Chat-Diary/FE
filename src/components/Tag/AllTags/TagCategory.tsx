@@ -39,7 +39,6 @@ const TagCategory = ({
     if (setSelectedTags !== undefined)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       setSelectedTags((prev) => selectedTags);
-    console.log('TagCategory: ', selectedTags);
   }, [selectedTags]);
 
   return (
