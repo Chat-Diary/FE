@@ -50,7 +50,9 @@ const Tag = () => {
   });
 
   useEffect(() => {
-    setTags(['화남']);
+    if(tags.length === 0) {
+      setTags(['화남']);
+    }
   }, []);
 
   useEffect(() => {
