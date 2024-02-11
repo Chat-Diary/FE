@@ -50,7 +50,29 @@ const Tag = () => {
   });
 
   useEffect(() => {
-    if(tags.length === 0) {
+    if (diaryList !== undefined) {
+      if (currentSort === 1) {
+        const sortedByLatest = [...diaryList].sort((a, b) => {
+          const dateA = new Date(a.diaryDate);
+          const dateB = new Date(b.diaryDate);
+          return +dateA - +dateB; // dateB가 더 크다면 (최신이라면) 양수 반환하여 최신순으로 정렬
+        });
+
+        setDiaryList(sortedByLatest);
+      } else {
+        const sortedByLatest = [...diaryList].sort((a, b) => {
+          const dateA = new Date(a.diaryDate);
+          const dateB = new Date(b.diaryDate);
+          return +dateB - +dateA;
+        });
+
+        setDiaryList(sortedByLatest);
+      }
+    }
+  }, [currentSort]);
+
+  useEffect(() => {
+    if (tags.length === 0) {
       setTags(['화남']);
     }
   }, []);
@@ -72,28 +94,6 @@ const Tag = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isSelectedSorted, currentSort]);
-
-  useEffect(() => {
-    if (diaryList !== undefined) {
-      if (currentSort === 1) {
-        const sortedByLatest = [...diaryList].sort((a, b) => {
-          const dateA = new Date(a.diaryDate);
-          const dateB = new Date(b.diaryDate);
-          return +dateA - +dateB; // dateB가 더 크다면 (최신이라면) 양수 반환하여 최신순으로 정렬
-        });
-
-        setDiaryList(sortedByLatest);
-      } else {
-        const sortedByLatest = [...diaryList].sort((a, b) => {
-          const dateA = new Date(a.diaryDate);
-          const dateB = new Date(b.diaryDate);
-          return +dateB - +dateA;
-        });
-
-        setDiaryList(sortedByLatest);
-      }
-    }
-  }, [currentSort]);
 
   useEffect(() => {
     if (diaryList.length === 0) {
