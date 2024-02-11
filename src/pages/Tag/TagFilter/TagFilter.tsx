@@ -10,28 +10,26 @@ const TagFilter = () => {
   const { tags, setTags } = useTagStore();
   // 초기화 버튼 누르면 true로 변경
   const [isInit, setIsInit] = useState<boolean>(false);
-  // 선택되어 있는 태그가 하나라도 있으면 true
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isSelected, setIsSelected] = useState<boolean>(false);
   const [newData, setNewData] = useState<string[]>(tags);
 
   const toggleInit = () => {
     setIsInit(true);
+    setNewData([]);
   };
 
   const onSaveTags = () => {
     setTags(newData);
-  }
+  };
 
   useEffect(() => {
     if (newData) {
       if (newData.length === 0) {
-        setIsSelected(false);
+        setIsInit(true);
       } else {
-        setIsSelected(true);
+        setIsInit(false);
       }
     }
-  }, [newData]);
+  }, [newData, isInit]);
 
   return (
     <>
@@ -39,7 +37,7 @@ const TagFilter = () => {
       <AllTags
         currentTags={newData !== undefined ? newData : []}
         setTagFilter={setNewData}
-        isInit={false}
+        isInit={isInit}
       />
       <div className={styles.btnContainer}>
         <button className={styles.initBtn} onClick={toggleInit}>
@@ -49,8 +47,7 @@ const TagFilter = () => {
           <div>초기화</div>
         </button>
         <Link
-          className={`${styles.confirmBtn} ${isInit ? '' : styles.abled} ${
-            isSelected ? styles.abled : ''
+          className={`${styles.confirmBtn} ${isInit ? '' : styles.abled}
           }`}
           to={`/tag`}
           state={{ tagData: newData !== undefined ? newData : [] }}
