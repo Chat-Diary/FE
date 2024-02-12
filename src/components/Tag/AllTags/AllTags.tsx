@@ -3,6 +3,8 @@ import styles from './AllTags.module.scss';
 
 import TagCategory from './TagCategory';
 import { DiaryDetailType } from '../../../apis/diaryDetailApi';
+import { useQuery } from 'react-query';
+import { getTagPool } from '../../../apis/tagApi';
 
 interface TagType {
   tagId: number;
@@ -29,69 +31,8 @@ const AllTags = ({
   setTagFilter,
   isInit = false,
 }: IProps) => {
-  const allTags: TagType[] = [
-    {
-      tagId: 1,
-      category: '감정',
-      tagName: '기쁨',
-    },
-    {
-      tagId: 2,
-      category: '감정',
-      tagName: '슬픔',
-    },
-    {
-      tagId: 3,
-      category: '감정',
-      tagName: '화남',
-    },
-    {
-      tagId: 4,
-      category: '감정',
-      tagName: '피곤함',
-    },
-    {
-      tagId: 5,
-      category: '감정',
-      tagName: '설렘',
-    },
-    {
-      tagId: 6,
-      category: '감정',
-      tagName: '당황',
-    },
-    {
-      tagId: 7,
-      category: '감정',
-      tagName: '무서움',
-    },
-    {
-      tagId: 8,
-      category: '인물',
-      tagName: '친구',
-    },
-    {
-      tagId: 9,
-      category: '인물',
-      tagName: '가족',
-    },
-    {
-      tagId: 10,
-      category: '인물',
-      tagName: '동료',
-    },
-    {
-      tagId: 11,
-      category: '인물',
-      tagName: '애인',
-    },
-    {
-      tagId: 12,
-      category: '인물',
-      tagName: '지인',
-    },
-  ];
-
+  // 태그풀
+  const [tagPool, setTagPool] = useState<TagType[]>();
   // 선택된 태그 담는 배열
   const [selectedTags, setSelectedTags] = useState<string[]>(currentTags);
 
@@ -123,6 +64,11 @@ const AllTags = ({
     setSelectedTags(updatedSelectedTags);
   };
 
+  const { data, error } = useQuery({
+    queryKey: ['tag_pool'],
+    queryFn: () => getTagPool(),
+  });
+
   useEffect(() => {
     // 초기화
     if (isInit) {
@@ -147,19 +93,30 @@ const AllTags = ({
     }
   }, [selectedTags]);
 
+  useEffect(() => {
+    if (data) {
+      setTagPool(data);
+      console.log(data);
+    }
+  }, [data]);
+
+  if (error) console.log(error);
+
   return (
     <div className={styles.container}>
-      {parseByCategory(allTags).map((tags, key) => {
-        return (
-          <TagCategory
-            key={key}
-            category={tags.category}
-            tagNames={tags.tagNames}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-          />
-        );
-      })}
+      {parseByCategory(tagPool !== undefined ? tagPool : []).map(
+        (tags, key) => {
+          return (
+            <TagCategory
+              key={key}
+              category={tags.category}
+              tagNames={tags.tagNames}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          );
+        },
+      )}
     </div>
   );
 };
