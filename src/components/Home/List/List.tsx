@@ -6,8 +6,6 @@ interface IProps {
 }
 
 const List = ({ dataList }: IProps) => {
-  console.log(dataList);
-
   if (!dataList) {
     return <></>;
   }

@@ -4,8 +4,8 @@ export const getCalendarData = (month: string) => {
   ).then((res) => res.json());
 };
 
-export const getDiaryStreakDate = () => {
+export const getDiaryStreakDate = (memberId: number) => {
   return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/streak?memberId=1`,
+    `${process.env.REACT_APP_HTTP_API_KEY}/diary/streak?memberId=${memberId}`,
   ).then((res) => res.json());
 };

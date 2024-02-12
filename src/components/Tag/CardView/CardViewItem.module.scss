@@ -8,6 +8,9 @@
   position: relative;
 
   .CardViewItemImg {
+    width: 328px;
+    height: 342px;
+    border-radius: 8px;
     background-color: $secondary_pink;
     z-index: 1;
   }

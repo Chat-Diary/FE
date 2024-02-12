@@ -67,7 +67,7 @@ export const Analysis = () => {
     data: streakDateData,
   } = useQuery({
     queryKey: ['diaryStreakDate'],
-    queryFn: () => getDiaryStreakDate(),
+    queryFn: () => getDiaryStreakDate(userId),
   });
 
   useEffect(() => {

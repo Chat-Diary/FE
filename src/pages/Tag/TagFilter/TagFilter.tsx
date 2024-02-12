@@ -1,37 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './TagFilter.module.scss';
 import AllTags from '../../../components/Tag/AllTags/AllTags';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { TagInit } from '../../../assets';
+import { Link } from 'react-router-dom';
+import useTagStore from '../../../stores/tagStore';
 
 const TagFilter = () => {
+  const { tags, setTags } = useTagStore();
   // 초기화 버튼 누르면 true로 변경
   const [isInit, setIsInit] = useState<boolean>(false);
-  // 선택되어 있는 태그가 하나라도 있으면 true
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isSelected, setIsSelected] = useState<boolean>();
+  const [newData, setNewData] = useState<string[]>(tags);
 
   const toggleInit = () => {
     setIsInit(true);
+    setNewData([]);
   };
 
-  const toggleConfirm = () => {
-    console.log('적용하기');
+  const onSaveTags = () => {
+    setTags(newData);
   };
+
+  useEffect(() => {
+    if (newData) {
+      if (newData.length === 0) {
+        setIsInit(true);
+      } else {
+        setIsInit(false);
+      }
+    }
+  }, [newData, isInit]);
 
   return (
     <>
       <ChangeHeader>필터 선택</ChangeHeader>
       <AllTags
-        // index={[
-        //   { category: '감정', index: [0, 3, 4] },
-        //   { category: '인물', index: [0] },
-        //   { category: '행동', index: [0, 3, 4, 5] },
-        //   { category: '장소', index: [0, 3, 4, 5] },
-        // ]}
-        currentTags={['태그']}
+        currentTags={newData !== undefined ? newData : []}
+        setTagFilter={setNewData}
         isInit={isInit}
-        setIsInit={setIsInit}
       />
       <div className={styles.btnContainer}>
         <button className={styles.initBtn} onClick={toggleInit}>
@@ -40,14 +46,15 @@ const TagFilter = () => {
           </div>
           <div>초기화</div>
         </button>
-        <button
-          className={`${styles.confirmBtn} ${isInit ? '' : styles.abled} ${
-            isSelected ? styles.abled : ''
+        <Link
+          className={`${styles.confirmBtn} ${isInit ? '' : styles.abled}
           }`}
-          onClick={toggleConfirm}
+          to={`/tag`}
+          state={{ tagData: newData !== undefined ? newData : [] }}
+          onClick={onSaveTags}
         >
-          <div>적용하기</div>
-        </button>
+          <div className={styles.conformText}>적용하기</div>
+        </Link>
       </div>
     </>
   );
