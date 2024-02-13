@@ -143,8 +143,8 @@ export const Analysis = () => {
 
   if (isLoading || streakLoading) return <div>Loading...</div>;
 
-  if (error) console.log(error);
-  if (streakError) console.log(streakError);
+  if (error) console.log('Analysis error : ', error);
+  if (streakError) console.log('Analysis streak error : ', streakError);
 
   return (
     <>
@@ -153,7 +153,10 @@ export const Analysis = () => {
         <Notice />
         <span className={styles.streak}>
           꾸준히 일기를 쓴 지
-          <span className={styles.streakNumber}> {diaryStreakDate?.diaryStreakDate}일째 </span>
+          <span className={styles.streakNumber}>
+            {' '}
+            {diaryStreakDate?.diaryStreakDate}일째{' '}
+          </span>
           에요!
         </span>
       </div>
@@ -175,14 +178,11 @@ export const Analysis = () => {
           <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
-              {parseDate(
-                startDate !== undefined ? startDate : new Date(),
-                false,
-              )}
+              {parseDate(startDate ? startDate : new Date(), false)}
             </p>
             <p className={styles.chartPeriod}>~</p>
             <p className={styles.chartPeriod}>
-              {parseDate(endDate !== undefined ? endDate : new Date(), false)}
+              {parseDate(endDate ? endDate : new Date(), false)}
             </p>
           </div>
         </div>
@@ -244,14 +244,11 @@ export const Analysis = () => {
           <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
-              {parseDate(
-                startDate !== undefined ? startDate : new Date(),
-                false,
-              )}
+              {parseDate(startDate ? startDate : new Date(), false)}
             </p>
             <p className={styles.chartPeriod}>~</p>
             <p className={styles.chartPeriod}>
-              {parseDate(endDate !== undefined ? endDate : new Date(), false)}
+              {parseDate(endDate ? endDate : new Date(), false)}
             </p>
           </div>
         </div>

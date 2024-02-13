@@ -60,9 +60,6 @@ const DetailEditing = () => {
 
       // formData에 파일 추가
       formData.append('image', newImg[0], newImg[0].name);
-      formData.forEach((value, key) => {
-        console.log(`${key}: `, value);
-      });
     }
   };
 
@@ -119,10 +116,10 @@ const DetailEditing = () => {
   };
 
   const handleSave = () => {
-    console.log(newData);
-    formData.forEach((value, key) => {
-      console.log(`${key}: `, value);
-    });
+    // console.log(newData);
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: `, value);
+    // });
     // imgUrl과 newImgFile 속성 제외한 새로운 객체 생성
     const newDataWithoutImgFile = { ...newData };
     delete newDataWithoutImgFile.imgUrl;

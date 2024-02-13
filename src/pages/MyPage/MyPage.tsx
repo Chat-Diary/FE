@@ -36,7 +36,12 @@ const MyPage = () => {
     <div>
       <ChangeHeader isMyPage={true}>마이페이지</ChangeHeader>
       <div className={styles.profileContainer}>
-        <UserProfile className={styles.profileImg} />
+        <img
+          src={
+            'https://chatdiary-bucket.s3.ap-northeast-2.amazonaws.com/profile_img/profile.png'
+          }
+          className={styles.profileImg}
+        />
         <div className={styles.profileName}>
           <span>예랑쟤랑</span>
           <Update />

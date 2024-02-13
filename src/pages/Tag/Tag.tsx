@@ -50,7 +50,7 @@ const Tag = () => {
   });
 
   useEffect(() => {
-    if (diaryList !== undefined) {
+    if (diaryList) {
       if (currentSort === 1) {
         const sortedByLatest = [...diaryList].sort((a, b) => {
           const dateA = new Date(a.diaryDate);
@@ -107,7 +107,7 @@ const Tag = () => {
     return <>loading..</>;
   }
 
-  if (listError) console.log(listError);
+  if (listError) console.log('Tag list error : ', listError);
 
   return (
     <div className={styles.container}>

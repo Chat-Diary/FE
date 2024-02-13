@@ -50,8 +50,6 @@ const Detail = () => {
 
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
-    console.log(userId);
-    console.log(diaryDate);
   };
 
   const handleClose = () => {
@@ -76,7 +74,7 @@ const Detail = () => {
     setFormattedDate(date);
 
     if (error || !data) {
-      console.log(error);
+      console.log('Detail error : ', error);
       return;
     } else if (data) {
       // 사진 fetching
@@ -131,7 +129,7 @@ const Detail = () => {
       </>
     );
 
-  if (error) console.log(error);
+  if (error) console.log('Detail error : ', error);
 
   return (
     <>

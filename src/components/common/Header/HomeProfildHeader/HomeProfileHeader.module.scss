@@ -8,10 +8,13 @@
   border-bottom: 2px solid $BK30;
 
   .UserProfile {
+    width: 48px;
+    height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: content-box;
+    border-radius: 46px;
   }
 
   .UserInfo {
@@ -21,12 +24,12 @@
     padding-left: 12px;
 
     .Nickname {
-        @include header20;
+      @include header20;
     }
 
     .StartDate {
-        @include caption;
-        color: $BK70;
+      @include caption;
+      color: $BK70;
     }
   }
 }

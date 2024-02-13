@@ -35,7 +35,7 @@ const TagFilter = () => {
     <>
       <ChangeHeader>필터 선택</ChangeHeader>
       <AllTags
-        currentTags={newData !== undefined ? newData : []}
+        currentTags={newData ? newData : []}
         setTagFilter={setNewData}
         isInit={isInit}
       />
@@ -50,7 +50,7 @@ const TagFilter = () => {
           className={`${styles.confirmBtn} ${isInit ? '' : styles.abled}
           }`}
           to={`/tag`}
-          state={{ tagData: newData !== undefined ? newData : [] }}
+          state={{ tagData: newData ? newData : [] }}
           onClick={onSaveTags}
         >
           <div className={styles.conformText}>적용하기</div>

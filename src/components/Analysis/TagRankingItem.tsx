@@ -20,13 +20,7 @@ const TagRankingItem = ({ rank, tagData }: IProps) => {
       <div className={styles.Tags}>
         {tagData.tags.map((tag, index) => {
           return (
-            <TagChip
-              key={index}
-              type={`${rank <= 3 ? 'line' : 'default'}`}
-              onClick={() => {
-                console.log();
-              }}
-            >
+            <TagChip key={index} type={`${rank <= 3 ? 'line' : 'default'}`}>
               {tag}
             </TagChip>
           );

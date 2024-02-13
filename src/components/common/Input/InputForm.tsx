@@ -29,12 +29,12 @@ const InputForm = ({
     setInputValue(e.target.value);
     setInputCount(e.target.value.length);
 
-    if (setCount !== undefined) setCount(e.target.value.length);
-    if (onSave !== undefined) onSave(e.target.value);
+    if (setCount) setCount(e.target.value.length);
+    if (onSave) onSave(e.target.value);
   };
 
   useEffect(() => {
-    if (value !== undefined) {
+    if (value) {
       setInputCount(value?.length);
     }
   }, []);

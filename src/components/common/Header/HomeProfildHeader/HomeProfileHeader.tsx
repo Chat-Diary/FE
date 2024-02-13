@@ -1,4 +1,3 @@
-import { UserProfile } from '../../../../assets/index';
 import { StreakDate } from '../../../../utils/diary';
 import styles from './HomeProfileHeader.module.scss';
 
@@ -9,7 +8,12 @@ interface IProps {
 const HomeProfileHeader = ({ diaryStreakDate }: IProps) => {
   return (
     <div className={styles.Line}>
-      <UserProfile className={styles.UserProfile} />
+      <img
+        src={
+          'https://chatdiary-bucket.s3.ap-northeast-2.amazonaws.com/profile_img/profile.png'
+        }
+        className={styles.UserProfile}
+      />
       <div className={styles.UserInfo}>
         <span className={styles.Nickname}>예랑쟤랑</span>
         <div className={styles.StartDate}>
