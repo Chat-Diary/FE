@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Diary } from '../../../utils/diary';
 import styles from './CardViewItem.module.scss';
 
@@ -30,7 +31,10 @@ const CardViewItem = ({ diary }: IProps) => {
   }
 
   return (
-    <div className={styles.CardViewItem}>
+    <Link
+      to={`/detail?diary_date=${diary.diaryDate}`}
+      className={styles.CardViewItem}
+    >
       {/* <CardExImage className={styles.CardViewItemImg} key={0} /> */}
       <img className={styles.CardViewItemImg} src={diary.photoUrls[0]} />
       <div className={styles.CardViewItemContent}>
@@ -46,7 +50,7 @@ const CardViewItem = ({ diary }: IProps) => {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
