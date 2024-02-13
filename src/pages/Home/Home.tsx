@@ -77,8 +77,8 @@ const Home = () => {
     return <>loading..</>;
   }
 
-  if (streakError) console.log(streakError);
-  if (listError) console.log(listError);
+  if (streakError) console.log('Home streak error : ', streakError);
+  if (listError) console.log('Home List error : ', listError);
 
   return (
     <>

@@ -18,8 +18,8 @@ const InputName = ({ setCount, onSave }: IProps) => {
     if (value.length <= maxTyping) {
       setInputValue(value);
 
-      if (onSave !== undefined) onSave(value);
-      if (setCount !== undefined) setCount(value.length);
+      if (onSave) onSave(value);
+      if (setCount) setCount(value.length);
     }
   };
 

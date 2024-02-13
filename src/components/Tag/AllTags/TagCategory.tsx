@@ -21,7 +21,7 @@ const TagCategory = ({
 
   const handleClick = (tag: string) => {
     // 태그 클릭 시 추가 또는 삭제
-    if (setSelectedTags !== undefined) {
+    if (setSelectedTags) {
       if (!selectedTags.includes(tag))
         setSelectedTags((prev) => [...prev, tag]);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,7 +36,7 @@ const TagCategory = ({
 
   // 태그 선택될 때마다 set
   useEffect(() => {
-    if (setSelectedTags !== undefined)
+    if (setSelectedTags)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       setSelectedTags((prev) => selectedTags);
   }, [selectedTags]);

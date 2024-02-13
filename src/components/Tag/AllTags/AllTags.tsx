@@ -72,7 +72,7 @@ const AllTags = ({
   useEffect(() => {
     // 초기화
     if (isInit) {
-      if (setTagFilter !== undefined) {
+      if (setTagFilter) {
         setTagFilter([]);
       }
       resetTags();
@@ -80,15 +80,14 @@ const AllTags = ({
   }, [isInit]);
 
   useEffect(() => {
-    if (setNewTags !== undefined) {
+    if (setNewTags) {
       setNewTags((prev) => ({
         ...prev,
         tagName: selectedTags,
       }));
-      console.log('AllTags: ', selectedTags);
     }
 
-    if (setTagFilter !== undefined) {
+    if (setTagFilter) {
       setTagFilter(selectedTags);
     }
   }, [selectedTags]);
@@ -96,27 +95,24 @@ const AllTags = ({
   useEffect(() => {
     if (data) {
       setTagPool(data);
-      console.log(data);
     }
   }, [data]);
 
-  if (error) console.log(error);
+  if (error) console.log('AllTags error : ', error);
 
   return (
     <div className={styles.container}>
-      {parseByCategory(tagPool !== undefined ? tagPool : []).map(
-        (tags, key) => {
-          return (
-            <TagCategory
-              key={key}
-              category={tags.category}
-              tagNames={tags.tagNames}
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-            />
-          );
-        },
-      )}
+      {parseByCategory(tagPool ? tagPool : []).map((tags, key) => {
+        return (
+          <TagCategory
+            key={key}
+            category={tags.category}
+            tagNames={tags.tagNames}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+        );
+      })}
     </div>
   );
 };

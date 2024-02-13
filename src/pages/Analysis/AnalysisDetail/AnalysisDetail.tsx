@@ -33,7 +33,6 @@ const AnalysisDetail = () => {
   // UI 상에서 파싱된 날짜 보여주기 위한 함수
   const parseDate = (d: string) => {
     const date = new Date(d);
-    console.log(start);
 
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -101,12 +100,11 @@ const AnalysisDetail = () => {
     refetch();
   }, [activeTab]);
 
-  
   if (isLoading) {
     return <>loading..</>;
   }
 
-  if (error) console.log(error);
+  if (error) console.log('AnalysisDetail error : ', error);
 
   if (period === undefined || !['week', 'month', 'year'].includes(period)) {
     return <p>잘못된 페이지입니다.</p>;
@@ -148,9 +146,9 @@ const AnalysisDetail = () => {
           </button>
         ))}
       </div>
-      {tagCountsData !== undefined &&
+      {tagCountsData &&
         tagCountsData.map((data, index) => {
-          return <TagRankingItem key={index} rank={index + 1} tagData={data}/>;
+          return <TagRankingItem key={index} rank={index + 1} tagData={data} />;
         })}
       <BottomNav page={2} isBtn={false} />
     </>
