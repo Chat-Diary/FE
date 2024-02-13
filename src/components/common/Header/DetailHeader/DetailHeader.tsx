@@ -14,15 +14,12 @@ interface IProps {
 const DetailHeader = ({ children, date, info }: IProps) => {
   const navigate = useNavigate();
   const prevPath = usePageStore((state) => state.prevPath);
-  const prevList = usePageStore((state) => state.prevList);
 
   return (
     <div className={styles.changeHeader}>
       <LeftChevron
         onClick={() => {
           navigate(prevPath);
-          console.log(prevPath);
-          console.log(prevList);
         }} /*이전 페이지 정보 받아와야 함*/
       />
       <span>{children}</span>

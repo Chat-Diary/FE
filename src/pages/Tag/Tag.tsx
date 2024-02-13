@@ -23,10 +23,10 @@ const Tag = () => {
   // 현재 페이지 경로 및 list 여부 저장
   const getPage = usePageStore((state) => state.getPage);
   const setPage = usePageStore((state) => state.setPage);
-  const prevList = getPage()[1];
+  const prevTagType = getPage()[2];
 
   const { tags, diaryList, setTags, setDiaryList } = useTagStore();
-  const [isList, setIsList] = useState<boolean>(prevList);
+  const [isList, setIsList] = useState<boolean>(prevTagType);
   const [currentSort, setCurrentSort] = useState<number>(1);
   const userId = 1;
 
@@ -56,7 +56,7 @@ const Tag = () => {
   });
 
   useEffect(() => {
-    setPage(location.pathname, isList);
+    setPage(location.pathname, false, isList);
   }, [isList]);
 
   useEffect(() => {

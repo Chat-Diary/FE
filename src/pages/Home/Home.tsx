@@ -18,9 +18,9 @@ const Home = () => {
   // 현재 페이지 경로 및 list 여부 저장
   const getPage = usePageStore((state) => state.getPage);
   const setPage = usePageStore((state) => state.setPage);
-  const prevList = getPage()[1];
+  const prevHomeType = getPage()[1];
 
-  const [isList, setIsList] = useState(prevList);
+  const [isList, setIsList] = useState(prevHomeType);
   const toggleMode = () => {
     setIsList((prev) => !prev);
   };
@@ -69,7 +69,7 @@ const Home = () => {
   });
 
   useEffect(() => {
-    setPage(location.pathname, isList);
+    setPage(location.pathname, isList, true);
   }, [isList]);
 
   useEffect(() => {

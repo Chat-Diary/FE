@@ -2,27 +2,39 @@ import { create } from 'zustand';
 
 interface IPath {
   prevPath: string;
-  prevList: boolean;
-  setPage: (newPath: string, newList: boolean) => void;
-  getPage: () => [page: string, list: boolean];
+  prevHomeType: boolean;
+  prevTagsType: boolean;
+  setPage: (
+    newPath: string,
+    newHomeType: boolean,
+    newTagsType: boolean,
+  ) => void;
+  getPage: () => [path: string, homeType: boolean, tagsType: boolean];
 }
 
 const initialPath = {
   prevPath: '/',
-  prevList: false,
+  prevHomeType: false,
+  prevTagsType: true,
 };
 
 export const usePageStore = create<IPath>((set, get) => ({
   prevPath: initialPath.prevPath,
-  prevList: initialPath.prevList,
+  prevHomeType: initialPath.prevHomeType,
+  prevTagsType: initialPath.prevTagsType,
 
-  setPage: (newPath: string, newList: boolean) =>
-    set({ prevPath: newPath, prevList: newList }),
+  setPage: (newPath: string, newHomeType: boolean, newTagsType: boolean) =>
+    set({
+      prevPath: newPath,
+      prevHomeType: newHomeType,
+      prevTagsType: newTagsType,
+    }),
 
   getPage: () => {
-    const page = get().prevPath;
-    const list = get().prevList;
-    return [page, list];
+    const path = get().prevPath;
+    const homeType = get().prevHomeType;
+    const tagsType = get().prevTagsType;
+    return [path, homeType, tagsType];
   },
 }));
 
