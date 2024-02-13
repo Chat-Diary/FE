@@ -8,7 +8,6 @@ interface IProps {
 
 const InputName = ({ setCount, onSave }: IProps) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [inputCount, setInputCount] = useState<number>(0);
 
   const maxTyping = 12;
 
@@ -18,7 +17,6 @@ const InputName = ({ setCount, onSave }: IProps) => {
 
     if (value.length <= maxTyping) {
       setInputValue(value);
-      setInputCount(value.length);
 
       if (onSave !== undefined) onSave(value);
       if (setCount !== undefined) setCount(value.length);
@@ -37,7 +35,7 @@ const InputName = ({ setCount, onSave }: IProps) => {
           value={inputValue}
         />
         <div className={styles.counter}>
-          <span>{inputCount}</span>
+          <span>{inputValue.length}</span>
           <span>/{maxTyping}</span>
         </div>
       </div>
