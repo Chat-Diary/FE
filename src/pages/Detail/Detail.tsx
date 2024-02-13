@@ -77,9 +77,11 @@ const Detail = () => {
       console.log('Detail error : ', error);
       return;
     } else if (data) {
-      // 사진 fetching
-      setDiaryImgs(data.imgUrl);
-      setSliderLength(data.imgUrl.length);
+      if (data.imgUrl) {
+        // 사진 fetching
+        setDiaryImgs(data.imgUrl);
+        setSliderLength(data.imgUrl.length);
+      }
 
       // 태그 fetching
       setTags(data.tagName);
