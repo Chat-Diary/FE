@@ -17,10 +17,16 @@ import NoTagResult from '../../components/Tag/NoTagResult';
 import { useQuery } from 'react-query';
 import { getDiaryListByTag } from '../../apis/tagApi';
 import useTagStore from '../../stores/tagStore';
+import usePageStore from '../../stores/pageStore';
 
 const Tag = () => {
+  // 현재 페이지 경로 및 list 여부 저장
+  const getPage = usePageStore((state) => state.getPage);
+  const setPage = usePageStore((state) => state.setPage);
+  const prevList = getPage()[1];
+
   const { tags, diaryList, setTags, setDiaryList } = useTagStore();
-  const [isList, setIsList] = useState<boolean>(true);
+  const [isList, setIsList] = useState<boolean>(prevList);
   const [currentSort, setCurrentSort] = useState<number>(1);
   const userId = 1;
 
@@ -48,6 +54,10 @@ const Tag = () => {
       }
     },
   });
+
+  useEffect(() => {
+    setPage(location.pathname, isList);
+  }, [isList]);
 
   useEffect(() => {
     if (diaryList) {
