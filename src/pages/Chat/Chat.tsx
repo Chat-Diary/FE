@@ -175,7 +175,16 @@ const Chat = () => {
     socket.onmessage = async (event: MessageEvent) => {
       // GPT message processing error
       if (event.data === 'GPT message processing error') {
+        const ai = getAiEnglish();
         console.log(event.data);
+        const updatedMessage = {
+          chatId: Date.now(),
+          sender: ai,
+          content: event.data,
+          createAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
+        };
+        replaceLastMessage(updatedMessage);
         return;
       }
       // message
