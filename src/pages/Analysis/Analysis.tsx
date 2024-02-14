@@ -175,7 +175,7 @@ export const Analysis = () => {
       </div>
       <div className={styles.tagChartBox}>
         <div className={styles.chartTitleBox}>
-          <h2 className={styles.chartTitle}>자주 썼던 태그</h2>
+          <h2 className={styles.chartTitle}>자주 사용한 태그</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
               {parseDate(startDate ? startDate : new Date(), false)}
@@ -241,7 +241,7 @@ export const Analysis = () => {
       </div>
       <div className={styles.aiChartBox}>
         <div className={styles.chartTitleBox}>
-          <h2 className={styles.chartTitle}>가장 많이 대화한 상대</h2>
+          <h2 className={styles.chartTitle}>자주 대화한 상대</h2>
           <div className={styles.chartPeriodContainer}>
             <p className={styles.chartPeriod}>
               {parseDate(startDate ? startDate : new Date(), false)}

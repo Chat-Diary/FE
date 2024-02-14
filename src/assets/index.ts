@@ -9,7 +9,6 @@ export { ReactComponent as Lulu48 } from './icons/profiles/lulu-48.svg';
 export { ReactComponent as Chichi48 } from './icons/profiles/chichi-48.svg';
 export { ReactComponent as Dada200 } from './icons/profiles/dada-200.svg';
 export { ReactComponent as Dada80 } from './icons/profiles/dada-80.svg';
-export { ReactComponent as UserProfile } from './icons/profiles/user-profile.svg';
 
 export { ReactComponent as RightChevron } from './icons/nav/right-chevron.svg';
 export { ReactComponent as LeftChevron } from './icons/nav/left-chevron.svg';

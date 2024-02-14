@@ -12,12 +12,19 @@ import { useQuery } from 'react-query';
 import { getDiaryList } from '../../apis/diaryListApi';
 import { getDiaryStreakDate } from '../../apis/home';
 import { Diary, StreakDate } from '../../utils/diary';
+import usePageStore from '../../stores/pageStore';
 
 const Home = () => {
-  const [isList, setIsList] = useState(false);
+  // 현재 페이지 경로 및 list 여부 저장
+  const getPage = usePageStore((state) => state.getPage);
+  const setPage = usePageStore((state) => state.setPage);
+  const prevHomeType = getPage()[1];
+
+  const [isList, setIsList] = useState(prevHomeType);
   const toggleMode = () => {
     setIsList((prev) => !prev);
   };
+
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
@@ -60,6 +67,10 @@ const Home = () => {
     queryKey: ['diaryStreakDate', userId],
     queryFn: () => getDiaryStreakDate(userId),
   });
+
+  useEffect(() => {
+    setPage(location.pathname, isList, true);
+  }, [isList]);
 
   useEffect(() => {
     if (diaryListData) {

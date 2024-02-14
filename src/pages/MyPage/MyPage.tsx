@@ -1,7 +1,6 @@
 import BottomNav from '../../components/common/BottomNav/BottomNav';
 import ChangeHeader from '../../components/common/Header/ChangeHeader/ChangeHeader';
 import {
-  UserProfile,
   Update,
   Account,
   Alert,
