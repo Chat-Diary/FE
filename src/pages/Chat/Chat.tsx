@@ -248,7 +248,7 @@ const Chat = () => {
       </div>
       <input
         type="file"
-        accept=".jpg,.jpeg,.png"
+        accept=".jpg,.jpeg,.png,.gif,.webp"
         className={styles.photoInput}
         ref={fileInputRef}
         onChange={handleFileInputChange}
