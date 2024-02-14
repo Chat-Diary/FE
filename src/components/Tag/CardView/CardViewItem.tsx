@@ -30,29 +30,58 @@ const CardViewItem = ({ diary }: IProps) => {
     tagLineList.push(tagLine);
   }
 
+  console.log(diary.photoUrls[0]);
+
   return (
-    <Link
-      to={`/detail?diary_date=${diary.diaryDate}`}
-      className={styles.CardViewItem}
-    >
-      {/* <CardExImage className={styles.CardViewItemImg} key={0} /> */}
-      <div className={styles.imgWrapper}>
-        <img className={styles.CardViewItemImg} src={diary.photoUrls[0]} />
-      </div>
-      <div className={styles.CardViewItemContent}>
-        <div className={styles.DiaryTitle}>{diary.title}</div>
-        <div className={styles.DiaryDate}>{diary.diaryDate}</div>
-        <div className={styles.DiaryTagsContainer}>
-          {tagLineList.map((tagLine, index) => (
-            <div className={styles.DiaryTags} key={index}>
-              {tagLine.map((tagText, subIndex) =>
-                tagText === ' ' ? null : <div key={subIndex}>{tagText}</div>,
-              )}
+    <>
+      {diary.photoUrls[0] !== undefined &&
+      /\.(jpg|jpeg|png)$/i.test(diary.photoUrls[0]) ? (
+        <Link
+          to={`/detail?diary_date=${diary.diaryDate}`}
+          className={styles.CardViewItem}
+        >
+          <div className={styles.imgWrapper}>
+            <img className={styles.CardViewItemImg} src={diary.photoUrls[0]} />
+          </div>
+          <div className={styles.CardViewItemContent}>
+            <div className={styles.DiaryTitle}>{diary.title}</div>
+            <div className={styles.DiaryDate}>{diary.diaryDate}</div>
+            <div className={styles.DiaryTagsContainer}>
+              {tagLineList.map((tagLine, index) => (
+                <div className={styles.DiaryTags} key={index}>
+                  {tagLine.map((tagText, subIndex) =>
+                    tagText === ' ' ? null : (
+                      <div key={subIndex}>{tagText}</div>
+                    ),
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </Link>
+          </div>
+        </Link>
+      ) : (
+        <Link
+          to={`/detail?diary_date=${diary.diaryDate}`}
+          className={styles.NoImgCardViewItem}
+        >
+          <div className={styles.NoImgCardViewItemContent}>
+            <div className={styles.NoImgDiaryTitle}>{diary.title}</div>
+            <div className={styles.NoImgDiaryDate}>{diary.diaryDate}</div>
+            <div className={styles.NoImgDiaryTagsContainer}>
+              {tagLineList.map((tagLine, index) => (
+                <div className={styles.NoImgDiaryTags} key={index}>
+                  {tagLine.map((tagText, subIndex) =>
+                    tagText === ' ' ? null : (
+                      <div key={subIndex}>{tagText}</div>
+                    ),
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </Link>
+      )}
+    </>
   );
 };
 

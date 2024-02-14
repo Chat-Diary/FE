@@ -71,3 +71,52 @@
     }
   }
 }
+
+.NoImgCardViewItem {
+  display: flex;
+  position: relative;
+  text-decoration: none;
+  background-color: $WH;
+  width: 328px;
+  height: 128px;
+  border-radius: 8px;
+  border: 1px solid $BK30;
+
+  .NoImgCardViewItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: absolute;
+    width: 304px;
+    left: 12px;
+    bottom: 18px;
+    z-index: 1;
+
+    .NoImgDiaryTitle {
+      display: flex;
+      gap: 2px;
+      color: $BK90;
+      @include sub16;
+      width: 304px;
+      max-width: 304px; // 적절한 최대 너비 설정
+    }
+
+    .NoImgDiaryDate {
+      color: $BK70;
+      @include caption;
+    }
+
+    .NoImgDiaryTagsContainer {
+      display: flex;
+      flex-direction: column;
+
+      .NoImgDiaryTags {
+        display: flex;
+        gap: 8px;
+        color: $BK70;
+        @include body14;
+        max-width: 304px; // 적절한 최대 너비 설정
+      }
+    }
+  }
+}

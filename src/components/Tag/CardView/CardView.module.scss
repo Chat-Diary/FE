@@ -4,9 +4,9 @@
   gap: 12px;
   box-sizing: content-box;
   padding-bottom: 10px;
+  align-items: center;
 
   & > :first-child {
     margin-top: 16px;
-    box-sizing: content-box;
   }
 }
