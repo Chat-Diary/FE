@@ -39,6 +39,8 @@ jobs:
         run: |
           echo "REACT_APP_HTTP_API_KEY=${{ secrets.REACT_APP_HTTP_API_KEY }}" >> .env
           echo "REACT_APP_WS_API_KEY=${{ secrets.REACT_APP_WS_API_KEY }}" >> .env
+          echo "REACT_APP_REST_API_KEY=${{ secrets.REACT_APP_REST_API_KEY }}" >> .env
+          echo "REACT_APP_REDIRECT_URL=${{ secrets.REACT_APP_REDIRECT_URL }}" >> .env
           cat .env
           pwd
           ls -al   
