@@ -21,7 +21,7 @@ const DetailEditing = () => {
   const navigator = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = 1; // 로그인 미구현 시 초기화
-  const diaryDate = searchParams.get('diary_date');
+
   // 서버에 formData 형식으로 넘기기 위한 formData 객체
   const [formData, setFormData] = useState<FormData>(new FormData());
 
@@ -45,6 +45,9 @@ const DetailEditing = () => {
     deleteImgUrls: [], // 삭제된 이미지 URL이 없을 경우 빈 배열로 초기화
     newImgUrls: [], // newImgUrls 초기화
   });
+
+  // YYYY년 MM월 DD일 표시 위함
+  const [formattedDate, setFormattedDate] = useState<string>('');
 
   // 이미지 추가 위함
   const imgInput = useRef<HTMLInputElement>(null);
@@ -140,8 +143,19 @@ const DetailEditing = () => {
     formData.append('request', jsonBlob);
 
     mutate(formData);
-    navigator(`/detail?diary_date=${diaryDate}`);
+    navigator(`/detail?diary_date=${currentDate}`);
   };
+
+  useEffect(() => {
+    // 날짜 fetching
+    const d = new Date(currentDate !== null ? currentDate : '');
+    const date = new Intl.DateTimeFormat('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(d);
+    setFormattedDate(date);
+  });
 
   useEffect(() => {
     if (selectedImgs.length > 0) {
@@ -173,7 +187,7 @@ const DetailEditing = () => {
       </ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
-          <div>{currentDate}</div>
+          <div>{formattedDate}</div>
           <InputForm
             length={44}
             placeHolder={'이름을 입력해주세요'}
