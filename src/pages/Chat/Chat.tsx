@@ -9,7 +9,6 @@ import PhotoChatBox from '../../components/Chat/PhotoChatBox';
 import LoadingChat from '../../components/Chat/LoadingChat';
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
-import { isImageUrl } from '../../utils/fileFormats';
 import { getAiEnglish, makeSection } from '../../utils/chattings';
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
@@ -122,7 +121,7 @@ const Chat = () => {
           sender: 'user',
           content: url,
           createAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
+          chatType: 'IMG',
         },
         {
           chatId: Date.now(),
@@ -207,7 +206,7 @@ const Chat = () => {
             <p className={styles.fullDate}>{day}</p>
             {messages.map((m) =>
               m.sender == 'USER' ? (
-                isImageUrl(m.content as string) ? (
+                m.chatType === 'IMG' ? (
                   <PhotoChatBox url={m.content as string} date={m.createAt} />
                 ) : (
                   <RightChatBox date={m.createAt} key={m.chatId}>
