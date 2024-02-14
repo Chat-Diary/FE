@@ -10,6 +10,7 @@ const KakaoLogin = () => {
     if (kakaoCode) {
       navigate('/');
     } else {
+      navigate('/login');
       throw new Error('code is invalid');
     }
   };
