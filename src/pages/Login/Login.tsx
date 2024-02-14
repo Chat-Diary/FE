@@ -2,10 +2,16 @@ import { useState } from 'react';
 import { Dada200, Kakao } from '../../assets';
 import styles from './Login.module.scss';
 import DialogBtn from '../../components/common/Buttons/DialogBtn/DialogBtn';
-import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [isKakao, setIsKakao] = useState(false);
+  // oauth 요청 URL
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&response_type=code`
+  
+  const handleLogin = ()=>{
+      window.location.href = kakaoURL
+  }
+
   return (
     <div className={styles.wholeContainer}>
       <div className={styles.helloBox}>
@@ -22,10 +28,10 @@ const Login = () => {
         <p>더 쉽게 하루를 기록할 수 있을거야</p>
       </div>
       {isKakao ? (
-        <Link to="/kakao" className={styles.kakaoBtn}>
+        <button className={styles.kakaoBtn} onClick={handleLogin}>
           <Kakao />
           카카오 로그인
-        </Link>
+        </button>
       ) : (
         <div className={styles.startBtnWrapper}>
           <DialogBtn isActive={true} onClick={() => setIsKakao(true)}>

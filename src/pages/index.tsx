@@ -16,6 +16,7 @@ import AccountQuit from './MyPage/Account/AccountQuit';
 import AccountQuitFinish from './MyPage/Account/AccountQuitFinish';
 import Login from './Login/Login';
 import JoinName from './Login/JoinName';
+import KakaoLogin from './Login/Kakao/KakaoLogin';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -25,6 +26,15 @@ const Router = () => {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: 'kakao',
+          children: [
+            {
+              path: 'callback',
+              element: <KakaoLogin />,
+            },
+          ],
         },
         {
           path: 'login',
