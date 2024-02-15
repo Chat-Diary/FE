@@ -7,6 +7,7 @@ interface IProps {
   tagNames: string[];
   selectedTags: string[];
   setSelectedTags?: React.Dispatch<React.SetStateAction<string[]>>;
+  isLimit?: boolean;
 }
 
 const TagCategory = ({
@@ -14,6 +15,7 @@ const TagCategory = ({
   tagNames,
   selectedTags,
   setSelectedTags,
+  isLimit,
 }: IProps) => {
   // // selectedTags는 선택된 모든 태그 (카테고리 무관)
   // const [selectedCategoryTags, setSelectedCategoryTags] =
@@ -47,15 +49,16 @@ const TagCategory = ({
       <div className={styles.tagContainer}>
         {tagNames !== null &&
           tagNames.map((tag, index) => {
+            const type = Object.values(selectedTags).find((t) => tag === t)
+              ? 'selected'
+              : 'default';
+            const hasSelected = type === 'selected';
             return (
               <TagChip
                 key={index}
-                type={
-                  Object.values(selectedTags).find((t) => tag === t)
-                    ? 'selected'
-                    : 'default'
-                }
+                type={type}
                 onClick={() => handleClick(tag)}
+                disabled={!hasSelected && isLimit}
               >
                 {tag}
               </TagChip>
