@@ -55,13 +55,7 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
                           <div
                             key={dayInfo.day}
                             className={
-                              dayInfo.character === 'DADA'
-                                ? styles.dada
-                                : dayInfo.character === 'LULU'
-                                  ? styles.lulu
-                                  : dayInfo.character === 'CHICHI'
-                                    ? styles.chichi
-                                    : ''
+                              dayInfo.character ? styles[dayInfo.character] : ''
                             }
                           ></div>
                         </span>
