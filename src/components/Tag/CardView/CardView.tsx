@@ -4,9 +4,24 @@ import { Diary } from '../../../utils/diary';
 
 interface IProps {
   dataList?: Diary[];
+  isLoading?: boolean;
 }
 
-const CardView = ({ dataList }: IProps) => {
+const CardView = ({ dataList, isLoading }: IProps) => {
+  if (!dataList) {
+    return <></>;
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        {[...Array(2)].map((_, index) => (
+          <div key={index} className={styles.LoadingDiaryItem} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className={styles.CardViewWrapper}>
       {dataList?.map((diary) => {
