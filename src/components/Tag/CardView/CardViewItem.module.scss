@@ -8,6 +8,24 @@
   position: relative;
   text-decoration: none;
 
+  .imgWrapper {
+    position: relative;
+  }
+  .imgWrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  }
+
   .CardViewItemImg {
     width: 328px;
     height: 342px;

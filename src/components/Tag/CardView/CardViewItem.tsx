@@ -36,7 +36,9 @@ const CardViewItem = ({ diary }: IProps) => {
       className={styles.CardViewItem}
     >
       {/* <CardExImage className={styles.CardViewItemImg} key={0} /> */}
-      <img className={styles.CardViewItemImg} src={diary.photoUrls[0]} />
+      <div className={styles.imgWrapper}>
+        <img className={styles.CardViewItemImg} src={diary.photoUrls[0]} />
+      </div>
       <div className={styles.CardViewItemContent}>
         <div className={styles.DiaryTitle}>{diary.title}</div>
         <div className={styles.DiaryDate}>{diary.diaryDate}</div>
