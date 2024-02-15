@@ -17,7 +17,7 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
         ? '0' + (currentDate.getMonth() + 1)
         : currentDate.getMonth() + 1
     }-${dayInfo.day < 10 ? '0' + dayInfo.day : dayInfo.day}`;
-    if (dayInfo.characters.length > 0 && dayInfo.day !== today.getDate()) {
+    if (dayInfo.character && dayInfo.day !== today.getDate()) {
       navigate(`/detail?diary_date=${dateString}`);
     }
   };
@@ -52,20 +52,18 @@ const HomeCalendar = ({ weekCalendarList, currentDate }: IProps) => {
                       <span className={styles.dayString}>{dayInfo.day}</span>
                       {isNotToday(currentDate, today, dayInfo) && (
                         <span className={styles.characterDots}>
-                          {dayInfo.characters.map((character) => (
-                            <div
-                              key={character}
-                              className={
-                                character === 'DADA'
-                                  ? styles.dada
-                                  : character === 'LULU'
-                                    ? styles.lulu
-                                    : character === 'CHICHI'
-                                      ? styles.chichi
-                                      : ''
-                              }
-                            ></div>
-                          ))}
+                          <div
+                            key={dayInfo.day}
+                            className={
+                              dayInfo.character === 'DADA'
+                                ? styles.dada
+                                : dayInfo.character === 'LULU'
+                                  ? styles.lulu
+                                  : dayInfo.character === 'CHICHI'
+                                    ? styles.chichi
+                                    : ''
+                            }
+                          ></div>
                         </span>
                       )}
                     </>

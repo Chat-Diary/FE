@@ -4,18 +4,14 @@ import { useQuery } from 'react-query';
 import { getCalendarData } from '../apis/home';
 
 interface IChatData {
-  dates: string[];
-  responses: Response[];
-}
-
-interface Response {
-  sender: string;
+  dates: string;
+  sender: string | null;
   exists: boolean;
 }
 
 export interface ICalendar {
   day: number;
-  characters: string[];
+  character: string | null;
 }
 
 const DATE_MONTH_FIXER = 1;
@@ -85,16 +81,15 @@ const useCalendar = () => {
       }-${cur < 10 ? '0' + cur : cur}`;
       const chatInfo = useMemo(() => {
         if (chatData && chatData.length > 0) {
-          return chatData.find((chat) => chat.dates[0] === currentDateStr);
+          return chatData.find((chat) => chat.dates === currentDateStr);
         }
       }, [chatData, currentDateStr]);
       acc[chunkIndex].push({
         day: cur,
-        characters: chatInfo
-          ? chatInfo.responses
-              .filter((response) => response.exists)
-              .map((response) => response.sender)
-          : [],
+        character:
+          chatInfo && chatInfo.exists && chatInfo.sender
+            ? chatInfo.sender
+            : null,
       });
       return acc;
     },
