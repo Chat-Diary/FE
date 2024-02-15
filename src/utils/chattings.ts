@@ -55,35 +55,46 @@ export const makeSection = (messages: IMessage[]) => {
   return sections;
 };
 
-// const resizeImage = (
-//   url: string,
-//   maxWidth: number,
-//   maxHeight: number,
-//   callback: (resizedUrl: string) => void,
-// ) => {
-//   const img = new Image();
-//   img.onload = () => {
-//     let width = img.width;
-//     let height = img.height;
+export const resizeImage = (
+  url: string,
+  maxWidth: number,
+  maxHeight: number,
+  callback: (resizedUrl: string) => void,
+) => {
+  const img = new Image();
+  img.onload = () => {
+    let width = img.width;
+    let height = img.height;
 
-//     if (width > height) {
-//       if (width > maxWidth) {
-//         height *= maxWidth / width;
-//         width = maxWidth;
-//       }
-//     } else {
-//       if (height > maxHeight) {
-//         width *= maxHeight / height;
-//         height = maxHeight;
-//       }
-//     }
+    if (width > height) {
+      if (width > maxWidth) {
+        height *= maxWidth / width;
+        width = maxWidth;
+      }
+    } else {
+      if (height > maxHeight) {
+        width *= maxHeight / height;
+        height = maxHeight;
+      }
+    }
 
-//     const canvas = document.createElement('canvas');
-//     canvas.width = width;
-//     canvas.height = height;
-//     const ctx = canvas.getContext('2d');
-//     ctx?.drawImage(img, 0, 0, width, height);
-//     callback(canvas.toDataURL());
-//   };
-//   img.src = url;
-// };
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(img, 0, 0, width, height);
+    callback(canvas.toDataURL('image/jpeg', 0.7));
+  };
+  img.src = url;
+};
+
+export const dataUrlToBlob = (dataUrl: string) => {
+  const byteString = atob(dataUrl.split(',')[1]);
+  const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([uint8Array], { type: mimeString });
+};

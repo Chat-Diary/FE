@@ -9,7 +9,12 @@ import PhotoChatBox from '../../components/Chat/PhotoChatBox';
 import LoadingChat from '../../components/Chat/LoadingChat';
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
-import { getAiEnglish, makeSection } from '../../utils/chattings';
+import {
+  dataUrlToBlob,
+  getAiEnglish,
+  makeSection,
+  resizeImage,
+} from '../../utils/chattings';
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
@@ -118,34 +123,43 @@ const Chat = () => {
     reader.onload = () => {
       const url = reader.result as string;
       setIsGPTLoading(true);
-      addNextMessage([
-        {
-          chatId: Date.now(),
-          sender: 'USER',
-          content: url,
-          createAt: formatFullDateToString(new Date()),
-          chatType: 'IMG',
-        },
-        {
-          chatId: Date.now(),
-          sender: ai,
-          content: <LoadingChat />,
-          createAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
-        },
-      ]);
-      socket?.send(
-        JSON.stringify({
-          userId: 1,
-          content: url,
-          selectedModel: localStorage.getItem('currentCharacter') || 1,
-          chatType: 'IMG',
-        }),
-      );
+
+      // 이미지 리사이즈 함수 적용
+      resizeImage(url, 180, 180, (resizedUrl) => {
+        // 콜백 내부에서 메시지 추가와 소켓 전송
+        addNextMessage([
+          {
+            chatId: Date.now(),
+            sender: 'USER',
+            content: resizedUrl,
+            createAt: formatFullDateToString(new Date()),
+            chatType: 'IMG',
+          },
+          {
+            chatId: Date.now(),
+            sender: ai,
+            content: <LoadingChat />,
+            createAt: formatFullDateToString(new Date()),
+            chatType: 'CHAT',
+          },
+        ]);
+
+        socket?.send(
+          JSON.stringify({
+            userId: 1,
+            content: resizedUrl,
+            selectedModel: localStorage.getItem('currentCharacter') || 1,
+            chatType: 'IMG',
+          }),
+        );
+        const blob = dataUrlToBlob(resizedUrl);
+        console.log(`Image size: ${(blob.size / 1024).toFixed(2)} KB`);
+      });
+
+      setIsGPTLoading(false);
     };
 
     reader.readAsDataURL(file);
-    setIsGPTLoading(false);
   };
 
   const handleSendMessage = () => {
