@@ -49,6 +49,13 @@ const DetailEditing = () => {
   // YYYY년 MM월 DD일 표시 위함
   const [formattedDate, setFormattedDate] = useState<string>('');
 
+  // 제목 및 내용 미입력시 저장 비활성화 위함
+  const [titleCount, setTitleCount] = useState<number>(currentTitle.length);
+  const [contentCount, setContentCount] = useState<number>(
+    currentContent.length,
+  );
+  const [isAble, setIsAble] = useState<boolean>(true);
+
   // 이미지 추가 위함
   const imgInput = useRef<HTMLInputElement>(null);
   const [selectedImgs, setSelectedImgs] = useState<File[]>(
@@ -155,6 +162,10 @@ const DetailEditing = () => {
       day: 'numeric',
     }).format(d);
     setFormattedDate(date);
+
+    // 버튼 비활성화 설정
+    if (titleCount === 0 || contentCount === 0) setIsAble(false);
+    else setIsAble(true);
   });
 
   useEffect(() => {
@@ -190,8 +201,9 @@ const DetailEditing = () => {
           <div>{formattedDate}</div>
           <InputForm
             length={44}
-            placeHolder={'이름을 입력해주세요'}
+            placeHolder={'제목을 입력해주세요'}
             value={currentTitle}
+            setCount={setTitleCount}
             onSave={handleTitle}
           />
         </div>
@@ -224,6 +236,7 @@ const DetailEditing = () => {
             length={240}
             placeHolder={'내용을 입력해주세요'}
             value={currentContent}
+            setCount={setContentCount}
             onSave={handleContent}
           />
           <Link
@@ -242,7 +255,7 @@ const DetailEditing = () => {
         </div>
       </div>
       <div className={styles.btn}>
-        <ConfirmButton isAble={true} id={0} onClick={handleSave}>
+        <ConfirmButton isAble={isAble} id={0} onClick={handleSave}>
           저장하기
         </ConfirmButton>
       </div>

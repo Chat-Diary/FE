@@ -19,10 +19,9 @@ const InputForm = ({
 }: IProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [inputCount, setInputCount] = useState<number>(0);
+  const [maxTyping, setMaxTyping] = useState<number>(100);
 
   const [isLimited, setIsLimited] = useState<boolean>(true);
-
-  let maxTyping = 100;
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     // input 값이 변경될 때 호출
@@ -34,20 +33,20 @@ const InputForm = ({
   };
 
   useEffect(() => {
+    if (length === 44) {
+      setMaxTyping(50);
+    } else if (length === 140) {
+      setMaxTyping(120);
+    } else if (length === 240) {
+      setMaxTyping(200);
+    }
+  });
+
+  useEffect(() => {
     if (value) {
       setInputCount(value?.length);
     }
   }, []);
-
-  useEffect(() => {
-    if (length === 140) {
-      maxTyping = 120;
-    } else if (length === 240) {
-      maxTyping = 200;
-    } else {
-      setIsLimited(false);
-    }
-  });
 
   return (
     <div>
