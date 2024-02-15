@@ -63,3 +63,5 @@ export { ReactComponent as Refresh } from './icons/mypage-refresh.svg';
 export { ReactComponent as Kakao } from './icons/kakao.svg';
 
 export { ReactComponent as DetailSkProfile } from './icons/detail-sk-profile.svg';
+
+export { ReactComponent as TagFilterInfo } from './icons/tag-filter-info.svg';
