@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import styles from './SelectTag.module.scss';
 import AllTags from '../../../../components/Tag/AllTags/AllTags';
 import ChangeHeader from '../../../../components/common/Header/ChangeHeader/ChangeHeader';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { DiaryDetailType } from '../../../../apis/diaryDetailApi';
 import { TagFilterInfo } from '../../../../assets';
-import styles from './SelectTag.module.scss';
+import { TagInit } from '../../../../assets';
 
 const SelectTag = () => {
   const [searchParams] = useSearchParams();
@@ -15,6 +16,12 @@ const SelectTag = () => {
   const [newData, setNewData] = useState<DiaryDetailType>(
     location.state.detailData,
   );
+
+  const [isInit, setIsInit] = useState<boolean>(false);
+
+  const toggleInit = () => {
+    console.log('초기화');
+  };
   const [isLimited, setIsLimited] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,7 +38,7 @@ const SelectTag = () => {
     <>
       <ChangeHeader
         path={`/detail/modify?diary_date=${diaryDate}`}
-        state={newData}
+        state={location.state.detailData}
       >
         태그 선택하기
       </ChangeHeader>
@@ -47,6 +54,23 @@ const SelectTag = () => {
         isInit={false}
         isLimit={isLimited}
       />
+      <div className={styles.btnContainer}>
+        <button className={styles.initBtn} onClick={toggleInit}>
+          <div className={styles.icon}>
+            <TagInit />
+          </div>
+          <div>초기화</div>
+        </button>
+        <Link
+          className={`${styles.confirmBtn} ${isInit ? '' : styles.abled}
+          }`}
+          to={`/detail/modify?diary_date=${diaryDate}`}
+          state={{ detailData: newData }}
+          // onClick={onSaveTags}
+        >
+          <div className={styles.conformText}>적용하기</div>
+        </Link>
+      </div>
     </>
   );
 };
