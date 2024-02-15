@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AllTags from '../../../../components/Tag/AllTags/AllTags';
 import ChangeHeader from '../../../../components/common/Header/ChangeHeader/ChangeHeader';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -15,6 +15,17 @@ const SelectTag = () => {
   const [newData, setNewData] = useState<DiaryDetailType>(
     location.state.detailData,
   );
+  const [isLimited, setIsLimited] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (newData.tagName) {
+      if (newData.tagName.length >= 10) {
+        setIsLimited(true);
+      } else {
+        setIsLimited(false);
+      }
+    }
+  }, [newData.tagName]);
 
   return (
     <>
@@ -34,6 +45,7 @@ const SelectTag = () => {
         currentTags={newData.tagName ? newData.tagName : []}
         setNewTags={setNewData}
         isInit={false}
+        isLimit={isLimited}
       />
     </>
   );
