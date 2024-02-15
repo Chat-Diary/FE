@@ -125,7 +125,7 @@ const Chat = () => {
       setIsGPTLoading(true);
 
       // 이미지 리사이즈 함수 적용
-      resizeImage(url, 180, 180, (resizedUrl) => {
+      resizeImage(url, 800, 800, (resizedUrl) => {
         // 콜백 내부에서 메시지 추가와 소켓 전송
         addNextMessage([
           {
