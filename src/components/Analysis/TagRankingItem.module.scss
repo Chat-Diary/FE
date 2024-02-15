@@ -10,6 +10,7 @@
     @include sub18;
     color: $primary_default;
     padding-top: 3.5px;
+    width: 21px;
   }
 
   .NonTopThree {
@@ -22,14 +23,16 @@
     display: flex;
     gap: 4px;
     flex-wrap: wrap;
-    width: 260px
+    width: 260px;
   }
-  
+
   .Count {
     @include sub16;
     color: $BK90;
     right: 0;
     padding-top: 3.5px;
+    width: 38px;
+    text-align: right;
 
     & span {
       @include body14;
