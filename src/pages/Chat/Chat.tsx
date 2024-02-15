@@ -125,7 +125,7 @@ const Chat = () => {
       setIsGPTLoading(true);
 
       // 이미지 리사이즈 함수 적용
-      resizeImage(url, 800, 800, (resizedUrl) => {
+      resizeImage(url, 1024, 1024, (resizedUrl) => {
         // 콜백 내부에서 메시지 추가와 소켓 전송
         addNextMessage([
           {
@@ -198,10 +198,12 @@ const Chat = () => {
     if (!socket) return;
 
     socket.onmessage = async (event: MessageEvent) => {
-      // GPT message processing error
-      if (event.data === 'GPT message processing error') {
+      // GPT of User message processing error
+      if (
+        event.data ===
+        ('GPT message processing error' || 'User message processing error')
+      ) {
         const ai = getAiEnglish();
-        console.log(event.data);
         const updatedMessage = {
           chatId: Date.now(),
           sender: ai,
