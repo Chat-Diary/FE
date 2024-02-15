@@ -22,16 +22,13 @@ const Chat = () => {
     addNextMessage,
     replaceLastMessage,
   } = useChatStore();
+
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isGPTLoading, setIsGPTLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [chatId, setChatId] = useState<string | null>(null);
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [socket, setSocket] = useState<WebSocket>(
-    new WebSocket(`${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`),
-  );
-  /* eslint-enable @typescript-eslint/no-unused-vars */
+  const [socket, setSocket] = useState<WebSocket | null>(null);
 
   const [observe, unobserve] = useIntersectionObserver(() => {
     setChatId((prev) => (Number(prev) - 10).toString());
@@ -39,6 +36,22 @@ const Chat = () => {
 
   const target = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (localStorage.getItem('chatId')) {
+      setChatId(localStorage.getItem('chatId'));
+    }
+    const newSocket = new WebSocket(
+      `${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`,
+    );
+    setSocket(newSocket);
+    return () => {
+      setMessages([]);
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (target.current) {
@@ -78,15 +91,6 @@ const Chat = () => {
       .then(() => setIsLoading(false));
   }, [chatId]);
 
-  useEffect(() => {
-    if (localStorage.getItem('chatId')) {
-      setChatId(localStorage.getItem('chatId'));
-    }
-    return () => {
-      setMessages([]);
-    };
-  }, []);
-
   const MessageSections = useMemo(() => {
     if (!messages) return;
     return makeSection(messages || []);
@@ -104,7 +108,6 @@ const Chat = () => {
     fileInputRef.current?.click();
   };
 
-  /* 사진 업로드는 구현 예정 */
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ai = getAiEnglish();
     const file = e.target.files?.[0];
