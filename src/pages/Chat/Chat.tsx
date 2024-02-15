@@ -118,7 +118,7 @@ const Chat = () => {
       addNextMessage([
         {
           chatId: Date.now(),
-          sender: 'user',
+          sender: 'USER',
           content: url,
           createAt: formatFullDateToString(new Date()),
           chatType: 'IMG',
@@ -131,6 +131,14 @@ const Chat = () => {
           chatType: 'CHAT',
         },
       ]);
+      socket?.send(
+        JSON.stringify({
+          userId: 1,
+          content: url,
+          selectedModel: localStorage.getItem('currentCharacter') || 1,
+          chatType: 'IMG',
+        }),
+      );
     };
 
     reader.readAsDataURL(file);

@@ -54,3 +54,36 @@ export const makeSection = (messages: IMessage[]) => {
   });
   return sections;
 };
+
+// const resizeImage = (
+//   url: string,
+//   maxWidth: number,
+//   maxHeight: number,
+//   callback: (resizedUrl: string) => void,
+// ) => {
+//   const img = new Image();
+//   img.onload = () => {
+//     let width = img.width;
+//     let height = img.height;
+
+//     if (width > height) {
+//       if (width > maxWidth) {
+//         height *= maxWidth / width;
+//         width = maxWidth;
+//       }
+//     } else {
+//       if (height > maxHeight) {
+//         width *= maxHeight / height;
+//         height = maxHeight;
+//       }
+//     }
+
+//     const canvas = document.createElement('canvas');
+//     canvas.width = width;
+//     canvas.height = height;
+//     const ctx = canvas.getContext('2d');
+//     ctx?.drawImage(img, 0, 0, width, height);
+//     callback(canvas.toDataURL());
+//   };
+//   img.src = url;
+// };
