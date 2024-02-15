@@ -18,12 +18,12 @@ const List = ({ dataList, isLoading }: IProps) => {
     return (
       <div>
         {[...Array(5)].map((_, index) => (
-          <div key={index} className={styles.DiaryItem}>
-            <div className={styles.DiaryImg} />
+          <div key={index} className={styles.LoadingDiaryItem}>
+            <div className={styles.LoadingDiaryImg} />
             <div>
-              <div className={styles.DiaryTitle} />
-              <div className={styles.DiaryDate} />
-              <div className={styles.DiaryTags} />
+              <div className={styles.LoadingDiaryTitle} />
+              <div className={styles.LoadingDiaryDate} />
+              <div className={styles.LoadingDiaryTags} />
             </div>
           </div>
         ))}

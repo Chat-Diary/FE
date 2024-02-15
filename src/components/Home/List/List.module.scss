@@ -1,11 +1,11 @@
 @import '../../../styles/variables/colors.scss';
 @import '../../../styles/variables/fonts.scss';
 
-.DiaryItem {
+.LoadingDiaryItem {
   padding: 16px 16px 16px 16px;
   display: flex;
 
-  .DiaryImg {
+  .LoadingDiaryImg {
     width: 80px;
     height: 80px;
     background-color: $BK20;
@@ -13,7 +13,7 @@
     border-radius: 8px;
   }
 
-  .DiaryTitle {
+  .LoadingDiaryTitle {
     width: 180px;
     height: 24px;
     border-radius: 2px;
@@ -22,7 +22,7 @@
     background-color: $BK20;
   }
 
-  .DiaryDate {
+  .LoadingDiaryDate {
     width: 60px;
     height: 16px;
     border-radius: 2px;
@@ -30,7 +30,7 @@
     background-color: $BK20;
   }
 
-  .DiaryTags {
+  .LoadingDiaryTags {
     width: 116px;
     height: 20px;
     border-radius: 2px;
