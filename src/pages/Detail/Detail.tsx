@@ -67,7 +67,7 @@ const Detail = () => {
 
   useEffect(() => {
     // 날짜 fetching
-    const d = new Date(diaryDate !== null ? diaryDate : '');
+    const d = new Date(diaryDate ? diaryDate : '');
     const date = new Intl.DateTimeFormat('ko-KR', {
       year: 'numeric',
       month: 'long',
@@ -109,7 +109,7 @@ const Detail = () => {
   if (isLoading || !data)
     return (
       <>
-        <DetailHeader date={diaryDate !== null ? diaryDate : ''}>
+        <DetailHeader date={diaryDate ? diaryDate : ''}>
           {formattedDate}
         </DetailHeader>
         <div className={styles.detailContainer}>
@@ -152,9 +152,7 @@ const Detail = () => {
           <DetailPlus onClick={onClickPlus} />
         </div>
         <div className={styles.content}>
-          {isImgEmpty ? (
-            ''
-          ) : (
+          {!isImgEmpty && (
             <div className={styles.sliderContainer}>
               <Slider {...settings} className={styles.slider}>
                 {diaryImgs.map((img: string, index: number) => (

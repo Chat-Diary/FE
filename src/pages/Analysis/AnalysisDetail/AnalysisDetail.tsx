@@ -124,13 +124,9 @@ const AnalysisDetail = () => {
               : '올해'
         }에 자주 썼던 태그`}</h2>
         <div className={styles.chartPeriodContainer}>
-          <p className={styles.chartPeriod}>
-            {parseDate(start !== null ? start : '')}
-          </p>
+          <p className={styles.chartPeriod}>{parseDate(start ? start : '')}</p>
           <p className={styles.chartPeriod}>~</p>
-          <p className={styles.chartPeriod}>
-            {parseDate(end !== null ? end : '')}
-          </p>
+          <p className={styles.chartPeriod}>{parseDate(end ? end : '')}</p>
         </div>
       </div>
       <div className={styles.tagTabsContainer}>

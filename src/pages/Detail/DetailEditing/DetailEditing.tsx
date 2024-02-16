@@ -155,7 +155,7 @@ const DetailEditing = () => {
 
   useEffect(() => {
     // 날짜 fetching
-    const d = new Date(currentDate !== null ? currentDate : '');
+    const d = new Date(currentDate ? currentDate : '');
     const date = new Intl.DateTimeFormat('ko-KR', {
       year: 'numeric',
       month: 'long',
@@ -164,8 +164,11 @@ const DetailEditing = () => {
     setFormattedDate(date);
 
     // 버튼 비활성화 설정
-    if (titleCount === 0 || contentCount === 0) setIsAble(false);
-    else setIsAble(true);
+    if (titleCount === 0 || contentCount === 0) {
+      setIsAble(false);
+    } else {
+      setIsAble(true);
+    }
   });
 
   useEffect(() => {
