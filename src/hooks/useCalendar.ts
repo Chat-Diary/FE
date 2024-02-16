@@ -2,6 +2,7 @@ import { getDaysInMonth } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getCalendarData } from '../apis/home';
+import useCalendarStore from '../stores/calendarStore';
 
 interface IChatData {
   dates: string;
@@ -21,7 +22,7 @@ const DAY_OF_WEEK = 7;
 const TWO_DIGIT_FORMAT = 10;
 
 const useCalendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const { currentDate, setCurrentDate } = useCalendarStore();
   const [formattedDate, setFormattedDate] = useState(
     `${currentDate.getFullYear()}-${
       currentDate.getMonth() + 1 < TWO_DIGIT_FORMAT
