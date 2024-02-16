@@ -21,7 +21,7 @@ const DetailEditing = () => {
   const navigator = useNavigate();
   const [searchParams] = useSearchParams();
   const userId = 1; // 로그인 미구현 시 초기화
-  const diaryDate = searchParams.get('diary_date');
+
   // 서버에 formData 형식으로 넘기기 위한 formData 객체
   const [formData, setFormData] = useState<FormData>(new FormData());
 
@@ -45,6 +45,16 @@ const DetailEditing = () => {
     deleteImgUrls: [], // 삭제된 이미지 URL이 없을 경우 빈 배열로 초기화
     newImgUrls: [], // newImgUrls 초기화
   });
+
+  // YYYY년 MM월 DD일 표시 위함
+  const [formattedDate, setFormattedDate] = useState<string>('');
+
+  // 제목 및 내용 미입력시 저장 비활성화 위함
+  const [titleCount, setTitleCount] = useState<number>(currentTitle.length);
+  const [contentCount, setContentCount] = useState<number>(
+    currentContent.length,
+  );
+  const [isAble, setIsAble] = useState<boolean>(true);
 
   // 이미지 추가 위함
   const imgInput = useRef<HTMLInputElement>(null);
@@ -140,8 +150,26 @@ const DetailEditing = () => {
     formData.append('request', jsonBlob);
 
     mutate(formData);
-    navigator(`/detail?diary_date=${diaryDate}`);
+    navigator(`/detail?diary_date=${currentDate}`);
   };
+
+  useEffect(() => {
+    // 날짜 fetching
+    const d = new Date(currentDate ? currentDate : '');
+    const date = new Intl.DateTimeFormat('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(d);
+    setFormattedDate(date);
+
+    // 버튼 비활성화 설정
+    if (titleCount === 0 || contentCount === 0) {
+      setIsAble(false);
+    } else {
+      setIsAble(true);
+    }
+  });
 
   useEffect(() => {
     if (selectedImgs.length > 0) {
@@ -173,11 +201,12 @@ const DetailEditing = () => {
       </ChangeHeader>
       <div className={styles.wholeWrapper}>
         <div className={styles.header}>
-          <div>{currentDate}</div>
+          <div>{formattedDate}</div>
           <InputForm
             length={44}
-            placeHolder={'이름을 입력해주세요'}
+            placeHolder={'제목을 입력해주세요'}
             value={currentTitle}
+            setCount={setTitleCount}
             onSave={handleTitle}
           />
         </div>
@@ -210,6 +239,7 @@ const DetailEditing = () => {
             length={240}
             placeHolder={'내용을 입력해주세요'}
             value={currentContent}
+            setCount={setContentCount}
             onSave={handleContent}
           />
           <Link
@@ -228,7 +258,7 @@ const DetailEditing = () => {
         </div>
       </div>
       <div className={styles.btn}>
-        <ConfirmButton isAble={true} id={0} onClick={handleSave}>
+        <ConfirmButton isAble={isAble} id={0} onClick={handleSave}>
           저장하기
         </ConfirmButton>
       </div>

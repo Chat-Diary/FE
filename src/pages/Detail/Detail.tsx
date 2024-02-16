@@ -28,12 +28,13 @@ const Detail = () => {
   const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
   const diaryDate = searchParams.get('diary_date');
   const [formattedDate, setFormattedDate] = useState<string>('');
-  const [diaryImgs, setDiaryImgs] = useState([]);
+  const [diaryImgs, setDiaryImgs] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [sliderLength, setSliderLength] = useState<number>(0);
 
+  const [isImgEmpty, setIsImgEmpty] = useState<boolean>(false);
   const [isPlusSelected, setIsPlusSelected] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -50,6 +51,7 @@ const Detail = () => {
 
   const onClickPlus = () => {
     setIsPlusSelected((prev) => !prev);
+    console.log(isImgEmpty);
   };
 
   const handleClose = () => {
@@ -65,7 +67,7 @@ const Detail = () => {
 
   useEffect(() => {
     // 날짜 fetching
-    const d = new Date(diaryDate !== null ? diaryDate : '');
+    const d = new Date(diaryDate ? diaryDate : '');
     const date = new Intl.DateTimeFormat('ko-KR', {
       year: 'numeric',
       month: 'long',
@@ -77,10 +79,13 @@ const Detail = () => {
       console.log('Detail error : ', error);
       return;
     } else if (data) {
-      if (data.imgUrl) {
-        // 사진 fetching
+      if (data.imgUrl && data.imgUrl.length > 0) {
+        // 사진 있는 경우 fetching
+        setIsImgEmpty(false);
         setDiaryImgs(data.imgUrl);
         setSliderLength(data.imgUrl.length);
+      } else {
+        setIsImgEmpty(true);
       }
 
       // 태그 fetching
@@ -104,7 +109,7 @@ const Detail = () => {
   if (isLoading || !data)
     return (
       <>
-        <DetailHeader date={diaryDate !== null ? diaryDate : ''}>
+        <DetailHeader date={diaryDate ? diaryDate : ''}>
           {formattedDate}
         </DetailHeader>
         <div className={styles.detailContainer}>
@@ -147,21 +152,23 @@ const Detail = () => {
           <DetailPlus onClick={onClickPlus} />
         </div>
         <div className={styles.content}>
-          <div className={styles.sliderContainer}>
-            <Slider {...settings} className={styles.slider}>
-              {diaryImgs.map((img: string, index: number) => (
-                <img
-                  key={index}
-                  className={styles.sliderImg}
-                  src={img}
-                  alt="사진"
-                />
-              ))}
-            </Slider>
-            <div className={styles.index}>
-              {currentSlide + 1} / {sliderLength}
+          {!isImgEmpty && (
+            <div className={styles.sliderContainer}>
+              <Slider {...settings} className={styles.slider}>
+                {diaryImgs.map((img: string, index: number) => (
+                  <img
+                    key={index}
+                    className={styles.sliderImg}
+                    src={img}
+                    alt="사진"
+                  />
+                ))}
+              </Slider>
+              <div className={styles.index}>
+                {currentSlide + 1} / {sliderLength}
+              </div>
             </div>
-          </div>
+          )}
           <div className={styles.realContent}>{data.content}</div>
           <div className={styles.tags}>
             {tags.map((tag, index) => {
