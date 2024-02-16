@@ -5,6 +5,20 @@ button {
   all: unset;
 }
 
+.tagLimitText {
+  padding-left: 16px;
+  margin-top: 56px;
+  display: flex;
+  align-items: center;
+  @include caption;
+  color: $BK70;
+  gap: 4px;
+  .infoIcon {
+    padding-top: 4px;
+    color: $BK100;
+  }
+}
+
 .btnContainer {
   position: absolute;
   bottom: 12px;

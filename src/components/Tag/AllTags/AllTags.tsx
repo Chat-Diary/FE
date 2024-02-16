@@ -23,6 +23,7 @@ interface IProps {
   setTagFilter?: React.Dispatch<React.SetStateAction<string[]>>;
   isInit?: boolean;
   setIsInit?: React.Dispatch<React.SetStateAction<boolean>>;
+  isLimit?: boolean;
 }
 
 const AllTags = ({
@@ -30,6 +31,7 @@ const AllTags = ({
   setNewTags,
   setTagFilter,
   isInit = false,
+  isLimit,
 }: IProps) => {
   // 태그풀
   const [tagPool, setTagPool] = useState<TagType[]>();
@@ -110,6 +112,7 @@ const AllTags = ({
             tagNames={tags.tagNames}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
+            isLimit={isLimit}
           />
         );
       })}
