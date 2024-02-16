@@ -1,3 +1,5 @@
+import { HTTP_URL } from '.';
+
 export interface frequentTagType {
   category: string;
   tagName: string;
@@ -12,19 +14,25 @@ export interface frequentAiType {
 }
 
 export const getFrequentTags = async (memberId: number, type: string) => {
-  return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/tags?memberId=${memberId}&type=${type}`,
-  ).then((res) => res.json());
+  const res = await fetch(
+    `${HTTP_URL}/diary/tags?memberId=${memberId}&type=${type}`,
+  );
+  const data = res.json();
+  return data;
 };
 
 export const getFrequentAis = async (memberId: number, type: string) => {
-  return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/chat/sender?memberId=${memberId}&type=${type}`,
-  ).then((res) => res.json());
+  const res = await fetch(
+    `${HTTP_URL}/chat/sender?memberId=${memberId}&type=${type}`,
+  );
+  const data = res.json();
+  return data;
 };
 
 export const getTagDetailRanking = async (memberId: number, type: string) => {
-  return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/tags/detail?memberId=${memberId}&type=${type}`,
-  ).then((res) => res.json());
+  const res = await fetch(
+    `${HTTP_URL}/diary/tags/detail?memberId=${memberId}&type=${type}`,
+  );
+  const data = res.json();
+  return data;
 };
