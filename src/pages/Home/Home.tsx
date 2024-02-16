@@ -59,11 +59,7 @@ const Home = () => {
       ),
   });
 
-  const {
-    isLoading: streakLoading,
-    error: streakError,
-    data: streakDateData,
-  } = useQuery({
+  const { error: streakError, data: streakDateData } = useQuery({
     queryKey: ['diaryStreakDate', userId],
     queryFn: () => getDiaryStreakDate(userId),
   });
@@ -83,10 +79,6 @@ const Home = () => {
   useEffect(() => {
     setDiaryStreakDate(streakDateData);
   }, [streakDateData]);
-
-  if (streakLoading) {
-    return <>loading..</>;
-  }
 
   if (streakError) console.log('Home streak error : ', streakError);
   if (listError) console.log('Home List error : ', listError);
@@ -127,7 +119,7 @@ const Home = () => {
         </div>
         {isList ? (
           diaryList ? (
-            <List dataList={diaryList} isLoading={isListLoading}/>
+            <List dataList={diaryList} isLoading={isListLoading} />
           ) : (
             <></>
           )
