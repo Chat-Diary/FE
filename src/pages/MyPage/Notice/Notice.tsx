@@ -1,33 +1,51 @@
+import { useQuery } from 'react-query';
 import NoticeItem from '../../../components/MyPage/Notice/NoticeItem';
 import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeHeader';
 import styles from './Notice.module.scss';
+import { NoticeType, getNotice } from '../../../apis/mypageApi';
+import { useEffect, useState } from 'react';
 
 const Notice = () => {
-  const contents = [
-    'v3.1000 업데이트 안내',
-    '다다 임시점검 공지',
-    '특별 이벤트 (~12/25)',
-    '친밀도 기능 업데이트 공지',
-    '사진, 동영상 전송 기능 업데이트 공지',
-    '부분 유료화 관련 공지',
-    '집에 가고 싶다 이슈',
-    '이용약관 변경 공지',
-  ];
+  const [contents, setContents] = useState<NoticeType[]>();
+
+  const parseDate = (d: string) => {
+    const date = new Date(d);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const parsedDate = year + '.' + month + '.' + day;
+
+    return parsedDate;
+  };
+
+  const { data, error } = useQuery<NoticeType[]>({
+    queryKey: ['NOTICE', 'LIST'],
+    queryFn: () => getNotice(),
+  });
+
+  useEffect(() => {
+    setContents(data);
+  }, [data]);
+
+  if (error) console.error(error);
 
   return (
     <div className={styles.noticeContainer}>
       <ChangeHeader>공지사항</ChangeHeader>
       <div className={styles.listContainer}>
-        {contents.map((content, index) => {
-          return (
-            <NoticeItem
-              content={content}
-              date={'2023.11.16'}
-              //   onClick={}
-              key={index}
-            />
-          );
-        })}
+        {contents
+          ? contents.map((content, index) => {
+              return (
+                <NoticeItem
+                  content={content.title}
+                  date={parseDate(content.noticeDate)}
+                  key={content.id}
+                />
+              );
+            })
+          : ''}
       </div>
     </div>
   );
