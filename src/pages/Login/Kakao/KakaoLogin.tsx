@@ -12,24 +12,25 @@ const KakaoLogin = () => {
 
   if (kakaoCode) {
     const { isLoading, error, data } = useQuery({
-      queryKey: ['diary', kakaoCode],
+      queryKey: ['code', kakaoCode],
       queryFn: () => login(kakaoCode),
     });
 
     useEffect(() => {
       setUserInfo(data);
     }, [data]);
-
-    if (userInfo) {
-      localStorage.setItem('userId', userInfo.userId?.toString());
-      localStorage.setItem('nickname', userInfo.nickname);
-    }
-
-    navigate('/');
   } else {
     navigate('/login');
     throw new Error('code is invalid');
   }
+
+  useEffect(() => {
+    if (userInfo) {
+      localStorage.setItem('userId', userInfo.userId?.toString());
+      localStorage.setItem('nickname', userInfo.nickname);
+      navigate('/');
+    }
+  }, [userInfo]);
 
   return <div></div>;
 };
