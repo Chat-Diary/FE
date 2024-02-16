@@ -17,6 +17,7 @@ const SelectTag = () => {
     location.state.detailData,
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isInit, setIsInit] = useState<boolean>(false);
 
   const toggleInit = () => {
