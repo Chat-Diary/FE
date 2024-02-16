@@ -3,6 +3,7 @@
 
 .textareaContainer {
   position: relative;
+  display: flex;
 
   .counter {
     position: absolute;
@@ -17,14 +18,12 @@
 .default {
   all: initial;
   display: block;
-  width: calc(100% - 22px);
+  width: calc(100% - 32px);
   border-radius: 8px;
-  padding: 12px 11px;
+  padding: 12px 16px;
   color: $BK90;
   background-color: $BK10;
   overflow: hidden;
-
-  //   text-align: justify;
 
   &::placeholder {
     @include body16;
@@ -39,12 +38,10 @@
   &.input140 {
     height: 140px;
     @include body16;
-    padding: 12px 16px;
   }
 
   &.input240 {
     height: 240px;
     @include body14;
-    padding: 12px 16px;
   }
 }
