@@ -59,10 +59,15 @@ const Detail = () => {
     setIsPlusSelected(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     handleClose();
-    deleteMutation.mutate();
-    navigate(-1);
+
+    try {
+      await deleteMutation.mutateAsync();
+      navigate(-1);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -97,12 +102,12 @@ const Detail = () => {
     // 삭제 요청 성공한 경우에만 실행
     onSuccess: () => {
       // 삭제된 일기 캐시 제거
-      queryClient.invalidateQueries(['user_id', 'diary_date']);
+      queryClient.invalidateQueries(['DIARY', 'DETAIL', userId, diaryDate]);
     },
   });
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ['user_id', 'diary_date'],
+    queryKey: ['DIARY', 'DETAIL', userId, diaryDate],
     queryFn: () => getDiaryDetail(userId, diaryDate!),
   });
 

@@ -125,7 +125,7 @@ const DetailEditing = () => {
     }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // console.log(newData);
     // formData.forEach((value, key) => {
     //   console.log(`${key}: `, value);
@@ -149,7 +149,7 @@ const DetailEditing = () => {
 
     formData.append('request', jsonBlob);
 
-    mutate(formData);
+    await mutateAsync(formData);
     navigator(`/detail?diary_date=${currentDate}`);
   };
 
@@ -188,7 +188,7 @@ const DetailEditing = () => {
     });
   }, [currentImgs]);
 
-  const { mutate, isLoading } = useMutation((value: FormData) =>
+  const { mutateAsync, isLoading } = useMutation((value: FormData) =>
     modifyDiaryDetail(value),
   );
 
