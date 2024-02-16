@@ -53,7 +53,6 @@ const Home = () => {
     ],
     queryFn: () =>
       getDiaryList(
-        userId,
         currentDate.getFullYear(),
         currentDate.getMonth() + 1,
       ),
@@ -61,7 +60,7 @@ const Home = () => {
 
   const { error: streakError, data: streakDateData } = useQuery({
     queryKey: ['diaryStreakDate', userId],
-    queryFn: () => getDiaryStreakDate(userId),
+    queryFn: () => getDiaryStreakDate(),
   });
 
   useEffect(() => {
