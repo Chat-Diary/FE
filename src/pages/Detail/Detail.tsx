@@ -65,7 +65,10 @@ const Detail = () => {
     try {
       await deleteMutation.mutateAsync();
       navigate(-1);
-      };
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     // 날짜 fetching
