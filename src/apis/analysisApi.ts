@@ -13,25 +13,25 @@ export interface frequentAiType {
   percentage: number;
 }
 
-export const getFrequentTags = async (memberId: number, type: string) => {
+export const getFrequentTags = async (type: string) => {
+const res = await fetch(
+`${HTTP_URL}/diary/tags?memberId=${localStorage.getItem("userId")}&type=${type}`,
+);
+const data = res.json();
+return data;
+};
+
+export const getFrequentAis = async (type: string) => {
   const res = await fetch(
-    `${HTTP_URL}/diary/tags?memberId=${memberId}&type=${type}`,
+    `${HTTP_URL}/chat/sender?memberId=${localStorage.getItem("userId")}&type=${type}`,
   );
   const data = res.json();
   return data;
 };
 
-export const getFrequentAis = async (memberId: number, type: string) => {
+export const getTagDetailRanking = async (type: string) => {
   const res = await fetch(
-    `${HTTP_URL}/chat/sender?memberId=${memberId}&type=${type}`,
-  );
-  const data = res.json();
-  return data;
-};
-
-export const getTagDetailRanking = async (memberId: number, type: string) => {
-  const res = await fetch(
-    `${HTTP_URL}/diary/tags/detail?memberId=${memberId}&type=${type}`,
+    `${HTTP_URL}/diary/tags/detail?memberId=${localStorage.getItem("userId")}&type=${type}`,
   );
   const data = res.json();
   return data;

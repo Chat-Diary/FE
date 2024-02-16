@@ -25,8 +25,6 @@ import { getDiaryStreakDate } from '../../apis/home';
 import { StreakDate } from '../../utils/diary';
 
 export const Analysis = () => {
-  const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
-
   const [tagData, setTagData] = useState<frequentTagType[]>([]);
   const [aiData, setAiData] = useState<frequentAiType[]>([]);
   const [noTag, setNoTag] = useState<boolean>(false);
@@ -67,7 +65,7 @@ export const Analysis = () => {
     data: streakDateData,
   } = useQuery({
     queryKey: ['diaryStreakDate'],
-    queryFn: () => getDiaryStreakDate(userId),
+    queryFn: () => getDiaryStreakDate(),
   });
 
   useEffect(() => {
@@ -90,7 +88,7 @@ export const Analysis = () => {
           break;
       }
 
-      return [getFrequentTags(userId, type), getFrequentAis(userId, type)];
+      return [getFrequentTags(type), getFrequentAis(type)];
     },
   });
 

@@ -10,7 +10,6 @@ import { getTagDetailRanking } from '../../../apis/analysisApi';
 import { TagCounts, TagDetailRanking } from '../../../utils/analysisDetail';
 
 const AnalysisDetail = () => {
-  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const { period } = useParams<{
     period: string;
   }>();
@@ -60,7 +59,7 @@ const AnalysisDetail = () => {
           break;
       }
 
-      return getTagDetailRanking(userId, type);
+      return getTagDetailRanking(type);
     },
   });
 
