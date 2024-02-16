@@ -5,7 +5,7 @@ import ChangeHeader from '../../../../components/common/Header/ChangeHeader/Chan
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { DiaryDetailType } from '../../../../apis/diaryDetailApi';
 import { TagFilterInfo } from '../../../../assets';
-import { TagInit } from '../../../../assets';
+import ConfirmButton from '../../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
 
 const SelectTag = () => {
   const [searchParams] = useSearchParams();
@@ -17,11 +17,6 @@ const SelectTag = () => {
     location.state.detailData,
   );
 
-  const [isInit, setIsInit] = useState<boolean>(false);
-
-  const toggleInit = () => {
-    console.log('초기화');
-  };
   const [isLimited, setIsLimited] = useState<boolean>(false);
 
   useEffect(() => {
@@ -54,25 +49,22 @@ const SelectTag = () => {
         isInit={false}
         isLimit={isLimited}
       />
-      <div className={styles.btnContainer}>
-        <button className={styles.initBtn} onClick={toggleInit}>
-          <div className={styles.icon}>
-            <TagInit />
-          </div>
-          <div>초기화</div>
-        </button>
-        <Link
-          className={`${styles.confirmBtn} ${
-            newData.tagName?.length === 0 ? '' : styles.abled
-          }
+
+      <Link
+        className={`${styles.confirmBtn} ${
+          newData.tagName?.length === 0 ? '' : styles.abled
+        }
           }`}
-          to={`/detail/modify?diary_date=${diaryDate}`}
-          state={{ detailData: newData }}
-          // onClick={onSaveTags}
+        to={`/detail/modify?diary_date=${diaryDate}`}
+        state={{ detailData: newData }}
+      >
+        <ConfirmButton
+          isAble={newData.tagName?.length === 0 ? false : true}
+          id={0}
         >
-          <div className={styles.conformText}>적용하기</div>
-        </Link>
-      </div>
+          저장하기
+        </ConfirmButton>
+      </Link>
     </>
   );
 };
