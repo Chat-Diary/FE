@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../../apis/loginApi';
+import { useQuery } from 'react-query';
 
 const KakaoLogin = () => {
   const navigate = useNavigate();
@@ -8,6 +10,12 @@ const KakaoLogin = () => {
 
   const handleKakaoLogin = async () => {
     if (kakaoCode) {
+      const { isLoading, error, data } = useQuery({
+        queryKey: ['diary', kakaoCode],
+        queryFn: () => login(kakaoCode),
+      });
+      localStorage.setItem("userId", data);
+      console.log(data);
       navigate('/');
     } else {
       navigate('/login');
