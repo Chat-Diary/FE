@@ -1,5 +1,13 @@
-export const getDiaryList = (userId: number, year: number, month: number) => {
-  return fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/monthly/list?user_id=${userId}&year=${year}&month=${month}`,
-  ).then((res) => res.json());
+import { HTTP_URL } from '.';
+
+export const getDiaryList = async (
+  userId: number,
+  year: number,
+  month: number,
+) => {
+  const res = await fetch(
+    `${HTTP_URL}/diary/monthly/list?user_id=${userId}&year=${year}&month=${month}`,
+  );
+  const data = await res.json();
+  return data;
 };

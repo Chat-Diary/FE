@@ -9,11 +9,16 @@ import PhotoChatBox from '../../components/Chat/PhotoChatBox';
 import LoadingChat from '../../components/Chat/LoadingChat';
 import DateSelector from '../../components/common/BottomSheets/DateSelect/DateSelector';
 import { formatFullDateToString } from '../../utils/dateFormatters';
-import { isImageUrl } from '../../utils/fileFormats';
-import { getAiEnglish, makeSection } from '../../utils/chattings';
+import {
+  dataUrlToBlob,
+  getAiEnglish,
+  makeSection,
+  resizeImage,
+} from '../../utils/chattings';
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { WS_URL } from '../../apis';
 
 const Chat = () => {
   const {
@@ -23,16 +28,13 @@ const Chat = () => {
     addNextMessage,
     replaceLastMessage,
   } = useChatStore();
+
   const [inputText, setInputText] = useState('');
   const [isSelectedDate, setIsSelectedDate] = useState(false);
   const [isGPTLoading, setIsGPTLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [chatId, setChatId] = useState<string | null>(null);
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [socket, setSocket] = useState<WebSocket>(
-    new WebSocket(`${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`),
-  );
-  /* eslint-enable @typescript-eslint/no-unused-vars */
+  const [socket, setSocket] = useState<WebSocket | null>(null);
 
   const [observe, unobserve] = useIntersectionObserver(() => {
     setChatId((prev) => (Number(prev) - 10).toString());
@@ -40,6 +42,20 @@ const Chat = () => {
 
   const target = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (localStorage.getItem('chatId')) {
+      setChatId(localStorage.getItem('chatId'));
+    }
+    const newSocket = new WebSocket(`${WS_URL}/chatwebsocket`);
+    setSocket(newSocket);
+    return () => {
+      setMessages([]);
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (target.current) {
@@ -79,15 +95,6 @@ const Chat = () => {
       .then(() => setIsLoading(false));
   }, [chatId]);
 
-  useEffect(() => {
-    if (localStorage.getItem('chatId')) {
-      setChatId(localStorage.getItem('chatId'));
-    }
-    return () => {
-      setMessages([]);
-    };
-  }, []);
-
   const MessageSections = useMemo(() => {
     if (!messages) return;
     return makeSection(messages || []);
@@ -105,7 +112,6 @@ const Chat = () => {
     fileInputRef.current?.click();
   };
 
-  /* 사진 업로드는 구현 예정 */
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ai = getAiEnglish();
     const file = e.target.files?.[0];
@@ -116,26 +122,43 @@ const Chat = () => {
     reader.onload = () => {
       const url = reader.result as string;
       setIsGPTLoading(true);
-      addNextMessage([
-        {
-          chatId: Date.now(),
-          sender: 'user',
-          content: url,
-          createAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
-        },
-        {
-          chatId: Date.now(),
-          sender: ai,
-          content: <LoadingChat />,
-          createAt: formatFullDateToString(new Date()),
-          chatType: 'CHAT',
-        },
-      ]);
+
+      // 이미지 리사이즈 함수 적용
+      resizeImage(url, 500, 500, (resizedUrl) => {
+        // 콜백 내부에서 메시지 추가와 소켓 전송
+        addNextMessage([
+          {
+            chatId: Date.now(),
+            sender: 'USER',
+            content: resizedUrl,
+            createAt: formatFullDateToString(new Date()),
+            chatType: 'IMG',
+          },
+          {
+            chatId: Date.now(),
+            sender: ai,
+            content: <LoadingChat />,
+            createAt: formatFullDateToString(new Date()),
+            chatType: 'CHAT',
+          },
+        ]);
+
+        socket?.send(
+          JSON.stringify({
+            userId: 1,
+            content: resizedUrl,
+            selectedModel: localStorage.getItem('currentCharacter') || 1,
+            chatType: 'IMG',
+          }),
+        );
+        const blob = dataUrlToBlob(resizedUrl);
+        console.log(`Image size: ${(blob.size / 1024).toFixed(2)} KB`);
+      });
+
+      setIsGPTLoading(false);
     };
 
     reader.readAsDataURL(file);
-    setIsGPTLoading(false);
   };
 
   const handleSendMessage = () => {
@@ -174,9 +197,20 @@ const Chat = () => {
     if (!socket) return;
 
     socket.onmessage = async (event: MessageEvent) => {
-      // GPT message processing error
-      if (event.data === 'GPT message processing error') {
-        console.log(event.data);
+      // GPT of User message processing error
+      if (
+        event.data ===
+        ('GPT message processing error' || 'User message processing error')
+      ) {
+        const ai = getAiEnglish();
+        const updatedMessage = {
+          chatId: Date.now(),
+          sender: ai,
+          content: event.data,
+          createAt: formatFullDateToString(new Date()),
+          chatType: 'CHAT',
+        };
+        replaceLastMessage(updatedMessage);
         return;
       }
       // message
@@ -207,7 +241,7 @@ const Chat = () => {
             <p className={styles.fullDate}>{day}</p>
             {messages.map((m) =>
               m.sender == 'USER' ? (
-                isImageUrl(m.content as string) ? (
+                m.chatType === 'IMG' ? (
                   <PhotoChatBox url={m.content as string} date={m.createAt} />
                 ) : (
                   <RightChatBox date={m.createAt} key={m.chatId}>
@@ -240,7 +274,7 @@ const Chat = () => {
       </div>
       <input
         type="file"
-        accept=".jpg,.jpeg,.png"
+        accept=".jpg,.jpeg,.png,.gif,.webp"
         className={styles.photoInput}
         ref={fileInputRef}
         onChange={handleFileInputChange}

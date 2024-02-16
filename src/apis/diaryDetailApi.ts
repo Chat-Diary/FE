@@ -1,3 +1,5 @@
+import { HTTP_URL } from '.';
+
 export interface DiaryDetailType {
   userId: number;
   diaryDate: string;
@@ -12,7 +14,7 @@ export interface DiaryDetailType {
 
 export const getDiaryDetail = async (userId: number, diaryDate: string) => {
   const res = await fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,
+    `${HTTP_URL}/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,
   );
 
   if (!res.ok) {
@@ -24,19 +26,12 @@ export const getDiaryDetail = async (userId: number, diaryDate: string) => {
 };
 
 export const modifyDiaryDetail = async (newData: FormData) => {
-  const res = await fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/modify`,
-    {
-      method: 'POST',
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
-      body: newData,
-    },
-  );
+  const res = await fetch(`${HTTP_URL}/diary/modify`, {
+    method: 'POST',
+    body: newData,
+  });
 
   if (!res.ok) {
-    // Handle error if the response status is not OK (e.g., 4xx or 5xx)
     throw new Error(`HTTP error! Status: ${res.status}`);
   }
 
@@ -45,22 +40,18 @@ export const modifyDiaryDetail = async (newData: FormData) => {
 };
 
 export const deleteDiary = async (userId: number, diaryDate: string) => {
-  const res = await fetch(
-    `${process.env.REACT_APP_HTTP_API_KEY}/diary/delete`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: userId,
-        diaryDate: diaryDate,
-      }),
+  const res = await fetch(`${HTTP_URL}/diary/delete`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      userId: userId,
+      diaryDate: diaryDate,
+    }),
+  });
 
   if (!res.ok) {
-    // Handle error if the response status is not OK (e.g., 4xx or 5xx)
     throw new Error(`HTTP error! Status: ${res.status}`);
   }
 
