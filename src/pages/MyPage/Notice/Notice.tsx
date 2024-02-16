@@ -37,11 +37,12 @@ const Notice = () => {
       <div className={styles.listContainer}>
         {contents
           ? contents.map((content, index) => {
+              index = content.id;
               return (
                 <NoticeItem
                   content={content.title}
                   date={parseDate(content.noticeDate)}
-                  key={content.id}
+                  key={index}
                 />
               );
             })
