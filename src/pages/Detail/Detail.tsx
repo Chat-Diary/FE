@@ -98,7 +98,7 @@ const Detail = () => {
     }
   });
 
-  const deleteMutation = useMutation(() => deleteDiary(userId, diaryDate!), {
+  const deleteMutation = useMutation(() => deleteDiary(diaryDate!), {
     // 삭제 요청 성공한 경우에만 실행
     onSuccess: () => {
       // 삭제된 일기 캐시 제거
@@ -108,7 +108,7 @@ const Detail = () => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['DIARY', 'DETAIL', userId, diaryDate],
-    queryFn: () => getDiaryDetail(userId, diaryDate!),
+    queryFn: () => getDiaryDetail(diaryDate!),
   });
 
   if (isLoading || !data)

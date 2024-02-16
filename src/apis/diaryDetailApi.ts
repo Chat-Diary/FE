@@ -12,9 +12,9 @@ export interface DiaryDetailType {
   newImgFile?: File[]; // 프론트 디버깅용 -> 서버에 전달 X
 }
 
-export const getDiaryDetail = async (userId: number, diaryDate: string) => {
+export const getDiaryDetail = async (diaryDate: string) => {
   const res = await fetch(
-    `${HTTP_URL}/diary/detail?user_id=${userId}&diary_date=${diaryDate}`,
+    `${HTTP_URL}/diary/detail?user_id=${localStorage.getItem("userId")}&diary_date=${diaryDate}`,
   );
 
   if (!res.ok) {
@@ -39,14 +39,14 @@ export const modifyDiaryDetail = async (newData: FormData) => {
   return data;
 };
 
-export const deleteDiary = async (userId: number, diaryDate: string) => {
+export const deleteDiary = async (diaryDate: string) => {
   const res = await fetch(`${HTTP_URL}/diary/delete`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      userId: userId,
+      userId: localStorage.getItem("userId"),
       diaryDate: diaryDate,
     }),
   });
