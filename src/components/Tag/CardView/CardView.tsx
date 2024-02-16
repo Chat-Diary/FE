@@ -14,7 +14,7 @@ const CardView = ({ dataList, isLoading }: IProps) => {
 
   if (isLoading) {
     return (
-      <div>
+      <div className={styles.LoadingWrapper}>
         {[...Array(2)].map((_, index) => (
           <div key={index} className={styles.LoadingDiaryItem} />
         ))}
@@ -25,7 +25,7 @@ const CardView = ({ dataList, isLoading }: IProps) => {
   return (
     <div className={styles.CardViewWrapper}>
       {dataList?.map((diary) => {
-        return <CardViewItem key={diary.id} diary={diary}/>;
+        return <CardViewItem key={diary.id} diary={diary} />;
       })}
     </div>
   );

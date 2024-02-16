@@ -47,7 +47,7 @@ const Tag = () => {
     error: listError,
     data: diaryListData,
   } = useQuery({
-    queryKey: ['diary', userId, tags],
+    queryKey: ['LIST', 'TAG', userId, tags],
     queryFn: () => {
       if (tags.length !== 0) {
         return getDiaryListByTag(userId, tags);
@@ -113,10 +113,6 @@ const Tag = () => {
     }
   }, [diaryList]);
 
-  if (listLoading) {
-    return <>loading..</>;
-  }
-
   if (listError) console.log('Tag list error : ', listError);
 
   return (
@@ -156,9 +152,9 @@ const Tag = () => {
         </div>
         {hasTag ? (
           isList ? (
-            <List dataList={diaryList} />
+            <List dataList={diaryList} isLoading={listLoading} />
           ) : (
-            <CardView dataList={diaryList} />
+            <CardView dataList={diaryList} isLoading={listLoading} />
           )
         ) : (
           <NoTagResult />
