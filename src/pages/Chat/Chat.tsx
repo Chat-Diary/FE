@@ -18,6 +18,7 @@ import {
 import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { WS_URL } from '../../apis';
 
 const Chat = () => {
   const {
@@ -46,9 +47,7 @@ const Chat = () => {
     if (localStorage.getItem('chatId')) {
       setChatId(localStorage.getItem('chatId'));
     }
-    const newSocket = new WebSocket(
-      `${process.env.REACT_APP_WS_API_KEY}/chatwebsocket`,
-    );
+    const newSocket = new WebSocket(`${WS_URL}/chatwebsocket`);
     setSocket(newSocket);
     return () => {
       setMessages([]);
