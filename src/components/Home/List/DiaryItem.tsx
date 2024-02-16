@@ -17,7 +17,7 @@ const DiaryItem = ({ diary }: DiaryItemProps) => {
       to={`/detail?diary_date=${diary.diaryDate}`}
       className={styles.DiaryItem}
     >
-      {diary.photoUrls[0] && /\.(jpg|jpeg|png)$/i.test(diary.photoUrls[0]) ? (
+      {diary.photoUrls.length > 0 ? (
         <img className={styles.DiaryImg} src={diary.photoUrls[0]} />
       ) : (
         <img className={styles.DiaryImg} src={defaltImgUrl} />

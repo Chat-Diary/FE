@@ -11,7 +11,7 @@ const CardViewItem = ({ diary }: IProps) => {
 
   return (
     <>
-      {diary.photoUrls[0] && /\.(jpg|jpeg|png)$/i.test(diary.photoUrls[0])  ? (
+      {diary.photoUrls.length > 0  ? (
         <Link
           to={`/detail?diary_date=${diary.diaryDate}`}
           className={styles.CardViewItem}
