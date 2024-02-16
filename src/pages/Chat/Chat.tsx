@@ -206,11 +206,12 @@ const Chat = () => {
         const updatedMessage = {
           chatId: Date.now(),
           sender: ai,
-          content: event.data,
+          content: '에러가 발생했습니다. 다시 시도해주세요.',
           createAt: formatFullDateToString(new Date()),
           chatType: 'CHAT',
         };
         replaceLastMessage(updatedMessage);
+
         return;
       }
       // message
