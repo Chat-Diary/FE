@@ -15,6 +15,7 @@ const List = ({ dataList, isLoading }: IProps) => {
   }
 
   if (isLoading) {
+    console.log('리스트 로딩중');
     return (
       <div>
         {[...Array(5)].map((_, index) => (
