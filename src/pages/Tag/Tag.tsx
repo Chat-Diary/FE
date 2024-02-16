@@ -50,7 +50,7 @@ const Tag = () => {
     queryKey: ['LIST', 'TAG', userId, tags],
     queryFn: () => {
       if (tags.length !== 0) {
-        return getDiaryListByTag(userId, tags);
+        return getDiaryListByTag(tags);
       }
     },
   });
