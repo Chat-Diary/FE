@@ -21,6 +21,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { WS_URL } from '../../apis';
 
 const Chat = () => {
+  const userId = 1;
   const {
     messages,
     setMessages,
@@ -79,7 +80,7 @@ const Chat = () => {
     setIsLoading(true);
     const previousScrollHeight = document.body.scrollHeight;
 
-    getChatData((Number(chatId) - 10).toString())
+    getChatData(userId, (Number(chatId) - 10).toString())
       .then((result) => {
         if (Number(chatId) >= 10) {
           addPreviousMessage(result);
@@ -197,6 +198,7 @@ const Chat = () => {
     if (!socket) return;
 
     socket.onmessage = async (event: MessageEvent) => {
+      console.log(event.data);
       // GPT of User message processing error
       if (
         event.data ===
