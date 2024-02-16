@@ -29,6 +29,7 @@ const AnalysisDetail = () => {
   const [tagDetailRanking, setTagDetailRanking] = useState<TagDetailRanking>();
   const categoryList = ['전체', '감정', '행동', '장소', '인물'];
   const [tagCountsData, setTagCountsData] = useState<TagCounts[]>();
+  const [category, setCategory] = useState('');
 
   // UI 상에서 파싱된 날짜 보여주기 위한 함수
   const parseDate = (d: string) => {
@@ -75,22 +76,27 @@ const AnalysisDetail = () => {
       case 0:
         tagCounts = tagDetailRanking?.statistics.전체 || [];
         setTagCountsData(tagCounts);
+        setCategory('전체');
         break;
       case 1:
         tagCounts = tagDetailRanking?.statistics.감정 || [];
         setTagCountsData(tagCounts);
+        setCategory('감정');
         break;
       case 2:
         tagCounts = tagDetailRanking?.statistics.행동 || [];
         setTagCountsData(tagCounts);
+        setCategory('행동');
         break;
       case 3:
         tagCounts = tagDetailRanking?.statistics.장소 || [];
         setTagCountsData(tagCounts);
+        setCategory('장소');
         break;
       case 4:
         tagCounts = tagDetailRanking?.statistics.인물 || [];
         setTagCountsData(tagCounts);
+        setCategory('인물');
         break;
     }
   }, [tagDetailRanking, activeTab]);
@@ -142,10 +148,16 @@ const AnalysisDetail = () => {
           </button>
         ))}
       </div>
-      {tagCountsData &&
+      {tagCountsData && tagCountsData?.length > 0 ? (
         tagCountsData.map((data, index) => {
           return <TagRankingItem key={index} rank={index + 1} tagData={data} />;
-        })}
+        })
+      ) : (
+        <div className={styles.NoTagResultContainer}>
+          <div className={styles.content1}>아직 {category} 태그를 사용한 적이 없어요.</div>
+          <div className={styles.content1}>일기에 {category} 태그를 적용해보세요!</div>
+        </div>
+      )}
       <BottomNav page={2} isBtn={false} />
     </>
   );
