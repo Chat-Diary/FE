@@ -47,7 +47,7 @@ const TagCategory = ({
     <div className={styles.container}>
       <div className={styles.category}>{category}</div>
       <div className={styles.tagContainer}>
-        {tagNames !== null &&
+        {tagNames &&
           tagNames.map((tag, index) => {
             const type = Object.values(selectedTags).find((t) => tag === t)
               ? 'selected'
