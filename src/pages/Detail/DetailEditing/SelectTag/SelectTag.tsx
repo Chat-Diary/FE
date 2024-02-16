@@ -17,7 +17,6 @@ const SelectTag = () => {
     location.state.detailData,
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isInit, setIsInit] = useState<boolean>(false);
 
   const toggleInit = () => {
@@ -63,7 +62,9 @@ const SelectTag = () => {
           <div>초기화</div>
         </button>
         <Link
-          className={`${styles.confirmBtn} ${isInit ? '' : styles.abled}
+          className={`${styles.confirmBtn} ${
+            newData.tagName?.length === 0 ? '' : styles.abled
+          }
           }`}
           to={`/detail/modify?diary_date=${diaryDate}`}
           state={{ detailData: newData }}
