@@ -18,6 +18,13 @@
       "sizes": "512x512"
     }
   ],
+  "splash_screens": [
+    {
+      "src": "splash.png",
+      "sizes": "322x320",
+      "type": "image/png"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
