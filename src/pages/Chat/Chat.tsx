@@ -211,7 +211,6 @@ const Chat = () => {
           chatType: 'CHAT',
         };
         replaceLastMessage(updatedMessage);
-
         return;
       }
       // message
