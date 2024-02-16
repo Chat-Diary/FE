@@ -70,12 +70,11 @@ const Profile = () => {
 
   return (
     <>
-      <ChangeHeader>대화 상대 변경</ChangeHeader>
+      <ChangeHeader path={'/chat'}>대화 상대 변경</ChangeHeader>
       <div className={styles.profileBefore}>
         {React.cloneElement(imgB[currentId], {
           style: { width: '160px', height: '160px' },
         })}
-        {/* <Dada /> */}
         <span className={styles.name}>{currentAi.name}</span>
         <div className={styles.text}>{currentAi.sub}</div>
         <div className={styles.tags}>
