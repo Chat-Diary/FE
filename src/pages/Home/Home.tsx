@@ -41,7 +41,7 @@ const Home = () => {
   };
 
   const {
-    isLoading: listLoading,
+    isLoading: isListLoading,
     error: listError,
     data: diaryListData,
   } = useQuery({
@@ -84,7 +84,7 @@ const Home = () => {
     setDiaryStreakDate(streakDateData);
   }, [streakDateData]);
 
-  if (listLoading || streakLoading) {
+  if (streakLoading) {
     return <>loading..</>;
   }
 
@@ -127,7 +127,7 @@ const Home = () => {
         </div>
         {isList ? (
           diaryList ? (
-            <List dataList={diaryList} />
+            <List dataList={diaryList} isLoading={isListLoading}/>
           ) : (
             <></>
           )

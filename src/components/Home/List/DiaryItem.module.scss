@@ -2,14 +2,14 @@
 @import '../../../styles/variables/fonts.scss';
 
 .DiaryItem {
-  padding: 16px 16px 16px 16px;
+  padding: 16px;
   display: flex;
   text-decoration: none;
 
   .DiaryImg {
     width: 80px;
     height: 80px;
-    background-color: $secondary_pink;
+    background-color: $WH;
     margin-right: 12px;
     border-radius: 8px;
   }
@@ -17,7 +17,7 @@
   .DiaryTitleContainer {
     display: flex;
     gap: 2px;
-    color: var(--gray-scale-BK90_text1, $BK90);
+    color: $BK90;
     @include sub16;
 
     .DiaryTitle {
@@ -36,10 +36,14 @@
   }
 
   .DiaryTags {
-    width: 230px;
     display: flex;
-    gap: 4px;
-    color: var(--gray-scale-BK70_text2, $BK70);
+    column-gap: 8px;
+    color: $BK70;
     @include body14;
+    flex-wrap: wrap;
+
+    .DiaryTagItems {
+      flex-shrink: 0;
+    }
   }
 }

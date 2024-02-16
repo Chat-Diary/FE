@@ -1,0 +1,40 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts.scss';
+
+.LoadingDiaryItem {
+  padding: 16px 16px 16px 16px;
+  display: flex;
+
+  .LoadingDiaryImg {
+    width: 80px;
+    height: 80px;
+    background-color: $BK20;
+    margin-right: 12px;
+    border-radius: 8px;
+  }
+
+  .LoadingDiaryTitle {
+    width: 180px;
+    height: 24px;
+    border-radius: 2px;
+    display: flex;
+    @include sub16;
+    background-color: $BK20;
+  }
+
+  .LoadingDiaryDate {
+    width: 60px;
+    height: 16px;
+    border-radius: 2px;
+    margin: 6px 0px 14px 0px;
+    background-color: $BK20;
+  }
+
+  .LoadingDiaryTags {
+    width: 116px;
+    height: 20px;
+    border-radius: 2px;
+    @include body14;
+    background-color: $BK20;
+  }
+}

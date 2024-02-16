@@ -44,12 +44,12 @@
     z-index: 1;
 
     .DiaryTitle {
-      display: flex;
-      gap: 2px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
       color: $WH;
       @include header20;
-      width: 304px;
-      max-width: 304px; // 적절한 최대 너비 설정
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
 
     .DiaryDate {
@@ -57,16 +57,63 @@
       @include caption;
     }
 
-    .DiaryTagsContainer {
+    .DiaryTags {
       display: flex;
-      flex-direction: column;
+      width: 304px;
+      column-gap: 8px;
+      color: $WH;
+      @include body14;
+      flex-wrap: wrap;
 
-      .DiaryTags {
-        display: flex;
-        gap: 8px;
-        color: $WH;
-        @include body14;
-        max-width: 304px; // 적절한 최대 너비 설정
+      .DiaryTagItems {
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+.NoImgCardViewItem {
+  display: flex;
+  text-decoration: none;
+  background-color: $WH;
+  width: 328px;
+  height: 116px;
+  border-radius: 8px;
+  border: 1px solid $BK30;
+  padding: 14px 12px;
+  align-items: center;
+
+  .NoImgCardViewItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 304px;
+
+    .NoImgDiaryTitle {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      color: $BK90;
+      @include sub16;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+    }
+
+    .NoImgDiaryDate {
+      color: $BK70;
+      @include caption;
+    }
+
+    .NoImgDiaryTags {
+      display: flex;
+      width: 304px;
+      column-gap: 8px;
+      color: $BK70;
+      @include body14;
+      flex-wrap: wrap;
+
+      .NoImgDiaryTagItems {
+        flex-shrink: 0;
+        width: fit-content;
       }
     }
   }

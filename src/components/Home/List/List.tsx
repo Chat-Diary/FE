@@ -1,13 +1,34 @@
 import { Diary } from '../../../utils/diary';
 import DiaryItem from './DiaryItem';
+import styles from './List.module.scss';
 
 interface IProps {
   dataList?: Diary[];
+  isLoading?: boolean;
 }
 
-const List = ({ dataList }: IProps) => {
+const List = ({ dataList, isLoading }: IProps) => {
+  console.log(dataList);
+
   if (!dataList) {
     return <></>;
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        {[...Array(5)].map((_, index) => (
+          <div key={index} className={styles.LoadingDiaryItem}>
+            <div className={styles.LoadingDiaryImg} />
+            <div>
+              <div className={styles.LoadingDiaryTitle} />
+              <div className={styles.LoadingDiaryDate} />
+              <div className={styles.LoadingDiaryTags} />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (
