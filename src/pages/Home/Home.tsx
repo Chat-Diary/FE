@@ -41,7 +41,7 @@ const Home = () => {
   };
 
   const {
-    isLoading: listLoading,
+    isLoading: isListLoading,
     error: listError,
     data: diaryListData,
   } = useQuery({
@@ -127,7 +127,7 @@ const Home = () => {
         </div>
         {isList ? (
           diaryList ? (
-            <List dataList={diaryList} isLoading={listLoading}/>
+            <List dataList={diaryList} isLoading={isListLoading}/>
           ) : (
             <></>
           )
