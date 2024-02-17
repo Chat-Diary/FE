@@ -52,7 +52,6 @@ const DatePicker = ({
 
   useEffect(() => {
     if (ref.current && prevSelected) {
-      console.log(prevSelected);
       ref.current.scrollTop = selected * ITEM_HEIGHT * prevSelected;
     }
   }, []);
