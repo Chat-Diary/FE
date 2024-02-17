@@ -42,7 +42,7 @@ const MyPage = () => {
           className={styles.profileImg}
         />
         <div className={styles.profileName}>
-          <span>예랑쟤랑</span>
+          <span>{localStorage.getItem("nickname")}</span>
           <Update />
         </div>
       </div>

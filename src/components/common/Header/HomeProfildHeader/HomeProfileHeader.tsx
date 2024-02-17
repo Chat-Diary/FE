@@ -15,7 +15,7 @@ const HomeProfileHeader = ({ diaryStreakDate }: IProps) => {
         className={styles.UserProfile}
       />
       <div className={styles.UserInfo}>
-        <span className={styles.Nickname}>예랑쟤랑</span>
+        <span className={styles.Nickname}>{localStorage.getItem("nickname")}</span>
         <div className={styles.StartDate}>
           꾸준히 일기 쓴 지 {diaryStreakDate?.diaryStreakDate}일 째에요
         </div>
