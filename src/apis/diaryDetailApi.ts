@@ -1,4 +1,5 @@
 import { HTTP_URL } from '.';
+import { getUserId } from '../utils/user';
 
 export interface DiaryDetailType {
   userId: number;
@@ -14,7 +15,7 @@ export interface DiaryDetailType {
 
 export const getDiaryDetail = async (diaryDate: string) => {
   const res = await fetch(
-    `${HTTP_URL}/diary/detail?user_id=${localStorage.getItem("userId")}&diary_date=${diaryDate}`,
+    `${HTTP_URL}/diary/detail?user_id=${getUserId()}&diary_date=${diaryDate}`,
   );
 
   if (!res.ok) {
@@ -46,7 +47,7 @@ export const deleteDiary = async (diaryDate: string) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      userId: localStorage.getItem("userId"),
+      userId: getUserId(),
       diaryDate: diaryDate,
     }),
   });

@@ -1,11 +1,12 @@
 import { HTTP_URL } from '.';
+import { getUserId } from '../utils/user';
 
 export const getDiaryListByTag = async (
   tagName: string[],
 ) => {
   const tagParams = tagName.map((tag) => `tagName=${tag}`).join('&');
   const res = await fetch(
-    `${HTTP_URL}/diary/list/tag?userId=${localStorage.getItem("userId")}&${tagParams}`,
+    `${HTTP_URL}/diary/list/tag?userId=${getUserId()}&${tagParams}`,
   );
   const data = await res.json();
   return data;
