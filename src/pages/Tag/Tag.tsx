@@ -28,7 +28,6 @@ const Tag = () => {
   const { tags, diaryList, setTags, setDiaryList } = useTagStore();
   const [isList, setIsList] = useState<boolean>(prevTagType);
   const [currentSort, setCurrentSort] = useState<number>(1);
-  const userId = 1;
 
   const toggleMode = () => {
     setIsList((prev) => !prev);
@@ -47,7 +46,7 @@ const Tag = () => {
     error: listError,
     data: diaryListData,
   } = useQuery({
-    queryKey: ['LIST', 'TAG', userId, tags],
+    queryKey: ['LIST', 'TAG', tags],
     queryFn: () => {
       if (tags.length !== 0) {
         return getDiaryListByTag(tags);

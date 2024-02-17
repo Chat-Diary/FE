@@ -16,11 +16,11 @@ import {
 } from '../../../apis/diaryDetailApi';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { getUserId } from '../../../utils/user';
 
 const DetailEditing = () => {
   const navigator = useNavigate();
   const [searchParams] = useSearchParams();
-  const userId = 1; // 로그인 미구현 시 초기화
 
   // 서버에 formData 형식으로 넘기기 위한 formData 객체
   const [formData, setFormData] = useState<FormData>(new FormData());
@@ -36,7 +36,7 @@ const DetailEditing = () => {
 
   // 편집 화면으로 넘길 일기 상세 정보 (수정 중인 데이터)
   const [newData, setNewData] = useState<DiaryDetailType>({
-    userId: userId, // userId는 현재 사용자의 ID로 설정
+    userId: getUserId(), // userId는 현재 사용자의 ID로 설정
     diaryDate: currentData.diaryDate,
     title: currentData.title || '', // 제목이 없을 경우 빈 문자열로 초기화
     imgUrl: currentData.imgUrl, // imgUrl 초기화

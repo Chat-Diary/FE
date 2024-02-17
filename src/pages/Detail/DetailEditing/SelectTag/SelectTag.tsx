@@ -9,7 +9,6 @@ import ConfirmButton from '../../../../components/common/Buttons/ConfirmBtn/Conf
 
 const SelectTag = () => {
   const [searchParams] = useSearchParams();
-  // const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const diaryDate = searchParams.get('diary_date');
 
   const location = useLocation();

@@ -19,9 +19,9 @@ import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { WS_URL } from '../../apis';
+import { getUserId } from '../../utils/user';
 
 const Chat = () => {
-  const userId = 1;
   const {
     messages,
     setMessages,
@@ -80,7 +80,7 @@ const Chat = () => {
     setIsLoading(true);
     const previousScrollHeight = document.body.scrollHeight;
 
-    getChatData(userId, (Number(chatId) - 10).toString())
+    getChatData((Number(chatId) - 10).toString())
       .then((result) => {
         if (Number(chatId) >= 10) {
           addPreviousMessage(result);
@@ -146,7 +146,7 @@ const Chat = () => {
 
         socket?.send(
           JSON.stringify({
-            userId: 1,
+            userId: getUserId(),
             content: resizedUrl,
             selectedModel: localStorage.getItem('currentCharacter') || 1,
             chatType: 'IMG',
@@ -186,7 +186,7 @@ const Chat = () => {
     setInputText('');
     socket?.send(
       JSON.stringify({
-        userId: 1,
+        userId: getUserId(),
         content: inputText,
         selectedModel: localStorage.getItem('currentCharacter') || 1,
         chatType: 'CHAT',

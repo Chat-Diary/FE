@@ -25,7 +25,6 @@ const Detail = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const userId = 1; // 로그인 미구현 예상 -> 일단 1로 지정
   const diaryDate = searchParams.get('diary_date');
   const [formattedDate, setFormattedDate] = useState<string>('');
   const [diaryImgs, setDiaryImgs] = useState<string[]>([]);
@@ -102,12 +101,12 @@ const Detail = () => {
     // 삭제 요청 성공한 경우에만 실행
     onSuccess: () => {
       // 삭제된 일기 캐시 제거
-      queryClient.invalidateQueries(['DIARY', 'DETAIL', userId, diaryDate]);
+      queryClient.invalidateQueries(['DIARY', 'DETAIL', diaryDate]);
     },
   });
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ['DIARY', 'DETAIL', userId, diaryDate],
+    queryKey: ['DIARY', 'DETAIL', diaryDate],
     queryFn: () => getDiaryDetail(diaryDate!),
   });
 
