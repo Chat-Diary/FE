@@ -6,11 +6,25 @@
   display: flex;
   text-decoration: none;
 
-  .DiaryImg {
-    width: 80px;
-    height: 80px;
-    background-color: $WH;
-    margin-right: 12px;
+  .imgWrapper {
+    position: relative;
+    z-index: -1;
+    .DiaryImg {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      background-color: $WH;
+      margin-right: 12px;
+    }
+  }
+
+  .imgWrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
   }
 

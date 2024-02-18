@@ -18,9 +18,13 @@ const DiaryItem = ({ diary }: DiaryItemProps) => {
       className={styles.DiaryItem}
     >
       {diary.photoUrls.length > 0 ? (
-        <img className={styles.DiaryImg} src={diary.photoUrls[0]} />
+        <div className={styles.imgWrapper}>
+          <img className={styles.DiaryImg} src={diary.photoUrls[0]} />
+        </div>
       ) : (
-        <img className={styles.DiaryImg} src={defaltImgUrl} />
+        <div className={styles.imgWrapper}>
+          <img className={styles.DiaryImg} src={defaltImgUrl} />
+        </div>
       )}
       <div>
         <div className={styles.DiaryTitleContainer}>
