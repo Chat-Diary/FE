@@ -27,7 +27,6 @@ const Home = () => {
 
   const { weekCalendarList, currentDate, setCurrentDate } = useCalendar();
   const [isSelectedDate, setIsSelectedDate] = useState(false);
-  const userId = 1; // 로그인 미구현 예상 -> 일단 상수값으로 지정
   const [diaryList, setDiaryList] = useState<Diary[]>();
   const [diaryStreakDate, setDiaryStreakDate] = useState<StreakDate>();
 
@@ -47,21 +46,19 @@ const Home = () => {
   } = useQuery({
     queryKey: [
       'diary',
-      userId,
       currentDate.getFullYear(),
       currentDate.getMonth() + 1,
     ],
     queryFn: () =>
       getDiaryList(
-        userId,
         currentDate.getFullYear(),
         currentDate.getMonth() + 1,
       ),
   });
 
   const { error: streakError, data: streakDateData } = useQuery({
-    queryKey: ['diaryStreakDate', userId],
-    queryFn: () => getDiaryStreakDate(userId),
+    queryKey: ['diaryStreakDate'],
+    queryFn: () => getDiaryStreakDate(),
   });
 
   useEffect(() => {
