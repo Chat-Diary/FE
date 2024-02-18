@@ -11,7 +11,7 @@ const KakaoLogin = () => {
   const kakaoCode = new URL(window.location.href).searchParams.get('code');
 
   if (kakaoCode) {
-    const { isLoading, error, data } = useQuery({
+    const { data } = useQuery({
       queryKey: ['code', kakaoCode],
       queryFn: () => login(kakaoCode),
     });

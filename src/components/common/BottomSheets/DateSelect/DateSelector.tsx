@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './DateSelector.module.scss';
 import BottomModal from '../BottomModal';
 import DatePicker from './DatePicker';
 import ConfirmButton from '../../Buttons/ConfirmBtn/ConfirmButton';
 import useDateStore from '../../../../stores/dateStore';
-import { da } from 'date-fns/locale';
 
 interface DateSelectorProps {
   clickOuter: React.Dispatch<React.SetStateAction<boolean>>;
   isFullDate: boolean;
   isOpen: boolean;
-  onSelectDate: (
-    year: number,
-    month: number,
-    day: number,
-  ) => void;
+  onSelectDate: (year: number, month: number, day: number) => void;
 }
 
 const DateSelector = ({
@@ -23,15 +18,9 @@ const DateSelector = ({
   isOpen,
   onSelectDate,
 }: DateSelectorProps) => {
-  const { year, month, day, setYear, setMonth, setDay } = useDateStore();
+  const { year, month, day, setYear, setMonth } = useDateStore();
 
-  const yearList = [
-    '2020년',
-    '2021년',
-    '2022년',
-    '2023년',
-    '2024년',
-  ];
+  const yearList = ['2020년', '2021년', '2022년', '2023년', '2024년'];
   const monthList = [
     '01월',
     '02월',
@@ -109,10 +98,22 @@ const DateSelector = ({
             <div className={styles.SelectDate}>년/월 선택</div>
           )}
           <div className={styles.DatePicker}>
-            <DatePicker list={yearList} prevSelected={year-2019} onSelectedChange={handleChangeYear} />
-            <DatePicker list={monthList} prevSelected={month} onSelectedChange={handleChangeMonth} />
+            <DatePicker
+              list={yearList}
+              prevSelected={year - 2019}
+              onSelectedChange={handleChangeYear}
+            />
+            <DatePicker
+              list={monthList}
+              prevSelected={month}
+              onSelectedChange={handleChangeMonth}
+            />
             {isFullDate ? (
-              <DatePicker list={dayList} prevSelected={day} onSelectedChange={handleChangeDay} />
+              <DatePicker
+                list={dayList}
+                prevSelected={day}
+                onSelectedChange={handleChangeDay}
+              />
             ) : (
               <></>
             )}
