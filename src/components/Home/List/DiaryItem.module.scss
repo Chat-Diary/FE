@@ -49,15 +49,23 @@
     margin: 6px 0px 14px 0px;
   }
 
-  .DiaryTags {
+  .TagsWrapper {
+    width: 236px;
     display: flex;
-    column-gap: 8px;
     color: $BK70;
-    @include body14;
-    flex-wrap: wrap;
+    .DiaryTags {
+      display: flex;
+      column-gap: 8px;
+      color: $BK70;
+      @include body14;
 
-    .DiaryTagItems {
-      flex-shrink: 0;
+      .DiaryTagItems {
+        flex-shrink: 0;
+      }
+    }
+    .Ellipsis {
+      margin-left: 2px;
+      padding-top: 3.5px;
     }
   }
 }
