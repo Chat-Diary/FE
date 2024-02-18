@@ -27,7 +27,7 @@ const Tag = () => {
 
   const { tags, diaryList, setTags, setDiaryList } = useTagStore();
   const [isList, setIsList] = useState<boolean>(prevTagType);
-  const [currentSort, setCurrentSort] = useState<number>(1);
+  const [currentSort, setCurrentSort] = useState<number>(2);
 
   const toggleMode = () => {
     setIsList((prev) => !prev);
@@ -88,7 +88,12 @@ const Tag = () => {
 
   useEffect(() => {
     if (diaryListData) {
-      setDiaryList(diaryListData);
+      const sortedByLatest = [...diaryListData].sort((a, b) => {
+        const dateA = new Date(a.diaryDate);
+        const dateB = new Date(b.diaryDate);
+        return +dateB - +dateA;
+      });
+      setDiaryList(sortedByLatest);
     }
   }, [diaryListData]);
 
