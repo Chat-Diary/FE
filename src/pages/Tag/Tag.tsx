@@ -20,6 +20,7 @@ import useTagStore from '../../stores/tagStore';
 import usePageStore from '../../stores/pageStore';
 import { getTagPool } from '../../apis/tagApi';
 import { TagType } from '../../components/Tag/AllTags/AllTags';
+import { Diary } from '../../utils/diary';
 
 const Tag = () => {
   // 현재 페이지 경로 및 list 여부 저장
@@ -63,7 +64,7 @@ const Tag = () => {
   });
 
   const randomSelectedTag = (sampleTags: TagType[]) => {
-    const count = Math.floor(Math.random() * 10) + 1;
+    const count = Math.floor(Math.random() * 3) + 1;
     const selectedItems = [];
     for (let i = 0; i < count; i++) {
       const randomIndex = Math.floor(Math.random() * sampleTags.length);
@@ -114,10 +115,20 @@ const Tag = () => {
 
   useEffect(() => {
     if (diaryListData) {
-      const sortedByLatest = [...diaryListData].sort((a, b) => {
+      let sortedByLatest: Diary[] = [...diaryListData].sort((a, b) => {
         const dateA = new Date(a.diaryDate);
         const dateB = new Date(b.diaryDate);
         return +dateB - +dateA;
+      });
+
+      tags.forEach((selectedTag) => {
+        sortedByLatest = sortedByLatest.map((diary) => ({
+          ...diary,
+          tagList: [
+            ...diary.tagList.filter((tag) => tag.tagName === selectedTag),
+            ...diary.tagList.filter((tag) => tag.tagName !== selectedTag),
+          ],
+        }));
       });
       setDiaryList(sortedByLatest);
     }
