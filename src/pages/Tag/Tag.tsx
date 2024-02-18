@@ -18,6 +18,8 @@ import { useQuery } from 'react-query';
 import { getDiaryListByTag } from '../../apis/tagApi';
 import useTagStore from '../../stores/tagStore';
 import usePageStore from '../../stores/pageStore';
+import { getTagPool } from '../../apis/tagApi';
+import { TagType } from '../../components/Tag/AllTags/AllTags';
 
 const Tag = () => {
   // 현재 페이지 경로 및 list 여부 저장
@@ -28,6 +30,7 @@ const Tag = () => {
   const { tags, diaryList, setTags, setDiaryList } = useTagStore();
   const [isList, setIsList] = useState<boolean>(prevTagType);
   const [currentSort, setCurrentSort] = useState<number>(2);
+  const [tagPool, setTagPool] = useState<TagType[]>([]);
 
   const toggleMode = () => {
     setIsList((prev) => !prev);
@@ -54,6 +57,35 @@ const Tag = () => {
     },
   });
 
+  const { data: tagPoolData } = useQuery({
+    queryKey: ['tag_pool'],
+    queryFn: () => getTagPool(),
+  });
+
+  const randomSelectedTag = (sampleTags: TagType[]) => {
+    const count = Math.floor(Math.random() * 10) + 1;
+    const selectedItems = [];
+    for (let i = 0; i < count; i++) {
+      const randomIndex = Math.floor(Math.random() * sampleTags.length);
+      selectedItems.push(...sampleTags.splice(randomIndex, 1));
+    }
+    return selectedItems;
+  };
+
+  useEffect(() => {
+    if (tagPoolData) {
+      setTagPool(tagPoolData);
+    }
+  }, [tagPoolData]);
+
+  useEffect(() => {
+    if (tags.length === 0) {
+      const randomTags: TagType[] = randomSelectedTag(tagPool);
+      const tagNameList: string[] = randomTags.map((tag) => tag.tagName);
+      setTags(tagNameList);
+    }
+  }, [tagPool]);
+
   useEffect(() => {
     setPage(location.pathname, false, isList);
   }, [isList]);
@@ -79,12 +111,6 @@ const Tag = () => {
       }
     }
   }, [currentSort]);
-
-  useEffect(() => {
-    if (tags.length === 0) {
-      setTags(['화남']);
-    }
-  }, []);
 
   useEffect(() => {
     if (diaryListData) {
