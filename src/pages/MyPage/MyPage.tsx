@@ -12,8 +12,10 @@ import {
 import styles from './MyPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 import MyPageItem from '../../components/MyPage/MyPageItem';
+import { isLogin } from '../../utils/user';
 
 const MyPage = () => {
+  isLogin();
   const navigate = useNavigate();
 
   const icons = [Account, Alert, Theme, Refresh, mypageNotice, Info];

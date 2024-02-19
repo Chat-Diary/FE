@@ -4,8 +4,10 @@ import ConfirmButton from '../../../components/common/Buttons/ConfirmBtn/Confirm
 import { useNavigate } from 'react-router-dom';
 import { getAi } from '../../../utils/globalProfiles';
 import { ChichiCrying, DadaCrying, LuluCrying } from '../../../assets';
+import { isLogin } from '../../../utils/user';
 
 const AccountQuitFinish = () => {
+  isLogin();
   const navigate = useNavigate();
   const ai = getAi();
 

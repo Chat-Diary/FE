@@ -13,8 +13,10 @@ import { getDiaryList } from '../../apis/diaryListApi';
 import { getDiaryStreakDate } from '../../apis/home';
 import { Diary, StreakDate } from '../../utils/diary';
 import usePageStore from '../../stores/pageStore';
+import { isLogin } from '../../utils/user';
 
 const Home = () => {
+  isLogin();
   // 현재 페이지 경로 및 list 여부 저장
   const getPage = usePageStore((state) => state.getPage);
   const setPage = usePageStore((state) => state.setPage);

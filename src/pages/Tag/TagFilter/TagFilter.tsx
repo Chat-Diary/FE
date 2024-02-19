@@ -5,8 +5,10 @@ import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeH
 import { TagInit, TagFilterInfo } from '../../../assets';
 import { Link } from 'react-router-dom';
 import useTagStore from '../../../stores/tagStore';
+import { isLogin } from '../../../utils/user';
 
 const TagFilter = () => {
+  isLogin();
   const { tags, setTags } = useTagStore();
   // 초기화 버튼 누르면 true로 변경
   const [isInit, setIsInit] = useState<boolean>(false);

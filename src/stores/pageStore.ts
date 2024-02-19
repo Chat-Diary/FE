@@ -13,7 +13,7 @@ interface IPath {
 }
 
 const initialPath = {
-  prevPath: '/',
+  prevPath: '/home',
   isHomeTypeList: false,
   isTagTypeList: true,
 };

@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 export interface IUserInfo {
   jwt: string;
   userId: number;
@@ -9,5 +11,12 @@ export const getUserId = () => {
     return Number(localStorage.getItem('userId'));
   } else {
     throw new Error('localStorage에 userId가 없습니다.');
+  }
+};
+
+export const isLogin = () => {
+  const navigate = useNavigate();
+  if (!localStorage.getItem('userId')) {
+    navigate('/');
   }
 };

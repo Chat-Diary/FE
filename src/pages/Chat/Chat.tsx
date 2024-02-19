@@ -19,9 +19,10 @@ import { getChatData } from '../../apis/aiChatApi';
 import useChatStore from '../../stores/chatStore';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { WS_URL } from '../../apis';
-import { getUserId } from '../../utils/user';
+import { getUserId, isLogin } from '../../utils/user';
 
 const Chat = () => {
+  isLogin();
   const {
     messages,
     setMessages,

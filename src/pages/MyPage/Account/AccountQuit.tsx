@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import QuitRadio from '../../../components/common/Buttons/QuitRadio/QuitRadio';
 import AccountQuitDialog from '../../../components/common/Dialog/AccountQuit/AccountQuitDialog';
 import InputForm from '../../../components/common/Input/InputForm';
+import { isLogin } from '../../../utils/user';
 
 const AccountQuit = () => {
+  isLogin();
   const navigate = useNavigate();
   const [isAble, setIsAble] = useState<boolean>(false);
   const [checkedId, setCheckedId] = useState<number>(5);

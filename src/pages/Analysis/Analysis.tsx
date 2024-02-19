@@ -23,8 +23,10 @@ import {
 } from '../../apis/analysisApi';
 import { getDiaryStreakDate } from '../../apis/home';
 import { StreakDate } from '../../utils/diary';
+import { isLogin } from '../../utils/user';
 
 export const Analysis = () => {
+  isLogin();
   const [tagData, setTagData] = useState<frequentTagType[]>([]);
   const [aiData, setAiData] = useState<frequentAiType[]>([]);
   const [noTag, setNoTag] = useState<boolean>(false);

@@ -21,8 +21,10 @@ import usePageStore from '../../stores/pageStore';
 import { getTagPool } from '../../apis/tagApi';
 import { TagType } from '../../components/Tag/AllTags/AllTags';
 import { Diary } from '../../utils/diary';
+import { isLogin } from '../../utils/user';
 
 const Tag = () => {
+  isLogin();
   // 현재 페이지 경로 및 list 여부 저장
   const getPage = usePageStore((state) => state.getPage);
   const setPage = usePageStore((state) => state.setPage);
