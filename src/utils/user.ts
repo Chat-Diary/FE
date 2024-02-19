@@ -7,11 +7,9 @@ export interface IUserInfo {
 }
 
 export const getUserId = () => {
-  const navigate = useNavigate();
   if (localStorage.getItem('userId')) {
     return Number(localStorage.getItem('userId'));
   } else {
-    navigate('/');
     throw new Error('localStorage에 userId가 없습니다.');
   }
 };
@@ -22,4 +20,3 @@ export const isLogin = () => {
     navigate('/');
   }
 };
-
