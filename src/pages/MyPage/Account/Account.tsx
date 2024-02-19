@@ -4,8 +4,10 @@ import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeH
 import styles from './Account.module.scss';
 import { useState } from 'react';
 import LogoutDialog from '../../../components/common/Dialog/LogoutDialog/LogoutDialog';
+import { isLogin } from '../../../utils/user';
 
 const Account = () => {
+  isLogin();
   const navigate = useNavigate();
 
   const onClickAccountDetail = (url: string) => {

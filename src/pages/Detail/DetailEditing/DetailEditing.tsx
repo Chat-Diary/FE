@@ -16,9 +16,10 @@ import {
 } from '../../../apis/diaryDetailApi';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getUserId } from '../../../utils/user';
+import { getUserId, isLogin } from '../../../utils/user';
 
 const DetailEditing = () => {
+  isLogin();
   const navigator = useNavigate();
   const [searchParams] = useSearchParams();
 

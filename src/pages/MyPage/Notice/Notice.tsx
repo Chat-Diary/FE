@@ -4,8 +4,10 @@ import ChangeHeader from '../../../components/common/Header/ChangeHeader/ChangeH
 import styles from './Notice.module.scss';
 import { NoticeType, getNotice } from '../../../apis/mypageApi';
 import { useEffect, useState } from 'react';
+import { isLogin } from '../../../utils/user';
 
 const Notice = () => {
+  isLogin();
   const [contents, setContents] = useState<NoticeType[]>();
 
   const parseDate = (d: string) => {

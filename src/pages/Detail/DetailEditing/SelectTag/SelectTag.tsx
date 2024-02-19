@@ -6,8 +6,10 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { DiaryDetailType } from '../../../../apis/diaryDetailApi';
 import { TagFilterInfo } from '../../../../assets';
 import ConfirmButton from '../../../../components/common/Buttons/ConfirmBtn/ConfirmButton';
+import { isLogin } from '../../../../utils/user';
 
 const SelectTag = () => {
+  isLogin();
   const [searchParams] = useSearchParams();
   const diaryDate = searchParams.get('diary_date');
 

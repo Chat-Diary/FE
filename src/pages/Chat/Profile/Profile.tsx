@@ -19,11 +19,13 @@ import { character } from '../../../utils/globalProfiles';
 import ProfileRadio from '../../../components/common/Buttons/ChangeRadio/ProfileRadio';
 import { formatFullDateToString } from '../../../utils/dateFormatters';
 import useChatStore from '../../../stores/chatStore';
+import { isLogin } from '../../../utils/user';
 
 const imgB = [<Dada key={0} />, <Chichi key={1} />, <Lulu key={2} />];
 const img48 = [<Dada48 key={0} />, <Chichi48 key={1} />, <Lulu48 key={2} />];
 
 const Profile = () => {
+  isLogin();
   const [currentId, setCurrentId] = useState<number>(0);
   const [currentAi, setCurrentAi] = useState<character>(dada);
 

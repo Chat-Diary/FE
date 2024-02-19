@@ -18,10 +18,12 @@ import DetailPlusModal from '../../components/common/BottomSheets/DatailPlus/Det
 import DiaryDeleteDialog from '../../components/common/Dialog/DiaryDeleteDialog/DiaryDeleteDialog';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteDiary, getDiaryDetail } from '../../apis/diaryDetailApi';
+import { isLogin } from '../../utils/user';
 
 const img36 = [<Dada36 key={0} />, <Chichi36 key={1} />, <Lulu36 key={2} />];
 
 const Detail = () => {
+  isLogin();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

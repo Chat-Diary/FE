@@ -8,8 +8,10 @@ import TagRankingItem from '../../../components/Analysis/TagRankingItem';
 import { useQuery } from 'react-query';
 import { getTagDetailRanking } from '../../../apis/analysisApi';
 import { TagCounts, TagDetailRanking } from '../../../utils/analysisDetail';
+import { isLogin } from '../../../utils/user';
 
 const AnalysisDetail = () => {
+  isLogin();
   const { period } = useParams<{
     period: string;
   }>();
