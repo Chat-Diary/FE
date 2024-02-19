@@ -10,8 +10,16 @@ interface IProps {
 const List = ({ dataList, isLoading }: IProps) => {
   console.log(dataList);
 
-  if (!dataList) {
-    return <></>;
+  if (dataList?.length === 0) {
+    return (
+      <div className={styles.noDiaryContainer}>
+        <div className={styles.noDiary}>
+          해당되는 일기가 없어요!
+          <br />
+          다른 달로 변경해보세요
+        </div>
+      </div>
+    );
   }
 
   if (isLoading) {
