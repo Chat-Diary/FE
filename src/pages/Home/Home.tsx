@@ -111,13 +111,7 @@ const Home = () => {
           diaryList ? (
             <List dataList={diaryList} isLoading={isListLoading} />
           ) : (
-            <div className={styles.noDiaryContainer}>
-              <div className={styles.noDiary}>
-                해당되는 일기가 없어요!
-                <br />
-                다른 달로 변경해보세요
-              </div>
-            </div>
+            <></>
           )
         ) : (
           <HomeCalendar

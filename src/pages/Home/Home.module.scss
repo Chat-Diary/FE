@@ -65,15 +65,3 @@
     }
   }
 }
-
-.noDiaryContainer {
-  position: absolute;
-  width: 100%;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @include body16;
-  color: $BK70;
-}

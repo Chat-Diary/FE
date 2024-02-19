@@ -38,3 +38,16 @@
     background-color: $BK20;
   }
 }
+
+.noDiaryContainer {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+
+  @include body16;
+  color: $BK70;
+}
