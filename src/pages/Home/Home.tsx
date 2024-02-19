@@ -44,16 +44,9 @@ const Home = () => {
     error: listError,
     data: diaryListData,
   } = useQuery({
-    queryKey: [
-      'diary',
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-    ],
+    queryKey: ['diary', currentDate.getFullYear(), currentDate.getMonth() + 1],
     queryFn: () =>
-      getDiaryList(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-      ),
+      getDiaryList(currentDate.getFullYear(), currentDate.getMonth() + 1),
   });
 
   const { error: streakError, data: streakDateData } = useQuery({
@@ -118,7 +111,13 @@ const Home = () => {
           diaryList ? (
             <List dataList={diaryList} isLoading={isListLoading} />
           ) : (
-            <></>
+            <div className={styles.noDiaryContainer}>
+              <div className={styles.noDiary}>
+                해당되는 일기가 없어요!
+                <br />
+                다른 달로 변경해보세요
+              </div>
+            </div>
           )
         ) : (
           <HomeCalendar
