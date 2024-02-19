@@ -6,7 +6,7 @@ import { DiaryDetailType } from '../../../apis/diaryDetailApi';
 import { useQuery } from 'react-query';
 import { getTagPool } from '../../../apis/tagApi';
 
-interface TagType {
+export interface TagType {
   tagId: number;
   category: string;
   tagName: string;
