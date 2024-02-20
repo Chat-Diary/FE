@@ -20,7 +20,7 @@ const KakaoLogin = () => {
       setUserInfo(data);
     }, [data]);
   } else {
-    navigate('/');
+    navigate('/login');
     throw new Error('code is invalid');
   }
 
@@ -28,7 +28,7 @@ const KakaoLogin = () => {
     if (userInfo) {
       localStorage.setItem('userId', userInfo.userId?.toString());
       localStorage.setItem('nickname', userInfo.nickname);
-      navigate('/home');
+      navigate('/');
     }
   }, [userInfo]);
 

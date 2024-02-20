@@ -25,7 +25,7 @@ const Router = () => {
       children: [
         {
           index: true,
-          element: <Login />,
+          element: <Home />,
         },
         {
           path: 'login',
@@ -46,11 +46,11 @@ const Router = () => {
           ],
         },
         {
-          path: 'home',
+          path: 'login',
           children: [
             {
               index: true,
-              element: <Home />,
+              element: <Login />,
             },
           ],
         },

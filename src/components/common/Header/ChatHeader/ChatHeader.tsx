@@ -11,7 +11,7 @@ const ChatHeader = ({ onClick }: IProps) => {
   const character = getAi();
   return (
     <div className={styles.container}>
-      <Link className={styles.link} to="/home">
+      <Link className={styles.link} to="/">
         <LeftChevron />
       </Link>
       <Link className={styles.link} to="/chat/profile">
