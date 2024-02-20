@@ -13,7 +13,6 @@ export const getUserId = () => {
     throw new Error('localStorage에 userId가 없습니다.');
   }
 };
-
 export const isLogin = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem('userId')) {
