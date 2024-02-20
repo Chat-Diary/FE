@@ -20,14 +20,12 @@ button {
 }
 
 .btnContainer {
-  position: absolute;
-  bottom: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   width: 100%;
-  padding: 0px 16px;
+  padding: 12px 16px;
 
   .initBtn {
     box-sizing: border-box;
