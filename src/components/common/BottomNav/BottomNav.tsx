@@ -29,7 +29,7 @@ const BottomNav = ({ page, isBtn = true }: IProps) => {
         ''
       )}
       <nav className={styles.bottomNav}>
-        <Link to="/home" className={styles.navLink}>
+        <Link to="/" className={styles.navLink}>
           {page === 0 ? (
             <>
               <NavHomeActive />

@@ -55,7 +55,7 @@ const Account = () => {
           onClickCancel={onClickClose}
           onClickConfirm={() => {
             onClickClose;
-            navigate('/');
+            navigate('/login');
           }}
           isOpen={isModalOpen}
         />

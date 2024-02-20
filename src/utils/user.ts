@@ -16,6 +16,6 @@ export const getUserId = () => {
 export const isLogin = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem('userId')) {
-    navigate('/');
+    navigate('/login');
   }
 };
